@@ -1,0 +1,15 @@
+{
+  "originHash" : "363b4e45593119a9b42d3b3b45b213de2a196920c85e30031b2200c1c445dfff",
+  "pins" : [
+    {
+      "identity" : "mediapicker",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tsinis/MediaPicker",
+      "state" : {
+        "branch" : "feat/interal-picker-mode-init",
+        "revision" : "b9603a70c80f7dcca26e3c4283a38d6674afc5f8"
+      }
+    }
+  ],
+  "version" : 3
+}

@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "lineLength": 100,
+  "indentation": {
+    "spaces": 2
+  },
+  "lineBreakBeforeEachArgument": true,
+  "indentConditionalCompilationBlocks": false,
+  "prioritizeKeepingFunctionOutputTogether": true,
+  "rules": {
+    "AlwaysUseLowerCamelCase": false,
+    "AmbiguousTrailingClosureOverload": false,
+    "NoBlockComments": true,
+    "OrderedImports": true,
+    "UseLetInEveryBoundCaseVariable": false,
+    "UseSynthesizedInitializer": false,
+    "NoSemicolons": true,
+    "OneStatementPerLine": true,
+    "WrapConditionalBodies": true,
+    "WrapFunctionBodies": true,
+    "WrapFunctionCalls": true,
+    "WrapTypeDeclarations": true,
+    "WrapEnumCases": true,
+    "WrapAttributes": true,
+    "WrapTrailingClosures": true,
+    "WrapControlFlowStatements": true,
+    "WrapOtherExpressions": true,
+    "WrapHorizontalWhitespace": true,
+    "WrapVerticalWhitespace": true,
+    "WrapParentheses": true,
+    "WrapNumericLiterals": true,
+    "WrapTrailingCommas": true
+  }
+}
