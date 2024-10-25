@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		534EBEA32CCADED5002699FE /* ExyteMediaPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 534EBEA22CCADED5002699FE /* ExyteMediaPicker */; };
+		53D78A6D2CCC16AC003E12A9 /* ExyteMediaPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 53D78A6C2CCC16AC003E12A9 /* ExyteMediaPicker */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				534EBEA32CCADED5002699FE /* ExyteMediaPicker in Frameworks */,
+				53D78A6D2CCC16AC003E12A9 /* ExyteMediaPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,7 +70,7 @@
 			);
 			name = MultiMediaPickerExample;
 			packageProductDependencies = (
-				534EBEA22CCADED5002699FE /* ExyteMediaPicker */,
+				53D78A6C2CCC16AC003E12A9 /* ExyteMediaPicker */,
 			);
 			productName = MultiMediaPickerExample;
 			productReference = 535AC6CD2CCAD5B000E66E32 /* MultiMediaPickerExample.app */;
@@ -101,7 +101,7 @@
 			mainGroup = 535AC6C42CCAD5B000E66E32;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				534EBEA12CCADED5002699FE /* XCRemoteSwiftPackageReference "MediaPicker" */,
+				53D78A6B2CCC16AC003E12A9 /* XCLocalSwiftPackageReference "../../../MediaPicker" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 535AC6CE2CCAD5B000E66E32 /* Products */;
@@ -342,21 +342,16 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		534EBEA12CCADED5002699FE /* XCRemoteSwiftPackageReference "MediaPicker" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/tsinis/MediaPicker";
-			requirement = {
-				branch = "feat/interal-picker-mode-init";
-				kind = branch;
-			};
+/* Begin XCLocalSwiftPackageReference section */
+		53D78A6B2CCC16AC003E12A9 /* XCLocalSwiftPackageReference "../../../MediaPicker" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../../MediaPicker;
 		};
-/* End XCRemoteSwiftPackageReference section */
+/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		534EBEA22CCADED5002699FE /* ExyteMediaPicker */ = {
+		53D78A6C2CCC16AC003E12A9 /* ExyteMediaPicker */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 534EBEA12CCADED5002699FE /* XCRemoteSwiftPackageReference "MediaPicker" */;
 			productName = ExyteMediaPicker;
 		};
 /* End XCSwiftPackageProductDependency section */

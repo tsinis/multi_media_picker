@@ -1,7 +1,17 @@
+//
+//  MediaView.swift
+//  MultiMediaPickerExample
+//
+//  Created by Roman Cinis on 24.10.2024.
+//
+
 import ExyteMediaPicker
+import Foundation
 import SwiftUI
 
 struct MediaView: View {
+  @EnvironmentObject private var appDelegate: AppDelegate
+
   @State private var showMediaPicker = false
   @State private var medias: [Media] = []
   @State private var selectedImage: UIImage? = nil
@@ -28,7 +38,7 @@ struct MediaView: View {
           .cornerRadius(8)
       }
       .padding()
-      .sheet(isPresented: $showMediaPicker) {
+      .fullScreenCover(isPresented: $showMediaPicker) {
         MediaPicker(
           isPresented: $showMediaPicker,
           onChange: { newMedias in
@@ -42,14 +52,31 @@ struct MediaView: View {
             }
           }
         )
-        .mediaSelectionLimit(1)
-        .showLiveCameraCell(true)
+        .cameraViewSettings(
+          CameraViewSettings(
+            cancelButtonText: "Hide",
+            doneButtonText: "Perfect",
+            showFlipCameraButton: true,
+            showPhotoVideoToggle: false
+          )
+        )
+        .didPressCancelCamera { showMediaPicker = false }
         .initialPickerMode(.camera)
+        .mediaSelectionType(.photo)
+        .mediaSelectionLimit(4)
+        .orientationHandler {
+          switch $0 {
+          case .lock: appDelegate.lockOrientationToPortrait()
+          case .unlock: appDelegate.unlockOrientation()
+          }
+        }
       }
     }
   }
 }
 
 struct MediaView_Previews: PreviewProvider {
-  static var previews: some View { MediaView() }
+  static var previews: some View {
+    MediaView()
+  }
 }

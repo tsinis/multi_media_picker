@@ -9,9 +9,7 @@ import SwiftUI
 
 @main
 struct MultiMediaPickerExampleApp: App {
-  var body: some Scene {
-    WindowGroup {
-      ContentView()
-    }
-  }
+  @UIApplicationDelegateAdaptor var appDelegate: AppDelegate
+
+  var body: some Scene { WindowGroup { ContentView() } }
 }

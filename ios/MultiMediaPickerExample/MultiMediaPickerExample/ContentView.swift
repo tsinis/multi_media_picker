@@ -8,11 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-  var body: some View {
-    MediaView().edgesIgnoringSafeArea(.all)
-  }
+    var body: some View { MediaView().edgesIgnoringSafeArea(.all) }
 }
 
-#Preview {
-  ContentView()
-}
+#Preview { ContentView() }
