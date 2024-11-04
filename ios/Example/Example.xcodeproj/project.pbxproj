@@ -6,46 +6,54 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		53D78A6D2CCC16AC003E12A9 /* ExyteMediaPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 53D78A6C2CCC16AC003E12A9 /* ExyteMediaPicker */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
-		535AC6CD2CCAD5B000E66E32 /* MultiMediaPickerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MultiMediaPickerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		530AE1232CD96C4E00B80010 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		530AE1352CD96C4F00B80010 /* Exceptions for "Example" folder in "Example" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 530AE1222CD96C4E00B80010 /* Example */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		535AC6CF2CCAD5B000E66E32 /* MultiMediaPickerExample */ = {
+		530AE1252CD96C4E00B80010 /* Example */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = MultiMediaPickerExample;
+			exceptions = (
+				530AE1352CD96C4F00B80010 /* Exceptions for "Example" folder in "Example" target */,
+			);
+			path = Example;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		535AC6CA2CCAD5B000E66E32 /* Frameworks */ = {
+		530AE1202CD96C4E00B80010 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				53D78A6D2CCC16AC003E12A9 /* ExyteMediaPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		535AC6C42CCAD5B000E66E32 = {
+		530AE11A2CD96C4E00B80010 = {
 			isa = PBXGroup;
 			children = (
-				535AC6CF2CCAD5B000E66E32 /* MultiMediaPickerExample */,
-				535AC6CE2CCAD5B000E66E32 /* Products */,
+				530AE1252CD96C4E00B80010 /* Example */,
+				530AE1242CD96C4E00B80010 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		535AC6CE2CCAD5B000E66E32 /* Products */ = {
+		530AE1242CD96C4E00B80010 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				535AC6CD2CCAD5B000E66E32 /* MultiMediaPickerExample.app */,
+				530AE1232CD96C4E00B80010 /* Example.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -53,68 +61,64 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		535AC6CC2CCAD5B000E66E32 /* MultiMediaPickerExample */ = {
+		530AE1222CD96C4E00B80010 /* Example */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 535AC6DB2CCAD5B000E66E32 /* Build configuration list for PBXNativeTarget "MultiMediaPickerExample" */;
+			buildConfigurationList = 530AE1362CD96C4F00B80010 /* Build configuration list for PBXNativeTarget "Example" */;
 			buildPhases = (
-				535AC6C92CCAD5B000E66E32 /* Sources */,
-				535AC6CA2CCAD5B000E66E32 /* Frameworks */,
-				535AC6CB2CCAD5B000E66E32 /* Resources */,
+				530AE11F2CD96C4E00B80010 /* Sources */,
+				530AE1202CD96C4E00B80010 /* Frameworks */,
+				530AE1212CD96C4E00B80010 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				535AC6CF2CCAD5B000E66E32 /* MultiMediaPickerExample */,
+				530AE1252CD96C4E00B80010 /* Example */,
 			);
-			name = MultiMediaPickerExample;
+			name = Example;
 			packageProductDependencies = (
-				53D78A6C2CCC16AC003E12A9 /* ExyteMediaPicker */,
 			);
-			productName = MultiMediaPickerExample;
-			productReference = 535AC6CD2CCAD5B000E66E32 /* MultiMediaPickerExample.app */;
+			productName = Example;
+			productReference = 530AE1232CD96C4E00B80010 /* Example.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		535AC6C52CCAD5B000E66E32 /* Project object */ = {
+		530AE11B2CD96C4E00B80010 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1600;
-				LastUpgradeCheck = 1600;
+				LastSwiftUpdateCheck = 1610;
+				LastUpgradeCheck = 1610;
 				TargetAttributes = {
-					535AC6CC2CCAD5B000E66E32 = {
-						CreatedOnToolsVersion = 16.0;
+					530AE1222CD96C4E00B80010 = {
+						CreatedOnToolsVersion = 16.1;
 					};
 				};
 			};
-			buildConfigurationList = 535AC6C82CCAD5B000E66E32 /* Build configuration list for PBXProject "MultiMediaPickerExample" */;
+			buildConfigurationList = 530AE11E2CD96C4E00B80010 /* Build configuration list for PBXProject "Example" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 535AC6C42CCAD5B000E66E32;
+			mainGroup = 530AE11A2CD96C4E00B80010;
 			minimizedProjectReferenceProxies = 1;
-			packageReferences = (
-				53D78A6B2CCC16AC003E12A9 /* XCLocalSwiftPackageReference "../../../MediaPicker" */,
-			);
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 535AC6CE2CCAD5B000E66E32 /* Products */;
+			productRefGroup = 530AE1242CD96C4E00B80010 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				535AC6CC2CCAD5B000E66E32 /* MultiMediaPickerExample */,
+				530AE1222CD96C4E00B80010 /* Example */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		535AC6CB2CCAD5B000E66E32 /* Resources */ = {
+		530AE1212CD96C4E00B80010 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -124,7 +128,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		535AC6C92CCAD5B000E66E32 /* Sources */ = {
+		530AE11F2CD96C4E00B80010 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -134,7 +138,69 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		535AC6D92CCAD5B000E66E32 /* Debug */ = {
+		530AE1372CD96C4F00B80010 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5BMG8PA279;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Example/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "is.tsin.multi-media-picker.Example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		530AE1382CD96C4F00B80010 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5BMG8PA279;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Example/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "is.tsin.multi-media-picker.Example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		530AE1392CD96C4F00B80010 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -186,7 +252,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -197,7 +263,7 @@
 			};
 			name = Debug;
 		};
-		535AC6DA2CCAD5B000E66E32 /* Release */ = {
+		530AE13A2CD96C4F00B80010 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -243,7 +309,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -253,108 +319,28 @@
 			};
 			name = Release;
 		};
-		535AC6DC2CCAD5B000E66E32 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"MultiMediaPickerExample/Preview Content\"";
-				DEVELOPMENT_TEAM = 5BMG8PA279;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = is.tsin.CameraPickerPlugin;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Debug;
-		};
-		535AC6DD2CCAD5B000E66E32 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"MultiMediaPickerExample/Preview Content\"";
-				DEVELOPMENT_TEAM = 5BMG8PA279;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = is.tsin.CameraPickerPlugin;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		535AC6C82CCAD5B000E66E32 /* Build configuration list for PBXProject "MultiMediaPickerExample" */ = {
+		530AE11E2CD96C4E00B80010 /* Build configuration list for PBXProject "Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				535AC6D92CCAD5B000E66E32 /* Debug */,
-				535AC6DA2CCAD5B000E66E32 /* Release */,
+				530AE1392CD96C4F00B80010 /* Debug */,
+				530AE13A2CD96C4F00B80010 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		535AC6DB2CCAD5B000E66E32 /* Build configuration list for PBXNativeTarget "MultiMediaPickerExample" */ = {
+		530AE1362CD96C4F00B80010 /* Build configuration list for PBXNativeTarget "Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				535AC6DC2CCAD5B000E66E32 /* Debug */,
-				535AC6DD2CCAD5B000E66E32 /* Release */,
+				530AE1372CD96C4F00B80010 /* Debug */,
+				530AE1382CD96C4F00B80010 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCLocalSwiftPackageReference section */
-		53D78A6B2CCC16AC003E12A9 /* XCLocalSwiftPackageReference "../../../MediaPicker" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../../MediaPicker;
-		};
-/* End XCLocalSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		53D78A6C2CCC16AC003E12A9 /* ExyteMediaPicker */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ExyteMediaPicker;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
-	rootObject = 535AC6C52CCAD5B000E66E32 /* Project object */;
+	rootObject = 530AE11B2CD96C4E00B80010 /* Project object */;
 }
