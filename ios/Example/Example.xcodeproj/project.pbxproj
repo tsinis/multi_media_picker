@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		530AE13D2CD96D9400B80010 /* ZLPhotoBrowser in Frameworks */ = {isa = PBXBuildFile; productRef = 530AE13C2CD96D9400B80010 /* ZLPhotoBrowser */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		530AE1232CD96C4E00B80010 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				530AE13D2CD96D9400B80010 /* ZLPhotoBrowser in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,7 @@
 			);
 			name = Example;
 			packageProductDependencies = (
+				530AE13C2CD96D9400B80010 /* ZLPhotoBrowser */,
 			);
 			productName = Example;
 			productReference = 530AE1232CD96C4E00B80010 /* Example.app */;
@@ -107,6 +113,9 @@
 			);
 			mainGroup = 530AE11A2CD96C4E00B80010;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				530AE13B2CD96D9400B80010 /* XCLocalSwiftPackageReference "../../../ZLPhotoBrowser" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 530AE1242CD96C4E00B80010 /* Products */;
 			projectDirPath = "";
@@ -341,6 +350,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		530AE13B2CD96D9400B80010 /* XCLocalSwiftPackageReference "../../../ZLPhotoBrowser" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../../ZLPhotoBrowser;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		530AE13C2CD96D9400B80010 /* ZLPhotoBrowser */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ZLPhotoBrowser;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 530AE11B2CD96C4E00B80010 /* Project object */;
 }
