@@ -6,29 +6,25 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		530AE13D2CD96D9400B80010 /* ZLPhotoBrowser in Frameworks */ = {isa = PBXBuildFile; productRef = 530AE13C2CD96D9400B80010 /* ZLPhotoBrowser */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
-		530AE1232CD96C4E00B80010 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5387D2502CDAC67700FE92B0 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		530AE1352CD96C4F00B80010 /* Exceptions for "Example" folder in "Example" target */ = {
+		5387D2622CDAC67800FE92B0 /* Exceptions for "Example" folder in "Example" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = 530AE1222CD96C4E00B80010 /* Example */;
+			target = 5387D24F2CDAC67700FE92B0 /* Example */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		530AE1252CD96C4E00B80010 /* Example */ = {
+		5387D2522CDAC67700FE92B0 /* Example */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				530AE1352CD96C4F00B80010 /* Exceptions for "Example" folder in "Example" target */,
+				5387D2622CDAC67800FE92B0 /* Exceptions for "Example" folder in "Example" target */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -36,29 +32,28 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		530AE1202CD96C4E00B80010 /* Frameworks */ = {
+		5387D24D2CDAC67700FE92B0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				530AE13D2CD96D9400B80010 /* ZLPhotoBrowser in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		530AE11A2CD96C4E00B80010 = {
+		5387D2472CDAC67700FE92B0 = {
 			isa = PBXGroup;
 			children = (
-				530AE1252CD96C4E00B80010 /* Example */,
-				530AE1242CD96C4E00B80010 /* Products */,
+				5387D2522CDAC67700FE92B0 /* Example */,
+				5387D2512CDAC67700FE92B0 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		530AE1242CD96C4E00B80010 /* Products */ = {
+		5387D2512CDAC67700FE92B0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				530AE1232CD96C4E00B80010 /* Example.app */,
+				5387D2502CDAC67700FE92B0 /* Example.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -66,68 +61,64 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		530AE1222CD96C4E00B80010 /* Example */ = {
+		5387D24F2CDAC67700FE92B0 /* Example */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 530AE1362CD96C4F00B80010 /* Build configuration list for PBXNativeTarget "Example" */;
+			buildConfigurationList = 5387D2632CDAC67800FE92B0 /* Build configuration list for PBXNativeTarget "Example" */;
 			buildPhases = (
-				530AE11F2CD96C4E00B80010 /* Sources */,
-				530AE1202CD96C4E00B80010 /* Frameworks */,
-				530AE1212CD96C4E00B80010 /* Resources */,
+				5387D24C2CDAC67700FE92B0 /* Sources */,
+				5387D24D2CDAC67700FE92B0 /* Frameworks */,
+				5387D24E2CDAC67700FE92B0 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				530AE1252CD96C4E00B80010 /* Example */,
+				5387D2522CDAC67700FE92B0 /* Example */,
 			);
 			name = Example;
 			packageProductDependencies = (
-				530AE13C2CD96D9400B80010 /* ZLPhotoBrowser */,
 			);
 			productName = Example;
-			productReference = 530AE1232CD96C4E00B80010 /* Example.app */;
+			productReference = 5387D2502CDAC67700FE92B0 /* Example.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		530AE11B2CD96C4E00B80010 /* Project object */ = {
+		5387D2482CDAC67700FE92B0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1610;
 				LastUpgradeCheck = 1610;
 				TargetAttributes = {
-					530AE1222CD96C4E00B80010 = {
+					5387D24F2CDAC67700FE92B0 = {
 						CreatedOnToolsVersion = 16.1;
 					};
 				};
 			};
-			buildConfigurationList = 530AE11E2CD96C4E00B80010 /* Build configuration list for PBXProject "Example" */;
+			buildConfigurationList = 5387D24B2CDAC67700FE92B0 /* Build configuration list for PBXProject "Example" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 530AE11A2CD96C4E00B80010;
+			mainGroup = 5387D2472CDAC67700FE92B0;
 			minimizedProjectReferenceProxies = 1;
-			packageReferences = (
-				530AE13B2CD96D9400B80010 /* XCLocalSwiftPackageReference "../../../ZLPhotoBrowser" */,
-			);
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 530AE1242CD96C4E00B80010 /* Products */;
+			productRefGroup = 5387D2512CDAC67700FE92B0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				530AE1222CD96C4E00B80010 /* Example */,
+				5387D24F2CDAC67700FE92B0 /* Example */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		530AE1212CD96C4E00B80010 /* Resources */ = {
+		5387D24E2CDAC67700FE92B0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -137,7 +128,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		530AE11F2CD96C4E00B80010 /* Sources */ = {
+		5387D24C2CDAC67700FE92B0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -147,7 +138,7 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		530AE1372CD96C4F00B80010 /* Debug */ = {
+		5387D2642CDAC67800FE92B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -155,12 +146,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5BMG8PA279;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Example/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -171,6 +164,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -178,7 +172,7 @@
 			};
 			name = Debug;
 		};
-		530AE1382CD96C4F00B80010 /* Release */ = {
+		5387D2652CDAC67800FE92B0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -186,12 +180,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5BMG8PA279;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Example/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -202,6 +198,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -209,7 +206,7 @@
 			};
 			name = Release;
 		};
-		530AE1392CD96C4F00B80010 /* Debug */ = {
+		5387D2662CDAC67800FE92B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -272,7 +269,7 @@
 			};
 			name = Debug;
 		};
-		530AE13A2CD96C4F00B80010 /* Release */ = {
+		5387D2672CDAC67800FE92B0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -331,39 +328,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		530AE11E2CD96C4E00B80010 /* Build configuration list for PBXProject "Example" */ = {
+		5387D24B2CDAC67700FE92B0 /* Build configuration list for PBXProject "Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				530AE1392CD96C4F00B80010 /* Debug */,
-				530AE13A2CD96C4F00B80010 /* Release */,
+				5387D2662CDAC67800FE92B0 /* Debug */,
+				5387D2672CDAC67800FE92B0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		530AE1362CD96C4F00B80010 /* Build configuration list for PBXNativeTarget "Example" */ = {
+		5387D2632CDAC67800FE92B0 /* Build configuration list for PBXNativeTarget "Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				530AE1372CD96C4F00B80010 /* Debug */,
-				530AE1382CD96C4F00B80010 /* Release */,
+				5387D2642CDAC67800FE92B0 /* Debug */,
+				5387D2652CDAC67800FE92B0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCLocalSwiftPackageReference section */
-		530AE13B2CD96D9400B80010 /* XCLocalSwiftPackageReference "../../../ZLPhotoBrowser" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../../ZLPhotoBrowser;
-		};
-/* End XCLocalSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		530AE13C2CD96D9400B80010 /* ZLPhotoBrowser */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ZLPhotoBrowser;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
-	rootObject = 530AE11B2CD96C4E00B80010 /* Project object */;
+	rootObject = 5387D2482CDAC67700FE92B0 /* Project object */;
 }
