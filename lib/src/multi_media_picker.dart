@@ -2,10 +2,14 @@ import 'messages.g.dart';
 
 class MultiMediaPicker {
   MultiMediaPicker();
-  final MultiMediaApi _api = MultiMediaApi();
+  final _api = MultiMediaApi();
 
   Future<RawMediaData?> openCamera({
-    RawCameraConfiguration? cameraConfiguration,
+    RawCameraConfiguration? cameraConfig,
+    RawPickerConfiguration? pickerConfig,
   }) =>
-      _api.openCamera(cameraConfiguration ?? RawCameraConfiguration());
+      _api.openCamera(
+        cameraConfig ?? RawCameraConfiguration(),
+        pickerConfig ?? RawPickerConfiguration(),
+      );
 }

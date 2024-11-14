@@ -24,6 +24,27 @@ enum CaptureSessionPreset {
   photo,
 }
 
+enum UiLocale {
+  system,
+  chineseSimplified,
+  chineseTraditional,
+  english,
+  japanese,
+  french,
+  german,
+  russian,
+  vietnamese,
+  korean,
+  malay,
+  italian,
+  indonesian,
+  portuguese,
+  spanish,
+  turkish,
+  arabic,
+  dutch,
+}
+
 enum CropType {
   rectangle,
   circle,
@@ -142,9 +163,275 @@ class RawMediaData {
   }
 }
 
+class RawPickerConfiguration {
+  RawPickerConfiguration({
+    this.maxSelectCount = 9,
+    this.maxVideoSelectCount = 0,
+    this.minVideoSelectCount = 0,
+    this.allowMixSelect = true,
+    this.maxPreviewCount = 20,
+    this.initialIndex = 1,
+    this.allowSelectImage = true,
+    this.allowSelectVideo = true,
+    this.downloadVideoBeforeSelecting = false,
+    this.allowSelectGif = true,
+    this.allowSelectLivePhoto = false,
+    this.allowTakePhotoInLibrary = true,
+    this.callbackDirectlyAfterTakingPhoto = false,
+    this.allowEditImage = true,
+    this.allowEditVideo = true,
+    this.editAfterSelectThumbnailImage = false,
+    this.cropVideoAfterSelectThumbnail = true,
+    this.saveNewImageAfterEdit = true,
+    this.allowSlideSelect = true,
+    this.autoScrollWhenSlideSelectIsActive = true,
+    this.autoScrollMaxSpeed = 600,
+    this.allowDragSelect = false,
+    this.allowSelectOriginal = true,
+    this.alwaysRequestOriginal = false,
+    this.showOriginalSizeWhenSelectOriginal = true,
+    this.allowPreviewPhotos = true,
+    this.showPreviewButtonInAlbum = true,
+    this.showSelectCountOnDoneBtn = true,
+    this.showSelectBtnWhenSingleSelect = false,
+    this.showSelectedIndex = true,
+    this.maxEditVideoTime = 10,
+    this.maxSelectVideoDurationSeconds = 120,
+    this.minSelectVideoDurationSeconds = 0,
+    this.maxSelectVideoDataSizeKB,
+    this.minSelectVideoDataSizeKB = 0,
+    this.useCustomCamera = true,
+  });
+
+  /// Anything bigger than 1 will enable the multiple selection feature.
+  /// Defaults to `9`.
+  int maxSelectCount;
+
+  /// A count for video max selection. Defaults to `0`. Warning: Only valid in
+  /// mix selection mode. (i.e. [allowMixSelect] is `true`)
+  int maxVideoSelectCount;
+
+  /// A count for video min selection. Defaults to `0`.
+  /// Warning: Only valid in mix selection mode i.e. [allowMixSelect] is `true`.
+  int minVideoSelectCount;
+
+  /// Whether photos and videos can be selected together.
+  /// If set to `false`, only one video can be selected. Defaults to `true`.
+  bool allowMixSelect;
+
+  /// Preview selection max preview count, if the value is zero, only show
+  /// `Camera`, `Album`, `Cancel` buttons. Defaults to `20`.
+  int maxPreviewCount;
+
+  /// The index of the first selected image, and the indices of subsequently
+  /// selected images are incremented based on this value. Defaults to `1`.
+  int initialIndex;
+
+  /// If set to `false`, GIF and live photo cannot be selected either.
+  /// Defaults to `true`.
+  bool allowSelectImage;
+
+  /// If set to `false`, videos cannot be selected either. Defaults to `true`.
+  bool allowSelectVideo;
+
+  /// If set to `true`, videos on iCloud will be downloaded before selection.
+  /// Defaults to `false`.
+  bool downloadVideoBeforeSelecting;
+
+  /// Allow select GIF, it only controls whether it is displayed in GIF form.
+  /// If value is `false`, the GIF logo is not displayed. Defaults to `true`.
+  bool allowSelectGif;
+
+  /// Allow select live photo, it only controls whether it is displayed in
+  /// live photo form. If value is `false`, the live photo logo is not displayed.
+  /// Defaults to `false`.
+  bool allowSelectLivePhoto;
+
+  /// Allow take photos in the album. Defaults to `true`.
+  /// Warning: If [allowTakePhoto] and [allowRecordVideo] are both `false`,
+  /// it will not be displayed.
+  bool allowTakePhotoInLibrary;
+
+  /// Whether to callback directly after taking a photo. Defaults to `false`.
+  bool callbackDirectlyAfterTakingPhoto;
+
+  /// Allows edit images. Defaults to `true`.
+  bool allowEditImage;
+
+  /// Warning: The video can only be edited when no photos are selected, or only
+  /// one video is selected, and the selection callback is executed immediately
+  /// after editing is completed.
+  bool allowEditVideo;
+
+  /// After selecting a image/video in the thumbnail interface, enter the editing
+  /// interface directly. Defaults to `false`.
+  ///
+  /// Note: Editing image is only valid when [allowEditImage] is `true` and
+  /// [maxSelectCount] is `1`. Editing video is only valid when [allowEditVideo]
+  /// is `true` and [maxSelectCount] is `1`.
+  bool editAfterSelectThumbnailImage;
+
+  /// Only valid when [allowMixSelect] is `false` and [allowEditVideo] is `true`.
+  /// Defaults to `true`.  If you  want to crop the video after select thumbnail
+  /// under [allowMixSelect] is `true`, please use [editAfterSelectThumbnailImage].
+  bool cropVideoAfterSelectThumbnail;
+
+  /// Save the edited image to the album after editing. Defaults to `true`.
+  bool saveNewImageAfterEdit;
+
+  /// If `true`, you can slide select photos in album. Defaults to `true`.
+  bool allowSlideSelect;
+
+  /// When slide select is active, will auto scroll to top or bottom when your
+  /// finger at the top or bottom. Defaults to `true`.
+  bool autoScrollWhenSlideSelectIsActive;
+
+  /// The max speed (pt/s) of auto scroll. Defaults to `600`.
+  double autoScrollMaxSpeed;
+
+  /// If `true`, you can drag select photo when preview selection style.
+  /// Defaults to `false`.
+  bool allowDragSelect;
+
+  /// Allow select full image. Defaults to `true`.
+  bool allowSelectOriginal;
+
+  /// Always return the original photo. Warning: Only valid when
+  /// [allowSelectOriginal] is `false`. Defaults to `false`.
+  bool alwaysRequestOriginal;
+
+  /// Whether to show the total size of selected photos when selecting the
+  /// original image. Defaults to `true`.
+  ///
+  /// Note: The framework uses a conversion ratio of 1KB=1024Byte, while the
+  /// system album uses 1KB=1000Byte, so the displayed photo size within the
+  /// framework will be smaller than the size in the system album.
+  bool showOriginalSizeWhenSelectOriginal;
+
+  /// Allow access to the preview large image interface (whether to
+  /// allow access to the large image interface after clicking the thumbnail
+  /// image). Defaults to `true`.
+  bool allowPreviewPhotos;
+
+  /// Whether to show the preview button (i.e. the preview button in the lower
+  /// left corner of the thumbnail interface). Defaults to `true`.
+  bool showPreviewButtonInAlbum;
+
+  /// Whether to display the selected count on the button. Defaults to `true`.
+  bool showSelectCountOnDoneBtn;
+
+  /// In single selection mode, whether to display the selection button.
+  /// Defaults to `false`.
+  bool showSelectBtnWhenSingleSelect;
+
+  /// Display the index of the selected photos. Defaults to `true`.
+  bool showSelectedIndex;
+
+  /// Maximum cropping time when editing video, unit: second. Defaults to `10`.
+  int maxEditVideoTime;
+
+  /// Allow to choose the maximum duration of the video. Defaults to `120`.
+  int maxSelectVideoDurationSeconds;
+
+  /// Allow to choose the minimum duration of the video. Defaults to `0`.
+  int minSelectVideoDurationSeconds;
+
+  /// Allow to choose the maximum data size of the video (in KB).
+  /// Defaults to `null` (no limit).
+  double? maxSelectVideoDataSizeKB;
+
+  /// Allow to choose the minimum data size of the video. Defaults to `0` KB.
+  double minSelectVideoDataSizeKB;
+
+  /// Whether to use custom camera. Defaults to `true`.
+  bool useCustomCamera;
+
+  Object encode() {
+    return <Object?>[
+      maxSelectCount,
+      maxVideoSelectCount,
+      minVideoSelectCount,
+      allowMixSelect,
+      maxPreviewCount,
+      initialIndex,
+      allowSelectImage,
+      allowSelectVideo,
+      downloadVideoBeforeSelecting,
+      allowSelectGif,
+      allowSelectLivePhoto,
+      allowTakePhotoInLibrary,
+      callbackDirectlyAfterTakingPhoto,
+      allowEditImage,
+      allowEditVideo,
+      editAfterSelectThumbnailImage,
+      cropVideoAfterSelectThumbnail,
+      saveNewImageAfterEdit,
+      allowSlideSelect,
+      autoScrollWhenSlideSelectIsActive,
+      autoScrollMaxSpeed,
+      allowDragSelect,
+      allowSelectOriginal,
+      alwaysRequestOriginal,
+      showOriginalSizeWhenSelectOriginal,
+      allowPreviewPhotos,
+      showPreviewButtonInAlbum,
+      showSelectCountOnDoneBtn,
+      showSelectBtnWhenSingleSelect,
+      showSelectedIndex,
+      maxEditVideoTime,
+      maxSelectVideoDurationSeconds,
+      minSelectVideoDurationSeconds,
+      maxSelectVideoDataSizeKB,
+      minSelectVideoDataSizeKB,
+      useCustomCamera,
+    ];
+  }
+
+  static RawPickerConfiguration decode(Object result) {
+    result as List<Object?>;
+    return RawPickerConfiguration(
+      maxSelectCount: result[0]! as int,
+      maxVideoSelectCount: result[1]! as int,
+      minVideoSelectCount: result[2]! as int,
+      allowMixSelect: result[3]! as bool,
+      maxPreviewCount: result[4]! as int,
+      initialIndex: result[5]! as int,
+      allowSelectImage: result[6]! as bool,
+      allowSelectVideo: result[7]! as bool,
+      downloadVideoBeforeSelecting: result[8]! as bool,
+      allowSelectGif: result[9]! as bool,
+      allowSelectLivePhoto: result[10]! as bool,
+      allowTakePhotoInLibrary: result[11]! as bool,
+      callbackDirectlyAfterTakingPhoto: result[12]! as bool,
+      allowEditImage: result[13]! as bool,
+      allowEditVideo: result[14]! as bool,
+      editAfterSelectThumbnailImage: result[15]! as bool,
+      cropVideoAfterSelectThumbnail: result[16]! as bool,
+      saveNewImageAfterEdit: result[17]! as bool,
+      allowSlideSelect: result[18]! as bool,
+      autoScrollWhenSlideSelectIsActive: result[19]! as bool,
+      autoScrollMaxSpeed: result[20]! as double,
+      allowDragSelect: result[21]! as bool,
+      allowSelectOriginal: result[22]! as bool,
+      alwaysRequestOriginal: result[23]! as bool,
+      showOriginalSizeWhenSelectOriginal: result[24]! as bool,
+      allowPreviewPhotos: result[25]! as bool,
+      showPreviewButtonInAlbum: result[26]! as bool,
+      showSelectCountOnDoneBtn: result[27]! as bool,
+      showSelectBtnWhenSingleSelect: result[28]! as bool,
+      showSelectedIndex: result[29]! as bool,
+      maxEditVideoTime: result[30]! as int,
+      maxSelectVideoDurationSeconds: result[31]! as int,
+      minSelectVideoDurationSeconds: result[32]! as int,
+      maxSelectVideoDataSizeKB: result[33] as double?,
+      minSelectVideoDataSizeKB: result[34]! as double,
+      useCustomCamera: result[35]! as bool,
+    );
+  }
+}
+
 class RawCameraConfiguration {
   RawCameraConfiguration({
-    this.mediaType = MediaType.image,
     this.maxSizeKB,
     this.locale,
     this.cropOptions,
@@ -163,9 +450,6 @@ class RawCameraConfiguration {
     this.videoExportType = VideoExportType.mp4,
     this.devicePosition = DevicePosition.back,
   });
-
-  /// The type of media to use. Defaults to [MediaType.image].
-  MediaType mediaType;
 
   /// Max size of the media file in KB.
   int? maxSizeKB;
@@ -187,8 +471,8 @@ class RawCameraConfiguration {
   /// Maximum recording duration. Defaults to `30`, minimum is `1`.
   int maxDurationSeconds;
 
-  /// Indicates whether the video flowing through the connection
-  /// should be mirrored about its vertical axis. Defaults to `true`.
+  /// Indicates whether the video flowing through the connection should be
+  /// mirrored about its vertical axis. Defaults to `true`.
   bool isVideoMirrored;
 
   /// Video resolution. Defaults to [CaptureSessionPreset.hd1920x1080].
@@ -206,8 +490,8 @@ class RawCameraConfiguration {
   /// Whether to support switch camera. Defaults to `true`.
   bool allowSwitchCamera;
 
-  /// Flag to enable tap-to-record functionality. Default is `true`.
-  /// If [allowTakePhoto] is set to `true`, [tapToRecordVideo] will be ignored.
+  /// Flag to enable tap-to-record functionality. Default is `true`. If
+  /// [allowTakePhoto] is set to `true`, [tapToRecordVideo] will be ignored.
   bool tapToRecordVideo;
 
   /// Enable the use of wide cameras (on supported devices). Defaults to `true`.
@@ -221,7 +505,6 @@ class RawCameraConfiguration {
 
   Object encode() {
     return <Object?>[
-      mediaType,
       maxSizeKB,
       locale,
       cropOptions,
@@ -245,24 +528,23 @@ class RawCameraConfiguration {
   static RawCameraConfiguration decode(Object result) {
     result as List<Object?>;
     return RawCameraConfiguration(
-      mediaType: result[0]! as MediaType,
-      maxSizeKB: result[1] as int?,
-      locale: result[2] as String?,
-      cropOptions: result[3] as CropOptions?,
-      allowTakePhoto: result[4]! as bool,
-      allowRecordVideo: result[5]! as bool,
-      minDurationSeconds: result[6]! as int,
-      maxDurationSeconds: result[7]! as int,
-      isVideoMirrored: result[8]! as bool,
-      sessionPreset: result[9]! as CaptureSessionPreset,
-      focusMode: result[10]! as FocusMode,
-      exposureMode: result[11]! as ExposureMode,
-      showFlashSwitch: result[12]! as bool,
-      allowSwitchCamera: result[13]! as bool,
-      tapToRecordVideo: result[14]! as bool,
-      enableWideCameras: result[15]! as bool,
-      videoExportType: result[16]! as VideoExportType,
-      devicePosition: result[17]! as DevicePosition,
+      maxSizeKB: result[0] as int?,
+      locale: result[1] as String?,
+      cropOptions: result[2] as CropOptions?,
+      allowTakePhoto: result[3]! as bool,
+      allowRecordVideo: result[4]! as bool,
+      minDurationSeconds: result[5]! as int,
+      maxDurationSeconds: result[6]! as int,
+      isVideoMirrored: result[7]! as bool,
+      sessionPreset: result[8]! as CaptureSessionPreset,
+      focusMode: result[9]! as FocusMode,
+      exposureMode: result[10]! as ExposureMode,
+      showFlashSwitch: result[11]! as bool,
+      allowSwitchCamera: result[12]! as bool,
+      tapToRecordVideo: result[13]! as bool,
+      enableWideCameras: result[14]! as bool,
+      videoExportType: result[15]! as VideoExportType,
+      devicePosition: result[16]! as DevicePosition,
     );
   }
 }
@@ -278,35 +560,41 @@ class _PigeonCodec extends StandardMessageCodec {
     }    else if (value is CaptureSessionPreset) {
       buffer.putUint8(129);
       writeValue(buffer, value.index);
-    }    else if (value is CropType) {
+    }    else if (value is UiLocale) {
       buffer.putUint8(130);
       writeValue(buffer, value.index);
-    }    else if (value is DevicePosition) {
+    }    else if (value is CropType) {
       buffer.putUint8(131);
       writeValue(buffer, value.index);
-    }    else if (value is ExposureMode) {
+    }    else if (value is DevicePosition) {
       buffer.putUint8(132);
       writeValue(buffer, value.index);
-    }    else if (value is FocusMode) {
+    }    else if (value is ExposureMode) {
       buffer.putUint8(133);
       writeValue(buffer, value.index);
-    }    else if (value is MediaType) {
+    }    else if (value is FocusMode) {
       buffer.putUint8(134);
       writeValue(buffer, value.index);
-    }    else if (value is VideoExportType) {
+    }    else if (value is MediaType) {
       buffer.putUint8(135);
       writeValue(buffer, value.index);
-    }    else if (value is CropAspectRatio) {
+    }    else if (value is VideoExportType) {
       buffer.putUint8(136);
-      writeValue(buffer, value.encode());
-    }    else if (value is CropOptions) {
+      writeValue(buffer, value.index);
+    }    else if (value is CropAspectRatio) {
       buffer.putUint8(137);
       writeValue(buffer, value.encode());
-    }    else if (value is RawMediaData) {
+    }    else if (value is CropOptions) {
       buffer.putUint8(138);
       writeValue(buffer, value.encode());
-    }    else if (value is RawCameraConfiguration) {
+    }    else if (value is RawMediaData) {
       buffer.putUint8(139);
+      writeValue(buffer, value.encode());
+    }    else if (value is RawPickerConfiguration) {
+      buffer.putUint8(140);
+      writeValue(buffer, value.encode());
+    }    else if (value is RawCameraConfiguration) {
+      buffer.putUint8(141);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -321,29 +609,34 @@ class _PigeonCodec extends StandardMessageCodec {
         return value == null ? null : CaptureSessionPreset.values[value];
       case 130: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : CropType.values[value];
+        return value == null ? null : UiLocale.values[value];
       case 131: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : DevicePosition.values[value];
+        return value == null ? null : CropType.values[value];
       case 132: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : ExposureMode.values[value];
+        return value == null ? null : DevicePosition.values[value];
       case 133: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : FocusMode.values[value];
+        return value == null ? null : ExposureMode.values[value];
       case 134: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : MediaType.values[value];
+        return value == null ? null : FocusMode.values[value];
       case 135: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : VideoExportType.values[value];
+        return value == null ? null : MediaType.values[value];
       case 136: 
-        return CropAspectRatio.decode(readValue(buffer)!);
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : VideoExportType.values[value];
       case 137: 
-        return CropOptions.decode(readValue(buffer)!);
+        return CropAspectRatio.decode(readValue(buffer)!);
       case 138: 
-        return RawMediaData.decode(readValue(buffer)!);
+        return CropOptions.decode(readValue(buffer)!);
       case 139: 
+        return RawMediaData.decode(readValue(buffer)!);
+      case 140: 
+        return RawPickerConfiguration.decode(readValue(buffer)!);
+      case 141: 
         return RawCameraConfiguration.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -364,7 +657,7 @@ class MultiMediaApi {
 
   final String pigeonVar_messageChannelSuffix;
 
-  Future<RawMediaData?> openCamera(RawCameraConfiguration cameraConfig) async {
+  Future<RawMediaData?> openCamera(RawCameraConfiguration cameraConfig, RawPickerConfiguration pickerConfig) async {
     final String pigeonVar_channelName = 'dev.flutter.pigeon.multi_media_picker.MultiMediaApi.openCamera$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
@@ -372,7 +665,7 @@ class MultiMediaApi {
       binaryMessenger: pigeonVar_binaryMessenger,
     );
     final List<Object?>? pigeonVar_replyList =
-        await pigeonVar_channel.send(<Object?>[cameraConfig]) as List<Object?>?;
+        await pigeonVar_channel.send(<Object?>[cameraConfig, pickerConfig]) as List<Object?>?;
     if (pigeonVar_replyList == null) {
       throw _createConnectionError(pigeonVar_channelName);
     } else if (pigeonVar_replyList.length > 1) {

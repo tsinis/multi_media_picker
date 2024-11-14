@@ -73,6 +73,27 @@ enum CaptureSessionPreset: Int {
   case photo = 5
 }
 
+enum UiLocale: Int {
+  case system = 0
+  case chineseSimplified = 1
+  case chineseTraditional = 2
+  case english = 3
+  case japanese = 4
+  case french = 5
+  case german = 6
+  case russian = 7
+  case vietnamese = 8
+  case korean = 9
+  case malay = 10
+  case italian = 11
+  case indonesian = 12
+  case portuguese = 13
+  case spanish = 14
+  case turkish = 15
+  case arabic = 16
+  case dutch = 17
+}
+
 enum CropType: Int {
   case rectangle = 0
   case circle = 1
@@ -187,9 +208,239 @@ struct RawMediaData {
 }
 
 /// Generated class from Pigeon that represents data sent in messages.
+struct RawPickerConfiguration {
+  /// Anything bigger than 1 will enable the multiple selection feature.
+  /// Defaults to `9`.
+  var maxSelectCount: Int64
+  /// A count for video max selection. Defaults to `0`. Warning: Only valid in
+  /// mix selection mode. (i.e. [allowMixSelect] is `true`)
+  var maxVideoSelectCount: Int64
+  /// A count for video min selection. Defaults to `0`.
+  /// Warning: Only valid in mix selection mode i.e. [allowMixSelect] is `true`.
+  var minVideoSelectCount: Int64
+  /// Whether photos and videos can be selected together.
+  /// If set to `false`, only one video can be selected. Defaults to `true`.
+  var allowMixSelect: Bool
+  /// Preview selection max preview count, if the value is zero, only show
+  /// `Camera`, `Album`, `Cancel` buttons. Defaults to `20`.
+  var maxPreviewCount: Int64
+  /// The index of the first selected image, and the indices of subsequently
+  /// selected images are incremented based on this value. Defaults to `1`.
+  var initialIndex: Int64
+  /// If set to `false`, GIF and live photo cannot be selected either.
+  /// Defaults to `true`.
+  var allowSelectImage: Bool
+  /// If set to `false`, videos cannot be selected either. Defaults to `true`.
+  var allowSelectVideo: Bool
+  /// If set to `true`, videos on iCloud will be downloaded before selection.
+  /// Defaults to `false`.
+  var downloadVideoBeforeSelecting: Bool
+  /// Allow select GIF, it only controls whether it is displayed in GIF form.
+  /// If value is `false`, the GIF logo is not displayed. Defaults to `true`.
+  var allowSelectGif: Bool
+  /// Allow select live photo, it only controls whether it is displayed in
+  /// live photo form. If value is `false`, the live photo logo is not displayed.
+  /// Defaults to `false`.
+  var allowSelectLivePhoto: Bool
+  /// Allow take photos in the album. Defaults to `true`.
+  /// Warning: If [allowTakePhoto] and [allowRecordVideo] are both `false`,
+  /// it will not be displayed.
+  var allowTakePhotoInLibrary: Bool
+  /// Whether to callback directly after taking a photo. Defaults to `false`.
+  var callbackDirectlyAfterTakingPhoto: Bool
+  /// Allows edit images. Defaults to `true`.
+  var allowEditImage: Bool
+  /// Warning: The video can only be edited when no photos are selected, or only
+  /// one video is selected, and the selection callback is executed immediately
+  /// after editing is completed.
+  var allowEditVideo: Bool
+  /// After selecting a image/video in the thumbnail interface, enter the editing
+  /// interface directly. Defaults to `false`.
+  ///
+  /// Note: Editing image is only valid when [allowEditImage] is `true` and
+  /// [maxSelectCount] is `1`. Editing video is only valid when [allowEditVideo]
+  /// is `true` and [maxSelectCount] is `1`.
+  var editAfterSelectThumbnailImage: Bool
+  /// Only valid when [allowMixSelect] is `false` and [allowEditVideo] is `true`.
+  /// Defaults to `true`.  If you  want to crop the video after select thumbnail
+  /// under [allowMixSelect] is `true`, please use [editAfterSelectThumbnailImage].
+  var cropVideoAfterSelectThumbnail: Bool
+  /// Save the edited image to the album after editing. Defaults to `true`.
+  var saveNewImageAfterEdit: Bool
+  /// If `true`, you can slide select photos in album. Defaults to `true`.
+  var allowSlideSelect: Bool
+  /// When slide select is active, will auto scroll to top or bottom when your
+  /// finger at the top or bottom. Defaults to `true`.
+  var autoScrollWhenSlideSelectIsActive: Bool
+  /// The max speed (pt/s) of auto scroll. Defaults to `600`.
+  var autoScrollMaxSpeed: Double
+  /// If `true`, you can drag select photo when preview selection style.
+  /// Defaults to `false`.
+  var allowDragSelect: Bool
+  /// Allow select full image. Defaults to `true`.
+  var allowSelectOriginal: Bool
+  /// Always return the original photo. Warning: Only valid when
+  /// [allowSelectOriginal] is `false`. Defaults to `false`.
+  var alwaysRequestOriginal: Bool
+  /// Whether to show the total size of selected photos when selecting the
+  /// original image. Defaults to `true`.
+  ///
+  /// Note: The framework uses a conversion ratio of 1KB=1024Byte, while the
+  /// system album uses 1KB=1000Byte, so the displayed photo size within the
+  /// framework will be smaller than the size in the system album.
+  var showOriginalSizeWhenSelectOriginal: Bool
+  /// Allow access to the preview large image interface (whether to
+  /// allow access to the large image interface after clicking the thumbnail
+  /// image). Defaults to `true`.
+  var allowPreviewPhotos: Bool
+  /// Whether to show the preview button (i.e. the preview button in the lower
+  /// left corner of the thumbnail interface). Defaults to `true`.
+  var showPreviewButtonInAlbum: Bool
+  /// Whether to display the selected count on the button. Defaults to `true`.
+  var showSelectCountOnDoneBtn: Bool
+  /// In single selection mode, whether to display the selection button.
+  /// Defaults to `false`.
+  var showSelectBtnWhenSingleSelect: Bool
+  /// Display the index of the selected photos. Defaults to `true`.
+  var showSelectedIndex: Bool
+  /// Maximum cropping time when editing video, unit: second. Defaults to `10`.
+  var maxEditVideoTime: Int64
+  /// Allow to choose the maximum duration of the video. Defaults to `120`.
+  var maxSelectVideoDurationSeconds: Int64
+  /// Allow to choose the minimum duration of the video. Defaults to `0`.
+  var minSelectVideoDurationSeconds: Int64
+  /// Allow to choose the maximum data size of the video (in KB).
+  /// Defaults to `null` (no limit).
+  var maxSelectVideoDataSizeKB: Double? = nil
+  /// Allow to choose the minimum data size of the video. Defaults to `0` KB.
+  var minSelectVideoDataSizeKB: Double
+  /// Whether to use custom camera. Defaults to `true`.
+  var useCustomCamera: Bool
+
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> RawPickerConfiguration? {
+    let maxSelectCount = pigeonVar_list[0] as! Int64
+    let maxVideoSelectCount = pigeonVar_list[1] as! Int64
+    let minVideoSelectCount = pigeonVar_list[2] as! Int64
+    let allowMixSelect = pigeonVar_list[3] as! Bool
+    let maxPreviewCount = pigeonVar_list[4] as! Int64
+    let initialIndex = pigeonVar_list[5] as! Int64
+    let allowSelectImage = pigeonVar_list[6] as! Bool
+    let allowSelectVideo = pigeonVar_list[7] as! Bool
+    let downloadVideoBeforeSelecting = pigeonVar_list[8] as! Bool
+    let allowSelectGif = pigeonVar_list[9] as! Bool
+    let allowSelectLivePhoto = pigeonVar_list[10] as! Bool
+    let allowTakePhotoInLibrary = pigeonVar_list[11] as! Bool
+    let callbackDirectlyAfterTakingPhoto = pigeonVar_list[12] as! Bool
+    let allowEditImage = pigeonVar_list[13] as! Bool
+    let allowEditVideo = pigeonVar_list[14] as! Bool
+    let editAfterSelectThumbnailImage = pigeonVar_list[15] as! Bool
+    let cropVideoAfterSelectThumbnail = pigeonVar_list[16] as! Bool
+    let saveNewImageAfterEdit = pigeonVar_list[17] as! Bool
+    let allowSlideSelect = pigeonVar_list[18] as! Bool
+    let autoScrollWhenSlideSelectIsActive = pigeonVar_list[19] as! Bool
+    let autoScrollMaxSpeed = pigeonVar_list[20] as! Double
+    let allowDragSelect = pigeonVar_list[21] as! Bool
+    let allowSelectOriginal = pigeonVar_list[22] as! Bool
+    let alwaysRequestOriginal = pigeonVar_list[23] as! Bool
+    let showOriginalSizeWhenSelectOriginal = pigeonVar_list[24] as! Bool
+    let allowPreviewPhotos = pigeonVar_list[25] as! Bool
+    let showPreviewButtonInAlbum = pigeonVar_list[26] as! Bool
+    let showSelectCountOnDoneBtn = pigeonVar_list[27] as! Bool
+    let showSelectBtnWhenSingleSelect = pigeonVar_list[28] as! Bool
+    let showSelectedIndex = pigeonVar_list[29] as! Bool
+    let maxEditVideoTime = pigeonVar_list[30] as! Int64
+    let maxSelectVideoDurationSeconds = pigeonVar_list[31] as! Int64
+    let minSelectVideoDurationSeconds = pigeonVar_list[32] as! Int64
+    let maxSelectVideoDataSizeKB: Double? = nilOrValue(pigeonVar_list[33])
+    let minSelectVideoDataSizeKB = pigeonVar_list[34] as! Double
+    let useCustomCamera = pigeonVar_list[35] as! Bool
+
+    return RawPickerConfiguration(
+      maxSelectCount: maxSelectCount,
+      maxVideoSelectCount: maxVideoSelectCount,
+      minVideoSelectCount: minVideoSelectCount,
+      allowMixSelect: allowMixSelect,
+      maxPreviewCount: maxPreviewCount,
+      initialIndex: initialIndex,
+      allowSelectImage: allowSelectImage,
+      allowSelectVideo: allowSelectVideo,
+      downloadVideoBeforeSelecting: downloadVideoBeforeSelecting,
+      allowSelectGif: allowSelectGif,
+      allowSelectLivePhoto: allowSelectLivePhoto,
+      allowTakePhotoInLibrary: allowTakePhotoInLibrary,
+      callbackDirectlyAfterTakingPhoto: callbackDirectlyAfterTakingPhoto,
+      allowEditImage: allowEditImage,
+      allowEditVideo: allowEditVideo,
+      editAfterSelectThumbnailImage: editAfterSelectThumbnailImage,
+      cropVideoAfterSelectThumbnail: cropVideoAfterSelectThumbnail,
+      saveNewImageAfterEdit: saveNewImageAfterEdit,
+      allowSlideSelect: allowSlideSelect,
+      autoScrollWhenSlideSelectIsActive: autoScrollWhenSlideSelectIsActive,
+      autoScrollMaxSpeed: autoScrollMaxSpeed,
+      allowDragSelect: allowDragSelect,
+      allowSelectOriginal: allowSelectOriginal,
+      alwaysRequestOriginal: alwaysRequestOriginal,
+      showOriginalSizeWhenSelectOriginal: showOriginalSizeWhenSelectOriginal,
+      allowPreviewPhotos: allowPreviewPhotos,
+      showPreviewButtonInAlbum: showPreviewButtonInAlbum,
+      showSelectCountOnDoneBtn: showSelectCountOnDoneBtn,
+      showSelectBtnWhenSingleSelect: showSelectBtnWhenSingleSelect,
+      showSelectedIndex: showSelectedIndex,
+      maxEditVideoTime: maxEditVideoTime,
+      maxSelectVideoDurationSeconds: maxSelectVideoDurationSeconds,
+      minSelectVideoDurationSeconds: minSelectVideoDurationSeconds,
+      maxSelectVideoDataSizeKB: maxSelectVideoDataSizeKB,
+      minSelectVideoDataSizeKB: minSelectVideoDataSizeKB,
+      useCustomCamera: useCustomCamera
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      maxSelectCount,
+      maxVideoSelectCount,
+      minVideoSelectCount,
+      allowMixSelect,
+      maxPreviewCount,
+      initialIndex,
+      allowSelectImage,
+      allowSelectVideo,
+      downloadVideoBeforeSelecting,
+      allowSelectGif,
+      allowSelectLivePhoto,
+      allowTakePhotoInLibrary,
+      callbackDirectlyAfterTakingPhoto,
+      allowEditImage,
+      allowEditVideo,
+      editAfterSelectThumbnailImage,
+      cropVideoAfterSelectThumbnail,
+      saveNewImageAfterEdit,
+      allowSlideSelect,
+      autoScrollWhenSlideSelectIsActive,
+      autoScrollMaxSpeed,
+      allowDragSelect,
+      allowSelectOriginal,
+      alwaysRequestOriginal,
+      showOriginalSizeWhenSelectOriginal,
+      allowPreviewPhotos,
+      showPreviewButtonInAlbum,
+      showSelectCountOnDoneBtn,
+      showSelectBtnWhenSingleSelect,
+      showSelectedIndex,
+      maxEditVideoTime,
+      maxSelectVideoDurationSeconds,
+      minSelectVideoDurationSeconds,
+      maxSelectVideoDataSizeKB,
+      minSelectVideoDataSizeKB,
+      useCustomCamera,
+    ]
+  }
+}
+
+/// Generated class from Pigeon that represents data sent in messages.
 struct RawCameraConfiguration {
-  /// The type of media to use. Defaults to [MediaType.image].
-  var mediaType: MediaType
   /// Max size of the media file in KB.
   var maxSizeKB: Int64? = nil
   /// The locale of the camera. Defaults to the system locale.
@@ -203,8 +454,8 @@ struct RawCameraConfiguration {
   var minDurationSeconds: Int64
   /// Maximum recording duration. Defaults to `30`, minimum is `1`.
   var maxDurationSeconds: Int64
-  /// Indicates whether the video flowing through the connection
-  /// should be mirrored about its vertical axis. Defaults to `true`.
+  /// Indicates whether the video flowing through the connection should be
+  /// mirrored about its vertical axis. Defaults to `true`.
   var isVideoMirrored: Bool
   /// Video resolution. Defaults to [CaptureSessionPreset.hd1920x1080].
   var sessionPreset: CaptureSessionPreset
@@ -216,8 +467,8 @@ struct RawCameraConfiguration {
   var showFlashSwitch: Bool
   /// Whether to support switch camera. Defaults to `true`.
   var allowSwitchCamera: Bool
-  /// Flag to enable tap-to-record functionality. Default is `true`.
-  /// If [allowTakePhoto] is set to `true`, [tapToRecordVideo] will be ignored.
+  /// Flag to enable tap-to-record functionality. Default is `true`. If
+  /// [allowTakePhoto] is set to `true`, [tapToRecordVideo] will be ignored.
   var tapToRecordVideo: Bool
   /// Enable the use of wide cameras (on supported devices). Defaults to `true`.
   var enableWideCameras: Bool
@@ -230,27 +481,25 @@ struct RawCameraConfiguration {
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> RawCameraConfiguration? {
-    let mediaType = pigeonVar_list[0] as! MediaType
-    let maxSizeKB: Int64? = nilOrValue(pigeonVar_list[1])
-    let locale: String? = nilOrValue(pigeonVar_list[2])
-    let cropOptions: CropOptions? = nilOrValue(pigeonVar_list[3])
-    let allowTakePhoto = pigeonVar_list[4] as! Bool
-    let allowRecordVideo = pigeonVar_list[5] as! Bool
-    let minDurationSeconds = pigeonVar_list[6] as! Int64
-    let maxDurationSeconds = pigeonVar_list[7] as! Int64
-    let isVideoMirrored = pigeonVar_list[8] as! Bool
-    let sessionPreset = pigeonVar_list[9] as! CaptureSessionPreset
-    let focusMode = pigeonVar_list[10] as! FocusMode
-    let exposureMode = pigeonVar_list[11] as! ExposureMode
-    let showFlashSwitch = pigeonVar_list[12] as! Bool
-    let allowSwitchCamera = pigeonVar_list[13] as! Bool
-    let tapToRecordVideo = pigeonVar_list[14] as! Bool
-    let enableWideCameras = pigeonVar_list[15] as! Bool
-    let videoExportType = pigeonVar_list[16] as! VideoExportType
-    let devicePosition = pigeonVar_list[17] as! DevicePosition
+    let maxSizeKB: Int64? = nilOrValue(pigeonVar_list[0])
+    let locale: String? = nilOrValue(pigeonVar_list[1])
+    let cropOptions: CropOptions? = nilOrValue(pigeonVar_list[2])
+    let allowTakePhoto = pigeonVar_list[3] as! Bool
+    let allowRecordVideo = pigeonVar_list[4] as! Bool
+    let minDurationSeconds = pigeonVar_list[5] as! Int64
+    let maxDurationSeconds = pigeonVar_list[6] as! Int64
+    let isVideoMirrored = pigeonVar_list[7] as! Bool
+    let sessionPreset = pigeonVar_list[8] as! CaptureSessionPreset
+    let focusMode = pigeonVar_list[9] as! FocusMode
+    let exposureMode = pigeonVar_list[10] as! ExposureMode
+    let showFlashSwitch = pigeonVar_list[11] as! Bool
+    let allowSwitchCamera = pigeonVar_list[12] as! Bool
+    let tapToRecordVideo = pigeonVar_list[13] as! Bool
+    let enableWideCameras = pigeonVar_list[14] as! Bool
+    let videoExportType = pigeonVar_list[15] as! VideoExportType
+    let devicePosition = pigeonVar_list[16] as! DevicePosition
 
     return RawCameraConfiguration(
-      mediaType: mediaType,
       maxSizeKB: maxSizeKB,
       locale: locale,
       cropOptions: cropOptions,
@@ -272,7 +521,6 @@ struct RawCameraConfiguration {
   }
   func toList() -> [Any?] {
     return [
-      mediaType,
       maxSizeKB,
       locale,
       cropOptions,
@@ -306,46 +554,54 @@ private class messagesPigeonCodecReader: FlutterStandardReader {
     case 130:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return CropType(rawValue: enumResultAsInt)
+        return UiLocale(rawValue: enumResultAsInt)
       }
       return nil
     case 131:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return DevicePosition(rawValue: enumResultAsInt)
+        return CropType(rawValue: enumResultAsInt)
       }
       return nil
     case 132:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return ExposureMode(rawValue: enumResultAsInt)
+        return DevicePosition(rawValue: enumResultAsInt)
       }
       return nil
     case 133:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return FocusMode(rawValue: enumResultAsInt)
+        return ExposureMode(rawValue: enumResultAsInt)
       }
       return nil
     case 134:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return MediaType(rawValue: enumResultAsInt)
+        return FocusMode(rawValue: enumResultAsInt)
       }
       return nil
     case 135:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return VideoExportType(rawValue: enumResultAsInt)
+        return MediaType(rawValue: enumResultAsInt)
       }
       return nil
     case 136:
-      return CropAspectRatio.fromList(self.readValue() as! [Any?])
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return VideoExportType(rawValue: enumResultAsInt)
+      }
+      return nil
     case 137:
-      return CropOptions.fromList(self.readValue() as! [Any?])
+      return CropAspectRatio.fromList(self.readValue() as! [Any?])
     case 138:
-      return RawMediaData.fromList(self.readValue() as! [Any?])
+      return CropOptions.fromList(self.readValue() as! [Any?])
     case 139:
+      return RawMediaData.fromList(self.readValue() as! [Any?])
+    case 140:
+      return RawPickerConfiguration.fromList(self.readValue() as! [Any?])
+    case 141:
       return RawCameraConfiguration.fromList(self.readValue() as! [Any?])
     default:
       return super.readValue(ofType: type)
@@ -358,35 +614,41 @@ private class messagesPigeonCodecWriter: FlutterStandardWriter {
     if let value = value as? CaptureSessionPreset {
       super.writeByte(129)
       super.writeValue(value.rawValue)
-    } else if let value = value as? CropType {
+    } else if let value = value as? UiLocale {
       super.writeByte(130)
       super.writeValue(value.rawValue)
-    } else if let value = value as? DevicePosition {
+    } else if let value = value as? CropType {
       super.writeByte(131)
       super.writeValue(value.rawValue)
-    } else if let value = value as? ExposureMode {
+    } else if let value = value as? DevicePosition {
       super.writeByte(132)
       super.writeValue(value.rawValue)
-    } else if let value = value as? FocusMode {
+    } else if let value = value as? ExposureMode {
       super.writeByte(133)
       super.writeValue(value.rawValue)
-    } else if let value = value as? MediaType {
+    } else if let value = value as? FocusMode {
       super.writeByte(134)
       super.writeValue(value.rawValue)
-    } else if let value = value as? VideoExportType {
+    } else if let value = value as? MediaType {
       super.writeByte(135)
       super.writeValue(value.rawValue)
-    } else if let value = value as? CropAspectRatio {
+    } else if let value = value as? VideoExportType {
       super.writeByte(136)
-      super.writeValue(value.toList())
-    } else if let value = value as? CropOptions {
+      super.writeValue(value.rawValue)
+    } else if let value = value as? CropAspectRatio {
       super.writeByte(137)
       super.writeValue(value.toList())
-    } else if let value = value as? RawMediaData {
+    } else if let value = value as? CropOptions {
       super.writeByte(138)
       super.writeValue(value.toList())
-    } else if let value = value as? RawCameraConfiguration {
+    } else if let value = value as? RawMediaData {
       super.writeByte(139)
+      super.writeValue(value.toList())
+    } else if let value = value as? RawPickerConfiguration {
+      super.writeByte(140)
+      super.writeValue(value.toList())
+    } else if let value = value as? RawCameraConfiguration {
+      super.writeByte(141)
       super.writeValue(value.toList())
     } else {
       super.writeValue(value)
@@ -411,7 +673,7 @@ class messagesPigeonCodec: FlutterStandardMessageCodec, @unchecked Sendable {
 
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol MultiMediaApi {
-  func openCamera(cameraConfig: RawCameraConfiguration, completion: @escaping (Result<RawMediaData?, Error>) -> Void)
+  func openCamera(cameraConfig: RawCameraConfiguration, pickerConfig: RawPickerConfiguration, completion: @escaping (Result<RawMediaData?, Error>) -> Void)
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -425,7 +687,8 @@ class MultiMediaApiSetup {
       openCameraChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
         let cameraConfigArg = args[0] as! RawCameraConfiguration
-        api.openCamera(cameraConfig: cameraConfigArg) { result in
+        let pickerConfigArg = args[1] as! RawPickerConfiguration
+        api.openCamera(cameraConfig: cameraConfigArg, pickerConfig: pickerConfigArg) { result in
           switch result {
           case .success(let res):
             reply(wrapResult(res))

@@ -28,4 +28,45 @@ extension ZLPhotoConfiguration {
       ZLCameraConfiguration.CaptureSessionPreset(rawValue: config.sessionPreset.rawValue)
       ?? .hd1920x1080
   }
+
+  func updatePickerConfiguration(from config: RawPickerConfiguration) {
+    self.allowDragSelect = config.allowDragSelect
+    self.allowEditImage = config.allowEditImage
+    self.allowEditVideo = config.allowEditVideo
+    self.allowMixSelect = config.allowMixSelect
+    self.allowPreviewPhotos = config.allowPreviewPhotos
+    self.allowSelectGif = config.allowSelectGif
+    self.allowSelectImage = config.allowSelectImage
+    self.allowSelectLivePhoto = config.allowSelectLivePhoto
+    self.allowSelectOriginal = config.allowSelectOriginal
+    self.allowSelectVideo = config.allowSelectVideo
+    self.allowSlideSelect = config.allowSlideSelect
+    self.allowTakePhotoInLibrary = config.allowTakePhotoInLibrary
+    self.alwaysRequestOriginal = config.alwaysRequestOriginal
+    self.autoScrollMaxSpeed = CGFloat(config.autoScrollMaxSpeed)
+    self.autoScrollWhenSlideSelectIsActive = config.autoScrollWhenSlideSelectIsActive
+    self.callbackDirectlyAfterTakingPhoto = config.callbackDirectlyAfterTakingPhoto
+    self.cropVideoAfterSelectThumbnail = config.cropVideoAfterSelectThumbnail
+    self.downloadVideoBeforeSelecting = config.downloadVideoBeforeSelecting
+    self.editAfterSelectThumbnailImage = config.editAfterSelectThumbnailImage
+    self.initialIndex = Int(config.initialIndex)
+    self.maxEditVideoTime = Int(config.maxEditVideoTime)
+    self.maxPreviewCount = Int(config.maxPreviewCount)
+    self.maxSelectCount = Int(config.maxSelectCount)
+    self.maxSelectVideoDataSize = CGFloat(
+      config.maxSelectVideoDataSizeKB ?? .greatestFiniteMagnitude)
+    self.maxSelectVideoDuration = Int(config.maxSelectVideoDurationSeconds)
+    self.maxVideoSelectCount = Int(config.maxVideoSelectCount)
+    self.minSelectVideoDataSize = CGFloat(config.minSelectVideoDataSizeKB)
+    self.minSelectVideoDuration = Int(config.minSelectVideoDurationSeconds)
+    self.minVideoSelectCount = Int(config.minVideoSelectCount)
+    self.saveNewImageAfterEdit = config.saveNewImageAfterEdit
+    self.showOriginalSizeWhenSelectOriginal = config.showOriginalSizeWhenSelectOriginal
+    self.showPreviewButtonInAlbum = config.showPreviewButtonInAlbum
+    self.showSelectBtnWhenSingleSelect = config.showSelectBtnWhenSingleSelect
+    self.showSelectCountOnDoneBtn = config.showSelectCountOnDoneBtn
+    self.showSelectedIndex = config.showSelectedIndex
+    self.useCustomCamera = config.useCustomCamera
+  }
+
 }
