@@ -9,28 +9,40 @@ enum CaptureSessionPreset {
   photo,
 }
 
-enum UiLocale {
-  system,
-  chineseSimplified,
-  chineseTraditional,
-  english,
-  japanese,
-  french,
-  german,
-  russian,
-  vietnamese,
-  korean,
-  malay,
-  italian,
-  indonesian,
-  portuguese,
-  spanish,
-  turkish,
-  arabic,
-  dutch,
+enum EditTool {
+  draw,
+  clip,
+  // imageSticker, // TODO?
+  textSticker,
+  mosaic,
+  filter,
+  adjust,
 }
 
-enum CropType { rectangle, circle }
+enum UiLocale {
+  system,
+  arabic,
+  chineseSimplified,
+  chineseTraditional,
+  dutch,
+  english,
+  french,
+  german,
+  indonesian,
+  italian,
+  japanese,
+  korean,
+  malay,
+  portuguese,
+  russian,
+  spanish,
+  turkish,
+  vietnamese,
+}
+
+enum AdjustTool { brightness, contrast, saturation }
+
+enum ClipType { rectangle, circle }
 
 enum DevicePosition { back, front }
 
@@ -38,22 +50,24 @@ enum ExposureMode { autoExpose, continuousAutoExposure }
 
 enum FocusMode { autoFocus, continuousAutoFocus }
 
+enum ImpactFeedbackStyle { light, medium, heavy }
+
 enum MediaType { image, video }
 
 enum VideoExportType { mov, mp4 }
 
-class CropAspectRatio {
-  const CropAspectRatio(this.aspectRatioX, this.aspectRatioY);
+class ClipAspectRatio {
+  const ClipAspectRatio(this.aspectRatioX, this.aspectRatioY);
 
   final int aspectRatioX;
   final int aspectRatioY;
 }
 
-class CropOptions {
-  const CropOptions({this.aspectRatio, this.type = CropType.rectangle});
+class ClipOptions {
+  const ClipOptions({this.aspectRatio, this.type = ClipType.rectangle});
 
-  final CropType type;
-  final CropAspectRatio? aspectRatio;
+  final ClipType type;
+  final ClipAspectRatio? aspectRatio;
 }
 
 class RawMediaData {
@@ -249,18 +263,58 @@ class RawPickerConfiguration {
   final bool useCustomCamera;
 }
 
+class RawEditConfiguration {
+  const RawEditConfiguration({
+    this.adjustTools = const [],
+    this.clipOptions,
+    this.dimClippedAreaDuringAdjustments = false,
+    this.impactFeedbackStyle = ImpactFeedbackStyle.medium,
+    this.impactFeedbackWhenAdjustSliderValueIsZero = true,
+    this.minimumZoomScale = 1.0,
+    this.showClipDirectlyIfOnlyHasClipTool = false,
+    this.tools = const [],
+  });
+
+  /// Edit image tools.
+  /// Default order: `draw`, `clip`, `textSticker`, `mosaic`, `filter`, `adjust`.
+  final List<EditTool> tools;
+
+  /// Edit clip type and ratio for the editor.
+  final ClipOptions? clipOptions;
+
+  /// Adjust image tools. Default order: `brightness`, `contrast`, `saturation`.
+  final List<AdjustTool> adjustTools;
+
+  /// If image edit tools only have clip and this property is `true`,
+  /// the clipping interface will be displayed directly. Defaults to `false`.
+  final bool showClipDirectlyIfOnlyHasClipTool;
+
+  /// Give an impact feedback when the adjust slider value is zero.
+  /// Defaults to `true`.
+  final bool impactFeedbackWhenAdjustSliderValueIsZero;
+
+  /// Impact feedback style. Defaults to `medium`.
+  final ImpactFeedbackStyle impactFeedbackStyle;
+
+  /// Whether to keep the clipped area dimmed during adjustments.
+  /// Defaults to `false`.
+  final bool dimClippedAreaDuringAdjustments;
+
+  /// Minimum zoom scale, allowing the user to make the edited photo smaller,
+  /// so it does not overlap top and bottom tools menu. Defaults to `1.0`.
+  final double minimumZoomScale;
+}
+
 class RawCameraConfiguration {
   const RawCameraConfiguration({
     this.allowRecordVideo = true,
     this.allowSwitchCamera = true,
     this.allowTakePhoto = true,
-    this.cropOptions,
     this.devicePosition = DevicePosition.back,
     this.enableWideCameras = true,
     this.exposureMode = ExposureMode.continuousAutoExposure,
     this.focusMode = FocusMode.continuousAutoFocus,
     this.isVideoMirrored = true,
-    this.locale,
     this.maxDurationSeconds = 30,
     this.maxSizeKB,
     this.minDurationSeconds = 0,
@@ -272,11 +326,6 @@ class RawCameraConfiguration {
 
   /// Max size of the media file in KB.
   final int? maxSizeKB;
-
-  /// The locale of the camera. Defaults to the system locale.
-  final String? locale;
-
-  final CropOptions? cropOptions; // TODO? Move out of here?
 
   /// Allow taking photos in the camera. Defaults to `true`.
   final bool allowTakePhoto;
@@ -333,5 +382,6 @@ abstract class MultiMediaApi {
   RawMediaData? openCamera(
     RawCameraConfiguration cameraConfig,
     RawPickerConfiguration pickerConfig,
+    RawEditConfiguration editConfig,
   );
 }

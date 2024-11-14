@@ -69,4 +69,43 @@ extension ZLPhotoConfiguration {
     self.useCustomCamera = config.useCustomCamera
   }
 
+  func updateEditConfiguration(from config: RawEditConfiguration) {
+    let this = self.editImageConfiguration
+
+    this.minimumZoomScale = CGFloat(config.minimumZoomScale)
+    this.dimClippedAreaDuringAdjustments = config.dimClippedAreaDuringAdjustments
+    this.showClipDirectlyIfOnlyHasClipTool = config.showClipDirectlyIfOnlyHasClipTool
+    this.impactFeedbackWhenAdjustSliderValueIsZero =
+      config.impactFeedbackWhenAdjustSliderValueIsZero
+
+    this.impactFeedbackStyle =
+      UIImpactFeedbackGenerator.FeedbackStyle(rawValue: config.impactFeedbackStyle.rawValue)
+      ?? .medium
+
+    if !config.tools.isEmpty {
+      this.tools = config.tools.compactMap {
+        ZLEditImageConfiguration.EditTool(rawValue: $0.rawValue)
+      }
+    }
+
+    if !config.adjustTools.isEmpty {
+      this.adjustTools = config.adjustTools.compactMap {
+        ZLEditImageConfiguration.AdjustTool(rawValue: $0.rawValue)
+      }
+    }
+
+    if let cropOption = config.clipOptions {
+      if cropOption.type == .circle {
+        this.clipRatios = [ZLImageClipRatio.circle]
+      } else if let aspectRatio = cropOption.aspectRatio {
+        this.clipRatios = [
+          ZLImageClipRatio(
+            title: "",
+            whRatio: CGFloat(aspectRatio.aspectRatioX) / CGFloat(aspectRatio.aspectRatioY)
+          )
+        ]
+      }
+    }
+
+  }
 }

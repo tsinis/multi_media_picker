@@ -24,28 +24,43 @@ enum CaptureSessionPreset {
   photo,
 }
 
-enum UiLocale {
-  system,
-  chineseSimplified,
-  chineseTraditional,
-  english,
-  japanese,
-  french,
-  german,
-  russian,
-  vietnamese,
-  korean,
-  malay,
-  italian,
-  indonesian,
-  portuguese,
-  spanish,
-  turkish,
-  arabic,
-  dutch,
+enum EditTool {
+  draw,
+  clip,
+  textSticker,
+  mosaic,
+  filter,
+  adjust,
 }
 
-enum CropType {
+enum UiLocale {
+  system,
+  arabic,
+  chineseSimplified,
+  chineseTraditional,
+  dutch,
+  english,
+  french,
+  german,
+  indonesian,
+  italian,
+  japanese,
+  korean,
+  malay,
+  portuguese,
+  russian,
+  spanish,
+  turkish,
+  vietnamese,
+}
+
+enum AdjustTool {
+  brightness,
+  contrast,
+  saturation,
+}
+
+enum ClipType {
   rectangle,
   circle,
 }
@@ -65,6 +80,12 @@ enum FocusMode {
   continuousAutoFocus,
 }
 
+enum ImpactFeedbackStyle {
+  light,
+  medium,
+  heavy,
+}
+
 enum MediaType {
   image,
   video,
@@ -75,8 +96,8 @@ enum VideoExportType {
   mp4,
 }
 
-class CropAspectRatio {
-  CropAspectRatio({
+class ClipAspectRatio {
+  ClipAspectRatio({
     required this.aspectRatioX,
     required this.aspectRatioY,
   });
@@ -92,24 +113,24 @@ class CropAspectRatio {
     ];
   }
 
-  static CropAspectRatio decode(Object result) {
+  static ClipAspectRatio decode(Object result) {
     result as List<Object?>;
-    return CropAspectRatio(
+    return ClipAspectRatio(
       aspectRatioX: result[0]! as int,
       aspectRatioY: result[1]! as int,
     );
   }
 }
 
-class CropOptions {
-  CropOptions({
-    this.type = CropType.rectangle,
+class ClipOptions {
+  ClipOptions({
+    this.type = ClipType.rectangle,
     this.aspectRatio,
   });
 
-  CropType type;
+  ClipType type;
 
-  CropAspectRatio? aspectRatio;
+  ClipAspectRatio? aspectRatio;
 
   Object encode() {
     return <Object?>[
@@ -118,11 +139,11 @@ class CropOptions {
     ];
   }
 
-  static CropOptions decode(Object result) {
+  static ClipOptions decode(Object result) {
     result as List<Object?>;
-    return CropOptions(
-      type: result[0]! as CropType,
-      aspectRatio: result[1] as CropAspectRatio?,
+    return ClipOptions(
+      type: result[0]! as ClipType,
+      aspectRatio: result[1] as ClipAspectRatio?,
     );
   }
 }
@@ -430,11 +451,78 @@ class RawPickerConfiguration {
   }
 }
 
+class RawEditConfiguration {
+  RawEditConfiguration({
+    this.tools = const [],
+    this.clipOptions,
+    this.adjustTools = const [],
+    this.showClipDirectlyIfOnlyHasClipTool = false,
+    this.impactFeedbackWhenAdjustSliderValueIsZero = true,
+    this.impactFeedbackStyle = ImpactFeedbackStyle.medium,
+    this.dimClippedAreaDuringAdjustments = false,
+    this.minimumZoomScale = 1.0,
+  });
+
+  /// Edit image tools.
+  /// Default order: `draw`, `clip`, `textSticker`, `mosaic`, `filter`, `adjust`.
+  List<EditTool> tools;
+
+  /// Edit clip type and ratio for the editor.
+  ClipOptions? clipOptions;
+
+  /// Adjust image tools. Default order: `brightness`, `contrast`, `saturation`.
+  List<AdjustTool> adjustTools;
+
+  /// If image edit tools only have clip and this property is `true`,
+  /// the clipping interface will be displayed directly. Defaults to `false`.
+  bool showClipDirectlyIfOnlyHasClipTool;
+
+  /// Give an impact feedback when the adjust slider value is zero.
+  /// Defaults to `true`.
+  bool impactFeedbackWhenAdjustSliderValueIsZero;
+
+  /// Impact feedback style. Defaults to `medium`.
+  ImpactFeedbackStyle impactFeedbackStyle;
+
+  /// Whether to keep the clipped area dimmed during adjustments.
+  /// Defaults to `false`.
+  bool dimClippedAreaDuringAdjustments;
+
+  /// Minimum zoom scale, allowing the user to make the edited photo smaller,
+  /// so it does not overlap top and bottom tools menu. Defaults to `1.0`.
+  double minimumZoomScale;
+
+  Object encode() {
+    return <Object?>[
+      tools,
+      clipOptions,
+      adjustTools,
+      showClipDirectlyIfOnlyHasClipTool,
+      impactFeedbackWhenAdjustSliderValueIsZero,
+      impactFeedbackStyle,
+      dimClippedAreaDuringAdjustments,
+      minimumZoomScale,
+    ];
+  }
+
+  static RawEditConfiguration decode(Object result) {
+    result as List<Object?>;
+    return RawEditConfiguration(
+      tools: (result[0] as List<Object?>?)!.cast<EditTool>(),
+      clipOptions: result[1] as ClipOptions?,
+      adjustTools: (result[2] as List<Object?>?)!.cast<AdjustTool>(),
+      showClipDirectlyIfOnlyHasClipTool: result[3]! as bool,
+      impactFeedbackWhenAdjustSliderValueIsZero: result[4]! as bool,
+      impactFeedbackStyle: result[5]! as ImpactFeedbackStyle,
+      dimClippedAreaDuringAdjustments: result[6]! as bool,
+      minimumZoomScale: result[7]! as double,
+    );
+  }
+}
+
 class RawCameraConfiguration {
   RawCameraConfiguration({
     this.maxSizeKB,
-    this.locale,
-    this.cropOptions,
     this.allowTakePhoto = true,
     this.allowRecordVideo = true,
     this.minDurationSeconds = 0,
@@ -453,11 +541,6 @@ class RawCameraConfiguration {
 
   /// Max size of the media file in KB.
   int? maxSizeKB;
-
-  /// The locale of the camera. Defaults to the system locale.
-  String? locale;
-
-  CropOptions? cropOptions;
 
   /// Allow taking photos in the camera. Defaults to `true`.
   bool allowTakePhoto;
@@ -506,8 +589,6 @@ class RawCameraConfiguration {
   Object encode() {
     return <Object?>[
       maxSizeKB,
-      locale,
-      cropOptions,
       allowTakePhoto,
       allowRecordVideo,
       minDurationSeconds,
@@ -529,22 +610,20 @@ class RawCameraConfiguration {
     result as List<Object?>;
     return RawCameraConfiguration(
       maxSizeKB: result[0] as int?,
-      locale: result[1] as String?,
-      cropOptions: result[2] as CropOptions?,
-      allowTakePhoto: result[3]! as bool,
-      allowRecordVideo: result[4]! as bool,
-      minDurationSeconds: result[5]! as int,
-      maxDurationSeconds: result[6]! as int,
-      isVideoMirrored: result[7]! as bool,
-      sessionPreset: result[8]! as CaptureSessionPreset,
-      focusMode: result[9]! as FocusMode,
-      exposureMode: result[10]! as ExposureMode,
-      showFlashSwitch: result[11]! as bool,
-      allowSwitchCamera: result[12]! as bool,
-      tapToRecordVideo: result[13]! as bool,
-      enableWideCameras: result[14]! as bool,
-      videoExportType: result[15]! as VideoExportType,
-      devicePosition: result[16]! as DevicePosition,
+      allowTakePhoto: result[1]! as bool,
+      allowRecordVideo: result[2]! as bool,
+      minDurationSeconds: result[3]! as int,
+      maxDurationSeconds: result[4]! as int,
+      isVideoMirrored: result[5]! as bool,
+      sessionPreset: result[6]! as CaptureSessionPreset,
+      focusMode: result[7]! as FocusMode,
+      exposureMode: result[8]! as ExposureMode,
+      showFlashSwitch: result[9]! as bool,
+      allowSwitchCamera: result[10]! as bool,
+      tapToRecordVideo: result[11]! as bool,
+      enableWideCameras: result[12]! as bool,
+      videoExportType: result[13]! as VideoExportType,
+      devicePosition: result[14]! as DevicePosition,
     );
   }
 }
@@ -560,41 +639,53 @@ class _PigeonCodec extends StandardMessageCodec {
     }    else if (value is CaptureSessionPreset) {
       buffer.putUint8(129);
       writeValue(buffer, value.index);
-    }    else if (value is UiLocale) {
+    }    else if (value is EditTool) {
       buffer.putUint8(130);
       writeValue(buffer, value.index);
-    }    else if (value is CropType) {
+    }    else if (value is UiLocale) {
       buffer.putUint8(131);
       writeValue(buffer, value.index);
-    }    else if (value is DevicePosition) {
+    }    else if (value is AdjustTool) {
       buffer.putUint8(132);
       writeValue(buffer, value.index);
-    }    else if (value is ExposureMode) {
+    }    else if (value is ClipType) {
       buffer.putUint8(133);
       writeValue(buffer, value.index);
-    }    else if (value is FocusMode) {
+    }    else if (value is DevicePosition) {
       buffer.putUint8(134);
       writeValue(buffer, value.index);
-    }    else if (value is MediaType) {
+    }    else if (value is ExposureMode) {
       buffer.putUint8(135);
       writeValue(buffer, value.index);
-    }    else if (value is VideoExportType) {
+    }    else if (value is FocusMode) {
       buffer.putUint8(136);
       writeValue(buffer, value.index);
-    }    else if (value is CropAspectRatio) {
+    }    else if (value is ImpactFeedbackStyle) {
       buffer.putUint8(137);
-      writeValue(buffer, value.encode());
-    }    else if (value is CropOptions) {
+      writeValue(buffer, value.index);
+    }    else if (value is MediaType) {
       buffer.putUint8(138);
-      writeValue(buffer, value.encode());
-    }    else if (value is RawMediaData) {
+      writeValue(buffer, value.index);
+    }    else if (value is VideoExportType) {
       buffer.putUint8(139);
-      writeValue(buffer, value.encode());
-    }    else if (value is RawPickerConfiguration) {
+      writeValue(buffer, value.index);
+    }    else if (value is ClipAspectRatio) {
       buffer.putUint8(140);
       writeValue(buffer, value.encode());
-    }    else if (value is RawCameraConfiguration) {
+    }    else if (value is ClipOptions) {
       buffer.putUint8(141);
+      writeValue(buffer, value.encode());
+    }    else if (value is RawMediaData) {
+      buffer.putUint8(142);
+      writeValue(buffer, value.encode());
+    }    else if (value is RawPickerConfiguration) {
+      buffer.putUint8(143);
+      writeValue(buffer, value.encode());
+    }    else if (value is RawEditConfiguration) {
+      buffer.putUint8(144);
+      writeValue(buffer, value.encode());
+    }    else if (value is RawCameraConfiguration) {
+      buffer.putUint8(145);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -609,34 +700,45 @@ class _PigeonCodec extends StandardMessageCodec {
         return value == null ? null : CaptureSessionPreset.values[value];
       case 130: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : UiLocale.values[value];
+        return value == null ? null : EditTool.values[value];
       case 131: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : CropType.values[value];
+        return value == null ? null : UiLocale.values[value];
       case 132: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : DevicePosition.values[value];
+        return value == null ? null : AdjustTool.values[value];
       case 133: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : ExposureMode.values[value];
+        return value == null ? null : ClipType.values[value];
       case 134: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : FocusMode.values[value];
+        return value == null ? null : DevicePosition.values[value];
       case 135: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : MediaType.values[value];
+        return value == null ? null : ExposureMode.values[value];
       case 136: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : VideoExportType.values[value];
+        return value == null ? null : FocusMode.values[value];
       case 137: 
-        return CropAspectRatio.decode(readValue(buffer)!);
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : ImpactFeedbackStyle.values[value];
       case 138: 
-        return CropOptions.decode(readValue(buffer)!);
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : MediaType.values[value];
       case 139: 
-        return RawMediaData.decode(readValue(buffer)!);
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : VideoExportType.values[value];
       case 140: 
-        return RawPickerConfiguration.decode(readValue(buffer)!);
+        return ClipAspectRatio.decode(readValue(buffer)!);
       case 141: 
+        return ClipOptions.decode(readValue(buffer)!);
+      case 142: 
+        return RawMediaData.decode(readValue(buffer)!);
+      case 143: 
+        return RawPickerConfiguration.decode(readValue(buffer)!);
+      case 144: 
+        return RawEditConfiguration.decode(readValue(buffer)!);
+      case 145: 
         return RawCameraConfiguration.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -657,7 +759,7 @@ class MultiMediaApi {
 
   final String pigeonVar_messageChannelSuffix;
 
-  Future<RawMediaData?> openCamera(RawCameraConfiguration cameraConfig, RawPickerConfiguration pickerConfig) async {
+  Future<RawMediaData?> openCamera(RawCameraConfiguration cameraConfig, RawPickerConfiguration pickerConfig, RawEditConfiguration editConfig) async {
     final String pigeonVar_channelName = 'dev.flutter.pigeon.multi_media_picker.MultiMediaApi.openCamera$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
@@ -665,7 +767,7 @@ class MultiMediaApi {
       binaryMessenger: pigeonVar_binaryMessenger,
     );
     final List<Object?>? pigeonVar_replyList =
-        await pigeonVar_channel.send(<Object?>[cameraConfig, pickerConfig]) as List<Object?>?;
+        await pigeonVar_channel.send(<Object?>[cameraConfig, pickerConfig, editConfig]) as List<Object?>?;
     if (pigeonVar_replyList == null) {
       throw _createConnectionError(pigeonVar_channelName);
     } else if (pigeonVar_replyList.length > 1) {

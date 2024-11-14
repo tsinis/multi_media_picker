@@ -73,28 +73,43 @@ enum CaptureSessionPreset: Int {
   case photo = 5
 }
 
-enum UiLocale: Int {
-  case system = 0
-  case chineseSimplified = 1
-  case chineseTraditional = 2
-  case english = 3
-  case japanese = 4
-  case french = 5
-  case german = 6
-  case russian = 7
-  case vietnamese = 8
-  case korean = 9
-  case malay = 10
-  case italian = 11
-  case indonesian = 12
-  case portuguese = 13
-  case spanish = 14
-  case turkish = 15
-  case arabic = 16
-  case dutch = 17
+enum EditTool: Int {
+  case draw = 0
+  case clip = 1
+  case textSticker = 2
+  case mosaic = 3
+  case filter = 4
+  case adjust = 5
 }
 
-enum CropType: Int {
+enum UiLocale: Int {
+  case system = 0
+  case arabic = 1
+  case chineseSimplified = 2
+  case chineseTraditional = 3
+  case dutch = 4
+  case english = 5
+  case french = 6
+  case german = 7
+  case indonesian = 8
+  case italian = 9
+  case japanese = 10
+  case korean = 11
+  case malay = 12
+  case portuguese = 13
+  case russian = 14
+  case spanish = 15
+  case turkish = 16
+  case vietnamese = 17
+}
+
+enum AdjustTool: Int {
+  case brightness = 0
+  case contrast = 1
+  case saturation = 2
+}
+
+enum ClipType: Int {
   case rectangle = 0
   case circle = 1
 }
@@ -114,6 +129,12 @@ enum FocusMode: Int {
   case continuousAutoFocus = 1
 }
 
+enum ImpactFeedbackStyle: Int {
+  case light = 0
+  case medium = 1
+  case heavy = 2
+}
+
 enum MediaType: Int {
   case image = 0
   case video = 1
@@ -125,18 +146,18 @@ enum VideoExportType: Int {
 }
 
 /// Generated class from Pigeon that represents data sent in messages.
-struct CropAspectRatio {
+struct ClipAspectRatio {
   var aspectRatioX: Int64
   var aspectRatioY: Int64
 
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> CropAspectRatio? {
+  static func fromList(_ pigeonVar_list: [Any?]) -> ClipAspectRatio? {
     let aspectRatioX = pigeonVar_list[0] as! Int64
     let aspectRatioY = pigeonVar_list[1] as! Int64
 
-    return CropAspectRatio(
+    return ClipAspectRatio(
       aspectRatioX: aspectRatioX,
       aspectRatioY: aspectRatioY
     )
@@ -150,18 +171,18 @@ struct CropAspectRatio {
 }
 
 /// Generated class from Pigeon that represents data sent in messages.
-struct CropOptions {
-  var type: CropType
-  var aspectRatio: CropAspectRatio? = nil
+struct ClipOptions {
+  var type: ClipType
+  var aspectRatio: ClipAspectRatio? = nil
 
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> CropOptions? {
-    let type = pigeonVar_list[0] as! CropType
-    let aspectRatio: CropAspectRatio? = nilOrValue(pigeonVar_list[1])
+  static func fromList(_ pigeonVar_list: [Any?]) -> ClipOptions? {
+    let type = pigeonVar_list[0] as! ClipType
+    let aspectRatio: ClipAspectRatio? = nilOrValue(pigeonVar_list[1])
 
-    return CropOptions(
+    return ClipOptions(
       type: type,
       aspectRatio: aspectRatio
     )
@@ -440,12 +461,71 @@ struct RawPickerConfiguration {
 }
 
 /// Generated class from Pigeon that represents data sent in messages.
+struct RawEditConfiguration {
+  /// Edit image tools.
+  /// Default order: `draw`, `clip`, `textSticker`, `mosaic`, `filter`, `adjust`.
+  var tools: [EditTool]
+  /// Edit clip type and ratio for the editor.
+  var clipOptions: ClipOptions? = nil
+  /// Adjust image tools. Default order: `brightness`, `contrast`, `saturation`.
+  var adjustTools: [AdjustTool]
+  /// If image edit tools only have clip and this property is `true`,
+  /// the clipping interface will be displayed directly. Defaults to `false`.
+  var showClipDirectlyIfOnlyHasClipTool: Bool
+  /// Give an impact feedback when the adjust slider value is zero.
+  /// Defaults to `true`.
+  var impactFeedbackWhenAdjustSliderValueIsZero: Bool
+  /// Impact feedback style. Defaults to `medium`.
+  var impactFeedbackStyle: ImpactFeedbackStyle
+  /// Whether to keep the clipped area dimmed during adjustments.
+  /// Defaults to `false`.
+  var dimClippedAreaDuringAdjustments: Bool
+  /// Minimum zoom scale, allowing the user to make the edited photo smaller,
+  /// so it does not overlap top and bottom tools menu. Defaults to `1.0`.
+  var minimumZoomScale: Double
+
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> RawEditConfiguration? {
+    let tools = pigeonVar_list[0] as! [EditTool]
+    let clipOptions: ClipOptions? = nilOrValue(pigeonVar_list[1])
+    let adjustTools = pigeonVar_list[2] as! [AdjustTool]
+    let showClipDirectlyIfOnlyHasClipTool = pigeonVar_list[3] as! Bool
+    let impactFeedbackWhenAdjustSliderValueIsZero = pigeonVar_list[4] as! Bool
+    let impactFeedbackStyle = pigeonVar_list[5] as! ImpactFeedbackStyle
+    let dimClippedAreaDuringAdjustments = pigeonVar_list[6] as! Bool
+    let minimumZoomScale = pigeonVar_list[7] as! Double
+
+    return RawEditConfiguration(
+      tools: tools,
+      clipOptions: clipOptions,
+      adjustTools: adjustTools,
+      showClipDirectlyIfOnlyHasClipTool: showClipDirectlyIfOnlyHasClipTool,
+      impactFeedbackWhenAdjustSliderValueIsZero: impactFeedbackWhenAdjustSliderValueIsZero,
+      impactFeedbackStyle: impactFeedbackStyle,
+      dimClippedAreaDuringAdjustments: dimClippedAreaDuringAdjustments,
+      minimumZoomScale: minimumZoomScale
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      tools,
+      clipOptions,
+      adjustTools,
+      showClipDirectlyIfOnlyHasClipTool,
+      impactFeedbackWhenAdjustSliderValueIsZero,
+      impactFeedbackStyle,
+      dimClippedAreaDuringAdjustments,
+      minimumZoomScale,
+    ]
+  }
+}
+
+/// Generated class from Pigeon that represents data sent in messages.
 struct RawCameraConfiguration {
   /// Max size of the media file in KB.
   var maxSizeKB: Int64? = nil
-  /// The locale of the camera. Defaults to the system locale.
-  var locale: String? = nil
-  var cropOptions: CropOptions? = nil
   /// Allow taking photos in the camera. Defaults to `true`.
   var allowTakePhoto: Bool
   /// Allow video recording in the camera. Defaults to `true`.
@@ -482,27 +562,23 @@ struct RawCameraConfiguration {
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> RawCameraConfiguration? {
     let maxSizeKB: Int64? = nilOrValue(pigeonVar_list[0])
-    let locale: String? = nilOrValue(pigeonVar_list[1])
-    let cropOptions: CropOptions? = nilOrValue(pigeonVar_list[2])
-    let allowTakePhoto = pigeonVar_list[3] as! Bool
-    let allowRecordVideo = pigeonVar_list[4] as! Bool
-    let minDurationSeconds = pigeonVar_list[5] as! Int64
-    let maxDurationSeconds = pigeonVar_list[6] as! Int64
-    let isVideoMirrored = pigeonVar_list[7] as! Bool
-    let sessionPreset = pigeonVar_list[8] as! CaptureSessionPreset
-    let focusMode = pigeonVar_list[9] as! FocusMode
-    let exposureMode = pigeonVar_list[10] as! ExposureMode
-    let showFlashSwitch = pigeonVar_list[11] as! Bool
-    let allowSwitchCamera = pigeonVar_list[12] as! Bool
-    let tapToRecordVideo = pigeonVar_list[13] as! Bool
-    let enableWideCameras = pigeonVar_list[14] as! Bool
-    let videoExportType = pigeonVar_list[15] as! VideoExportType
-    let devicePosition = pigeonVar_list[16] as! DevicePosition
+    let allowTakePhoto = pigeonVar_list[1] as! Bool
+    let allowRecordVideo = pigeonVar_list[2] as! Bool
+    let minDurationSeconds = pigeonVar_list[3] as! Int64
+    let maxDurationSeconds = pigeonVar_list[4] as! Int64
+    let isVideoMirrored = pigeonVar_list[5] as! Bool
+    let sessionPreset = pigeonVar_list[6] as! CaptureSessionPreset
+    let focusMode = pigeonVar_list[7] as! FocusMode
+    let exposureMode = pigeonVar_list[8] as! ExposureMode
+    let showFlashSwitch = pigeonVar_list[9] as! Bool
+    let allowSwitchCamera = pigeonVar_list[10] as! Bool
+    let tapToRecordVideo = pigeonVar_list[11] as! Bool
+    let enableWideCameras = pigeonVar_list[12] as! Bool
+    let videoExportType = pigeonVar_list[13] as! VideoExportType
+    let devicePosition = pigeonVar_list[14] as! DevicePosition
 
     return RawCameraConfiguration(
       maxSizeKB: maxSizeKB,
-      locale: locale,
-      cropOptions: cropOptions,
       allowTakePhoto: allowTakePhoto,
       allowRecordVideo: allowRecordVideo,
       minDurationSeconds: minDurationSeconds,
@@ -522,8 +598,6 @@ struct RawCameraConfiguration {
   func toList() -> [Any?] {
     return [
       maxSizeKB,
-      locale,
-      cropOptions,
       allowTakePhoto,
       allowRecordVideo,
       minDurationSeconds,
@@ -554,54 +628,74 @@ private class messagesPigeonCodecReader: FlutterStandardReader {
     case 130:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return UiLocale(rawValue: enumResultAsInt)
+        return EditTool(rawValue: enumResultAsInt)
       }
       return nil
     case 131:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return CropType(rawValue: enumResultAsInt)
+        return UiLocale(rawValue: enumResultAsInt)
       }
       return nil
     case 132:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return DevicePosition(rawValue: enumResultAsInt)
+        return AdjustTool(rawValue: enumResultAsInt)
       }
       return nil
     case 133:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return ExposureMode(rawValue: enumResultAsInt)
+        return ClipType(rawValue: enumResultAsInt)
       }
       return nil
     case 134:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return FocusMode(rawValue: enumResultAsInt)
+        return DevicePosition(rawValue: enumResultAsInt)
       }
       return nil
     case 135:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return MediaType(rawValue: enumResultAsInt)
+        return ExposureMode(rawValue: enumResultAsInt)
       }
       return nil
     case 136:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return VideoExportType(rawValue: enumResultAsInt)
+        return FocusMode(rawValue: enumResultAsInt)
       }
       return nil
     case 137:
-      return CropAspectRatio.fromList(self.readValue() as! [Any?])
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return ImpactFeedbackStyle(rawValue: enumResultAsInt)
+      }
+      return nil
     case 138:
-      return CropOptions.fromList(self.readValue() as! [Any?])
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return MediaType(rawValue: enumResultAsInt)
+      }
+      return nil
     case 139:
-      return RawMediaData.fromList(self.readValue() as! [Any?])
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return VideoExportType(rawValue: enumResultAsInt)
+      }
+      return nil
     case 140:
-      return RawPickerConfiguration.fromList(self.readValue() as! [Any?])
+      return ClipAspectRatio.fromList(self.readValue() as! [Any?])
     case 141:
+      return ClipOptions.fromList(self.readValue() as! [Any?])
+    case 142:
+      return RawMediaData.fromList(self.readValue() as! [Any?])
+    case 143:
+      return RawPickerConfiguration.fromList(self.readValue() as! [Any?])
+    case 144:
+      return RawEditConfiguration.fromList(self.readValue() as! [Any?])
+    case 145:
       return RawCameraConfiguration.fromList(self.readValue() as! [Any?])
     default:
       return super.readValue(ofType: type)
@@ -614,41 +708,53 @@ private class messagesPigeonCodecWriter: FlutterStandardWriter {
     if let value = value as? CaptureSessionPreset {
       super.writeByte(129)
       super.writeValue(value.rawValue)
-    } else if let value = value as? UiLocale {
+    } else if let value = value as? EditTool {
       super.writeByte(130)
       super.writeValue(value.rawValue)
-    } else if let value = value as? CropType {
+    } else if let value = value as? UiLocale {
       super.writeByte(131)
       super.writeValue(value.rawValue)
-    } else if let value = value as? DevicePosition {
+    } else if let value = value as? AdjustTool {
       super.writeByte(132)
       super.writeValue(value.rawValue)
-    } else if let value = value as? ExposureMode {
+    } else if let value = value as? ClipType {
       super.writeByte(133)
       super.writeValue(value.rawValue)
-    } else if let value = value as? FocusMode {
+    } else if let value = value as? DevicePosition {
       super.writeByte(134)
       super.writeValue(value.rawValue)
-    } else if let value = value as? MediaType {
+    } else if let value = value as? ExposureMode {
       super.writeByte(135)
       super.writeValue(value.rawValue)
-    } else if let value = value as? VideoExportType {
+    } else if let value = value as? FocusMode {
       super.writeByte(136)
       super.writeValue(value.rawValue)
-    } else if let value = value as? CropAspectRatio {
+    } else if let value = value as? ImpactFeedbackStyle {
       super.writeByte(137)
-      super.writeValue(value.toList())
-    } else if let value = value as? CropOptions {
+      super.writeValue(value.rawValue)
+    } else if let value = value as? MediaType {
       super.writeByte(138)
-      super.writeValue(value.toList())
-    } else if let value = value as? RawMediaData {
+      super.writeValue(value.rawValue)
+    } else if let value = value as? VideoExportType {
       super.writeByte(139)
-      super.writeValue(value.toList())
-    } else if let value = value as? RawPickerConfiguration {
+      super.writeValue(value.rawValue)
+    } else if let value = value as? ClipAspectRatio {
       super.writeByte(140)
       super.writeValue(value.toList())
-    } else if let value = value as? RawCameraConfiguration {
+    } else if let value = value as? ClipOptions {
       super.writeByte(141)
+      super.writeValue(value.toList())
+    } else if let value = value as? RawMediaData {
+      super.writeByte(142)
+      super.writeValue(value.toList())
+    } else if let value = value as? RawPickerConfiguration {
+      super.writeByte(143)
+      super.writeValue(value.toList())
+    } else if let value = value as? RawEditConfiguration {
+      super.writeByte(144)
+      super.writeValue(value.toList())
+    } else if let value = value as? RawCameraConfiguration {
+      super.writeByte(145)
       super.writeValue(value.toList())
     } else {
       super.writeValue(value)
@@ -673,7 +779,7 @@ class messagesPigeonCodec: FlutterStandardMessageCodec, @unchecked Sendable {
 
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol MultiMediaApi {
-  func openCamera(cameraConfig: RawCameraConfiguration, pickerConfig: RawPickerConfiguration, completion: @escaping (Result<RawMediaData?, Error>) -> Void)
+  func openCamera(cameraConfig: RawCameraConfiguration, pickerConfig: RawPickerConfiguration, editConfig: RawEditConfiguration, completion: @escaping (Result<RawMediaData?, Error>) -> Void)
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -688,7 +794,8 @@ class MultiMediaApiSetup {
         let args = message as! [Any?]
         let cameraConfigArg = args[0] as! RawCameraConfiguration
         let pickerConfigArg = args[1] as! RawPickerConfiguration
-        api.openCamera(cameraConfig: cameraConfigArg, pickerConfig: pickerConfigArg) { result in
+        let editConfigArg = args[2] as! RawEditConfiguration
+        api.openCamera(cameraConfig: cameraConfigArg, pickerConfig: pickerConfigArg, editConfig: editConfigArg) { result in
           switch result {
           case .success(let res):
             reply(wrapResult(res))
