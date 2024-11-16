@@ -27,6 +27,7 @@ enum CaptureSessionPreset {
 enum EditTool {
   draw,
   clip,
+  imageSticker,
   textSticker,
   mosaic,
   filter,
@@ -35,34 +36,29 @@ enum EditTool {
 
 enum UiLocale {
   system,
-  arabic,
   chineseSimplified,
   chineseTraditional,
-  dutch,
   english,
+  japanese,
   french,
   german,
-  indonesian,
-  italian,
-  japanese,
+  russian,
+  vietnamese,
   korean,
   malay,
+  italian,
+  indonesian,
   portuguese,
-  russian,
   spanish,
   turkish,
-  vietnamese,
+  arabic,
+  dutch,
 }
 
 enum AdjustTool {
   brightness,
   contrast,
   saturation,
-}
-
-enum ClipType {
-  rectangle,
-  circle,
 }
 
 enum DevicePosition {
@@ -124,17 +120,17 @@ class ClipAspectRatio {
 
 class ClipOptions {
   ClipOptions({
-    this.type = ClipType.rectangle,
+    this.isCircle = false,
     this.aspectRatio,
   });
 
-  ClipType type;
+  bool isCircle;
 
   ClipAspectRatio? aspectRatio;
 
   Object encode() {
     return <Object?>[
-      type,
+      isCircle,
       aspectRatio,
     ];
   }
@@ -142,7 +138,7 @@ class ClipOptions {
   static ClipOptions decode(Object result) {
     result as List<Object?>;
     return ClipOptions(
-      type: result[0]! as ClipType,
+      isCircle: result[0]! as bool,
       aspectRatio: result[1] as ClipAspectRatio?,
     );
   }
@@ -648,44 +644,41 @@ class _PigeonCodec extends StandardMessageCodec {
     }    else if (value is AdjustTool) {
       buffer.putUint8(132);
       writeValue(buffer, value.index);
-    }    else if (value is ClipType) {
+    }    else if (value is DevicePosition) {
       buffer.putUint8(133);
       writeValue(buffer, value.index);
-    }    else if (value is DevicePosition) {
+    }    else if (value is ExposureMode) {
       buffer.putUint8(134);
       writeValue(buffer, value.index);
-    }    else if (value is ExposureMode) {
+    }    else if (value is FocusMode) {
       buffer.putUint8(135);
       writeValue(buffer, value.index);
-    }    else if (value is FocusMode) {
+    }    else if (value is ImpactFeedbackStyle) {
       buffer.putUint8(136);
       writeValue(buffer, value.index);
-    }    else if (value is ImpactFeedbackStyle) {
+    }    else if (value is MediaType) {
       buffer.putUint8(137);
       writeValue(buffer, value.index);
-    }    else if (value is MediaType) {
+    }    else if (value is VideoExportType) {
       buffer.putUint8(138);
       writeValue(buffer, value.index);
-    }    else if (value is VideoExportType) {
-      buffer.putUint8(139);
-      writeValue(buffer, value.index);
     }    else if (value is ClipAspectRatio) {
-      buffer.putUint8(140);
+      buffer.putUint8(139);
       writeValue(buffer, value.encode());
     }    else if (value is ClipOptions) {
-      buffer.putUint8(141);
+      buffer.putUint8(140);
       writeValue(buffer, value.encode());
     }    else if (value is RawMediaData) {
-      buffer.putUint8(142);
+      buffer.putUint8(141);
       writeValue(buffer, value.encode());
     }    else if (value is RawPickerConfiguration) {
-      buffer.putUint8(143);
+      buffer.putUint8(142);
       writeValue(buffer, value.encode());
     }    else if (value is RawEditConfiguration) {
-      buffer.putUint8(144);
+      buffer.putUint8(143);
       writeValue(buffer, value.encode());
     }    else if (value is RawCameraConfiguration) {
-      buffer.putUint8(145);
+      buffer.putUint8(144);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -709,36 +702,33 @@ class _PigeonCodec extends StandardMessageCodec {
         return value == null ? null : AdjustTool.values[value];
       case 133: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : ClipType.values[value];
+        return value == null ? null : DevicePosition.values[value];
       case 134: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : DevicePosition.values[value];
+        return value == null ? null : ExposureMode.values[value];
       case 135: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : ExposureMode.values[value];
+        return value == null ? null : FocusMode.values[value];
       case 136: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : FocusMode.values[value];
+        return value == null ? null : ImpactFeedbackStyle.values[value];
       case 137: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : ImpactFeedbackStyle.values[value];
+        return value == null ? null : MediaType.values[value];
       case 138: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : MediaType.values[value];
-      case 139: 
-        final int? value = readValue(buffer) as int?;
         return value == null ? null : VideoExportType.values[value];
-      case 140: 
+      case 139: 
         return ClipAspectRatio.decode(readValue(buffer)!);
-      case 141: 
+      case 140: 
         return ClipOptions.decode(readValue(buffer)!);
-      case 142: 
+      case 141: 
         return RawMediaData.decode(readValue(buffer)!);
-      case 143: 
+      case 142: 
         return RawPickerConfiguration.decode(readValue(buffer)!);
-      case 144: 
+      case 143: 
         return RawEditConfiguration.decode(readValue(buffer)!);
-      case 145: 
+      case 144: 
         return RawCameraConfiguration.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);

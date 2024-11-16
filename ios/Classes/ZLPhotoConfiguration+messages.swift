@@ -95,7 +95,7 @@ extension ZLPhotoConfiguration {
     }
 
     if let cropOption = config.clipOptions {
-      if cropOption.type == .circle {
+      if cropOption.isCircle {
         this.clipRatios = [ZLImageClipRatio.circle]
       } else if let aspectRatio = cropOption.aspectRatio {
         this.clipRatios = [

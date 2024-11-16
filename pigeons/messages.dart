@@ -12,7 +12,7 @@ enum CaptureSessionPreset {
 enum EditTool {
   draw,
   clip,
-  // imageSticker, // TODO?
+  imageSticker,
   textSticker,
   mosaic,
   filter,
@@ -21,28 +21,26 @@ enum EditTool {
 
 enum UiLocale {
   system,
-  arabic,
   chineseSimplified,
   chineseTraditional,
-  dutch,
   english,
+  japanese,
   french,
   german,
-  indonesian,
-  italian,
-  japanese,
+  russian,
+  vietnamese,
   korean,
   malay,
+  italian,
+  indonesian,
   portuguese,
-  russian,
   spanish,
   turkish,
-  vietnamese,
+  arabic,
+  dutch
 }
 
 enum AdjustTool { brightness, contrast, saturation }
-
-enum ClipType { rectangle, circle }
 
 enum DevicePosition { back, front }
 
@@ -64,9 +62,9 @@ class ClipAspectRatio {
 }
 
 class ClipOptions {
-  const ClipOptions({this.aspectRatio, this.type = ClipType.rectangle});
+  const ClipOptions({this.aspectRatio, this.isCircle = false});
 
-  final ClipType type;
+  final bool isCircle;
   final ClipAspectRatio? aspectRatio;
 }
 
