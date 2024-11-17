@@ -309,12 +309,12 @@ class RawCameraConfiguration {
     this.allowSwitchCamera = true,
     this.allowTakePhoto = true,
     this.devicePosition = DevicePosition.back,
+    this.directoryPath,
     this.enableWideCameras = true,
     this.exposureMode = ExposureMode.continuousAutoExposure,
-    this.fileDirectoryPath,
-    this.fileName,
     this.focusMode = FocusMode.continuousAutoFocus,
-    this.isVideoMirrored = true,
+    this.imageName,
+    this.isFrontVideoMirrored = true,
     this.maxDurationSeconds = 30,
     this.minDurationSeconds = 0,
     this.sessionPreset = CaptureSessionPreset.hd1920x1080,
@@ -337,7 +337,7 @@ class RawCameraConfiguration {
 
   /// Indicates whether the video flowing through the connection should be
   /// mirrored about its vertical axis. Defaults to `true`.
-  final bool isVideoMirrored;
+  final bool isFrontVideoMirrored;
 
   /// Video resolution. Defaults to [CaptureSessionPreset.hd1920x1080].
   final CaptureSessionPreset sessionPreset;
@@ -349,11 +349,11 @@ class RawCameraConfiguration {
   final ExposureMode exposureMode;
 
   /// Directory path for saving the file. Defaults to `null`, temporary directory.
-  final String? fileDirectoryPath;
+  final String? directoryPath;
 
-  /// File name for saving the file.
+  /// Image file name for saving the image or thumbnail file.
   /// Defaults to `null`, random UUID with `multi_media_` prefix.
-  final String? fileName;
+  final String? imageName;
 
   /// Camera flash switch. Defaults to `true`.
   final bool showFlashSwitch;

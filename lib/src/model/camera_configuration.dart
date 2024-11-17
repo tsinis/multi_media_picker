@@ -19,32 +19,29 @@ class CameraConfiguration with _$CameraConfiguration {
     /// The default camera position after entering the camera. Defaults to `back`.
     @Default(DevicePosition.back) DevicePosition devicePosition,
 
+    /// Directory path for saving the file.
+    /// Defaults to `null` - temporary directory.
+    String? directoryPath,
+
     /// Enable the use of wide cameras (on supported devices). Defaults to `true`.
     @Default(true) bool enableWideCameras,
 
     /// Camera exposure mode. Defaults to [ExposureMode.continuousAutoExposure].
     @Default(ExposureMode.continuousAutoExposure) ExposureMode exposureMode,
 
-    /// Directory path for saving the file.
-    /// Defaults to `null` - temporary directory.
-    String? fileDirectoryPath,
-
-    /// File name for saving the file.
+    /// Image file name for saving the image or thumbnail file.
     /// Defaults to `null` - random UUID with `multi_media_` prefix.
-    String? fileName,
+    String? imageName,
 
     /// Camera focus mode. Defaults to [FocusMode.continuousAutoFocus].
     @Default(FocusMode.continuousAutoFocus) FocusMode focusMode,
 
     /// Indicates whether the video flowing through the connection should be
     /// mirrored about its vertical axis. Defaults to `true`.
-    @Default(true) bool isVideoMirrored,
+    @Default(true) bool isFrontVideoMirrored,
 
     /// Maximum recording duration. Defaults to `30` seconds, minimum is `1` sec.
     @Default(Duration(seconds: 30)) Duration maxDuration,
-
-    /// Max size of the media file in KB, Defaults to `null` (no limit).
-    int? maxSizeKB,
 
     /// Minimum recording duration. Defaults to `0`.
     @Default(Duration.zero) Duration minDuration,

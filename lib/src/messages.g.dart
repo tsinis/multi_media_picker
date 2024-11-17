@@ -522,12 +522,12 @@ class RawCameraConfiguration {
     this.allowRecordVideo = true,
     this.minDurationSeconds = 0,
     this.maxDurationSeconds = 30,
-    this.isVideoMirrored = true,
+    this.isFrontVideoMirrored = true,
     this.sessionPreset = CaptureSessionPreset.hd1920x1080,
     this.focusMode = FocusMode.continuousAutoFocus,
     this.exposureMode = ExposureMode.continuousAutoExposure,
-    this.fileDirectoryPath,
-    this.fileName,
+    this.directoryPath,
+    this.imageName,
     this.showFlashSwitch = true,
     this.allowSwitchCamera = true,
     this.tapToRecordVideo = true,
@@ -550,7 +550,7 @@ class RawCameraConfiguration {
 
   /// Indicates whether the video flowing through the connection should be
   /// mirrored about its vertical axis. Defaults to `true`.
-  bool isVideoMirrored;
+  bool isFrontVideoMirrored;
 
   /// Video resolution. Defaults to [CaptureSessionPreset.hd1920x1080].
   CaptureSessionPreset sessionPreset;
@@ -562,11 +562,11 @@ class RawCameraConfiguration {
   ExposureMode exposureMode;
 
   /// Directory path for saving the file. Defaults to `null`, temporary directory.
-  String? fileDirectoryPath;
+  String? directoryPath;
 
-  /// File name for saving the file.
+  /// Image file name for saving the image or thumbnail file.
   /// Defaults to `null`, random UUID with `multi_media_` prefix.
-  String? fileName;
+  String? imageName;
 
   /// Camera flash switch. Defaults to `true`.
   bool showFlashSwitch;
@@ -593,12 +593,12 @@ class RawCameraConfiguration {
       allowRecordVideo,
       minDurationSeconds,
       maxDurationSeconds,
-      isVideoMirrored,
+      isFrontVideoMirrored,
       sessionPreset,
       focusMode,
       exposureMode,
-      fileDirectoryPath,
-      fileName,
+      directoryPath,
+      imageName,
       showFlashSwitch,
       allowSwitchCamera,
       tapToRecordVideo,
@@ -615,12 +615,12 @@ class RawCameraConfiguration {
       allowRecordVideo: result[1]! as bool,
       minDurationSeconds: result[2]! as int,
       maxDurationSeconds: result[3]! as int,
-      isVideoMirrored: result[4]! as bool,
+      isFrontVideoMirrored: result[4]! as bool,
       sessionPreset: result[5]! as CaptureSessionPreset,
       focusMode: result[6]! as FocusMode,
       exposureMode: result[7]! as ExposureMode,
-      fileDirectoryPath: result[8] as String?,
-      fileName: result[9] as String?,
+      directoryPath: result[8] as String?,
+      imageName: result[9] as String?,
       showFlashSwitch: result[10]! as bool,
       allowSwitchCamera: result[11]! as bool,
       tapToRecordVideo: result[12]! as bool,

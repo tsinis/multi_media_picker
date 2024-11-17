@@ -109,8 +109,8 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
   }
 
   private func createImageFile(data: Data?, cameraConfig: RawCameraConfiguration) -> String {
-    let directoryPath = cameraConfig.fileDirectoryPath ?? NSTemporaryDirectory()
-    var fileName = cameraConfig.fileName ?? "multi_media_\(UUID().uuidString).jpg"
+    let directoryPath = cameraConfig.directoryPath ?? NSTemporaryDirectory()
+    var fileName = cameraConfig.imageName ?? "multi_media_\(UUID().uuidString)"
     /// Ensure the file name includes the ".jpg" extension
     if !fileName.lowercased().hasSuffix(".jpg") { fileName += ".jpg" }
 

@@ -7,14 +7,14 @@ extension ZLPhotoConfiguration {
     this.allowRecordVideo = config.allowRecordVideo
     this.allowSwitchCamera = config.allowSwitchCamera
     this.allowTakePhoto = config.allowTakePhoto
-    this.isVideoMirrored = config.isVideoMirrored
+    this.isVideoMirrored = config.isFrontVideoMirrored
     this.maxRecordDuration = Int(config.maxDurationSeconds)
     this.minRecordDuration = Int(config.minDurationSeconds)
     this.showFlashSwitch = config.showFlashSwitch
     //  this.enableWideCameras = config.enableWideCameras // TODO!
     //  this.tapToRecordVideo = config.tapToRecordVideo // TODO!
     this.videoExportType =
-      ZLCameraConfiguration.VideoExportType(rawValue: config.videoExportType.rawValue) ?? .mov
+      ZLCameraConfiguration.VideoExportType(rawValue: config.videoExportType.rawValue) ?? .mp4
     this.devicePosition =
       ZLCameraConfiguration.DevicePosition(rawValue: config.devicePosition.rawValue) ?? .back
     this.focusMode =
