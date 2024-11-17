@@ -44,9 +44,9 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
       var mediaData: RawMediaData?
 
       if let image = image {
-        mediaData = self.resolveImage(image: image)
+        mediaData = self.resolveImage(image: image, cameraConfig: cameraConfig)
       } else if let video = video {
-        mediaData = self.resolveVideo(url: video)
+        mediaData = self.resolveVideo(url: video, cameraConfig: cameraConfig)
       }
 
       completion(.success(mediaData))
@@ -55,30 +55,30 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     viewController.showDetailViewController(camera, sender: nil)
   }
 
-  private func resolveImage(image: UIImage) -> RawMediaData {
-    let path = saveImage(image: image)
+  private func resolveImage(image: UIImage, cameraConfig: RawCameraConfiguration) -> RawMediaData {
+    let path = saveImage(image: image, cameraConfig: cameraConfig)
     let fileSize = getFileSize(atPath: path)
 
     return RawMediaData(path: path, type: .image, thumbPath: path, size: fileSize)
   }
 
-  private func resolveVideo(url: URL) -> RawMediaData {
+  private func resolveVideo(url: URL, cameraConfig: RawCameraConfiguration) -> RawMediaData {
     let path = url.path
     let fileSize = getFileSize(atPath: path)
-    let thumbPath = saveVideoThumbnail(url: path)
+    let thumbPath = saveVideoThumbnail(url: path, cameraConfig: cameraConfig)
 
     return RawMediaData(path: path, type: .video, thumbPath: thumbPath, size: fileSize)
   }
 
-  private func saveImage(image: UIImage) -> String {
-    return createImageFile(data: image.jpegData(compressionQuality: 1))
+  private func saveImage(image: UIImage, cameraConfig: RawCameraConfiguration) -> String {
+    return createImageFile(data: image.jpegData(compressionQuality: 1), cameraConfig: cameraConfig)
   }
 
-  private func saveVideoThumbnail(url: String) -> String? {
+  private func saveVideoThumbnail(url: String, cameraConfig: RawCameraConfiguration) -> String? {
     if let thumb = getVideoThumbPath(url: url) {
       let thumbData = thumb.jpegData(compressionQuality: 1)
 
-      return createImageFile(data: thumbData)
+      return createImageFile(data: thumbData, cameraConfig: cameraConfig)
     }
 
     return nil
@@ -108,12 +108,15 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     }
   }
 
-  private func createImageFile(data: Data?) -> String {  // TODO!
-    let uuid = UUID().uuidString
-    let tempDir = NSTemporaryDirectory()
-    let filename = "\(tempDir)multi_media_\(uuid).jpg"
-    FileManager.default.createFile(atPath: filename, contents: data)
+  private func createImageFile(data: Data?, cameraConfig: RawCameraConfiguration) -> String {
+    let directoryPath = cameraConfig.fileDirectoryPath ?? NSTemporaryDirectory()
+    var fileName = cameraConfig.fileName ?? "multi_media_\(UUID().uuidString).jpg"
+    /// Ensure the file name includes the ".jpg" extension
+    if !fileName.lowercased().hasSuffix(".jpg") { fileName += ".jpg" }
 
-    return filename
+    let filePath = URL(fileURLWithPath: directoryPath).appendingPathComponent(fileName).path
+    FileManager.default.createFile(atPath: filePath, contents: data)
+
+    return filePath
   }
 }
