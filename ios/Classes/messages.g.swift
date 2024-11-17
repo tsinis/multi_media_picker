@@ -520,8 +520,6 @@ struct RawEditConfiguration {
 
 /// Generated class from Pigeon that represents data sent in messages.
 struct RawCameraConfiguration {
-  /// Max size of the media file in KB.
-  var maxSizeKB: Int64? = nil
   /// Allow taking photos in the camera. Defaults to `true`.
   var allowTakePhoto: Bool
   /// Allow video recording in the camera. Defaults to `true`.
@@ -539,6 +537,11 @@ struct RawCameraConfiguration {
   var focusMode: FocusMode
   /// Camera exposure mode. Defaults to [ExposureMode.continuousAutoExposure].
   var exposureMode: ExposureMode
+  /// Directory path for saving the file. Defaults to `null`, temporary directory.
+  var fileDirectoryPath: String? = nil
+  /// File name for saving the file.
+  /// Defaults to `null`, random UUID with `multi_media_` prefix.
+  var fileName: String? = nil
   /// Camera flash switch. Defaults to `true`.
   var showFlashSwitch: Bool
   /// Whether to support switch camera. Defaults to `true`.
@@ -557,24 +560,24 @@ struct RawCameraConfiguration {
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> RawCameraConfiguration? {
-    let maxSizeKB: Int64? = nilOrValue(pigeonVar_list[0])
-    let allowTakePhoto = pigeonVar_list[1] as! Bool
-    let allowRecordVideo = pigeonVar_list[2] as! Bool
-    let minDurationSeconds = pigeonVar_list[3] as! Int64
-    let maxDurationSeconds = pigeonVar_list[4] as! Int64
-    let isVideoMirrored = pigeonVar_list[5] as! Bool
-    let sessionPreset = pigeonVar_list[6] as! CaptureSessionPreset
-    let focusMode = pigeonVar_list[7] as! FocusMode
-    let exposureMode = pigeonVar_list[8] as! ExposureMode
-    let showFlashSwitch = pigeonVar_list[9] as! Bool
-    let allowSwitchCamera = pigeonVar_list[10] as! Bool
-    let tapToRecordVideo = pigeonVar_list[11] as! Bool
-    let enableWideCameras = pigeonVar_list[12] as! Bool
-    let videoExportType = pigeonVar_list[13] as! VideoExportType
-    let devicePosition = pigeonVar_list[14] as! DevicePosition
+    let allowTakePhoto = pigeonVar_list[0] as! Bool
+    let allowRecordVideo = pigeonVar_list[1] as! Bool
+    let minDurationSeconds = pigeonVar_list[2] as! Int64
+    let maxDurationSeconds = pigeonVar_list[3] as! Int64
+    let isVideoMirrored = pigeonVar_list[4] as! Bool
+    let sessionPreset = pigeonVar_list[5] as! CaptureSessionPreset
+    let focusMode = pigeonVar_list[6] as! FocusMode
+    let exposureMode = pigeonVar_list[7] as! ExposureMode
+    let fileDirectoryPath: String? = nilOrValue(pigeonVar_list[8])
+    let fileName: String? = nilOrValue(pigeonVar_list[9])
+    let showFlashSwitch = pigeonVar_list[10] as! Bool
+    let allowSwitchCamera = pigeonVar_list[11] as! Bool
+    let tapToRecordVideo = pigeonVar_list[12] as! Bool
+    let enableWideCameras = pigeonVar_list[13] as! Bool
+    let videoExportType = pigeonVar_list[14] as! VideoExportType
+    let devicePosition = pigeonVar_list[15] as! DevicePosition
 
     return RawCameraConfiguration(
-      maxSizeKB: maxSizeKB,
       allowTakePhoto: allowTakePhoto,
       allowRecordVideo: allowRecordVideo,
       minDurationSeconds: minDurationSeconds,
@@ -583,6 +586,8 @@ struct RawCameraConfiguration {
       sessionPreset: sessionPreset,
       focusMode: focusMode,
       exposureMode: exposureMode,
+      fileDirectoryPath: fileDirectoryPath,
+      fileName: fileName,
       showFlashSwitch: showFlashSwitch,
       allowSwitchCamera: allowSwitchCamera,
       tapToRecordVideo: tapToRecordVideo,
@@ -593,7 +598,6 @@ struct RawCameraConfiguration {
   }
   func toList() -> [Any?] {
     return [
-      maxSizeKB,
       allowTakePhoto,
       allowRecordVideo,
       minDurationSeconds,
@@ -602,6 +606,8 @@ struct RawCameraConfiguration {
       sessionPreset,
       focusMode,
       exposureMode,
+      fileDirectoryPath,
+      fileName,
       showFlashSwitch,
       allowSwitchCamera,
       tapToRecordVideo,

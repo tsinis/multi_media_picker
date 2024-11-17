@@ -35,3 +35,7 @@ doc/api/
 
 .flutter-plugins
 .flutter-plugins-dependencies
+
+# TODO: Hopefully could be replaced with macros.
+lib/**/*.freezed.dart
+.vscode/**

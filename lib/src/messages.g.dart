@@ -518,7 +518,6 @@ class RawEditConfiguration {
 
 class RawCameraConfiguration {
   RawCameraConfiguration({
-    this.maxSizeKB,
     this.allowTakePhoto = true,
     this.allowRecordVideo = true,
     this.minDurationSeconds = 0,
@@ -527,6 +526,8 @@ class RawCameraConfiguration {
     this.sessionPreset = CaptureSessionPreset.hd1920x1080,
     this.focusMode = FocusMode.continuousAutoFocus,
     this.exposureMode = ExposureMode.continuousAutoExposure,
+    this.fileDirectoryPath,
+    this.fileName,
     this.showFlashSwitch = true,
     this.allowSwitchCamera = true,
     this.tapToRecordVideo = true,
@@ -534,9 +535,6 @@ class RawCameraConfiguration {
     this.videoExportType = VideoExportType.mp4,
     this.devicePosition = DevicePosition.back,
   });
-
-  /// Max size of the media file in KB.
-  int? maxSizeKB;
 
   /// Allow taking photos in the camera. Defaults to `true`.
   bool allowTakePhoto;
@@ -563,6 +561,13 @@ class RawCameraConfiguration {
   /// Camera exposure mode. Defaults to [ExposureMode.continuousAutoExposure].
   ExposureMode exposureMode;
 
+  /// Directory path for saving the file. Defaults to `null`, temporary directory.
+  String? fileDirectoryPath;
+
+  /// File name for saving the file.
+  /// Defaults to `null`, random UUID with `multi_media_` prefix.
+  String? fileName;
+
   /// Camera flash switch. Defaults to `true`.
   bool showFlashSwitch;
 
@@ -584,7 +589,6 @@ class RawCameraConfiguration {
 
   Object encode() {
     return <Object?>[
-      maxSizeKB,
       allowTakePhoto,
       allowRecordVideo,
       minDurationSeconds,
@@ -593,6 +597,8 @@ class RawCameraConfiguration {
       sessionPreset,
       focusMode,
       exposureMode,
+      fileDirectoryPath,
+      fileName,
       showFlashSwitch,
       allowSwitchCamera,
       tapToRecordVideo,
@@ -605,21 +611,22 @@ class RawCameraConfiguration {
   static RawCameraConfiguration decode(Object result) {
     result as List<Object?>;
     return RawCameraConfiguration(
-      maxSizeKB: result[0] as int?,
-      allowTakePhoto: result[1]! as bool,
-      allowRecordVideo: result[2]! as bool,
-      minDurationSeconds: result[3]! as int,
-      maxDurationSeconds: result[4]! as int,
-      isVideoMirrored: result[5]! as bool,
-      sessionPreset: result[6]! as CaptureSessionPreset,
-      focusMode: result[7]! as FocusMode,
-      exposureMode: result[8]! as ExposureMode,
-      showFlashSwitch: result[9]! as bool,
-      allowSwitchCamera: result[10]! as bool,
-      tapToRecordVideo: result[11]! as bool,
-      enableWideCameras: result[12]! as bool,
-      videoExportType: result[13]! as VideoExportType,
-      devicePosition: result[14]! as DevicePosition,
+      allowTakePhoto: result[0]! as bool,
+      allowRecordVideo: result[1]! as bool,
+      minDurationSeconds: result[2]! as int,
+      maxDurationSeconds: result[3]! as int,
+      isVideoMirrored: result[4]! as bool,
+      sessionPreset: result[5]! as CaptureSessionPreset,
+      focusMode: result[6]! as FocusMode,
+      exposureMode: result[7]! as ExposureMode,
+      fileDirectoryPath: result[8] as String?,
+      fileName: result[9] as String?,
+      showFlashSwitch: result[10]! as bool,
+      allowSwitchCamera: result[11]! as bool,
+      tapToRecordVideo: result[12]! as bool,
+      enableWideCameras: result[13]! as bool,
+      videoExportType: result[14]! as VideoExportType,
+      devicePosition: result[15]! as DevicePosition,
     );
   }
 }

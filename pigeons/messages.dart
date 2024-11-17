@@ -311,19 +311,17 @@ class RawCameraConfiguration {
     this.devicePosition = DevicePosition.back,
     this.enableWideCameras = true,
     this.exposureMode = ExposureMode.continuousAutoExposure,
+    this.fileDirectoryPath,
+    this.fileName,
     this.focusMode = FocusMode.continuousAutoFocus,
     this.isVideoMirrored = true,
     this.maxDurationSeconds = 30,
-    this.maxSizeKB,
     this.minDurationSeconds = 0,
     this.sessionPreset = CaptureSessionPreset.hd1920x1080,
     this.showFlashSwitch = true,
     this.tapToRecordVideo = true,
     this.videoExportType = VideoExportType.mp4,
   });
-
-  /// Max size of the media file in KB.
-  final int? maxSizeKB;
 
   /// Allow taking photos in the camera. Defaults to `true`.
   final bool allowTakePhoto;
@@ -349,6 +347,13 @@ class RawCameraConfiguration {
 
   /// Camera exposure mode. Defaults to [ExposureMode.continuousAutoExposure].
   final ExposureMode exposureMode;
+
+  /// Directory path for saving the file. Defaults to `null`, temporary directory.
+  final String? fileDirectoryPath;
+
+  /// File name for saving the file.
+  /// Defaults to `null`, random UUID with `multi_media_` prefix.
+  final String? fileName;
 
   /// Camera flash switch. Defaults to `true`.
   final bool showFlashSwitch;

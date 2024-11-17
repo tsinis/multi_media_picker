@@ -1,17 +1,23 @@
 import 'messages.g.dart';
+import 'model/camera_configuration.dart';
+import 'helpers/extensions/camera_configuration_extension.dart';
 
 class MultiMediaPicker {
-  MultiMediaPicker();
-  final _api = MultiMediaApi();
+  const MultiMediaPicker({
+    this.cameraConfiguration = const CameraConfiguration(),
+    this.pickerConfiguration,
+    this.editConfiguration,
+  });
 
-  Future<RawMediaData?> openCamera({
-    RawCameraConfiguration? cameraConfig,
-    RawPickerConfiguration? pickerConfig,
-    RawEditConfiguration? editConfig,
-  }) =>
-      _api.openCamera(
-        cameraConfig ?? RawCameraConfiguration(),
-        pickerConfig ?? RawPickerConfiguration(),
-        editConfig ?? RawEditConfiguration(),
+  final CameraConfiguration cameraConfiguration;
+  final RawEditConfiguration? editConfiguration;
+  final RawPickerConfiguration? pickerConfiguration;
+
+  MultiMediaApi get _api => MultiMediaApi();
+
+  Future<RawMediaData?> openCamera() => _api.openCamera(
+        cameraConfiguration.raw,
+        pickerConfiguration ?? RawPickerConfiguration(),
+        editConfiguration ?? RawEditConfiguration(),
       );
 }

@@ -14,7 +14,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final _multiMediaPicker = MultiMediaPicker();
+  static const _multiMediaPicker = MultiMediaPicker();
   String? path;
 
   @override
@@ -27,9 +27,8 @@ class _MyAppState extends State<MyApp> {
               ElevatedButton(
                 child: Text('Open Camera'),
                 onPressed: () async {
-                  final result = await _multiMediaPicker.openCamera();
-                  if (result == null) return;
-                  setState(() => path = result.thumbPath);
+                  final media = await _multiMediaPicker.openCamera();
+                  if (media != null) setState(() => path = media.thumbPath);
                 },
               ),
               if (path != null)
