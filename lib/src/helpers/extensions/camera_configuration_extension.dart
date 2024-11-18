@@ -1,5 +1,5 @@
 import '../../messages.g.dart';
-import '../../model/camera_configuration.dart';
+import '../../model/configs/camera_configuration.dart';
 
 extension CameraConfigurationExtension on CameraConfiguration {
   RawCameraConfiguration get raw => RawCameraConfiguration(

@@ -2,7 +2,7 @@
 
 import 'package:flutter/foundation.dart' show immutable;
 
-import '../messages.g.dart';
+import '../../messages.g.dart';
 
 @immutable
 class CameraConfiguration {

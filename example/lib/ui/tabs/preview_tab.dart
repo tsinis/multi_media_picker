@@ -9,17 +9,17 @@ import 'package:world_countries/helpers.dart';
 class PreviewTab extends StatelessWidget {
   const PreviewTab(this._media, {super.key});
 
-  final ValueNotifier<RawMediaData?> _media;
+  final ValueNotifier<MediaData?> _media;
 
   @override
-  Widget build(BuildContext context) => ValueListenableBuilder<RawMediaData?>(
+  Widget build(BuildContext context) => ValueListenableBuilder(
         builder: (_, mediaData, __) => MaybeWidget(
-          mediaData?.thumbPath,
+          mediaData?.thumbnail?.path,
           (thumbnail) => Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('File: ${mediaData?.path}', textAlign: TextAlign.center),
+              Text('File: ${mediaData?.file.path}'),
               Text('Size: ${mediaData?.size}', textAlign: TextAlign.center),
               const SizedBox(height: 10),
               Expanded(

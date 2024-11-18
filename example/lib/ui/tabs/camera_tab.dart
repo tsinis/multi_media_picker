@@ -12,7 +12,7 @@ class CameraTab extends StatelessWidget {
 
   final ValueNotifier<CameraConfiguration> _cameraConfig;
 
-  // ignore: avoid_setters_without_getters, _cameraConfig itself is immutable.
+  // ignore: avoid_setters_without_getters, [_cameraConfig] itself is immutable.
   set _updateConfig(CameraConfiguration value) => _cameraConfig.value = value;
 
   @override
@@ -20,8 +20,12 @@ class CameraTab extends StatelessWidget {
         builder: (newContext, config, _) => ListView(
           children: [
             SwitchListTile(
-              onChanged: (allowRecordVideo) => _updateConfig =
-                  config.copyWith(allowRecordVideo: allowRecordVideo),
+              onChanged: (allowRecordVideo) => _updateConfig = config.copyWith(
+                allowRecordVideo: allowRecordVideo,
+                allowTakePhoto: !allowRecordVideo && !config.allowTakePhoto
+                    ? !allowRecordVideo && !config.allowTakePhoto
+                    : config.allowTakePhoto,
+              ),
               subtitle: const SelectableText('allowRecordVideo'),
               title: const Text('Allow Record Video'),
               value: config.allowRecordVideo,
@@ -34,8 +38,12 @@ class CameraTab extends StatelessWidget {
               value: config.allowSwitchCamera,
             ),
             SwitchListTile(
-              onChanged: (allowTakePhoto) => _updateConfig =
-                  config.copyWith(allowTakePhoto: allowTakePhoto),
+              onChanged: (allowTakePhoto) => _updateConfig = config.copyWith(
+                allowRecordVideo: !allowTakePhoto && !config.allowRecordVideo
+                    ? !allowTakePhoto && !config.allowRecordVideo
+                    : config.allowRecordVideo,
+                allowTakePhoto: allowTakePhoto,
+              ),
               subtitle: const SelectableText('allowTakePhoto'),
               title: const Text('Allow Take Photo'),
               value: config.allowTakePhoto,

@@ -15,7 +15,7 @@ class Main extends StatefulWidget {
 
 class _MainState extends State<Main> with SingleTickerProviderStateMixin {
   final _cameraConfig = ValueNotifier(const CameraConfiguration());
-  final _media = ValueNotifier<RawMediaData?>(null);
+  final _media = ValueNotifier<MediaData?>(null);
   late final _tabController = TabController(length: 2, vsync: this);
 
   Future<void> _handleCamera() async {
