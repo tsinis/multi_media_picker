@@ -42,9 +42,9 @@ dart_code_metrics:
     - package:dart_code_metrics_presets/all.yaml
 
   metrics:
-    cyclomatic-complexity: 24
-    maximum-nesting-level: 5
-    number-of-parameters: 4
+    cyclomatic-complexity: 5
+    maximum-nesting-level: 2
+    number-of-parameters: 3
     source-lines-of-code: 60
   metrics-exclude:
     - test/**
@@ -72,17 +72,14 @@ dart_code_metrics:
           - child
           - children
     # Enabled:
+    - always-remove-listener
     - avoid-accessing-collections-by-constant-index
     - avoid-accessing-other-classes-private-members
     - avoid-assigning-to-static-field
     - avoid-assignments-as-conditions
     - avoid-async-call-in-sync-function
-    # - avoid-banned-annotations # explicitly disabled
-    # - avoid-banned-file-names # explicitly disabled
-    # - avoid-banned-imports # explicitly disabled
-    # - avoid-banned-names # explicitly disabled
-    # - avoid-banned-types # explicitly disabled
     - avoid-barrel-files
+    - avoid-border-all
     - avoid-bottom-type-in-patterns
     - avoid-bottom-type-in-records
     - avoid-cascade-after-if-null
@@ -97,6 +94,7 @@ dart_code_metrics:
     - avoid-declaring-call-method
     - avoid-double-slash-imports
     - avoid-duplicate-cascades
+    - avoid-duplicate-collection-elements
     - avoid-duplicate-constant-values
     - avoid-duplicate-exports
     - avoid-duplicate-initializers
@@ -107,43 +105,53 @@ dart_code_metrics:
     - avoid-duplicate-switch-case-conditions
     - avoid-duplicate-test-assertions
     - avoid-dynamic
+    - avoid-empty-setstate
     - avoid-empty-spread
     - avoid-empty-test-groups
     - avoid-equal-expressions
     - avoid-excessive-expressions
+    - avoid-expanded-as-spacer
     - avoid-explicit-pattern-field-name
     - avoid-explicit-type-declaration
     - avoid-extensions-on-records
+    - avoid-flexible-outside-flex
     - avoid-function-type-in-records
     - avoid-future-tostring
     - avoid-generics-shadowing
-    # - avoid-getter-prefix # explicitly disabled
     - avoid-global-state
     - avoid-high-cyclomatic-complexity
     - avoid-identical-exception-handling-blocks
     - avoid-implicitly-nullable-extension-types
     - avoid-importing-entrypoint-exports
+    - avoid-incomplete-copy-with
+    - avoid-incorrect-image-opacity
+    - avoid-incorrect-uri
+    - avoid-inferrable-type-arguments
+    - avoid-inherited-widget-in-initstate
     - avoid-inverted-boolean-checks
     - avoid-keywords-in-wildcard-pattern
+    - avoid-late-context
     - avoid-late-final-reassignment
     - avoid-local-functions
-    - avoid-long-functions
     - avoid-long-files
+    - avoid-long-functions
     - avoid-long-parameter-list
     - avoid-long-records
     - avoid-map-keys-contains
     - avoid-missed-calls
     - avoid-missing-completer-stack-trace
+    - avoid-missing-controller
     - avoid-missing-enum-constant-in-map
+    - avoid-missing-image-alt
     - avoid-missing-interpolation
-    # - avoid-missing-test-files # explicitly disabled
-    - avoid-misused-test-matchers
     - avoid-misused-set-literals
+    - avoid-misused-test-matchers
     - avoid-misused-wildcard-pattern
     - avoid-mixing-named-and-positional-fields
     - avoid-multi-assignment
     - avoid-mutating-parameters
     - avoid-negated-conditions
+    - avoid-negations-in-equality-checks
     - avoid-nested-conditional-expressions
     - avoid-nested-extension-types
     - avoid-nested-futures
@@ -166,6 +174,7 @@ dart_code_metrics:
     - avoid-passing-self-as-argument
     - avoid-positional-record-field-access
     - avoid-recursive-calls
+    - avoid-recursive-widget-calls
     - avoid-redundant-async
     - avoid-redundant-else
     - avoid-redundant-positional-field-name
@@ -175,12 +184,17 @@ dart_code_metrics:
     - avoid-renaming-representation-getters
     - avoid-returning-cascades
     - avoid-returning-void
+    - avoid-returning-widgets
     - avoid-self-assignment
     - avoid-self-compare
     - avoid-shadowed-extension-methods
     - avoid-shadowing
+    - avoid-shrink-wrap-in-lists
     - avoid-similar-names
+    - avoid-single-child-column-or-row
     - avoid-slow-collection-methods
+    - avoid-state-constructors
+    - avoid-stateless-widget-initialized-fields
     - avoid-substring
     - avoid-suspicious-super-overrides
     - avoid-throw-in-catch-block
@@ -191,6 +205,7 @@ dart_code_metrics:
     - avoid-unassigned-stream-subscriptions
     - avoid-uncaught-future-errors
     - avoid-unconditional-break
+    - avoid-undisposed-instances
     - avoid-unknown-pragma
     - avoid-unnecessary-call
     - avoid-unnecessary-collections
@@ -200,14 +215,18 @@ dart_code_metrics:
     - avoid-unnecessary-enum-prefix
     - avoid-unnecessary-extends
     - avoid-unnecessary-futures
+    - avoid-unnecessary-gesture-detector
     - avoid-unnecessary-getter
     - avoid-unnecessary-if
     - avoid-unnecessary-local-late
     - avoid-unnecessary-negations
     - avoid-unnecessary-nullable-return-type
     - avoid-unnecessary-overrides
+    - avoid-unnecessary-overrides-in-state
     - avoid-unnecessary-reassignment
     - avoid-unnecessary-return
+    - avoid-unnecessary-setstate
+    - avoid-unnecessary-stateful-widgets
     - avoid-unnecessary-super
     - avoid-unnecessary-type-assertions
     - avoid-unnecessary-type-casts
@@ -222,16 +241,18 @@ dart_code_metrics:
     - avoid-unused-parameters
     - avoid-weak-cryptographic-algorithms
     - avoid-wildcard-cases-with-enums
-    # - banned-usage # explicitly disabled
+    - avoid-wrapping-in-padding
     - binary-expression-operand-order
+    - check-for-equals-in-render-object-setters
+    - consistent-update-render-object
     - dispose-class-fields
+    - dispose-fields
     - double-literal-format
     - format-comment
-    # - format-test-name # explicitly disabled
     - function-always-returns-null
+    - function-always-returns-same-value
     - handle-throwing-invocations
     - map-keys-ordering
-    # - match-class-name-pattern # explicitly disabled
     - match-getter-setter-field-names
     - match-lib-folder-structure
     - match-positional-field-names-on-assignment
@@ -244,6 +265,7 @@ dart_code_metrics:
     - newline-before-return
     - no-boolean-literal-compare
     - no-empty-block
+    - no-equal-arguments
     - no-equal-conditions
     - no-equal-nested-conditions
     - no-equal-switch-case
@@ -252,16 +274,21 @@ dart_code_metrics:
     - no-object-declaration
     - parameters-ordering
     - prefer-abstract-final-static-class
+    - prefer-action-button-tooltip
+    - prefer-add-all
     - prefer-addition-subtraction-assignments
     - prefer-any-or-every
     - prefer-async-await
     - prefer-boolean-prefixes
     - prefer-both-inlining-annotations
     - prefer-bytes-builder
+    - prefer-center-over-align
     - prefer-commenting-analyzer-ignores
     - prefer-conditional-expressions
+    - prefer-const-border-radius
     - prefer-contains
     - prefer-correct-callback-field-name
+    - prefer-correct-edge-insets-constructor
     - prefer-correct-error-name
     - prefer-correct-for-loop-increment
     - prefer-correct-future-return-type
@@ -275,13 +302,18 @@ dart_code_metrics:
     - prefer-correct-throws
     - prefer-correct-type-name
     - prefer-declaring-const-constructor
+    - prefer-dedicated-media-query-methods
+    - prefer-define-hero-tag
     - prefer-early-return
     - prefer-enums-by-name
     - prefer-explicit-function-type
     - prefer-explicit-parameter-names
     - prefer-explicit-type-arguments
+    - prefer-extracting-callbacks
     - prefer-extracting-function-callbacks
     - prefer-first
+    - prefer-for-in
+    - prefer-for-loop-in-children
     - prefer-getter-over-method
     - prefer-immediate-return
     - prefer-iterable-of
@@ -289,10 +321,10 @@ dart_code_metrics:
     - prefer-match-file-name
     - prefer-moving-to-variable
     - prefer-named-boolean-parameters
-    # - prefer-named-imports # explicitly disabled
     - prefer-named-parameters
     - prefer-null-aware-spread
     - prefer-overriding-parent-equality
+    - prefer-padding-over-container
     - prefer-parentheses-with-if-null
     - prefer-prefixed-global-constants
     - prefer-private-extension-type-field
@@ -302,77 +334,32 @@ dart_code_metrics:
     - prefer-simpler-boolean-expressions
     - prefer-simpler-patterns-null-check
     - prefer-single-declaration-per-file
+    - prefer-single-widget-per-file
+    - prefer-sized-box-square
+    - prefer-sliver-prefix
     - prefer-specific-cases-first
     - prefer-static-class
     - prefer-switch-with-enums
     - prefer-switch-with-sealed-classes
+    - prefer-text-rich
     - prefer-trailing-comma
     - prefer-type-over-var
     - prefer-typedefs-for-callbacks
     - prefer-unique-test-names
     - prefer-unwrapping-future-or
+    - prefer-using-list-view
     - prefer-visible-for-testing-on-members
+    - prefer-widget-private-members
     - prefer-wildcard-pattern
-    # - tag-name # explicitly disabled
+    - proper-super-calls
     - unnecessary-trailing-comma
     - use-existing-variable
-    - avoid-negations-in-equality-checks
-    - avoid-incorrect-uri
-    - function-always-returns-same-value
-    - prefer-add-all
-    - prefer-for-in
-    - prefer-define-hero-tag
-    - always-remove-listener
-    - avoid-border-all
-    - avoid-returning-widgets
-    - avoid-shrink-wrap-in-lists
-    - avoid-unnecessary-setstate
-    - avoid-expanded-as-spacer
-    - avoid-wrapping-in-padding
-    - check-for-equals-in-render-object-setters
-    - consistent-update-render-object
-    - prefer-const-border-radius
-    - prefer-correct-edge-insets-constructor
-    - prefer-extracting-callbacks
-    - prefer-single-widget-per-file
-    - prefer-using-list-view
     - use-setstate-synchronously
-    - avoid-incomplete-copy-with
-    - proper-super-calls
-    - dispose-fields
-    - avoid-empty-setstate
-    - prefer-widget-private-members
-    - prefer-action-button-tooltip
-    - avoid-inherited-widget-in-initstate
-    - avoid-late-context
-    - avoid-state-constructors
-    - avoid-unnecessary-stateful-widgets
-    - avoid-stateless-widget-initialized-fields
-    - avoid-missing-image-alt
-    - avoid-unnecessary-overrides-in-state
-    - prefer-dedicated-media-query-methods
-    - avoid-recursive-widget-calls
-    - prefer-text-rich
-    - prefer-sliver-prefix
-    - avoid-single-child-column-or-row
-    - avoid-undisposed-instances
-    - avoid-unnecessary-gesture-detector
-    - avoid-missing-controller
-    - prefer-for-loop-in-children
-    - avoid-incorrect-image-opacity
-    - prefer-sized-box-square
-    - avoid-flexible-outside-flex
-    - prefer-center-over-align
-    - prefer-padding-over-container
 
     # Disabled:
     - avoid-adjacent-strings: false # Only being used in toString() methods.
-    - avoid-duplicate-collection-elements: false # They are being used on purpose.
     - avoid-ignoring-return-values: false # Mostly, collection methods are ignored.
-    - avoid-inferrable-type-arguments: false # Against prefer-explicit-type-arguments.
-    - enum-constants-ordering: false # This might be a breaking change.
-    - no-equal-arguments: false # Not our use-case here.
-    - prefer-test-matchers: false # Introduces coupling in tests.
+    - prefer-test-matchers: true # Introduces coupling in tests.
 
 linter:
   rules:
