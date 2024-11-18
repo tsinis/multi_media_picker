@@ -1,5 +1,10 @@
+// ignore_for_file: prefer-boolean-prefixes
+
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:multi_media_picker/multi_media_picker.dart';
+
 import '../../ui/helpers/extensions/build_context_extension.dart';
 
 class CameraTab extends StatelessWidget {
@@ -7,175 +12,181 @@ class CameraTab extends StatelessWidget {
 
   final ValueNotifier<CameraConfiguration> _cameraConfig;
 
-  void _updateConfig<T>(CameraConfiguration copyWith) =>
-      _cameraConfig.value = copyWith;
+  // ignore: avoid_setters_without_getters, _cameraConfig itself is immutable.
+  set _updateConfig(CameraConfiguration value) => _cameraConfig.value = value;
 
   @override
-  Widget build(BuildContext context) =>
-      ValueListenableBuilder<CameraConfiguration>(
-        valueListenable: _cameraConfig,
-        builder: (bc, config, _) => ListView(
+  Widget build(BuildContext context) => ValueListenableBuilder(
+        builder: (newContext, config, _) => ListView(
           children: [
             SwitchListTile(
-              title: const Text('Allow Record Video'),
+              onChanged: (allowRecordVideo) => _updateConfig =
+                  config.copyWith(allowRecordVideo: allowRecordVideo),
               subtitle: const SelectableText('allowRecordVideo'),
+              title: const Text('Allow Record Video'),
               value: config.allowRecordVideo,
-              onChanged: (value) =>
-                  _updateConfig(config.copyWith(allowRecordVideo: value)),
             ),
             SwitchListTile(
-              title: const Text('Allow Switch Camera'),
+              onChanged: (allowSwitchCamera) => _updateConfig =
+                  config.copyWith(allowSwitchCamera: allowSwitchCamera),
               subtitle: const SelectableText('allowSwitchCamera'),
+              title: const Text('Allow Switch Camera'),
               value: config.allowSwitchCamera,
-              onChanged: (value) =>
-                  _updateConfig(config.copyWith(allowSwitchCamera: value)),
             ),
             SwitchListTile(
-              title: const Text('Allow Take Photo'),
+              onChanged: (allowTakePhoto) => _updateConfig =
+                  config.copyWith(allowTakePhoto: allowTakePhoto),
               subtitle: const SelectableText('allowTakePhoto'),
+              title: const Text('Allow Take Photo'),
               value: config.allowTakePhoto,
-              onChanged: (value) => _updateConfig(
-                config.copyWith(allowTakePhoto: value),
-              ),
             ),
             ListTile(
-              title: const Text('Device Position'),
-              subtitle: const SelectableText('devicePosition'),
               leadingAndTrailingTextStyle: const TextStyle(),
-              trailing: Text(config.devicePosition.name),
-              onTap: () => bc.showEnumPicker(
-                config.devicePosition,
-                values: DevicePosition.values,
-                onSelected: (value) =>
-                    _updateConfig(config.copyWith(devicePosition: value)),
-              ),
-            ),
-            SwitchListTile(
-              title: const Text('Enable Wide Cameras'),
-              subtitle: const SelectableText('enableWideCameras'),
-              value: config.enableWideCameras,
-              onChanged: (value) =>
-                  _updateConfig(config.copyWith(enableWideCameras: value)),
-            ),
-            ListTile(
-              title: const Text('Exposure Mode'),
-              subtitle: const SelectableText('exposureMode'),
-              leadingAndTrailingTextStyle: const TextStyle(),
-              trailing: Text(config.exposureMode.name),
-              onTap: () => bc.showEnumPicker(
-                config.exposureMode,
-                values: ExposureMode.values,
-                onSelected: (value) => _updateConfig(
-                  config.copyWith(exposureMode: value),
+              onTap: () => unawaited(
+                newContext.showEnumPicker(
+                  config.devicePosition,
+                  onSelected: (devicePosition) => _updateConfig =
+                      config.copyWith(devicePosition: devicePosition),
+                  values: DevicePosition.values,
                 ),
               ),
+              subtitle: const SelectableText('devicePosition'),
+              title: const Text('Device Position'),
+              trailing: Text(config.devicePosition.name),
+            ),
+            SwitchListTile(
+              onChanged: (enableWideCameras) => _updateConfig =
+                  config.copyWith(enableWideCameras: enableWideCameras),
+              subtitle: const SelectableText('enableWideCameras'),
+              title: const Text('Enable Wide Cameras'),
+              value: config.enableWideCameras,
+            ),
+            ListTile(
+              leadingAndTrailingTextStyle: const TextStyle(),
+              onTap: () => unawaited(
+                newContext.showEnumPicker(
+                  config.exposureMode,
+                  onSelected: (exposureMode) => _updateConfig =
+                      config.copyWith(exposureMode: exposureMode),
+                  values: ExposureMode.values,
+                ),
+              ),
+              subtitle: const SelectableText('exposureMode'),
+              title: const Text('Exposure Mode'),
+              trailing: Text(config.exposureMode.name),
             ),
             ListTile(
               subtitle: const SelectableText('directoryPath'),
               title: TextFormField(
+                decoration: const InputDecoration(
+                  hintText: 'Directory where media is saved',
+                ),
                 initialValue: config.directoryPath,
-                decoration:
-                    InputDecoration(hintText: 'Directory where media is saved'),
-                onChanged: (value) =>
-                    _updateConfig(config.copyWith(directoryPath: value)),
+                onChanged: (directoryPath) => _updateConfig =
+                    config.copyWith(directoryPath: directoryPath),
               ),
             ),
             ListTile(
               subtitle: const SelectableText('fileName'),
               title: TextFormField(
+                decoration:
+                    const InputDecoration(hintText: 'Name of the image file'),
                 initialValue: config.imageName,
-                controller: TextEditingController(text: config.imageName),
-                decoration: InputDecoration(hintText: 'Name of the image file'),
-                onChanged: (value) =>
-                    _updateConfig(config.copyWith(imageName: value)),
+                onChanged: (imageName) =>
+                    _updateConfig = config.copyWith(imageName: imageName),
               ),
             ),
             ListTile(
-              title: const Text('Focus Mode'),
+              leadingAndTrailingTextStyle: const TextStyle(),
+              onTap: () => unawaited(
+                newContext.showEnumPicker(
+                  config.focusMode,
+                  onSelected: (focusMode) =>
+                      _updateConfig = config.copyWith(focusMode: focusMode),
+                  values: FocusMode.values,
+                ),
+              ),
               subtitle: const SelectableText('focusMode'),
-              leadingAndTrailingTextStyle: const TextStyle(),
+              title: const Text('Focus Mode'),
               trailing: Text(config.focusMode.name),
-              onTap: () => bc.showEnumPicker(
-                config.focusMode,
-                values: FocusMode.values,
-                onSelected: (value) => _updateConfig(
-                  config.copyWith(focusMode: value),
-                ),
-              ),
             ),
             SwitchListTile(
-              title: const Text('Is Video Mirrored'),
+              onChanged: (isFrontVideoMirrored) => _updateConfig =
+                  config.copyWith(isFrontVideoMirrored: isFrontVideoMirrored),
               subtitle: const SelectableText('isFrontVideoMirrored'),
+              title: const Text('Is Video Mirrored'),
               value: config.isFrontVideoMirrored,
-              onChanged: (value) => _updateConfig(
-                config.copyWith(isFrontVideoMirrored: value),
-              ),
             ),
             ListTile(
-              title: const Text('Maximum video duration in seconds'),
+              leadingAndTrailingTextStyle: const TextStyle(),
+              onTap: () => unawaited(
+                newContext.showDurationPicker(
+                  config.maxDuration,
+                  onSelected: (maxDuration) =>
+                      _updateConfig = config.copyWith(maxDuration: maxDuration),
+                ),
+              ),
               subtitle: const SelectableText('maxDuration'),
-              leadingAndTrailingTextStyle: const TextStyle(),
+              title: const Text('Maximum video duration in seconds'),
               trailing: Text(config.maxDuration.inSeconds.toString()),
-              onTap: () => bc.showDurationPicker(
-                config.maxDuration,
-                onSelected: (value) => _updateConfig(
-                  config.copyWith(maxDuration: value),
-                ),
-              ),
             ),
             ListTile(
-              title: const Text('Minimum video duration in seconds'),
+              leadingAndTrailingTextStyle: const TextStyle(),
+              onTap: () => unawaited(
+                newContext.showDurationPicker(
+                  config.minDuration,
+                  onSelected: (minDuration) =>
+                      _updateConfig = config.copyWith(minDuration: minDuration),
+                ),
+              ),
               subtitle: const SelectableText('minDuration'),
-              leadingAndTrailingTextStyle: const TextStyle(),
+              title: const Text('Minimum video duration in seconds'),
               trailing: Text(config.minDuration.inSeconds.toString()),
-              onTap: () => bc.showDurationPicker(
-                config.minDuration,
-                onSelected: (value) => _updateConfig(
-                  config.copyWith(minDuration: value),
-                ),
-              ),
             ),
             ListTile(
-              title: const Text('Session Preset'),
+              leadingAndTrailingTextStyle: const TextStyle(),
+              onTap: () => unawaited(
+                newContext.showEnumPicker(
+                  config.sessionPreset,
+                  onSelected: (sessionPreset) => _updateConfig =
+                      config.copyWith(sessionPreset: sessionPreset),
+                  values: CaptureSessionPreset.values,
+                ),
+              ),
               subtitle: const SelectableText('sessionPreset'),
-              leadingAndTrailingTextStyle: const TextStyle(),
+              title: const Text('Session Preset'),
               trailing: Text(config.sessionPreset.name),
-              onTap: () => bc.showEnumPicker(
-                config.sessionPreset,
-                values: CaptureSessionPreset.values,
-                onSelected: (value) => _updateConfig(
-                  config.copyWith(sessionPreset: value),
-                ),
-              ),
             ),
             SwitchListTile(
-              title: const Text('Show Flash Switch'),
+              onChanged: (showFlashSwitch) => _updateConfig =
+                  config.copyWith(showFlashSwitch: showFlashSwitch),
               subtitle: const SelectableText('showFlashSwitch'),
+              title: const Text('Show Flash Switch'),
               value: config.showFlashSwitch,
-              onChanged: (value) => _updateConfig(
-                config.copyWith(showFlashSwitch: value),
-              ),
             ),
             SwitchListTile(
-              title: const Text('Tap to Record Video'),
+              onChanged: (tapToRecordVideo) => _updateConfig =
+                  config.copyWith(tapToRecordVideo: tapToRecordVideo),
               subtitle: const SelectableText('tapToRecordVideo'),
+              title: const Text('Tap to Record Video'),
               value: config.tapToRecordVideo,
-              onChanged: (value) =>
-                  _updateConfig(config.copyWith(tapToRecordVideo: value)),
             ),
             ListTile(
-              title: const Text('Video Export Type'),
-              subtitle: const SelectableText('videoExportType'),
               leadingAndTrailingTextStyle: const TextStyle(),
-              trailing: Text(config.videoExportType.name),
-              onTap: () => bc.showEnumPicker(
-                config.videoExportType,
-                values: VideoExportType.values,
-                onSelected: (value) =>
-                    _updateConfig(config.copyWith(videoExportType: value)),
+              onTap: () => unawaited(
+                newContext.showEnumPicker(
+                  config.videoExportType,
+                  onSelected: (videoExportType) => _updateConfig =
+                      config.copyWith(videoExportType: videoExportType),
+                  values: VideoExportType.values,
+                ),
               ),
+              subtitle: const SelectableText('videoExportType'),
+              title: const Text('Video Export Type'),
+              trailing: Text(config.videoExportType.name),
             ),
           ],
         ),
+        valueListenable: _cameraConfig,
       );
 }

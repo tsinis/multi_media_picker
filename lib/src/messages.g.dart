@@ -224,8 +224,8 @@ class RawPickerConfiguration {
   /// Defaults to `9`.
   int maxSelectCount;
 
-  /// A count for video max selection. Defaults to `0`. Warning: Only valid in
-  /// mix selection mode. (i.e. [allowMixSelect] is `true`)
+  /// A count for video max selection. Defaults to `0`. Warning: only valid in
+  /// mix selection mode (i.e. [allowMixSelect] is `true`).
   int maxVideoSelectCount;
 
   /// A count for video min selection. Defaults to `0`.
@@ -260,12 +260,12 @@ class RawPickerConfiguration {
   bool allowSelectGif;
 
   /// Allow select live photo, it only controls whether it is displayed in
-  /// live photo form. If value is `false`, the live photo logo is not displayed.
+  /// live photo form. If value is `false` the live photo logo is not displayed.
   /// Defaults to `false`.
   bool allowSelectLivePhoto;
 
   /// Allow take photos in the album. Defaults to `true`.
-  /// Warning: If [allowTakePhoto] and [allowRecordVideo] are both `false`,
+  /// Warning: If `allowTakePhoto` and `allowRecordVideo` are both `false`,
   /// it will not be displayed.
   bool allowTakePhotoInLibrary;
 
@@ -288,9 +288,10 @@ class RawPickerConfiguration {
   /// is `true` and [maxSelectCount] is `1`.
   bool editAfterSelectThumbnailImage;
 
-  /// Only valid when [allowMixSelect] is `false` and [allowEditVideo] is `true`.
+  /// Only valid when [allowMixSelect] is `false` and [allowEditVideo] is `true`
   /// Defaults to `true`.  If you  want to crop the video after select thumbnail
-  /// under [allowMixSelect] is `true`, please use [editAfterSelectThumbnailImage].
+  /// under [allowMixSelect] is `true`,
+  /// please use [editAfterSelectThumbnailImage].
   bool cropVideoAfterSelectThumbnail;
 
   /// Save the edited image to the album after editing. Defaults to `true`.
@@ -460,7 +461,7 @@ class RawEditConfiguration {
   });
 
   /// Edit image tools.
-  /// Default order: `draw`, `clip`, `textSticker`, `mosaic`, `filter`, `adjust`.
+  /// Default order `draw`, `clip`, `textSticker`, `mosaic`, `filter`, `adjust`.
   List<EditTool> tools;
 
   /// Edit clip type and ratio for the editor.
@@ -561,7 +562,8 @@ class RawCameraConfiguration {
   /// Camera exposure mode. Defaults to [ExposureMode.continuousAutoExposure].
   ExposureMode exposureMode;
 
-  /// Directory path for saving the file. Defaults to `null`, temporary directory.
+  /// Directory path for saving the file. Defaults to `null`,
+  /// temporary directory.
   String? directoryPath;
 
   /// Image file name for saving the image or thumbnail file.

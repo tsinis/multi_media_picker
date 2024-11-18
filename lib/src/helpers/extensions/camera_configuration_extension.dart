@@ -1,5 +1,4 @@
-import 'package:multi_media_picker/src/messages.g.dart';
-
+import '../../messages.g.dart';
 import '../../model/camera_configuration.dart';
 
 extension CameraConfigurationExtension on CameraConfiguration {

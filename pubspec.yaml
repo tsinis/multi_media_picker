@@ -1,24 +1,22 @@
 name: multi_media_picker
-description: "A new Flutter plugin project."
+description: "Multi media picker plugin for Flutter"
 version: 0.0.1
-publish_to: 'none'
+publish_to: "none"
 
 environment:
   sdk: ^3.5.4
-  flutter: '>=3.3.0'
+  flutter: ">=3.3.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  freezed_annotation: ^2.4.4
   plugin_platform_interface: ^2.1.8
 
 dev_dependencies:
-  build_runner: ^2.4.13
+  dart_code_metrics_presets: ^2.18.0
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
-  freezed: ^2.5.7
   pigeon: ^22.6.1
 
 flutter:

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid-nullable-interpolation, TODO: Remove this.
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -11,20 +13,26 @@ class PreviewTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ValueListenableBuilder<RawMediaData?>(
-        valueListenable: _media,
         builder: (_, mediaData, __) => MaybeWidget(
           mediaData?.thumbPath,
           (thumbnail) => Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text('File: ${mediaData?.path}', textAlign: TextAlign.center),
               Text('Size: ${mediaData?.size}', textAlign: TextAlign.center),
-              SizedBox(height: 10),
-              Expanded(child: Image.file(File(thumbnail), fit: BoxFit.cover)),
+              const SizedBox(height: 10),
+              Expanded(
+                child: Image.file(
+                  File(thumbnail),
+                  fit: BoxFit.cover,
+                  semanticLabel: 'Media Preview',
+                ),
+              ),
             ],
           ),
-          orElse: Center(child: const Text('No media to preview.')),
+          orElse: const Center(child: Text('No media to preview.')),
         ),
+        valueListenable: _media,
       );
 }

@@ -4,19 +4,27 @@ import 'package:multi_media_picker/multi_media_picker.dart';
 import 'ui/tabs/camera_tab.dart';
 import 'ui/tabs/preview_tab.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const Main());
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+class Main extends StatefulWidget {
+  const Main({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<Main> createState() => _MainState();
 }
 
-class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
+class _MainState extends State<Main> with SingleTickerProviderStateMixin {
   final _cameraConfig = ValueNotifier(const CameraConfiguration());
   final _media = ValueNotifier<RawMediaData?>(null);
   late final _tabController = TabController(length: 2, vsync: this);
+
+  Future<void> _handleCamera() async {
+    final picker = MultiMediaPicker(cameraConfiguration: _cameraConfig.value);
+    final media = await picker.openCamera();
+    if (media == null) return;
+    _media.value = media;
+    _tabController.animateTo(1);
+  }
 
   @override
   void dispose() {
@@ -26,38 +34,30 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
-  Future<void> _openCamera() async {
-    final picker = MultiMediaPicker(cameraConfiguration: _cameraConfig.value);
-    final media = await picker.openCamera();
-    if (media == null) return;
-    _media.value = media;
-    _tabController.animateTo(1);
-  }
-
   @override
   Widget build(BuildContext context) => MaterialApp(
-        theme: ThemeData.dark(),
         home: Scaffold(
           appBar: AppBar(
-            title: const Text('Multi Media Picker'),
             bottom: TabBar(
               controller: _tabController,
-              tabs: [Tab(text: 'Camera'), Tab(text: 'Preview')],
+              tabs: const [Tab(text: 'Camera'), Tab(text: 'Preview')],
             ),
+            title: const Text('Multi Media Picker'),
           ),
           body: TabBarView(
             controller: _tabController,
-            children: [
-              CameraTab(_cameraConfig),
-              PreviewTab(_media),
-            ],
+            children: [CameraTab(_cameraConfig), PreviewTab(_media)],
+          ),
+          floatingActionButton: FloatingActionButton(
+            heroTag: 'camera',
+            // ignore: avoid-passing-async-when-sync-expected, not necessary.
+            onPressed: _handleCamera,
+            tooltip: 'Open Camera',
+            child: const Icon(Icons.camera_alt_outlined),
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
-          floatingActionButton: FloatingActionButton(
-            onPressed: _openCamera,
-            child: Icon(Icons.camera_alt_outlined),
-          ),
         ),
+        theme: ThemeData.dark(),
       );
 }

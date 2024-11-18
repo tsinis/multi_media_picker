@@ -229,8 +229,8 @@ struct RawPickerConfiguration {
   /// Anything bigger than 1 will enable the multiple selection feature.
   /// Defaults to `9`.
   var maxSelectCount: Int64
-  /// A count for video max selection. Defaults to `0`. Warning: Only valid in
-  /// mix selection mode. (i.e. [allowMixSelect] is `true`)
+  /// A count for video max selection. Defaults to `0`. Warning: only valid in
+  /// mix selection mode (i.e. [allowMixSelect] is `true`).
   var maxVideoSelectCount: Int64
   /// A count for video min selection. Defaults to `0`.
   /// Warning: Only valid in mix selection mode i.e. [allowMixSelect] is `true`.
@@ -256,11 +256,11 @@ struct RawPickerConfiguration {
   /// If value is `false`, the GIF logo is not displayed. Defaults to `true`.
   var allowSelectGif: Bool
   /// Allow select live photo, it only controls whether it is displayed in
-  /// live photo form. If value is `false`, the live photo logo is not displayed.
+  /// live photo form. If value is `false` the live photo logo is not displayed.
   /// Defaults to `false`.
   var allowSelectLivePhoto: Bool
   /// Allow take photos in the album. Defaults to `true`.
-  /// Warning: If [allowTakePhoto] and [allowRecordVideo] are both `false`,
+  /// Warning: If `allowTakePhoto` and `allowRecordVideo` are both `false`,
   /// it will not be displayed.
   var allowTakePhotoInLibrary: Bool
   /// Whether to callback directly after taking a photo. Defaults to `false`.
@@ -278,9 +278,10 @@ struct RawPickerConfiguration {
   /// [maxSelectCount] is `1`. Editing video is only valid when [allowEditVideo]
   /// is `true` and [maxSelectCount] is `1`.
   var editAfterSelectThumbnailImage: Bool
-  /// Only valid when [allowMixSelect] is `false` and [allowEditVideo] is `true`.
+  /// Only valid when [allowMixSelect] is `false` and [allowEditVideo] is `true`
   /// Defaults to `true`.  If you  want to crop the video after select thumbnail
-  /// under [allowMixSelect] is `true`, please use [editAfterSelectThumbnailImage].
+  /// under [allowMixSelect] is `true`,
+  /// please use [editAfterSelectThumbnailImage].
   var cropVideoAfterSelectThumbnail: Bool
   /// Save the edited image to the album after editing. Defaults to `true`.
   var saveNewImageAfterEdit: Bool
@@ -459,7 +460,7 @@ struct RawPickerConfiguration {
 /// Generated class from Pigeon that represents data sent in messages.
 struct RawEditConfiguration {
   /// Edit image tools.
-  /// Default order: `draw`, `clip`, `textSticker`, `mosaic`, `filter`, `adjust`.
+  /// Default order `draw`, `clip`, `textSticker`, `mosaic`, `filter`, `adjust`.
   var tools: [EditTool]
   /// Edit clip type and ratio for the editor.
   var clipOptions: ClipOptions? = nil
@@ -537,7 +538,8 @@ struct RawCameraConfiguration {
   var focusMode: FocusMode
   /// Camera exposure mode. Defaults to [ExposureMode.continuousAutoExposure].
   var exposureMode: ExposureMode
-  /// Directory path for saving the file. Defaults to `null`, temporary directory.
+  /// Directory path for saving the file. Defaults to `null`,
+  /// temporary directory.
   var directoryPath: String? = nil
   /// Image file name for saving the image or thumbnail file.
   /// Defaults to `null`, random UUID with `multi_media_` prefix.
