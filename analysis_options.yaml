@@ -10,7 +10,6 @@ analyzer:
     - "coverage/**"
     # Generated code
     - "**/*.g.dart"
-    - "pigeons/*.dart"
 
   language:
     strict-casts: true

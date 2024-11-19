@@ -218,10 +218,13 @@ class RawCameraConfiguration {
 @ConfigurePigeon(
   PigeonOptions(
     dartOut: 'lib/src/messages.g.dart',
+    dartPackageName: 'multi_media_picker',
+    debugGenerators: true,
+    oneLanguage: false,
     swiftOut: 'ios/Classes/messages.g.swift',
   ),
 )
-@HostApi()
+@HostApi(dartHostTestHandler: 'TestMultiMediaApi')
 abstract class MultiMediaApi {
   @async
   RawMediaData? openCamera(
