@@ -1,0 +1,43 @@
+import '../../messages.g.dart';
+import '../../model/configs/picker_configuration.dart';
+
+extension PickerConfigurationExtension on PickerConfiguration {
+  RawPickerConfiguration get raw => RawPickerConfiguration(
+        allowDragSelect: allowDragSelect,
+        allowEditImage: allowEditImage,
+        allowEditVideo: allowEditVideo,
+        allowMixSelect: allowMixSelect,
+        allowPreviewPhotos: allowPreviewPhotos,
+        allowSelectGif: allowSelectGif,
+        allowSelectImage: allowSelectImage,
+        allowSelectLivePhoto: allowSelectLivePhoto,
+        allowSelectOriginal: allowSelectOriginal,
+        allowSelectVideo: allowSelectVideo,
+        allowSlideSelect: allowSlideSelect,
+        allowTakePhotoInLibrary: allowTakePhotoInLibrary,
+        alwaysRequestOriginal: alwaysRequestOriginal,
+        autoScrollMaxSpeed: autoScrollMaxSpeed,
+        autoScrollWhenSlideSelectIsActive: autoScrollWhenSlideSelectIsActive,
+        callbackDirectlyAfterTakingPhoto: callbackDirectlyAfterTakingPhoto,
+        cropVideoAfterSelectThumbnail: cropVideoAfterSelectThumbnail,
+        downloadVideoBeforeSelecting: downloadVideoBeforeSelecting,
+        editAfterSelectThumbnailImage: editAfterSelectThumbnailImage,
+        initialIndex: initialIndex,
+        maxEditVideoDurationSeconds: maxEditVideoDuration.inSeconds,
+        maxPreviewCount: maxPreviewCount,
+        maxSelectCount: maxSelectCount,
+        maxSelectVideoDataSizeKB: maxSelectVideoDataSizeKB,
+        maxSelectVideoDurationSeconds: maxSelectVideoDuration.inSeconds,
+        maxVideoSelectCount: maxVideoSelectCount,
+        minSelectVideoDataSizeKB: minSelectVideoDataSizeKB,
+        minSelectVideoDurationSeconds: minSelectVideoDuration.inSeconds,
+        minVideoSelectCount: minVideoSelectCount,
+        saveNewImageAfterEdit: saveNewImageAfterEdit,
+        showOriginalSizeWhenSelectOriginal: showOriginalSizeWhenSelectOriginal,
+        showPreviewButtonInAlbum: showPreviewButtonInAlbum,
+        showSelectButtonWhenSingleSelect: showSelectButtonWhenSingleSelect,
+        showSelectCountOnDoneButton: showSelectCountOnDoneButton,
+        showSelectedIndex: showSelectedIndex,
+        useCustomCamera: useCustomCamera,
+      );
+}

@@ -50,7 +50,7 @@ extension ZLPhotoConfiguration {
     self.downloadVideoBeforeSelecting = config.downloadVideoBeforeSelecting
     self.editAfterSelectThumbnailImage = config.editAfterSelectThumbnailImage
     self.initialIndex = Int(config.initialIndex)
-    self.maxEditVideoTime = Int(config.maxEditVideoTime)
+    self.maxEditVideoTime = Int(config.maxEditVideoDurationSeconds)
     self.maxPreviewCount = Int(config.maxPreviewCount)
     self.maxSelectCount = Int(config.maxSelectCount)
     self.maxSelectVideoDataSize = CGFloat(
@@ -63,8 +63,8 @@ extension ZLPhotoConfiguration {
     self.saveNewImageAfterEdit = config.saveNewImageAfterEdit
     self.showOriginalSizeWhenSelectOriginal = config.showOriginalSizeWhenSelectOriginal
     self.showPreviewButtonInAlbum = config.showPreviewButtonInAlbum
-    self.showSelectBtnWhenSingleSelect = config.showSelectBtnWhenSingleSelect
-    self.showSelectCountOnDoneBtn = config.showSelectCountOnDoneBtn
+    self.showSelectBtnWhenSingleSelect = config.showSelectButtonWhenSingleSelect
+    self.showSelectCountOnDoneBtn = config.showSelectCountOnDoneButton
     self.showSelectedIndex = config.showSelectedIndex
     self.useCustomCamera = config.useCustomCamera
   }

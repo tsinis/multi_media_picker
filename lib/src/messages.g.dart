@@ -209,10 +209,10 @@ class RawPickerConfiguration {
     this.showOriginalSizeWhenSelectOriginal = true,
     this.allowPreviewPhotos = true,
     this.showPreviewButtonInAlbum = true,
-    this.showSelectCountOnDoneBtn = true,
-    this.showSelectBtnWhenSingleSelect = false,
+    this.showSelectCountOnDoneButton = true,
+    this.showSelectButtonWhenSingleSelect = false,
     this.showSelectedIndex = true,
-    this.maxEditVideoTime = 10,
+    this.maxEditVideoDurationSeconds = 10,
     this.maxSelectVideoDurationSeconds = 120,
     this.minSelectVideoDurationSeconds = 0,
     this.maxSelectVideoDataSizeKB,
@@ -220,148 +220,76 @@ class RawPickerConfiguration {
     this.useCustomCamera = true,
   });
 
-  /// Anything bigger than 1 will enable the multiple selection feature.
-  /// Defaults to `9`.
   int maxSelectCount;
 
-  /// A count for video max selection. Defaults to `0`. Warning: only valid in
-  /// mix selection mode (i.e. [allowMixSelect] is `true`).
   int maxVideoSelectCount;
 
-  /// A count for video min selection. Defaults to `0`.
-  /// Warning: Only valid in mix selection mode i.e. [allowMixSelect] is `true`.
   int minVideoSelectCount;
 
-  /// Whether photos and videos can be selected together.
-  /// If set to `false`, only one video can be selected. Defaults to `true`.
   bool allowMixSelect;
 
-  /// Preview selection max preview count, if the value is zero, only show
-  /// `Camera`, `Album`, `Cancel` buttons. Defaults to `20`.
   int maxPreviewCount;
 
-  /// The index of the first selected image, and the indices of subsequently
-  /// selected images are incremented based on this value. Defaults to `1`.
   int initialIndex;
 
-  /// If set to `false`, GIF and live photo cannot be selected either.
-  /// Defaults to `true`.
   bool allowSelectImage;
 
-  /// If set to `false`, videos cannot be selected either. Defaults to `true`.
   bool allowSelectVideo;
 
-  /// If set to `true`, videos on iCloud will be downloaded before selection.
-  /// Defaults to `false`.
   bool downloadVideoBeforeSelecting;
 
-  /// Allow select GIF, it only controls whether it is displayed in GIF form.
-  /// If value is `false`, the GIF logo is not displayed. Defaults to `true`.
   bool allowSelectGif;
 
-  /// Allow select live photo, it only controls whether it is displayed in
-  /// live photo form. If value is `false` the live photo logo is not displayed.
-  /// Defaults to `false`.
   bool allowSelectLivePhoto;
 
-  /// Allow take photos in the album. Defaults to `true`.
-  /// Warning: If `allowTakePhoto` and `allowRecordVideo` are both `false`,
-  /// it will not be displayed.
   bool allowTakePhotoInLibrary;
 
-  /// Whether to callback directly after taking a photo. Defaults to `false`.
   bool callbackDirectlyAfterTakingPhoto;
 
-  /// Allows edit images. Defaults to `true`.
   bool allowEditImage;
 
-  /// Warning: The video can only be edited when no photos are selected, or only
-  /// one video is selected, and the selection callback is executed immediately
-  /// after editing is completed.
   bool allowEditVideo;
 
-  /// After selecting a image/video in the thumbnail interface, enter the editing
-  /// interface directly. Defaults to `false`.
-  ///
-  /// Note: Editing image is only valid when [allowEditImage] is `true` and
-  /// [maxSelectCount] is `1`. Editing video is only valid when [allowEditVideo]
-  /// is `true` and [maxSelectCount] is `1`.
   bool editAfterSelectThumbnailImage;
 
-  /// Only valid when [allowMixSelect] is `false` and [allowEditVideo] is `true`
-  /// Defaults to `true`.  If you  want to crop the video after select thumbnail
-  /// under [allowMixSelect] is `true`,
-  /// please use [editAfterSelectThumbnailImage].
   bool cropVideoAfterSelectThumbnail;
 
-  /// Save the edited image to the album after editing. Defaults to `true`.
   bool saveNewImageAfterEdit;
 
-  /// If `true`, you can slide select photos in album. Defaults to `true`.
   bool allowSlideSelect;
 
-  /// When slide select is active, will auto scroll to top or bottom when your
-  /// finger at the top or bottom. Defaults to `true`.
   bool autoScrollWhenSlideSelectIsActive;
 
-  /// The max speed (pt/s) of auto scroll. Defaults to `600`.
   double autoScrollMaxSpeed;
 
-  /// If `true`, you can drag select photo when preview selection style.
-  /// Defaults to `false`.
   bool allowDragSelect;
 
-  /// Allow select full image. Defaults to `true`.
   bool allowSelectOriginal;
 
-  /// Always return the original photo. Warning: Only valid when
-  /// [allowSelectOriginal] is `false`. Defaults to `false`.
   bool alwaysRequestOriginal;
 
-  /// Whether to show the total size of selected photos when selecting the
-  /// original image. Defaults to `true`.
-  ///
-  /// Note: The framework uses a conversion ratio of 1KB=1024Byte, while the
-  /// system album uses 1KB=1000Byte, so the displayed photo size within the
-  /// framework will be smaller than the size in the system album.
   bool showOriginalSizeWhenSelectOriginal;
 
-  /// Allow access to the preview large image interface (whether to
-  /// allow access to the large image interface after clicking the thumbnail
-  /// image). Defaults to `true`.
   bool allowPreviewPhotos;
 
-  /// Whether to show the preview button (i.e. the preview button in the lower
-  /// left corner of the thumbnail interface). Defaults to `true`.
   bool showPreviewButtonInAlbum;
 
-  /// Whether to display the selected count on the button. Defaults to `true`.
-  bool showSelectCountOnDoneBtn;
+  bool showSelectCountOnDoneButton;
 
-  /// In single selection mode, whether to display the selection button.
-  /// Defaults to `false`.
-  bool showSelectBtnWhenSingleSelect;
+  bool showSelectButtonWhenSingleSelect;
 
-  /// Display the index of the selected photos. Defaults to `true`.
   bool showSelectedIndex;
 
-  /// Maximum cropping time when editing video, unit: second. Defaults to `10`.
-  int maxEditVideoTime;
+  int maxEditVideoDurationSeconds;
 
-  /// Allow to choose the maximum duration of the video. Defaults to `120`.
   int maxSelectVideoDurationSeconds;
 
-  /// Allow to choose the minimum duration of the video. Defaults to `0`.
   int minSelectVideoDurationSeconds;
 
-  /// Allow to choose the maximum data size of the video (in KB).
-  /// Defaults to `null` (no limit).
   double? maxSelectVideoDataSizeKB;
 
-  /// Allow to choose the minimum data size of the video. Defaults to `0` KB.
   double minSelectVideoDataSizeKB;
 
-  /// Whether to use custom camera. Defaults to `true`.
   bool useCustomCamera;
 
   Object encode() {
@@ -393,10 +321,10 @@ class RawPickerConfiguration {
       showOriginalSizeWhenSelectOriginal,
       allowPreviewPhotos,
       showPreviewButtonInAlbum,
-      showSelectCountOnDoneBtn,
-      showSelectBtnWhenSingleSelect,
+      showSelectCountOnDoneButton,
+      showSelectButtonWhenSingleSelect,
       showSelectedIndex,
-      maxEditVideoTime,
+      maxEditVideoDurationSeconds,
       maxSelectVideoDurationSeconds,
       minSelectVideoDurationSeconds,
       maxSelectVideoDataSizeKB,
@@ -435,10 +363,10 @@ class RawPickerConfiguration {
       showOriginalSizeWhenSelectOriginal: result[24]! as bool,
       allowPreviewPhotos: result[25]! as bool,
       showPreviewButtonInAlbum: result[26]! as bool,
-      showSelectCountOnDoneBtn: result[27]! as bool,
-      showSelectBtnWhenSingleSelect: result[28]! as bool,
+      showSelectCountOnDoneButton: result[27]! as bool,
+      showSelectButtonWhenSingleSelect: result[28]! as bool,
       showSelectedIndex: result[29]! as bool,
-      maxEditVideoTime: result[30]! as int,
+      maxEditVideoDurationSeconds: result[30]! as int,
       maxSelectVideoDurationSeconds: result[31]! as int,
       minSelectVideoDurationSeconds: result[32]! as int,
       maxSelectVideoDataSizeKB: result[33] as double?,
@@ -460,33 +388,20 @@ class RawEditConfiguration {
     this.minimumZoomScale = 1.0,
   });
 
-  /// Edit image tools.
-  /// Default order `draw`, `clip`, `textSticker`, `mosaic`, `filter`, `adjust`.
   List<EditTool> tools;
 
-  /// Edit clip type and ratio for the editor.
   ClipOptions? clipOptions;
 
-  /// Adjust image tools. Default order: `brightness`, `contrast`, `saturation`.
   List<AdjustTool> adjustTools;
 
-  /// If image edit tools only have clip and this property is `true`,
-  /// the clipping interface will be displayed directly. Defaults to `false`.
   bool showClipDirectlyIfOnlyHasClipTool;
 
-  /// Give an impact feedback when the adjust slider value is zero.
-  /// Defaults to `true`.
   bool impactFeedbackWhenAdjustSliderValueIsZero;
 
-  /// Impact feedback style. Defaults to `medium`.
   ImpactFeedbackStyle impactFeedbackStyle;
 
-  /// Whether to keep the clipped area dimmed during adjustments.
-  /// Defaults to `false`.
   bool dimClippedAreaDuringAdjustments;
 
-  /// Minimum zoom scale, allowing the user to make the edited photo smaller,
-  /// so it does not overlap top and bottom tools menu. Defaults to `1.0`.
   double minimumZoomScale;
 
   Object encode() {
@@ -537,56 +452,36 @@ class RawCameraConfiguration {
     this.devicePosition = DevicePosition.back,
   });
 
-  /// Allow taking photos in the camera. Defaults to `true`.
   bool allowTakePhoto;
 
-  /// Allow video recording in the camera. Defaults to `true`.
   bool allowRecordVideo;
 
-  /// Minimum recording duration. Defaults to `0`.
   int minDurationSeconds;
 
-  /// Maximum recording duration. Defaults to `30`, minimum is `1`.
   int maxDurationSeconds;
 
-  /// Indicates whether the video flowing through the connection should be
-  /// mirrored about its vertical axis. Defaults to `true`.
   bool isFrontVideoMirrored;
 
-  /// Video resolution. Defaults to [CaptureSessionPreset.hd1920x1080].
   CaptureSessionPreset sessionPreset;
 
-  /// Camera focus mode. Defaults to [FocusMode.continuousAutoFocus].
   FocusMode focusMode;
 
-  /// Camera exposure mode. Defaults to [ExposureMode.continuousAutoExposure].
   ExposureMode exposureMode;
 
-  /// Directory path for saving the file. Defaults to `null`,
-  /// temporary directory.
   String? directoryPath;
 
-  /// Image file name for saving the image or thumbnail file.
-  /// Defaults to `null`, random UUID with `multi_media_` prefix.
   String? imageName;
 
-  /// Camera flash switch. Defaults to `true`.
   bool showFlashSwitch;
 
-  /// Whether to support switch camera. Defaults to `true`.
   bool allowSwitchCamera;
 
-  /// Flag to enable tap-to-record functionality. Default is `true`. If
-  /// [allowTakePhoto] is set to `true`, [tapToRecordVideo] will be ignored.
   bool tapToRecordVideo;
 
-  /// Enable the use of wide cameras (on supported devices). Defaults to `true`.
   bool enableWideCameras;
 
-  /// Video export format for recording/editing video. Defaults to `mp4`.
   VideoExportType videoExportType;
 
-  /// The default camera position after entering the camera. Defaults to `back`.
   DevicePosition devicePosition;
 
   Object encode() {

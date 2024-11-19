@@ -226,113 +226,41 @@ struct RawMediaData {
 
 /// Generated class from Pigeon that represents data sent in messages.
 struct RawPickerConfiguration {
-  /// Anything bigger than 1 will enable the multiple selection feature.
-  /// Defaults to `9`.
   var maxSelectCount: Int64
-  /// A count for video max selection. Defaults to `0`. Warning: only valid in
-  /// mix selection mode (i.e. [allowMixSelect] is `true`).
   var maxVideoSelectCount: Int64
-  /// A count for video min selection. Defaults to `0`.
-  /// Warning: Only valid in mix selection mode i.e. [allowMixSelect] is `true`.
   var minVideoSelectCount: Int64
-  /// Whether photos and videos can be selected together.
-  /// If set to `false`, only one video can be selected. Defaults to `true`.
   var allowMixSelect: Bool
-  /// Preview selection max preview count, if the value is zero, only show
-  /// `Camera`, `Album`, `Cancel` buttons. Defaults to `20`.
   var maxPreviewCount: Int64
-  /// The index of the first selected image, and the indices of subsequently
-  /// selected images are incremented based on this value. Defaults to `1`.
   var initialIndex: Int64
-  /// If set to `false`, GIF and live photo cannot be selected either.
-  /// Defaults to `true`.
   var allowSelectImage: Bool
-  /// If set to `false`, videos cannot be selected either. Defaults to `true`.
   var allowSelectVideo: Bool
-  /// If set to `true`, videos on iCloud will be downloaded before selection.
-  /// Defaults to `false`.
   var downloadVideoBeforeSelecting: Bool
-  /// Allow select GIF, it only controls whether it is displayed in GIF form.
-  /// If value is `false`, the GIF logo is not displayed. Defaults to `true`.
   var allowSelectGif: Bool
-  /// Allow select live photo, it only controls whether it is displayed in
-  /// live photo form. If value is `false` the live photo logo is not displayed.
-  /// Defaults to `false`.
   var allowSelectLivePhoto: Bool
-  /// Allow take photos in the album. Defaults to `true`.
-  /// Warning: If `allowTakePhoto` and `allowRecordVideo` are both `false`,
-  /// it will not be displayed.
   var allowTakePhotoInLibrary: Bool
-  /// Whether to callback directly after taking a photo. Defaults to `false`.
   var callbackDirectlyAfterTakingPhoto: Bool
-  /// Allows edit images. Defaults to `true`.
   var allowEditImage: Bool
-  /// Warning: The video can only be edited when no photos are selected, or only
-  /// one video is selected, and the selection callback is executed immediately
-  /// after editing is completed.
   var allowEditVideo: Bool
-  /// After selecting a image/video in the thumbnail interface, enter the editing
-  /// interface directly. Defaults to `false`.
-  ///
-  /// Note: Editing image is only valid when [allowEditImage] is `true` and
-  /// [maxSelectCount] is `1`. Editing video is only valid when [allowEditVideo]
-  /// is `true` and [maxSelectCount] is `1`.
   var editAfterSelectThumbnailImage: Bool
-  /// Only valid when [allowMixSelect] is `false` and [allowEditVideo] is `true`
-  /// Defaults to `true`.  If you  want to crop the video after select thumbnail
-  /// under [allowMixSelect] is `true`,
-  /// please use [editAfterSelectThumbnailImage].
   var cropVideoAfterSelectThumbnail: Bool
-  /// Save the edited image to the album after editing. Defaults to `true`.
   var saveNewImageAfterEdit: Bool
-  /// If `true`, you can slide select photos in album. Defaults to `true`.
   var allowSlideSelect: Bool
-  /// When slide select is active, will auto scroll to top or bottom when your
-  /// finger at the top or bottom. Defaults to `true`.
   var autoScrollWhenSlideSelectIsActive: Bool
-  /// The max speed (pt/s) of auto scroll. Defaults to `600`.
   var autoScrollMaxSpeed: Double
-  /// If `true`, you can drag select photo when preview selection style.
-  /// Defaults to `false`.
   var allowDragSelect: Bool
-  /// Allow select full image. Defaults to `true`.
   var allowSelectOriginal: Bool
-  /// Always return the original photo. Warning: Only valid when
-  /// [allowSelectOriginal] is `false`. Defaults to `false`.
   var alwaysRequestOriginal: Bool
-  /// Whether to show the total size of selected photos when selecting the
-  /// original image. Defaults to `true`.
-  ///
-  /// Note: The framework uses a conversion ratio of 1KB=1024Byte, while the
-  /// system album uses 1KB=1000Byte, so the displayed photo size within the
-  /// framework will be smaller than the size in the system album.
   var showOriginalSizeWhenSelectOriginal: Bool
-  /// Allow access to the preview large image interface (whether to
-  /// allow access to the large image interface after clicking the thumbnail
-  /// image). Defaults to `true`.
   var allowPreviewPhotos: Bool
-  /// Whether to show the preview button (i.e. the preview button in the lower
-  /// left corner of the thumbnail interface). Defaults to `true`.
   var showPreviewButtonInAlbum: Bool
-  /// Whether to display the selected count on the button. Defaults to `true`.
-  var showSelectCountOnDoneBtn: Bool
-  /// In single selection mode, whether to display the selection button.
-  /// Defaults to `false`.
-  var showSelectBtnWhenSingleSelect: Bool
-  /// Display the index of the selected photos. Defaults to `true`.
+  var showSelectCountOnDoneButton: Bool
+  var showSelectButtonWhenSingleSelect: Bool
   var showSelectedIndex: Bool
-  /// Maximum cropping time when editing video, unit: second. Defaults to `10`.
-  var maxEditVideoTime: Int64
-  /// Allow to choose the maximum duration of the video. Defaults to `120`.
+  var maxEditVideoDurationSeconds: Int64
   var maxSelectVideoDurationSeconds: Int64
-  /// Allow to choose the minimum duration of the video. Defaults to `0`.
   var minSelectVideoDurationSeconds: Int64
-  /// Allow to choose the maximum data size of the video (in KB).
-  /// Defaults to `null` (no limit).
   var maxSelectVideoDataSizeKB: Double? = nil
-  /// Allow to choose the minimum data size of the video. Defaults to `0` KB.
   var minSelectVideoDataSizeKB: Double
-  /// Whether to use custom camera. Defaults to `true`.
   var useCustomCamera: Bool
 
 
@@ -366,10 +294,10 @@ struct RawPickerConfiguration {
     let showOriginalSizeWhenSelectOriginal = pigeonVar_list[24] as! Bool
     let allowPreviewPhotos = pigeonVar_list[25] as! Bool
     let showPreviewButtonInAlbum = pigeonVar_list[26] as! Bool
-    let showSelectCountOnDoneBtn = pigeonVar_list[27] as! Bool
-    let showSelectBtnWhenSingleSelect = pigeonVar_list[28] as! Bool
+    let showSelectCountOnDoneButton = pigeonVar_list[27] as! Bool
+    let showSelectButtonWhenSingleSelect = pigeonVar_list[28] as! Bool
     let showSelectedIndex = pigeonVar_list[29] as! Bool
-    let maxEditVideoTime = pigeonVar_list[30] as! Int64
+    let maxEditVideoDurationSeconds = pigeonVar_list[30] as! Int64
     let maxSelectVideoDurationSeconds = pigeonVar_list[31] as! Int64
     let minSelectVideoDurationSeconds = pigeonVar_list[32] as! Int64
     let maxSelectVideoDataSizeKB: Double? = nilOrValue(pigeonVar_list[33])
@@ -404,10 +332,10 @@ struct RawPickerConfiguration {
       showOriginalSizeWhenSelectOriginal: showOriginalSizeWhenSelectOriginal,
       allowPreviewPhotos: allowPreviewPhotos,
       showPreviewButtonInAlbum: showPreviewButtonInAlbum,
-      showSelectCountOnDoneBtn: showSelectCountOnDoneBtn,
-      showSelectBtnWhenSingleSelect: showSelectBtnWhenSingleSelect,
+      showSelectCountOnDoneButton: showSelectCountOnDoneButton,
+      showSelectButtonWhenSingleSelect: showSelectButtonWhenSingleSelect,
       showSelectedIndex: showSelectedIndex,
-      maxEditVideoTime: maxEditVideoTime,
+      maxEditVideoDurationSeconds: maxEditVideoDurationSeconds,
       maxSelectVideoDurationSeconds: maxSelectVideoDurationSeconds,
       minSelectVideoDurationSeconds: minSelectVideoDurationSeconds,
       maxSelectVideoDataSizeKB: maxSelectVideoDataSizeKB,
@@ -444,10 +372,10 @@ struct RawPickerConfiguration {
       showOriginalSizeWhenSelectOriginal,
       allowPreviewPhotos,
       showPreviewButtonInAlbum,
-      showSelectCountOnDoneBtn,
-      showSelectBtnWhenSingleSelect,
+      showSelectCountOnDoneButton,
+      showSelectButtonWhenSingleSelect,
       showSelectedIndex,
-      maxEditVideoTime,
+      maxEditVideoDurationSeconds,
       maxSelectVideoDurationSeconds,
       minSelectVideoDurationSeconds,
       maxSelectVideoDataSizeKB,
@@ -459,26 +387,13 @@ struct RawPickerConfiguration {
 
 /// Generated class from Pigeon that represents data sent in messages.
 struct RawEditConfiguration {
-  /// Edit image tools.
-  /// Default order `draw`, `clip`, `textSticker`, `mosaic`, `filter`, `adjust`.
   var tools: [EditTool]
-  /// Edit clip type and ratio for the editor.
   var clipOptions: ClipOptions? = nil
-  /// Adjust image tools. Default order: `brightness`, `contrast`, `saturation`.
   var adjustTools: [AdjustTool]
-  /// If image edit tools only have clip and this property is `true`,
-  /// the clipping interface will be displayed directly. Defaults to `false`.
   var showClipDirectlyIfOnlyHasClipTool: Bool
-  /// Give an impact feedback when the adjust slider value is zero.
-  /// Defaults to `true`.
   var impactFeedbackWhenAdjustSliderValueIsZero: Bool
-  /// Impact feedback style. Defaults to `medium`.
   var impactFeedbackStyle: ImpactFeedbackStyle
-  /// Whether to keep the clipped area dimmed during adjustments.
-  /// Defaults to `false`.
   var dimClippedAreaDuringAdjustments: Bool
-  /// Minimum zoom scale, allowing the user to make the edited photo smaller,
-  /// so it does not overlap top and bottom tools menu. Defaults to `1.0`.
   var minimumZoomScale: Double
 
 
@@ -521,41 +436,21 @@ struct RawEditConfiguration {
 
 /// Generated class from Pigeon that represents data sent in messages.
 struct RawCameraConfiguration {
-  /// Allow taking photos in the camera. Defaults to `true`.
   var allowTakePhoto: Bool
-  /// Allow video recording in the camera. Defaults to `true`.
   var allowRecordVideo: Bool
-  /// Minimum recording duration. Defaults to `0`.
   var minDurationSeconds: Int64
-  /// Maximum recording duration. Defaults to `30`, minimum is `1`.
   var maxDurationSeconds: Int64
-  /// Indicates whether the video flowing through the connection should be
-  /// mirrored about its vertical axis. Defaults to `true`.
   var isFrontVideoMirrored: Bool
-  /// Video resolution. Defaults to [CaptureSessionPreset.hd1920x1080].
   var sessionPreset: CaptureSessionPreset
-  /// Camera focus mode. Defaults to [FocusMode.continuousAutoFocus].
   var focusMode: FocusMode
-  /// Camera exposure mode. Defaults to [ExposureMode.continuousAutoExposure].
   var exposureMode: ExposureMode
-  /// Directory path for saving the file. Defaults to `null`,
-  /// temporary directory.
   var directoryPath: String? = nil
-  /// Image file name for saving the image or thumbnail file.
-  /// Defaults to `null`, random UUID with `multi_media_` prefix.
   var imageName: String? = nil
-  /// Camera flash switch. Defaults to `true`.
   var showFlashSwitch: Bool
-  /// Whether to support switch camera. Defaults to `true`.
   var allowSwitchCamera: Bool
-  /// Flag to enable tap-to-record functionality. Default is `true`. If
-  /// [allowTakePhoto] is set to `true`, [tapToRecordVideo] will be ignored.
   var tapToRecordVideo: Bool
-  /// Enable the use of wide cameras (on supported devices). Defaults to `true`.
   var enableWideCameras: Bool
-  /// Video export format for recording/editing video. Defaults to `mp4`.
   var videoExportType: VideoExportType
-  /// The default camera position after entering the camera. Defaults to `back`.
   var devicePosition: DevicePosition
 
 
