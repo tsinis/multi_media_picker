@@ -176,12 +176,12 @@ struct RawUiConfiguration {
   var columnCount: Int64
   var minimumItemSpacing: Double
   var minimumLineSpacing: Double
-  var animateSelectBtnWhenSelectInThumbVC: Bool
-  var animateSelectBtnWhenSelectInPreviewVC: Bool
-  var selectBtnAnimationDuration: Double
-  var showIndexOnSelectBtn: Bool
-  var showScrollToBottomBtn: Bool
-  var showCaptureImageOnTakePhotoBtn: Bool
+  var animateSelectButtonWhenSelectInThumbnail: Bool
+  var animateSelectButtonWhenSelectInPreview: Bool
+  var selectButtonAnimationDuration: Double
+  var showIndexOnSelectButton: Bool
+  var showScrollToBottomButton: Bool
+  var showCaptureImageOnTakePhotoButton: Bool
   var showSelectedMask: Bool
   var showSelectedBorder: Bool
   var showInvalidMask: Bool
@@ -209,12 +209,12 @@ struct RawUiConfiguration {
     let columnCount = pigeonVar_list[8] as! Int64
     let minimumItemSpacing = pigeonVar_list[9] as! Double
     let minimumLineSpacing = pigeonVar_list[10] as! Double
-    let animateSelectBtnWhenSelectInThumbVC = pigeonVar_list[11] as! Bool
-    let animateSelectBtnWhenSelectInPreviewVC = pigeonVar_list[12] as! Bool
-    let selectBtnAnimationDuration = pigeonVar_list[13] as! Double
-    let showIndexOnSelectBtn = pigeonVar_list[14] as! Bool
-    let showScrollToBottomBtn = pigeonVar_list[15] as! Bool
-    let showCaptureImageOnTakePhotoBtn = pigeonVar_list[16] as! Bool
+    let animateSelectButtonWhenSelectInThumbnail = pigeonVar_list[11] as! Bool
+    let animateSelectButtonWhenSelectInPreview = pigeonVar_list[12] as! Bool
+    let selectButtonAnimationDuration = pigeonVar_list[13] as! Double
+    let showIndexOnSelectButton = pigeonVar_list[14] as! Bool
+    let showScrollToBottomButton = pigeonVar_list[15] as! Bool
+    let showCaptureImageOnTakePhotoButton = pigeonVar_list[16] as! Bool
     let showSelectedMask = pigeonVar_list[17] as! Bool
     let showSelectedBorder = pigeonVar_list[18] as! Bool
     let showInvalidMask = pigeonVar_list[19] as! Bool
@@ -239,12 +239,12 @@ struct RawUiConfiguration {
       columnCount: columnCount,
       minimumItemSpacing: minimumItemSpacing,
       minimumLineSpacing: minimumLineSpacing,
-      animateSelectBtnWhenSelectInThumbVC: animateSelectBtnWhenSelectInThumbVC,
-      animateSelectBtnWhenSelectInPreviewVC: animateSelectBtnWhenSelectInPreviewVC,
-      selectBtnAnimationDuration: selectBtnAnimationDuration,
-      showIndexOnSelectBtn: showIndexOnSelectBtn,
-      showScrollToBottomBtn: showScrollToBottomBtn,
-      showCaptureImageOnTakePhotoBtn: showCaptureImageOnTakePhotoBtn,
+      animateSelectButtonWhenSelectInThumbnail: animateSelectButtonWhenSelectInThumbnail,
+      animateSelectButtonWhenSelectInPreview: animateSelectButtonWhenSelectInPreview,
+      selectButtonAnimationDuration: selectButtonAnimationDuration,
+      showIndexOnSelectButton: showIndexOnSelectButton,
+      showScrollToBottomButton: showScrollToBottomButton,
+      showCaptureImageOnTakePhotoButton: showCaptureImageOnTakePhotoButton,
       showSelectedMask: showSelectedMask,
       showSelectedBorder: showSelectedBorder,
       showInvalidMask: showInvalidMask,
@@ -271,12 +271,12 @@ struct RawUiConfiguration {
       columnCount,
       minimumItemSpacing,
       minimumLineSpacing,
-      animateSelectBtnWhenSelectInThumbVC,
-      animateSelectBtnWhenSelectInPreviewVC,
-      selectBtnAnimationDuration,
-      showIndexOnSelectBtn,
-      showScrollToBottomBtn,
-      showCaptureImageOnTakePhotoBtn,
+      animateSelectButtonWhenSelectInThumbnail,
+      animateSelectButtonWhenSelectInPreview,
+      selectButtonAnimationDuration,
+      showIndexOnSelectButton,
+      showScrollToBottomButton,
+      showCaptureImageOnTakePhotoButton,
       showSelectedMask,
       showSelectedBorder,
       showInvalidMask,

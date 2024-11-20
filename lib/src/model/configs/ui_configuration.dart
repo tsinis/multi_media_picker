@@ -10,8 +10,8 @@ import '../../messages.g.dart';
 class UiConfiguration {
   const UiConfiguration({
     this.adjustSliderType = AdjustSliderType.vertical,
-    this.animateSelectBtnWhenSelectInPreviewVC = true,
-    this.animateSelectBtnWhenSelectInThumbVC = false,
+    this.animateSelectButtonWhenSelectInPreview = true,
+    this.animateSelectButtonWhenSelectInThumbnail = false,
     this.cellCornerRadio = 0,
     this.columnCount = 4,
     this.hudStyle = HudStyle.dark,
@@ -20,14 +20,14 @@ class UiConfiguration {
     this.minimumItemSpacing = 2,
     this.minimumLineSpacing = 2,
     this.navCancelButtonStyle = CancelButtonStyle.image,
-    this.selectBtnAnimationDuration = const Duration(milliseconds: 500),
+    this.selectButtonAnimationDuration = const Duration(milliseconds: 500),
     this.shouldCenterTools = false,
     this.showAddPhotoButton = true,
-    this.showCaptureImageOnTakePhotoBtn = false,
+    this.showCaptureImageOnTakePhotoButton = false,
     this.showEnterSettingTips = true,
-    this.showIndexOnSelectBtn = false,
+    this.showIndexOnSelectButton = false,
     this.showInvalidMask = true,
-    this.showScrollToBottomBtn = false,
+    this.showScrollToBottomButton = false,
     this.showSelectedBorder = false,
     this.showSelectedMask = true,
     this.showSelectedPhotoPreview = true,
@@ -79,25 +79,25 @@ class UiConfiguration {
 
   /// In thumb image interface, control whether to display the selection button
   /// animation when selecting. Defaults to `false`.
-  final bool animateSelectBtnWhenSelectInThumbVC;
+  final bool animateSelectButtonWhenSelectInThumbnail;
 
   /// In preview interface, control whether to display the selection button
   /// animation when selecting. Defaults to `true`.
-  final bool animateSelectBtnWhenSelectInPreviewVC;
+  final bool animateSelectButtonWhenSelectInPreview;
 
   /// Animation duration for select button. Defaults to `500` milliseconds.
-  final Duration selectBtnAnimationDuration;
+  final Duration selectButtonAnimationDuration;
 
   /// Whether to display the serial number above the selected button. Defaults
   /// to `false`.
-  final bool showIndexOnSelectBtn;
+  final bool showIndexOnSelectButton;
 
   /// Whether to display scroll to bottom button. Defaults to `false`.
-  final bool showScrollToBottomBtn;
+  final bool showScrollToBottomButton;
 
   /// Show the image captured by the camera is displayed on the camera button
   /// inside the album. Defaults to `false`.
-  final bool showCaptureImageOnTakePhotoBtn;
+  final bool showCaptureImageOnTakePhotoButton;
 
   /// Overlay a mask layer on top of the selected photos. Defaults to `true`.
   final bool showSelectedMask;
@@ -135,8 +135,8 @@ class UiConfiguration {
   // ignore: avoid-high-cyclomatic-complexity, regular copyWith of a big class.
   UiConfiguration copyWith({
     AdjustSliderType? adjustSliderType,
-    bool? animateSelectBtnWhenSelectInPreviewVC,
-    bool? animateSelectBtnWhenSelectInThumbVC,
+    bool? animateSelectButtonWhenSelectInPreview,
+    bool? animateSelectButtonWhenSelectInThumbnail,
     double? cellCornerRadio,
     int? columnCount,
     HudStyle? hudStyle,
@@ -145,14 +145,14 @@ class UiConfiguration {
     double? minimumItemSpacing,
     double? minimumLineSpacing,
     CancelButtonStyle? navCancelButtonStyle,
-    Duration? selectBtnAnimationDuration,
+    Duration? selectButtonAnimationDuration,
     bool? shouldCenterTools,
     bool? showAddPhotoButton,
-    bool? showCaptureImageOnTakePhotoBtn,
+    bool? showCaptureImageOnTakePhotoButton,
     bool? showEnterSettingTips,
-    bool? showIndexOnSelectBtn,
+    bool? showIndexOnSelectButton,
     bool? showInvalidMask,
-    bool? showScrollToBottomBtn,
+    bool? showScrollToBottomButton,
     bool? showSelectedBorder,
     bool? showSelectedMask,
     bool? showSelectedPhotoPreview,
@@ -164,12 +164,12 @@ class UiConfiguration {
   }) =>
       UiConfiguration(
         adjustSliderType: adjustSliderType ?? this.adjustSliderType,
-        animateSelectBtnWhenSelectInPreviewVC:
-            animateSelectBtnWhenSelectInPreviewVC ??
-                this.animateSelectBtnWhenSelectInPreviewVC,
-        animateSelectBtnWhenSelectInThumbVC:
-            animateSelectBtnWhenSelectInThumbVC ??
-                this.animateSelectBtnWhenSelectInThumbVC,
+        animateSelectButtonWhenSelectInPreview:
+            animateSelectButtonWhenSelectInPreview ??
+                this.animateSelectButtonWhenSelectInPreview,
+        animateSelectButtonWhenSelectInThumbnail:
+            animateSelectButtonWhenSelectInThumbnail ??
+                this.animateSelectButtonWhenSelectInThumbnail,
         cellCornerRadio: cellCornerRadio ?? this.cellCornerRadio,
         columnCount: columnCount ?? this.columnCount,
         hudStyle: hudStyle ?? this.hudStyle,
@@ -178,17 +178,18 @@ class UiConfiguration {
         minimumItemSpacing: minimumItemSpacing ?? this.minimumItemSpacing,
         minimumLineSpacing: minimumLineSpacing ?? this.minimumLineSpacing,
         navCancelButtonStyle: navCancelButtonStyle ?? this.navCancelButtonStyle,
-        selectBtnAnimationDuration:
-            selectBtnAnimationDuration ?? this.selectBtnAnimationDuration,
+        selectButtonAnimationDuration:
+            selectButtonAnimationDuration ?? this.selectButtonAnimationDuration,
         shouldCenterTools: shouldCenterTools ?? this.shouldCenterTools,
         showAddPhotoButton: showAddPhotoButton ?? this.showAddPhotoButton,
-        showCaptureImageOnTakePhotoBtn: showCaptureImageOnTakePhotoBtn ??
-            this.showCaptureImageOnTakePhotoBtn,
+        showCaptureImageOnTakePhotoButton: showCaptureImageOnTakePhotoButton ??
+            this.showCaptureImageOnTakePhotoButton,
         showEnterSettingTips: showEnterSettingTips ?? this.showEnterSettingTips,
-        showIndexOnSelectBtn: showIndexOnSelectBtn ?? this.showIndexOnSelectBtn,
+        showIndexOnSelectButton:
+            showIndexOnSelectButton ?? this.showIndexOnSelectButton,
         showInvalidMask: showInvalidMask ?? this.showInvalidMask,
-        showScrollToBottomBtn:
-            showScrollToBottomBtn ?? this.showScrollToBottomBtn,
+        showScrollToBottomButton:
+            showScrollToBottomButton ?? this.showScrollToBottomButton,
         showSelectedBorder: showSelectedBorder ?? this.showSelectedBorder,
         showSelectedMask: showSelectedMask ?? this.showSelectedMask,
         showSelectedPhotoPreview:
@@ -211,12 +212,12 @@ class UiConfiguration {
       'cellCornerRadio: $cellCornerRadio, columnCount: $columnCount, '
       'minimumItemSpacing: $minimumItemSpacing, '
       'minimumLineSpacing: $minimumLineSpacing, '
-      '''animateSelectBtnWhenSelectInThumbVC: $animateSelectBtnWhenSelectInThumbVC, '''
-      '''animateSelectBtnWhenSelectInPreviewVC: $animateSelectBtnWhenSelectInPreviewVC, '''
-      'selectBtnAnimationDuration: $selectBtnAnimationDuration, '
-      'showIndexOnSelectBtn: $showIndexOnSelectBtn, '
-      'showScrollToBottomBtn: $showScrollToBottomBtn, '
-      'showCaptureImageOnTakePhotoBtn: $showCaptureImageOnTakePhotoBtn, '
+      '''animateSelectButtonWhenSelectInThumbnail: $animateSelectButtonWhenSelectInThumbnail, '''
+      '''animateSelectButtonWhenSelectInPreview: $animateSelectButtonWhenSelectInPreview, '''
+      'selectButtonAnimationDuration: $selectButtonAnimationDuration, '
+      'showIndexOnSelectButton: $showIndexOnSelectButton, '
+      'showScrollToBottomButton: $showScrollToBottomButton, '
+      'showCaptureImageOnTakePhotoButton: $showCaptureImageOnTakePhotoButton, '
       'showSelectedMask: $showSelectedMask, '
       'showSelectedBorder: $showSelectedBorder, '
       'showInvalidMask: $showInvalidMask, '
@@ -245,15 +246,15 @@ class UiConfiguration {
         other.columnCount == columnCount &&
         other.minimumItemSpacing == minimumItemSpacing &&
         other.minimumLineSpacing == minimumLineSpacing &&
-        other.animateSelectBtnWhenSelectInThumbVC ==
-            animateSelectBtnWhenSelectInThumbVC &&
-        other.animateSelectBtnWhenSelectInPreviewVC ==
-            animateSelectBtnWhenSelectInPreviewVC &&
-        other.selectBtnAnimationDuration == selectBtnAnimationDuration &&
-        other.showIndexOnSelectBtn == showIndexOnSelectBtn &&
-        other.showScrollToBottomBtn == showScrollToBottomBtn &&
-        other.showCaptureImageOnTakePhotoBtn ==
-            showCaptureImageOnTakePhotoBtn &&
+        other.animateSelectButtonWhenSelectInThumbnail ==
+            animateSelectButtonWhenSelectInThumbnail &&
+        other.animateSelectButtonWhenSelectInPreview ==
+            animateSelectButtonWhenSelectInPreview &&
+        other.selectButtonAnimationDuration == selectButtonAnimationDuration &&
+        other.showIndexOnSelectButton == showIndexOnSelectButton &&
+        other.showScrollToBottomButton == showScrollToBottomButton &&
+        other.showCaptureImageOnTakePhotoButton ==
+            showCaptureImageOnTakePhotoButton &&
         other.showSelectedMask == showSelectedMask &&
         other.showSelectedBorder == showSelectedBorder &&
         other.showInvalidMask == showInvalidMask &&
@@ -279,12 +280,12 @@ class UiConfiguration {
       columnCount.hashCode ^
       minimumItemSpacing.hashCode ^
       minimumLineSpacing.hashCode ^
-      animateSelectBtnWhenSelectInThumbVC.hashCode ^
-      animateSelectBtnWhenSelectInPreviewVC.hashCode ^
-      selectBtnAnimationDuration.hashCode ^
-      showIndexOnSelectBtn.hashCode ^
-      showScrollToBottomBtn.hashCode ^
-      showCaptureImageOnTakePhotoBtn.hashCode ^
+      animateSelectButtonWhenSelectInThumbnail.hashCode ^
+      animateSelectButtonWhenSelectInPreview.hashCode ^
+      selectButtonAnimationDuration.hashCode ^
+      showIndexOnSelectButton.hashCode ^
+      showScrollToBottomButton.hashCode ^
+      showCaptureImageOnTakePhotoButton.hashCode ^
       showSelectedMask.hashCode ^
       showSelectedBorder.hashCode ^
       showInvalidMask.hashCode ^

@@ -127,12 +127,12 @@ class RawUiConfiguration {
     this.columnCount = 4,
     this.minimumItemSpacing = 2.0,
     this.minimumLineSpacing = 2.0,
-    this.animateSelectBtnWhenSelectInThumbVC = false,
-    this.animateSelectBtnWhenSelectInPreviewVC = true,
-    this.selectBtnAnimationDuration = 0.5,
-    this.showIndexOnSelectBtn = false,
-    this.showScrollToBottomBtn = false,
-    this.showCaptureImageOnTakePhotoBtn = false,
+    this.animateSelectButtonWhenSelectInThumbnail = false,
+    this.animateSelectButtonWhenSelectInPreview = true,
+    this.selectButtonAnimationDuration = 0.5,
+    this.showIndexOnSelectButton = false,
+    this.showScrollToBottomButton = false,
+    this.showCaptureImageOnTakePhotoButton = false,
     this.showSelectedMask = true,
     this.showSelectedBorder = false,
     this.showInvalidMask = true,
@@ -168,17 +168,17 @@ class RawUiConfiguration {
 
   double minimumLineSpacing;
 
-  bool animateSelectBtnWhenSelectInThumbVC;
+  bool animateSelectButtonWhenSelectInThumbnail;
 
-  bool animateSelectBtnWhenSelectInPreviewVC;
+  bool animateSelectButtonWhenSelectInPreview;
 
-  double selectBtnAnimationDuration;
+  double selectButtonAnimationDuration;
 
-  bool showIndexOnSelectBtn;
+  bool showIndexOnSelectButton;
 
-  bool showScrollToBottomBtn;
+  bool showScrollToBottomButton;
 
-  bool showCaptureImageOnTakePhotoBtn;
+  bool showCaptureImageOnTakePhotoButton;
 
   bool showSelectedMask;
 
@@ -215,12 +215,12 @@ class RawUiConfiguration {
       columnCount,
       minimumItemSpacing,
       minimumLineSpacing,
-      animateSelectBtnWhenSelectInThumbVC,
-      animateSelectBtnWhenSelectInPreviewVC,
-      selectBtnAnimationDuration,
-      showIndexOnSelectBtn,
-      showScrollToBottomBtn,
-      showCaptureImageOnTakePhotoBtn,
+      animateSelectButtonWhenSelectInThumbnail,
+      animateSelectButtonWhenSelectInPreview,
+      selectButtonAnimationDuration,
+      showIndexOnSelectButton,
+      showScrollToBottomButton,
+      showCaptureImageOnTakePhotoButton,
       showSelectedMask,
       showSelectedBorder,
       showInvalidMask,
@@ -249,12 +249,12 @@ class RawUiConfiguration {
       columnCount: result[8]! as int,
       minimumItemSpacing: result[9]! as double,
       minimumLineSpacing: result[10]! as double,
-      animateSelectBtnWhenSelectInThumbVC: result[11]! as bool,
-      animateSelectBtnWhenSelectInPreviewVC: result[12]! as bool,
-      selectBtnAnimationDuration: result[13]! as double,
-      showIndexOnSelectBtn: result[14]! as bool,
-      showScrollToBottomBtn: result[15]! as bool,
-      showCaptureImageOnTakePhotoBtn: result[16]! as bool,
+      animateSelectButtonWhenSelectInThumbnail: result[11]! as bool,
+      animateSelectButtonWhenSelectInPreview: result[12]! as bool,
+      selectButtonAnimationDuration: result[13]! as double,
+      showIndexOnSelectButton: result[14]! as bool,
+      showScrollToBottomButton: result[15]! as bool,
+      showCaptureImageOnTakePhotoButton: result[16]! as bool,
       showSelectedMask: result[17]! as bool,
       showSelectedBorder: result[18]! as bool,
       showInvalidMask: result[19]! as bool,

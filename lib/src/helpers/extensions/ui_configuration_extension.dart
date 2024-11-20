@@ -4,10 +4,10 @@ import '../../model/configs/ui_configuration.dart';
 extension UiConfigurationExtension on UiConfiguration {
   RawUiConfiguration get raw => RawUiConfiguration(
         adjustSliderType: adjustSliderType,
-        animateSelectBtnWhenSelectInPreviewVC:
-            animateSelectBtnWhenSelectInPreviewVC,
-        animateSelectBtnWhenSelectInThumbVC:
-            animateSelectBtnWhenSelectInThumbVC,
+        animateSelectButtonWhenSelectInPreview:
+            animateSelectButtonWhenSelectInPreview,
+        animateSelectButtonWhenSelectInThumbnail:
+            animateSelectButtonWhenSelectInThumbnail,
         cellCornerRadio: cellCornerRadio,
         columnCount: columnCount.clamp(2, 6),
         hudStyle: hudStyle,
@@ -16,15 +16,16 @@ extension UiConfigurationExtension on UiConfiguration {
         minimumItemSpacing: minimumItemSpacing,
         minimumLineSpacing: minimumLineSpacing,
         navCancelButtonStyle: navCancelButtonStyle,
-        selectBtnAnimationDuration: selectBtnAnimationDuration.inMilliseconds /
-            Duration.millisecondsPerSecond,
+        selectButtonAnimationDuration:
+            selectButtonAnimationDuration.inMilliseconds /
+                Duration.millisecondsPerSecond,
         shouldCenterTools: shouldCenterTools,
         showAddPhotoButton: showAddPhotoButton,
-        showCaptureImageOnTakePhotoBtn: showCaptureImageOnTakePhotoBtn,
+        showCaptureImageOnTakePhotoButton: showCaptureImageOnTakePhotoButton,
         showEnterSettingTips: showEnterSettingTips,
-        showIndexOnSelectBtn: showIndexOnSelectBtn,
+        showIndexOnSelectButton: showIndexOnSelectButton,
         showInvalidMask: showInvalidMask,
-        showScrollToBottomBtn: showScrollToBottomBtn,
+        showScrollToBottomButton: showScrollToBottomButton,
         showSelectedBorder: showSelectedBorder,
         showSelectedMask: showSelectedMask,
         showSelectedPhotoPreview: showSelectedPhotoPreview,

@@ -5,8 +5,9 @@ extension ZLPhotoUIConfiguration {
     self.sortAscending = config.sortAscending
     self.adjustSliderType =
       ZLAdjustSliderType(rawValue: config.adjustSliderType.rawValue) ?? .vertical
-    self.animateSelectBtnWhenSelectInPreviewVC = config.animateSelectBtnWhenSelectInPreviewVC
-    self.animateSelectBtnWhenSelectInThumbVC = config.animateSelectBtnWhenSelectInThumbVC
+    self.animateSelectBtnWhenSelectInPreviewVC = config.animateSelectButtonWhenSelectInPreview
+    self.animateSelectBtnWhenSelectInThumbVC =
+      config.animateSelectButtonWhenSelectInThumbnail
     self.cellCornerRadio = CGFloat(config.cellCornerRadio)
     self.columnCount = Int(config.columnCount)
     self.hudStyle = ZLProgressHUD.Style(rawValue: config.hudStyle.rawValue) ?? .dark
@@ -16,14 +17,14 @@ extension ZLPhotoUIConfiguration {
     self.navCancelButtonStyle =
       ZLPhotoUIConfiguration.CancelButtonStyle(rawValue: config.navCancelButtonStyle.rawValue)
       ?? .image
-    self.selectBtnAnimationDuration = CFTimeInterval(config.selectBtnAnimationDuration)
+    self.selectBtnAnimationDuration = CFTimeInterval(config.selectButtonAnimationDuration)
     self.shouldCenterTools = config.shouldCenterTools
     self.showAddPhotoButton = config.showAddPhotoButton
-    self.showCaptureImageOnTakePhotoBtn = config.showCaptureImageOnTakePhotoBtn
+    self.showCaptureImageOnTakePhotoBtn = config.showCaptureImageOnTakePhotoButton
     self.showEnterSettingTips = config.showEnterSettingTips
-    self.showIndexOnSelectBtn = config.showIndexOnSelectBtn
+    self.showIndexOnSelectBtn = config.showIndexOnSelectButton
     self.showInvalidMask = config.showInvalidMask
-    self.showScrollToBottomBtn = config.showScrollToBottomBtn
+    self.showScrollToBottomBtn = config.showScrollToBottomButton
     self.showSelectedBorder = config.showSelectedBorder
     self.showSelectedMask = config.showSelectedMask
     self.showSelectedPhotoPreview = config.showSelectedPhotoPreview

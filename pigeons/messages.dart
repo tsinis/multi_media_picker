@@ -70,8 +70,8 @@ enum VideoExportType { mov, mp4 }
 class RawUiConfiguration {
   const RawUiConfiguration({
     this.adjustSliderType = AdjustSliderType.vertical,
-    this.animateSelectBtnWhenSelectInPreviewVC = true,
-    this.animateSelectBtnWhenSelectInThumbVC = false,
+    this.animateSelectButtonWhenSelectInPreview = true,
+    this.animateSelectButtonWhenSelectInThumbnail = false,
     this.cellCornerRadio = 0.0,
     this.columnCount = 4,
     this.hudStyle = HudStyle.dark,
@@ -80,14 +80,14 @@ class RawUiConfiguration {
     this.minimumItemSpacing = 2.0,
     this.minimumLineSpacing = 2.0,
     this.navCancelButtonStyle = CancelButtonStyle.image,
-    this.selectBtnAnimationDuration = 0.5,
+    this.selectButtonAnimationDuration = 0.5,
     this.shouldCenterTools = false,
     this.showAddPhotoButton = true,
-    this.showCaptureImageOnTakePhotoBtn = false,
+    this.showCaptureImageOnTakePhotoButton = false,
     this.showEnterSettingTips = true,
-    this.showIndexOnSelectBtn = false,
+    this.showIndexOnSelectButton = false,
     this.showInvalidMask = true,
-    this.showScrollToBottomBtn = false,
+    this.showScrollToBottomButton = false,
     this.showSelectedBorder = false,
     this.showSelectedMask = true,
     this.showSelectedPhotoPreview = true,
@@ -110,12 +110,12 @@ class RawUiConfiguration {
   final int columnCount;
   final double minimumItemSpacing;
   final double minimumLineSpacing;
-  final bool animateSelectBtnWhenSelectInThumbVC;
-  final bool animateSelectBtnWhenSelectInPreviewVC;
-  final double selectBtnAnimationDuration;
-  final bool showIndexOnSelectBtn;
-  final bool showScrollToBottomBtn;
-  final bool showCaptureImageOnTakePhotoBtn;
+  final bool animateSelectButtonWhenSelectInThumbnail;
+  final bool animateSelectButtonWhenSelectInPreview;
+  final double selectButtonAnimationDuration;
+  final bool showIndexOnSelectButton;
+  final bool showScrollToBottomButton;
+  final bool showCaptureImageOnTakePhotoButton;
   final bool showSelectedMask;
   final bool showSelectedBorder;
   final bool showInvalidMask;
