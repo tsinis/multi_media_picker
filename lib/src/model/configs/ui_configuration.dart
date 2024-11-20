@@ -17,8 +17,8 @@ class UiConfiguration {
     this.hudStyle = HudStyle.dark,
     this.isDarkStatusBarStyle = false,
     this.languageType = UiLocale.system,
-    this.minimumItemSpacing = 2.0,
-    this.minimumLineSpacing = 2.0,
+    this.minimumItemSpacing = 2,
+    this.minimumLineSpacing = 2,
     this.navCancelButtonStyle = CancelButtonStyle.image,
     this.selectBtnAnimationDuration = const Duration(milliseconds: 500),
     this.shouldCenterTools = false,
@@ -70,11 +70,11 @@ class UiConfiguration {
   final int columnCount;
 
   /// The minimum spacing to use between items
-  /// in the same row for thumbnail view.
+  /// in the same row for thumbnail view. Defaults to `2`.
   final double minimumItemSpacing;
 
   /// The minimum spacing to use between lines of items in the grid
-  /// for thumbnail view.
+  /// for thumbnail view. Defaults to `2`.
   final double minimumLineSpacing;
 
   /// In thumb image interface, control whether to display the selection button
@@ -129,7 +129,7 @@ class UiConfiguration {
   /// Language for the picker. Defaults to `system`.
   final UiLocale languageType;
 
-  /// The theme color of picker.
+  /// The theme color of picker. Defaults to `Color.fromARGB(255, 240, 170, 0)`.
   final Color themeColor;
 
   // ignore: avoid-high-cyclomatic-complexity, regular copyWith of a big class.
