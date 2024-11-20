@@ -669,7 +669,7 @@ class messagesPigeonCodec: FlutterStandardMessageCodec, @unchecked Sendable {
 
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol MultiMediaApi {
-  func openCamera(cameraConfig: RawCameraConfiguration, pickerConfig: RawPickerConfiguration, editConfig: RawEditConfiguration, completion: @escaping (Result<RawMediaData?, Error>) -> Void)
+  func openCamera(cameraConfig: RawCameraConfiguration, editConfig: RawEditConfiguration, pickerConfig: RawPickerConfiguration, completion: @escaping (Result<RawMediaData?, Error>) -> Void)
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -683,9 +683,9 @@ class MultiMediaApiSetup {
       openCameraChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
         let cameraConfigArg = args[0] as! RawCameraConfiguration
-        let pickerConfigArg = args[1] as! RawPickerConfiguration
-        let editConfigArg = args[2] as! RawEditConfiguration
-        api.openCamera(cameraConfig: cameraConfigArg, pickerConfig: pickerConfigArg, editConfig: editConfigArg) { result in
+        let editConfigArg = args[1] as! RawEditConfiguration
+        let pickerConfigArg = args[2] as! RawPickerConfiguration
+        api.openCamera(cameraConfig: cameraConfigArg, editConfig: editConfigArg, pickerConfig: pickerConfigArg) { result in
           switch result {
           case .success(let res):
             reply(wrapResult(res))

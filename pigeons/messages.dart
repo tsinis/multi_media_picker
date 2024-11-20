@@ -1,5 +1,9 @@
+// ignore_for_file: prefer-single-declaration-per-file, prefer-boolean-prefixes,
+// ignore_for_file: enum-constants-ordering, prefer-named-parameters
+
 import 'package:pigeon/pigeon.dart';
 
+// ignore: prefer-match-file-name, this is a source for a code-gen.
 enum CaptureSessionPreset {
   cif352x288,
   vga640x480,
@@ -55,7 +59,10 @@ enum MediaType { image, video }
 enum VideoExportType { mov, mp4 }
 
 class ClipAspectRatio {
-  const ClipAspectRatio(this.aspectRatioX, this.aspectRatioY);
+  const ClipAspectRatio({
+    required this.aspectRatioX,
+    required this.aspectRatioY,
+  });
 
   final int aspectRatioX;
   final int aspectRatioY;
@@ -69,6 +76,7 @@ class ClipOptions {
 }
 
 class RawMediaData {
+  // ignore: parameters-ordering, it's a proxy class.
   const RawMediaData(this.path, this.type, this.thumbPath, this.size);
 
   final String path;
@@ -229,7 +237,7 @@ abstract class MultiMediaApi {
   @async
   RawMediaData? openCamera(
     RawCameraConfiguration cameraConfig,
-    RawPickerConfiguration pickerConfig,
     RawEditConfiguration editConfig,
+    RawPickerConfiguration pickerConfig,
   );
 }

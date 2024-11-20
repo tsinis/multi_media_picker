@@ -16,8 +16,8 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
 
   func openCamera(
     cameraConfig: RawCameraConfiguration,
-    pickerConfig: RawPickerConfiguration,
     editConfig: RawEditConfiguration,
+    pickerConfig: RawPickerConfiguration,
     completion: @escaping (Result<RawMediaData?, Error>) -> Void
   ) {
     /// First check if plugin can access top view controller to show camera view screen.

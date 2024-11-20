@@ -32,8 +32,8 @@ class MultiMediaPicker {
 
     final rawMedia = await _api.openCamera(
       _cameraConfig.raw,
-      _pickerConfig.raw,
       _editConfig.raw,
+      _pickerConfig.raw,
     );
 
     return rawMedia?.toMediaData();

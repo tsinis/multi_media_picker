@@ -653,7 +653,7 @@ class MultiMediaApi {
 
   final String pigeonVar_messageChannelSuffix;
 
-  Future<RawMediaData?> openCamera(RawCameraConfiguration cameraConfig, RawPickerConfiguration pickerConfig, RawEditConfiguration editConfig) async {
+  Future<RawMediaData?> openCamera(RawCameraConfiguration cameraConfig, RawEditConfiguration editConfig, RawPickerConfiguration pickerConfig) async {
     final String pigeonVar_channelName = 'dev.flutter.pigeon.multi_media_picker.MultiMediaApi.openCamera$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
@@ -661,7 +661,7 @@ class MultiMediaApi {
       binaryMessenger: pigeonVar_binaryMessenger,
     );
     final List<Object?>? pigeonVar_replyList =
-        await pigeonVar_channel.send(<Object?>[cameraConfig, pickerConfig, editConfig]) as List<Object?>?;
+        await pigeonVar_channel.send(<Object?>[cameraConfig, editConfig, pickerConfig]) as List<Object?>?;
     if (pigeonVar_replyList == null) {
       throw _createConnectionError(pigeonVar_channelName);
     } else if (pigeonVar_replyList.length > 1) {
