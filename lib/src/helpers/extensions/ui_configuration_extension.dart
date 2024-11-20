@@ -9,14 +9,15 @@ extension UiConfigurationExtension on UiConfiguration {
         animateSelectBtnWhenSelectInThumbVC:
             animateSelectBtnWhenSelectInThumbVC,
         cellCornerRadio: cellCornerRadio,
-        columnCount: columnCount,
+        columnCount: columnCount.clamp(2, 6),
         hudStyle: hudStyle,
         isDarkStatusBarStyle: isDarkStatusBarStyle,
         languageType: languageType,
         minimumItemSpacing: minimumItemSpacing,
         minimumLineSpacing: minimumLineSpacing,
         navCancelButtonStyle: navCancelButtonStyle,
-        selectBtnAnimationDuration: selectBtnAnimationDuration,
+        selectBtnAnimationDuration: selectBtnAnimationDuration.inMilliseconds /
+            Duration.millisecondsPerSecond,
         shouldCenterTools: shouldCenterTools,
         showAddPhotoButton: showAddPhotoButton,
         showCaptureImageOnTakePhotoBtn: showCaptureImageOnTakePhotoBtn,
@@ -31,6 +32,6 @@ extension UiConfigurationExtension on UiConfiguration {
         sortAscending: sortAscending,
         style: style,
         themeColor: themeColor.value,
-        timeout: timeout,
+        timeout: timeout.inMilliseconds / Duration.millisecondsPerSecond,
       );
 }

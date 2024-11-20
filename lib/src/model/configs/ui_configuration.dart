@@ -1,6 +1,8 @@
 // ignore_for_file: avoid-long-files, prefer-boolean-prefixes
 
-import 'package:flutter/material.dart' show Color, Colors, immutable;
+import 'dart:ui';
+
+import 'package:flutter/foundation.dart' show immutable;
 
 import '../../messages.g.dart';
 
@@ -18,7 +20,7 @@ class UiConfiguration {
     this.minimumItemSpacing = 2.0,
     this.minimumLineSpacing = 2.0,
     this.navCancelButtonStyle = CancelButtonStyle.image,
-    this.selectBtnAnimationDuration = 1 / 2,
+    this.selectBtnAnimationDuration = const Duration(milliseconds: 500),
     this.shouldCenterTools = false,
     this.showAddPhotoButton = true,
     this.showCaptureImageOnTakePhotoBtn = false,
@@ -33,7 +35,7 @@ class UiConfiguration {
     this.sortAscending = true,
     this.style = PhotoBrowserStyle.embedAlbumList,
     this.themeColor = const Color.fromARGB(255, 240, 170, 0),
-    this.timeout = 20.0,
+    this.timeout = const Duration(seconds: 20),
   });
 
   /// Photo sorting method, the preview interface is not affected by this
@@ -43,7 +45,8 @@ class UiConfiguration {
   /// The style of the photo browser. Defaults to `embedAlbumList`.
   final PhotoBrowserStyle style;
 
-  /// The status bar style. Defaults to `lightContent`.
+  /// The status bar style. Defaults to `true`. If `null`, the system `default`
+  /// style is used.
   final bool? isDarkStatusBarStyle;
 
   /// The style of the cancel button in the navigation bar. Defaults to `image`.
@@ -62,16 +65,16 @@ class UiConfiguration {
   /// The corner radius of the cells. Defaults to `0`.
   final double cellCornerRadio;
 
-  /// The column count when iPhone is in portrait mode. Minimum is 2, maximum is
-  /// 6. Defaults to `4`.
+  /// The column count when iPhone is in portrait mode. Minimum is `2`,
+  /// maximum is `6`. Defaults to `4`.
   final int columnCount;
 
   /// The minimum spacing to use between items
   /// in the same row for thumbnail view.
   final double minimumItemSpacing;
 
-  /// The minimum spacing to use between lines of items in the grid for
-  /// `ZLThumbnailViewController`.
+  /// The minimum spacing to use between lines of items in the grid
+  /// for thumbnail view.
   final double minimumLineSpacing;
 
   /// In thumb image interface, control whether to display the selection button
@@ -82,11 +85,11 @@ class UiConfiguration {
   /// animation when selecting. Defaults to `true`.
   final bool animateSelectBtnWhenSelectInPreviewVC;
 
-  /// Animation duration for select button. Defaults to `0.5`.
-  final double selectBtnAnimationDuration;
+  /// Animation duration for select button. Defaults to `500` milliseconds.
+  final Duration selectBtnAnimationDuration;
 
   /// Whether to display the serial number above the selected button. Defaults
-  /// to false.
+  /// to `false`.
   final bool showIndexOnSelectBtn;
 
   /// Whether to display scroll to bottom button. Defaults to `false`.
@@ -103,7 +106,7 @@ class UiConfiguration {
   final bool showSelectedBorder;
 
   /// Overlay a mask layer above the cells that cannot be selected. Defaults to
-  /// true.
+  /// `true`.
   final bool showInvalidMask;
 
   /// Display the selected photos at the bottom of the preview large photos
@@ -111,9 +114,7 @@ class UiConfiguration {
   final bool showSelectedPhotoPreview;
 
   /// If user choose limited Photo mode, a button with '+' will be added to the
-  /// ZLThumbnailViewController. It will call
-  /// PHPhotoLibrary.shared().presentLimitedLibraryPicker(from:) to add photo.
-  /// Defaults to `true`.
+  /// thumbnail view. Defaults to `true`.
   final bool showAddPhotoButton;
 
   /// Will go to system setting if clicked. Defaults to `true`.
@@ -122,13 +123,13 @@ class UiConfiguration {
   /// Center tools in tools bar. Defaults to `false`.
   final bool shouldCenterTools;
 
-  /// Timeout for image parsing. Defaults to `20`.
-  final double timeout;
+  /// Timeout for image parsing. Defaults to `20` seconds.
+  final Duration timeout;
 
-  /// Language for framework.
+  /// Language for the picker. Defaults to `system`.
   final UiLocale languageType;
 
-  /// The theme color of framework.
+  /// The theme color of picker.
   final Color themeColor;
 
   // ignore: avoid-high-cyclomatic-complexity, regular copyWith of a big class.
@@ -144,7 +145,7 @@ class UiConfiguration {
     double? minimumItemSpacing,
     double? minimumLineSpacing,
     CancelButtonStyle? navCancelButtonStyle,
-    double? selectBtnAnimationDuration,
+    Duration? selectBtnAnimationDuration,
     bool? shouldCenterTools,
     bool? showAddPhotoButton,
     bool? showCaptureImageOnTakePhotoBtn,
@@ -159,7 +160,7 @@ class UiConfiguration {
     bool? sortAscending,
     PhotoBrowserStyle? style,
     Color? themeColor,
-    double? timeout,
+    Duration? timeout,
   }) =>
       UiConfiguration(
         adjustSliderType: adjustSliderType ?? this.adjustSliderType,
