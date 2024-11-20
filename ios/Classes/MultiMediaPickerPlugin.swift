@@ -18,6 +18,7 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     cameraConfig: RawCameraConfiguration,
     editConfig: RawEditConfiguration,
     pickerConfig: RawPickerConfiguration,
+    uiConfig: RawUiConfiguration,
     completion: @escaping (Result<RawMediaData?, Error>) -> Void
   ) {
     /// First check if plugin can access top view controller to show camera view screen.
@@ -38,6 +39,7 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     config.updateEditConfiguration(from: editConfig)
     config.updateCameraConfiguration(from: cameraConfig)
     config.updatePickerConfiguration(from: pickerConfig)
+    ZLPhotoUIConfiguration.default().updateUiConfiguration(from: uiConfig)  // Apply the UI configuration.
 
     camera.cancelBlock = { completion(.success(nil)) }  // On cancel button tap.
     camera.takeDoneBlock = { (image, video) in  // On done button tap.

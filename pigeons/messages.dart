@@ -1,5 +1,6 @@
 // ignore_for_file: prefer-single-declaration-per-file, prefer-boolean-prefixes,
-// ignore_for_file: enum-constants-ordering, prefer-named-parameters
+// ignore_for_file: enum-constants-ordering, no-magic-number, add-copy-with
+// ignore_for_file: prefer-named-parameters,
 
 import 'package:pigeon/pigeon.dart';
 
@@ -44,7 +45,11 @@ enum UiLocale {
   dutch
 }
 
+enum AdjustSliderType { vertical, horizontal }
+
 enum AdjustTool { brightness, contrast, saturation }
+
+enum CancelButtonStyle { text, image }
 
 enum DevicePosition { back, front }
 
@@ -52,11 +57,77 @@ enum ExposureMode { autoExpose, continuousAutoExposure }
 
 enum FocusMode { autoFocus, continuousAutoFocus }
 
+enum HudStyle { light, lightBlur, dark, darkBlur }
+
 enum ImpactFeedbackStyle { light, medium, heavy }
 
 enum MediaType { image, video }
 
+enum PhotoBrowserStyle { embedAlbumList, externalAlbumList }
+
 enum VideoExportType { mov, mp4 }
+
+class RawUiConfiguration {
+  const RawUiConfiguration({
+    this.adjustSliderType = AdjustSliderType.vertical,
+    this.animateSelectBtnWhenSelectInPreviewVC = true,
+    this.animateSelectBtnWhenSelectInThumbVC = false,
+    this.cellCornerRadio = 0.0,
+    this.columnCount = 4,
+    this.hudStyle = HudStyle.dark,
+    this.isDarkStatusBarStyle = false,
+    this.languageType = UiLocale.system,
+    this.minimumItemSpacing = 2.0,
+    this.minimumLineSpacing = 2.0,
+    this.navCancelButtonStyle = CancelButtonStyle.image,
+    this.selectBtnAnimationDuration = 0.5,
+    this.shouldCenterTools = false,
+    this.showAddPhotoButton = true,
+    this.showCaptureImageOnTakePhotoBtn = false,
+    this.showEnterSettingTips = true,
+    this.showIndexOnSelectBtn = false,
+    this.showInvalidMask = true,
+    this.showScrollToBottomBtn = false,
+    this.showSelectedBorder = false,
+    this.showSelectedMask = true,
+    this.showSelectedPhotoPreview = true,
+    this.showStatusBarInPreviewInterface = false,
+    this.sortAscending = true,
+    this.style = PhotoBrowserStyle.embedAlbumList,
+    this.themeColor = 0xFF00C15E,
+    this.themeFontName,
+    this.timeout = 20.0,
+  });
+
+  final bool sortAscending;
+  final PhotoBrowserStyle style;
+  final bool? isDarkStatusBarStyle;
+  final CancelButtonStyle navCancelButtonStyle;
+  final bool showStatusBarInPreviewInterface;
+  final HudStyle hudStyle;
+  final AdjustSliderType adjustSliderType;
+  final double cellCornerRadio;
+  final int columnCount;
+  final double minimumItemSpacing;
+  final double minimumLineSpacing;
+  final bool animateSelectBtnWhenSelectInThumbVC;
+  final bool animateSelectBtnWhenSelectInPreviewVC;
+  final double selectBtnAnimationDuration;
+  final bool showIndexOnSelectBtn;
+  final bool showScrollToBottomBtn;
+  final bool showCaptureImageOnTakePhotoBtn;
+  final bool showSelectedMask;
+  final bool showSelectedBorder;
+  final bool showInvalidMask;
+  final bool showSelectedPhotoPreview;
+  final bool showAddPhotoButton;
+  final bool showEnterSettingTips;
+  final bool shouldCenterTools;
+  final double timeout;
+  final UiLocale languageType;
+  final String? themeFontName;
+  final int themeColor;
+}
 
 class ClipAspectRatio {
   const ClipAspectRatio({
@@ -239,5 +310,6 @@ abstract class MultiMediaApi {
     RawCameraConfiguration cameraConfig,
     RawEditConfiguration editConfig,
     RawPickerConfiguration pickerConfig,
+    RawUiConfiguration uiConfig,
   );
 }

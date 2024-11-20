@@ -55,10 +55,20 @@ enum UiLocale {
   dutch,
 }
 
+enum AdjustSliderType {
+  vertical,
+  horizontal,
+}
+
 enum AdjustTool {
   brightness,
   contrast,
   saturation,
+}
+
+enum CancelButtonStyle {
+  text,
+  image,
 }
 
 enum DevicePosition {
@@ -76,6 +86,13 @@ enum FocusMode {
   continuousAutoFocus,
 }
 
+enum HudStyle {
+  light,
+  lightBlur,
+  dark,
+  darkBlur,
+}
+
 enum ImpactFeedbackStyle {
   light,
   medium,
@@ -87,9 +104,170 @@ enum MediaType {
   video,
 }
 
+enum PhotoBrowserStyle {
+  embedAlbumList,
+  externalAlbumList,
+}
+
 enum VideoExportType {
   mov,
   mp4,
+}
+
+class RawUiConfiguration {
+  RawUiConfiguration({
+    this.sortAscending = true,
+    this.style = PhotoBrowserStyle.embedAlbumList,
+    this.isDarkStatusBarStyle = false,
+    this.navCancelButtonStyle = CancelButtonStyle.image,
+    this.showStatusBarInPreviewInterface = false,
+    this.hudStyle = HudStyle.dark,
+    this.adjustSliderType = AdjustSliderType.vertical,
+    this.cellCornerRadio = 0.0,
+    this.columnCount = 4,
+    this.minimumItemSpacing = 2.0,
+    this.minimumLineSpacing = 2.0,
+    this.animateSelectBtnWhenSelectInThumbVC = false,
+    this.animateSelectBtnWhenSelectInPreviewVC = true,
+    this.selectBtnAnimationDuration = 0.5,
+    this.showIndexOnSelectBtn = false,
+    this.showScrollToBottomBtn = false,
+    this.showCaptureImageOnTakePhotoBtn = false,
+    this.showSelectedMask = true,
+    this.showSelectedBorder = false,
+    this.showInvalidMask = true,
+    this.showSelectedPhotoPreview = true,
+    this.showAddPhotoButton = true,
+    this.showEnterSettingTips = true,
+    this.shouldCenterTools = false,
+    this.timeout = 20.0,
+    this.languageType = UiLocale.system,
+    this.themeFontName,
+    this.themeColor = 0xFF00C15E,
+  });
+
+  bool sortAscending;
+
+  PhotoBrowserStyle style;
+
+  bool? isDarkStatusBarStyle;
+
+  CancelButtonStyle navCancelButtonStyle;
+
+  bool showStatusBarInPreviewInterface;
+
+  HudStyle hudStyle;
+
+  AdjustSliderType adjustSliderType;
+
+  double cellCornerRadio;
+
+  int columnCount;
+
+  double minimumItemSpacing;
+
+  double minimumLineSpacing;
+
+  bool animateSelectBtnWhenSelectInThumbVC;
+
+  bool animateSelectBtnWhenSelectInPreviewVC;
+
+  double selectBtnAnimationDuration;
+
+  bool showIndexOnSelectBtn;
+
+  bool showScrollToBottomBtn;
+
+  bool showCaptureImageOnTakePhotoBtn;
+
+  bool showSelectedMask;
+
+  bool showSelectedBorder;
+
+  bool showInvalidMask;
+
+  bool showSelectedPhotoPreview;
+
+  bool showAddPhotoButton;
+
+  bool showEnterSettingTips;
+
+  bool shouldCenterTools;
+
+  double timeout;
+
+  UiLocale languageType;
+
+  String? themeFontName;
+
+  int themeColor;
+
+  Object encode() {
+    return <Object?>[
+      sortAscending,
+      style,
+      isDarkStatusBarStyle,
+      navCancelButtonStyle,
+      showStatusBarInPreviewInterface,
+      hudStyle,
+      adjustSliderType,
+      cellCornerRadio,
+      columnCount,
+      minimumItemSpacing,
+      minimumLineSpacing,
+      animateSelectBtnWhenSelectInThumbVC,
+      animateSelectBtnWhenSelectInPreviewVC,
+      selectBtnAnimationDuration,
+      showIndexOnSelectBtn,
+      showScrollToBottomBtn,
+      showCaptureImageOnTakePhotoBtn,
+      showSelectedMask,
+      showSelectedBorder,
+      showInvalidMask,
+      showSelectedPhotoPreview,
+      showAddPhotoButton,
+      showEnterSettingTips,
+      shouldCenterTools,
+      timeout,
+      languageType,
+      themeFontName,
+      themeColor,
+    ];
+  }
+
+  static RawUiConfiguration decode(Object result) {
+    result as List<Object?>;
+    return RawUiConfiguration(
+      sortAscending: result[0]! as bool,
+      style: result[1]! as PhotoBrowserStyle,
+      isDarkStatusBarStyle: result[2] as bool?,
+      navCancelButtonStyle: result[3]! as CancelButtonStyle,
+      showStatusBarInPreviewInterface: result[4]! as bool,
+      hudStyle: result[5]! as HudStyle,
+      adjustSliderType: result[6]! as AdjustSliderType,
+      cellCornerRadio: result[7]! as double,
+      columnCount: result[8]! as int,
+      minimumItemSpacing: result[9]! as double,
+      minimumLineSpacing: result[10]! as double,
+      animateSelectBtnWhenSelectInThumbVC: result[11]! as bool,
+      animateSelectBtnWhenSelectInPreviewVC: result[12]! as bool,
+      selectBtnAnimationDuration: result[13]! as double,
+      showIndexOnSelectBtn: result[14]! as bool,
+      showScrollToBottomBtn: result[15]! as bool,
+      showCaptureImageOnTakePhotoBtn: result[16]! as bool,
+      showSelectedMask: result[17]! as bool,
+      showSelectedBorder: result[18]! as bool,
+      showInvalidMask: result[19]! as bool,
+      showSelectedPhotoPreview: result[20]! as bool,
+      showAddPhotoButton: result[21]! as bool,
+      showEnterSettingTips: result[22]! as bool,
+      shouldCenterTools: result[23]! as bool,
+      timeout: result[24]! as double,
+      languageType: result[25]! as UiLocale,
+      themeFontName: result[26] as String?,
+      themeColor: result[27]! as int,
+    );
+  }
 }
 
 class ClipAspectRatio {
@@ -545,44 +723,59 @@ class _PigeonCodec extends StandardMessageCodec {
     }    else if (value is UiLocale) {
       buffer.putUint8(131);
       writeValue(buffer, value.index);
-    }    else if (value is AdjustTool) {
+    }    else if (value is AdjustSliderType) {
       buffer.putUint8(132);
       writeValue(buffer, value.index);
-    }    else if (value is DevicePosition) {
+    }    else if (value is AdjustTool) {
       buffer.putUint8(133);
       writeValue(buffer, value.index);
-    }    else if (value is ExposureMode) {
+    }    else if (value is CancelButtonStyle) {
       buffer.putUint8(134);
       writeValue(buffer, value.index);
-    }    else if (value is FocusMode) {
+    }    else if (value is DevicePosition) {
       buffer.putUint8(135);
       writeValue(buffer, value.index);
-    }    else if (value is ImpactFeedbackStyle) {
+    }    else if (value is ExposureMode) {
       buffer.putUint8(136);
       writeValue(buffer, value.index);
-    }    else if (value is MediaType) {
+    }    else if (value is FocusMode) {
       buffer.putUint8(137);
       writeValue(buffer, value.index);
-    }    else if (value is VideoExportType) {
+    }    else if (value is HudStyle) {
       buffer.putUint8(138);
       writeValue(buffer, value.index);
-    }    else if (value is ClipAspectRatio) {
+    }    else if (value is ImpactFeedbackStyle) {
       buffer.putUint8(139);
-      writeValue(buffer, value.encode());
-    }    else if (value is ClipOptions) {
+      writeValue(buffer, value.index);
+    }    else if (value is MediaType) {
       buffer.putUint8(140);
-      writeValue(buffer, value.encode());
-    }    else if (value is RawMediaData) {
+      writeValue(buffer, value.index);
+    }    else if (value is PhotoBrowserStyle) {
       buffer.putUint8(141);
-      writeValue(buffer, value.encode());
-    }    else if (value is RawPickerConfiguration) {
+      writeValue(buffer, value.index);
+    }    else if (value is VideoExportType) {
       buffer.putUint8(142);
-      writeValue(buffer, value.encode());
-    }    else if (value is RawEditConfiguration) {
+      writeValue(buffer, value.index);
+    }    else if (value is RawUiConfiguration) {
       buffer.putUint8(143);
       writeValue(buffer, value.encode());
-    }    else if (value is RawCameraConfiguration) {
+    }    else if (value is ClipAspectRatio) {
       buffer.putUint8(144);
+      writeValue(buffer, value.encode());
+    }    else if (value is ClipOptions) {
+      buffer.putUint8(145);
+      writeValue(buffer, value.encode());
+    }    else if (value is RawMediaData) {
+      buffer.putUint8(146);
+      writeValue(buffer, value.encode());
+    }    else if (value is RawPickerConfiguration) {
+      buffer.putUint8(147);
+      writeValue(buffer, value.encode());
+    }    else if (value is RawEditConfiguration) {
+      buffer.putUint8(148);
+      writeValue(buffer, value.encode());
+    }    else if (value is RawCameraConfiguration) {
+      buffer.putUint8(149);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -603,36 +796,50 @@ class _PigeonCodec extends StandardMessageCodec {
         return value == null ? null : UiLocale.values[value];
       case 132: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : AdjustTool.values[value];
+        return value == null ? null : AdjustSliderType.values[value];
       case 133: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : DevicePosition.values[value];
+        return value == null ? null : AdjustTool.values[value];
       case 134: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : ExposureMode.values[value];
+        return value == null ? null : CancelButtonStyle.values[value];
       case 135: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : FocusMode.values[value];
+        return value == null ? null : DevicePosition.values[value];
       case 136: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : ImpactFeedbackStyle.values[value];
+        return value == null ? null : ExposureMode.values[value];
       case 137: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : MediaType.values[value];
+        return value == null ? null : FocusMode.values[value];
       case 138: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : VideoExportType.values[value];
+        return value == null ? null : HudStyle.values[value];
       case 139: 
-        return ClipAspectRatio.decode(readValue(buffer)!);
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : ImpactFeedbackStyle.values[value];
       case 140: 
-        return ClipOptions.decode(readValue(buffer)!);
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : MediaType.values[value];
       case 141: 
-        return RawMediaData.decode(readValue(buffer)!);
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PhotoBrowserStyle.values[value];
       case 142: 
-        return RawPickerConfiguration.decode(readValue(buffer)!);
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : VideoExportType.values[value];
       case 143: 
-        return RawEditConfiguration.decode(readValue(buffer)!);
+        return RawUiConfiguration.decode(readValue(buffer)!);
       case 144: 
+        return ClipAspectRatio.decode(readValue(buffer)!);
+      case 145: 
+        return ClipOptions.decode(readValue(buffer)!);
+      case 146: 
+        return RawMediaData.decode(readValue(buffer)!);
+      case 147: 
+        return RawPickerConfiguration.decode(readValue(buffer)!);
+      case 148: 
+        return RawEditConfiguration.decode(readValue(buffer)!);
+      case 149: 
         return RawCameraConfiguration.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -653,7 +860,7 @@ class MultiMediaApi {
 
   final String pigeonVar_messageChannelSuffix;
 
-  Future<RawMediaData?> openCamera(RawCameraConfiguration cameraConfig, RawEditConfiguration editConfig, RawPickerConfiguration pickerConfig) async {
+  Future<RawMediaData?> openCamera(RawCameraConfiguration cameraConfig, RawEditConfiguration editConfig, RawPickerConfiguration pickerConfig, RawUiConfiguration uiConfig) async {
     final String pigeonVar_channelName = 'dev.flutter.pigeon.multi_media_picker.MultiMediaApi.openCamera$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
@@ -661,7 +868,7 @@ class MultiMediaApi {
       binaryMessenger: pigeonVar_binaryMessenger,
     );
     final List<Object?>? pigeonVar_replyList =
-        await pigeonVar_channel.send(<Object?>[cameraConfig, editConfig, pickerConfig]) as List<Object?>?;
+        await pigeonVar_channel.send(<Object?>[cameraConfig, editConfig, pickerConfig, uiConfig]) as List<Object?>?;
     if (pigeonVar_replyList == null) {
       throw _createConnectionError(pigeonVar_channelName);
     } else if (pigeonVar_replyList.length > 1) {

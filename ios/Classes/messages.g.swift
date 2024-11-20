@@ -104,10 +104,20 @@ enum UiLocale: Int {
   case dutch = 17
 }
 
+enum AdjustSliderType: Int {
+  case vertical = 0
+  case horizontal = 1
+}
+
 enum AdjustTool: Int {
   case brightness = 0
   case contrast = 1
   case saturation = 2
+}
+
+enum CancelButtonStyle: Int {
+  case text = 0
+  case image = 1
 }
 
 enum DevicePosition: Int {
@@ -125,6 +135,13 @@ enum FocusMode: Int {
   case continuousAutoFocus = 1
 }
 
+enum HudStyle: Int {
+  case light = 0
+  case lightBlur = 1
+  case dark = 2
+  case darkBlur = 3
+}
+
 enum ImpactFeedbackStyle: Int {
   case light = 0
   case medium = 1
@@ -136,9 +153,143 @@ enum MediaType: Int {
   case video = 1
 }
 
+enum PhotoBrowserStyle: Int {
+  case embedAlbumList = 0
+  case externalAlbumList = 1
+}
+
 enum VideoExportType: Int {
   case mov = 0
   case mp4 = 1
+}
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct RawUiConfiguration {
+  var sortAscending: Bool
+  var style: PhotoBrowserStyle
+  var isDarkStatusBarStyle: Bool? = nil
+  var navCancelButtonStyle: CancelButtonStyle
+  var showStatusBarInPreviewInterface: Bool
+  var hudStyle: HudStyle
+  var adjustSliderType: AdjustSliderType
+  var cellCornerRadio: Double
+  var columnCount: Int64
+  var minimumItemSpacing: Double
+  var minimumLineSpacing: Double
+  var animateSelectBtnWhenSelectInThumbVC: Bool
+  var animateSelectBtnWhenSelectInPreviewVC: Bool
+  var selectBtnAnimationDuration: Double
+  var showIndexOnSelectBtn: Bool
+  var showScrollToBottomBtn: Bool
+  var showCaptureImageOnTakePhotoBtn: Bool
+  var showSelectedMask: Bool
+  var showSelectedBorder: Bool
+  var showInvalidMask: Bool
+  var showSelectedPhotoPreview: Bool
+  var showAddPhotoButton: Bool
+  var showEnterSettingTips: Bool
+  var shouldCenterTools: Bool
+  var timeout: Double
+  var languageType: UiLocale
+  var themeFontName: String? = nil
+  var themeColor: Int64
+
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> RawUiConfiguration? {
+    let sortAscending = pigeonVar_list[0] as! Bool
+    let style = pigeonVar_list[1] as! PhotoBrowserStyle
+    let isDarkStatusBarStyle: Bool? = nilOrValue(pigeonVar_list[2])
+    let navCancelButtonStyle = pigeonVar_list[3] as! CancelButtonStyle
+    let showStatusBarInPreviewInterface = pigeonVar_list[4] as! Bool
+    let hudStyle = pigeonVar_list[5] as! HudStyle
+    let adjustSliderType = pigeonVar_list[6] as! AdjustSliderType
+    let cellCornerRadio = pigeonVar_list[7] as! Double
+    let columnCount = pigeonVar_list[8] as! Int64
+    let minimumItemSpacing = pigeonVar_list[9] as! Double
+    let minimumLineSpacing = pigeonVar_list[10] as! Double
+    let animateSelectBtnWhenSelectInThumbVC = pigeonVar_list[11] as! Bool
+    let animateSelectBtnWhenSelectInPreviewVC = pigeonVar_list[12] as! Bool
+    let selectBtnAnimationDuration = pigeonVar_list[13] as! Double
+    let showIndexOnSelectBtn = pigeonVar_list[14] as! Bool
+    let showScrollToBottomBtn = pigeonVar_list[15] as! Bool
+    let showCaptureImageOnTakePhotoBtn = pigeonVar_list[16] as! Bool
+    let showSelectedMask = pigeonVar_list[17] as! Bool
+    let showSelectedBorder = pigeonVar_list[18] as! Bool
+    let showInvalidMask = pigeonVar_list[19] as! Bool
+    let showSelectedPhotoPreview = pigeonVar_list[20] as! Bool
+    let showAddPhotoButton = pigeonVar_list[21] as! Bool
+    let showEnterSettingTips = pigeonVar_list[22] as! Bool
+    let shouldCenterTools = pigeonVar_list[23] as! Bool
+    let timeout = pigeonVar_list[24] as! Double
+    let languageType = pigeonVar_list[25] as! UiLocale
+    let themeFontName: String? = nilOrValue(pigeonVar_list[26])
+    let themeColor = pigeonVar_list[27] as! Int64
+
+    return RawUiConfiguration(
+      sortAscending: sortAscending,
+      style: style,
+      isDarkStatusBarStyle: isDarkStatusBarStyle,
+      navCancelButtonStyle: navCancelButtonStyle,
+      showStatusBarInPreviewInterface: showStatusBarInPreviewInterface,
+      hudStyle: hudStyle,
+      adjustSliderType: adjustSliderType,
+      cellCornerRadio: cellCornerRadio,
+      columnCount: columnCount,
+      minimumItemSpacing: minimumItemSpacing,
+      minimumLineSpacing: minimumLineSpacing,
+      animateSelectBtnWhenSelectInThumbVC: animateSelectBtnWhenSelectInThumbVC,
+      animateSelectBtnWhenSelectInPreviewVC: animateSelectBtnWhenSelectInPreviewVC,
+      selectBtnAnimationDuration: selectBtnAnimationDuration,
+      showIndexOnSelectBtn: showIndexOnSelectBtn,
+      showScrollToBottomBtn: showScrollToBottomBtn,
+      showCaptureImageOnTakePhotoBtn: showCaptureImageOnTakePhotoBtn,
+      showSelectedMask: showSelectedMask,
+      showSelectedBorder: showSelectedBorder,
+      showInvalidMask: showInvalidMask,
+      showSelectedPhotoPreview: showSelectedPhotoPreview,
+      showAddPhotoButton: showAddPhotoButton,
+      showEnterSettingTips: showEnterSettingTips,
+      shouldCenterTools: shouldCenterTools,
+      timeout: timeout,
+      languageType: languageType,
+      themeFontName: themeFontName,
+      themeColor: themeColor
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      sortAscending,
+      style,
+      isDarkStatusBarStyle,
+      navCancelButtonStyle,
+      showStatusBarInPreviewInterface,
+      hudStyle,
+      adjustSliderType,
+      cellCornerRadio,
+      columnCount,
+      minimumItemSpacing,
+      minimumLineSpacing,
+      animateSelectBtnWhenSelectInThumbVC,
+      animateSelectBtnWhenSelectInPreviewVC,
+      selectBtnAnimationDuration,
+      showIndexOnSelectBtn,
+      showScrollToBottomBtn,
+      showCaptureImageOnTakePhotoBtn,
+      showSelectedMask,
+      showSelectedBorder,
+      showInvalidMask,
+      showSelectedPhotoPreview,
+      showAddPhotoButton,
+      showEnterSettingTips,
+      shouldCenterTools,
+      timeout,
+      languageType,
+      themeFontName,
+      themeColor,
+    ]
+  }
 }
 
 /// Generated class from Pigeon that represents data sent in messages.
@@ -539,56 +690,82 @@ private class messagesPigeonCodecReader: FlutterStandardReader {
     case 132:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return AdjustTool(rawValue: enumResultAsInt)
+        return AdjustSliderType(rawValue: enumResultAsInt)
       }
       return nil
     case 133:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return DevicePosition(rawValue: enumResultAsInt)
+        return AdjustTool(rawValue: enumResultAsInt)
       }
       return nil
     case 134:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return ExposureMode(rawValue: enumResultAsInt)
+        return CancelButtonStyle(rawValue: enumResultAsInt)
       }
       return nil
     case 135:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return FocusMode(rawValue: enumResultAsInt)
+        return DevicePosition(rawValue: enumResultAsInt)
       }
       return nil
     case 136:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return ImpactFeedbackStyle(rawValue: enumResultAsInt)
+        return ExposureMode(rawValue: enumResultAsInt)
       }
       return nil
     case 137:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return MediaType(rawValue: enumResultAsInt)
+        return FocusMode(rawValue: enumResultAsInt)
       }
       return nil
     case 138:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return VideoExportType(rawValue: enumResultAsInt)
+        return HudStyle(rawValue: enumResultAsInt)
       }
       return nil
     case 139:
-      return ClipAspectRatio.fromList(self.readValue() as! [Any?])
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return ImpactFeedbackStyle(rawValue: enumResultAsInt)
+      }
+      return nil
     case 140:
-      return ClipOptions.fromList(self.readValue() as! [Any?])
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return MediaType(rawValue: enumResultAsInt)
+      }
+      return nil
     case 141:
-      return RawMediaData.fromList(self.readValue() as! [Any?])
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return PhotoBrowserStyle(rawValue: enumResultAsInt)
+      }
+      return nil
     case 142:
-      return RawPickerConfiguration.fromList(self.readValue() as! [Any?])
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return VideoExportType(rawValue: enumResultAsInt)
+      }
+      return nil
     case 143:
-      return RawEditConfiguration.fromList(self.readValue() as! [Any?])
+      return RawUiConfiguration.fromList(self.readValue() as! [Any?])
     case 144:
+      return ClipAspectRatio.fromList(self.readValue() as! [Any?])
+    case 145:
+      return ClipOptions.fromList(self.readValue() as! [Any?])
+    case 146:
+      return RawMediaData.fromList(self.readValue() as! [Any?])
+    case 147:
+      return RawPickerConfiguration.fromList(self.readValue() as! [Any?])
+    case 148:
+      return RawEditConfiguration.fromList(self.readValue() as! [Any?])
+    case 149:
       return RawCameraConfiguration.fromList(self.readValue() as! [Any?])
     default:
       return super.readValue(ofType: type)
@@ -607,44 +784,59 @@ private class messagesPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? UiLocale {
       super.writeByte(131)
       super.writeValue(value.rawValue)
-    } else if let value = value as? AdjustTool {
+    } else if let value = value as? AdjustSliderType {
       super.writeByte(132)
       super.writeValue(value.rawValue)
-    } else if let value = value as? DevicePosition {
+    } else if let value = value as? AdjustTool {
       super.writeByte(133)
       super.writeValue(value.rawValue)
-    } else if let value = value as? ExposureMode {
+    } else if let value = value as? CancelButtonStyle {
       super.writeByte(134)
       super.writeValue(value.rawValue)
-    } else if let value = value as? FocusMode {
+    } else if let value = value as? DevicePosition {
       super.writeByte(135)
       super.writeValue(value.rawValue)
-    } else if let value = value as? ImpactFeedbackStyle {
+    } else if let value = value as? ExposureMode {
       super.writeByte(136)
       super.writeValue(value.rawValue)
-    } else if let value = value as? MediaType {
+    } else if let value = value as? FocusMode {
       super.writeByte(137)
       super.writeValue(value.rawValue)
-    } else if let value = value as? VideoExportType {
+    } else if let value = value as? HudStyle {
       super.writeByte(138)
       super.writeValue(value.rawValue)
-    } else if let value = value as? ClipAspectRatio {
+    } else if let value = value as? ImpactFeedbackStyle {
       super.writeByte(139)
-      super.writeValue(value.toList())
-    } else if let value = value as? ClipOptions {
+      super.writeValue(value.rawValue)
+    } else if let value = value as? MediaType {
       super.writeByte(140)
-      super.writeValue(value.toList())
-    } else if let value = value as? RawMediaData {
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PhotoBrowserStyle {
       super.writeByte(141)
-      super.writeValue(value.toList())
-    } else if let value = value as? RawPickerConfiguration {
+      super.writeValue(value.rawValue)
+    } else if let value = value as? VideoExportType {
       super.writeByte(142)
-      super.writeValue(value.toList())
-    } else if let value = value as? RawEditConfiguration {
+      super.writeValue(value.rawValue)
+    } else if let value = value as? RawUiConfiguration {
       super.writeByte(143)
       super.writeValue(value.toList())
-    } else if let value = value as? RawCameraConfiguration {
+    } else if let value = value as? ClipAspectRatio {
       super.writeByte(144)
+      super.writeValue(value.toList())
+    } else if let value = value as? ClipOptions {
+      super.writeByte(145)
+      super.writeValue(value.toList())
+    } else if let value = value as? RawMediaData {
+      super.writeByte(146)
+      super.writeValue(value.toList())
+    } else if let value = value as? RawPickerConfiguration {
+      super.writeByte(147)
+      super.writeValue(value.toList())
+    } else if let value = value as? RawEditConfiguration {
+      super.writeByte(148)
+      super.writeValue(value.toList())
+    } else if let value = value as? RawCameraConfiguration {
+      super.writeByte(149)
       super.writeValue(value.toList())
     } else {
       super.writeValue(value)
@@ -669,7 +861,7 @@ class messagesPigeonCodec: FlutterStandardMessageCodec, @unchecked Sendable {
 
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol MultiMediaApi {
-  func openCamera(cameraConfig: RawCameraConfiguration, editConfig: RawEditConfiguration, pickerConfig: RawPickerConfiguration, completion: @escaping (Result<RawMediaData?, Error>) -> Void)
+  func openCamera(cameraConfig: RawCameraConfiguration, editConfig: RawEditConfiguration, pickerConfig: RawPickerConfiguration, uiConfig: RawUiConfiguration, completion: @escaping (Result<RawMediaData?, Error>) -> Void)
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -685,7 +877,8 @@ class MultiMediaApiSetup {
         let cameraConfigArg = args[0] as! RawCameraConfiguration
         let editConfigArg = args[1] as! RawEditConfiguration
         let pickerConfigArg = args[2] as! RawPickerConfiguration
-        api.openCamera(cameraConfig: cameraConfigArg, editConfig: editConfigArg, pickerConfig: pickerConfigArg) { result in
+        let uiConfigArg = args[3] as! RawUiConfiguration
+        api.openCamera(cameraConfig: cameraConfigArg, editConfig: editConfigArg, pickerConfig: pickerConfigArg, uiConfig: uiConfigArg) { result in
           switch result {
           case .success(let res):
             reply(wrapResult(res))
