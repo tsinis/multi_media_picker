@@ -35,11 +35,12 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     }
 
     let camera = ZLCustomCamera()
-    let config = ZLPhotoConfiguration.default()  // Providing default configuration.
-    config.updateEditConfiguration(from: editConfig)
-    config.updateCameraConfiguration(from: cameraConfig)
-    config.updatePickerConfiguration(from: pickerConfig)
-    ZLPhotoUIConfiguration.default().updateUiConfiguration(from: uiConfig)  // Apply the UI configuration.
+    applyConfigs(
+      cameraConfig: cameraConfig,
+      editConfig: editConfig,
+      pickerConfig: pickerConfig,
+      uiConfig: uiConfig
+    )
 
     camera.cancelBlock = { completion(.success(nil)) }  // On cancel button tap.
     camera.takeDoneBlock = { (image, video) in  // On done button tap.
@@ -55,6 +56,19 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     }
 
     viewController.showDetailViewController(camera, sender: nil)
+  }
+
+  private func applyConfigs(
+    cameraConfig: RawCameraConfiguration,
+    editConfig: RawEditConfiguration,
+    pickerConfig: RawPickerConfiguration,
+    uiConfig: RawUiConfiguration
+  ) {
+    let config = ZLPhotoConfiguration.default()  // Providing default configuration.
+    config.updateEditConfiguration(from: editConfig)
+    config.updateCameraConfiguration(from: cameraConfig)
+    config.updatePickerConfiguration(from: pickerConfig)
+    ZLPhotoUIConfiguration.default().updateUiConfiguration(from: uiConfig)  // Apply the UI configuration.
   }
 
   private func resolveImage(image: UIImage, cameraConfig: RawCameraConfiguration) -> RawMediaData {
