@@ -15,7 +15,7 @@ class UiConfiguration {
     this.cellCornerRadio = 0,
     this.columnCount = 4,
     this.hudStyle = HudStyle.dark,
-    this.isDarkStatusBarStyle = false,
+    this.isDarkStatusBarStyle,
     this.languageType = UiLocale.system,
     this.minimumItemSpacing = 2,
     this.minimumLineSpacing = 2,
@@ -34,7 +34,7 @@ class UiConfiguration {
     this.showStatusBarInPreviewInterface = false,
     this.sortAscending = true,
     this.style = PhotoBrowserStyle.embedAlbumList,
-    this.themeColor = const Color.fromARGB(255, 240, 170, 0),
+    this.themeColor = const Color(0xFFf0aa00),
     this.timeout = const Duration(seconds: 20),
   });
 
@@ -45,7 +45,7 @@ class UiConfiguration {
   /// The style of the photo browser. Defaults to `embedAlbumList`.
   final PhotoBrowserStyle style;
 
-  /// The status bar style. Defaults to `true`. If `null`, the system `default`
+  /// The status bar style. Defaults to `null`. If `null`, the system `default`
   /// style is used.
   final bool? isDarkStatusBarStyle;
 

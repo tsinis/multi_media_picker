@@ -50,6 +50,11 @@ dart_code_metrics:
     - pigeons/*.dart
   rules:
     # Adjusted:
+    - parameters-ordering:
+        super: last
+        required: first
+    - prefer-named-parameters:
+        max-number: 3
     - add-copy-with:
         class-name-pattern: Configuration$
     - avoid-late-keyword:
@@ -320,7 +325,6 @@ dart_code_metrics:
     - prefer-match-file-name
     - prefer-moving-to-variable
     - prefer-named-boolean-parameters
-    - prefer-named-parameters
     - prefer-null-aware-spread
     - prefer-overriding-parent-equality
     - prefer-padding-over-container

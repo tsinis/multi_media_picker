@@ -118,7 +118,7 @@ class RawUiConfiguration {
   RawUiConfiguration({
     this.sortAscending = true,
     this.style = PhotoBrowserStyle.embedAlbumList,
-    this.isDarkStatusBarStyle = false,
+    this.isDarkStatusBarStyle,
     this.navCancelButtonStyle = CancelButtonStyle.image,
     this.showStatusBarInPreviewInterface = false,
     this.hudStyle = HudStyle.dark,
@@ -143,7 +143,7 @@ class RawUiConfiguration {
     this.timeout = 20.0,
     this.languageType = UiLocale.system,
     this.themeFontName,
-    this.themeColor = 0xFF00C15E,
+    this.themeColor = 0xFFf0aa00,
   });
 
   bool sortAscending;

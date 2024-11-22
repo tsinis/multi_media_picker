@@ -75,7 +75,7 @@ class RawUiConfiguration {
     this.cellCornerRadio = 0.0,
     this.columnCount = 4,
     this.hudStyle = HudStyle.dark,
-    this.isDarkStatusBarStyle = false,
+    this.isDarkStatusBarStyle,
     this.languageType = UiLocale.system,
     this.minimumItemSpacing = 2.0,
     this.minimumLineSpacing = 2.0,
@@ -94,7 +94,7 @@ class RawUiConfiguration {
     this.showStatusBarInPreviewInterface = false,
     this.sortAscending = true,
     this.style = PhotoBrowserStyle.embedAlbumList,
-    this.themeColor = 0xFF00C15E,
+    this.themeColor = 0xFFf0aa00,
     this.themeFontName,
     this.timeout = 20.0,
   });

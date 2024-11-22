@@ -3,6 +3,7 @@ import 'package:multi_media_picker/multi_media_picker.dart';
 
 import 'ui/tabs/camera_tab.dart';
 import 'ui/tabs/preview_tab.dart';
+import 'ui/tabs/ui_tab.dart';
 
 void main() => runApp(const Main());
 
@@ -14,16 +15,28 @@ class Main extends StatefulWidget {
 }
 
 class _MainState extends State<Main> with SingleTickerProviderStateMixin {
-  final _cameraConfig = ValueNotifier(const CameraConfiguration());
-  final _media = ValueNotifier<MediaData?>(null);
-  late final _tabController = TabController(length: 2, vsync: this);
+  static const _tabs = [
+    Tab(text: 'Camera'),
+    Tab(text: 'UI'),
+    Tab(text: 'Preview'),
+  ];
 
-  Future<void> _handleCamera() async {
-    final picker = MultiMediaPicker(cameraConfiguration: _cameraConfig.value);
+  final _cameraConfig = ValueNotifier(const CameraConfiguration());
+  final _uiConfig = ValueNotifier(const UiConfiguration());
+  final _media = ValueNotifier<MediaData?>(null);
+
+  late final _tabController = TabController(length: _tabs.length, vsync: this);
+
+  Future<void> _handlePicker() async {
+    final picker = MultiMediaPicker(
+      cameraConfiguration: _cameraConfig.value,
+      uiConfiguration: _uiConfig.value,
+    );
+
     final media = await picker.openCamera();
     if (media == null) return;
     _media.value = media;
-    _tabController.animateTo(1);
+    _tabController.animateTo(_tabs.length - 1);
   }
 
   @override
@@ -31,6 +44,7 @@ class _MainState extends State<Main> with SingleTickerProviderStateMixin {
     _cameraConfig.dispose();
     _media.dispose();
     _tabController.dispose();
+    _uiConfig.dispose();
     super.dispose();
   }
 
@@ -38,22 +52,23 @@ class _MainState extends State<Main> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) => MaterialApp(
         home: Scaffold(
           appBar: AppBar(
-            bottom: TabBar(
-              controller: _tabController,
-              tabs: const [Tab(text: 'Camera'), Tab(text: 'Preview')],
-            ),
+            bottom: TabBar(controller: _tabController, tabs: _tabs),
             title: const Text('Multi Media Picker'),
           ),
           body: TabBarView(
             controller: _tabController,
-            children: [CameraTab(_cameraConfig), PreviewTab(_media)],
+            children: [
+              CameraTab(_cameraConfig),
+              UiTab(_uiConfig),
+              PreviewTab(_media),
+            ],
           ),
           floatingActionButton: FloatingActionButton(
-            heroTag: 'camera',
+            heroTag: 'picker',
             // ignore: avoid-passing-async-when-sync-expected, not necessary.
-            onPressed: _handleCamera,
-            tooltip: 'Open Camera',
-            child: const Icon(Icons.camera_alt_outlined),
+            onPressed: _handlePicker,
+            tooltip: 'Open Picker',
+            child: const Icon(Icons.add),
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
