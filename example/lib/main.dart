@@ -33,9 +33,9 @@ class _MainState extends State<Main> with SingleTickerProviderStateMixin {
       uiConfiguration: _uiConfig.value,
     );
 
-    final media = await picker.openCamera();
-    if (media == null) return;
-    _media.value = media;
+    final media = await picker.multipleFromCameraCount(1);
+    if (media.isEmpty) return;
+    _media.value = media.firstOrNull;
     _tabController.animateTo(_tabs.length - 1);
   }
 

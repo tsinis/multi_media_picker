@@ -114,6 +114,135 @@ enum VideoExportType {
   mp4,
 }
 
+enum ContentMode {
+  scaleToFill,
+  scaleAspectFit,
+  scaleAspectFill,
+  redraw,
+  center,
+  top,
+  bottom,
+  left,
+  right,
+  topLeft,
+  topRight,
+  bottomLeft,
+  bottomRight,
+}
+
+class RawAlignment {
+  RawAlignment({
+    this.x = 0.5,
+    this.y = 0.5,
+  });
+
+  double x;
+
+  double y;
+
+  Object encode() {
+    return <Object?>[
+      x,
+      y,
+    ];
+  }
+
+  static RawAlignment decode(Object result) {
+    result as List<Object?>;
+    return RawAlignment(
+      x: result[0]! as double,
+      y: result[1]! as double,
+    );
+  }
+}
+
+class RawEdgeInsets {
+  RawEdgeInsets({
+    this.bottom = 0,
+    this.left = 0,
+    this.top = 0,
+    this.right = 0,
+  });
+
+  double bottom;
+
+  double left;
+
+  double top;
+
+  double right;
+
+  Object encode() {
+    return <Object?>[
+      bottom,
+      left,
+      top,
+      right,
+    ];
+  }
+
+  static RawEdgeInsets decode(Object result) {
+    result as List<Object?>;
+    return RawEdgeInsets(
+      bottom: result[0]! as double,
+      left: result[1]! as double,
+      top: result[2]! as double,
+      right: result[3]! as double,
+    );
+  }
+}
+
+class RawOverlayImage {
+  RawOverlayImage({
+    required this.path,
+    this.alignment,
+    this.contentMode = ContentMode.scaleAspectFit,
+    this.margin,
+    this.opacity = 1,
+    this.rotationAngle = 0,
+    this.tintColor = 0x00000000,
+  });
+
+  String path;
+
+  RawAlignment? alignment;
+
+  ContentMode contentMode;
+
+  RawEdgeInsets? margin;
+
+  double opacity;
+
+  double rotationAngle;
+
+  int tintColor;
+
+  Object encode() {
+    return <Object?>[
+      path,
+      alignment,
+      contentMode,
+      margin,
+      opacity,
+      rotationAngle,
+      tintColor,
+    ];
+  }
+
+  static RawOverlayImage decode(Object result) {
+    result as List<Object?>;
+    return RawOverlayImage(
+      path: result[0]! as String,
+      alignment: result[1] as RawAlignment?,
+      contentMode: result[2]! as ContentMode,
+      margin: result[3] as RawEdgeInsets?,
+      opacity: result[4]! as double,
+      rotationAngle: result[5]! as double,
+      tintColor: result[6]! as int,
+    );
+  }
+}
+
 class RawUiConfiguration {
   RawUiConfiguration({
     this.sortAscending = true,
@@ -123,10 +252,10 @@ class RawUiConfiguration {
     this.showStatusBarInPreviewInterface = false,
     this.hudStyle = HudStyle.dark,
     this.adjustSliderType = AdjustSliderType.vertical,
-    this.cellCornerRadio = 0.0,
+    this.cellCornerRadio = 0,
     this.columnCount = 4,
-    this.minimumItemSpacing = 2.0,
-    this.minimumLineSpacing = 2.0,
+    this.minimumItemSpacing = 2,
+    this.minimumLineSpacing = 2,
     this.animateSelectButtonWhenSelectInThumbnail = false,
     this.animateSelectButtonWhenSelectInPreview = true,
     this.selectButtonAnimationDuration = 0.5,
@@ -140,7 +269,7 @@ class RawUiConfiguration {
     this.showAddPhotoButton = true,
     this.showEnterSettingTips = true,
     this.shouldCenterTools = false,
-    this.timeout = 20.0,
+    this.timeout = 20,
     this.languageType = UiLocale.system,
     this.themeFontName,
     this.themeColor = 0xFFf0aa00,
@@ -563,7 +692,7 @@ class RawEditConfiguration {
     this.impactFeedbackWhenAdjustSliderValueIsZero = true,
     this.impactFeedbackStyle = ImpactFeedbackStyle.medium,
     this.dimClippedAreaDuringAdjustments = false,
-    this.minimumZoomScale = 1.0,
+    this.minimumZoomScale = 1,
   });
 
   List<EditTool> tools;
@@ -628,6 +757,7 @@ class RawCameraConfiguration {
     this.enableWideCameras = true,
     this.videoExportType = VideoExportType.mp4,
     this.devicePosition = DevicePosition.back,
+    this.overlayImage,
   });
 
   bool allowTakePhoto;
@@ -662,6 +792,8 @@ class RawCameraConfiguration {
 
   DevicePosition devicePosition;
 
+  RawOverlayImage? overlayImage;
+
   Object encode() {
     return <Object?>[
       allowTakePhoto,
@@ -680,6 +812,7 @@ class RawCameraConfiguration {
       enableWideCameras,
       videoExportType,
       devicePosition,
+      overlayImage,
     ];
   }
 
@@ -702,6 +835,7 @@ class RawCameraConfiguration {
       enableWideCameras: result[13]! as bool,
       videoExportType: result[14]! as VideoExportType,
       devicePosition: result[15]! as DevicePosition,
+      overlayImage: result[16] as RawOverlayImage?,
     );
   }
 }
@@ -756,26 +890,38 @@ class _PigeonCodec extends StandardMessageCodec {
     }    else if (value is VideoExportType) {
       buffer.putUint8(142);
       writeValue(buffer, value.index);
-    }    else if (value is RawUiConfiguration) {
+    }    else if (value is ContentMode) {
       buffer.putUint8(143);
-      writeValue(buffer, value.encode());
-    }    else if (value is ClipAspectRatio) {
+      writeValue(buffer, value.index);
+    }    else if (value is RawAlignment) {
       buffer.putUint8(144);
       writeValue(buffer, value.encode());
-    }    else if (value is ClipOptions) {
+    }    else if (value is RawEdgeInsets) {
       buffer.putUint8(145);
       writeValue(buffer, value.encode());
-    }    else if (value is RawMediaData) {
+    }    else if (value is RawOverlayImage) {
       buffer.putUint8(146);
       writeValue(buffer, value.encode());
-    }    else if (value is RawPickerConfiguration) {
+    }    else if (value is RawUiConfiguration) {
       buffer.putUint8(147);
       writeValue(buffer, value.encode());
-    }    else if (value is RawEditConfiguration) {
+    }    else if (value is ClipAspectRatio) {
       buffer.putUint8(148);
       writeValue(buffer, value.encode());
-    }    else if (value is RawCameraConfiguration) {
+    }    else if (value is ClipOptions) {
       buffer.putUint8(149);
+      writeValue(buffer, value.encode());
+    }    else if (value is RawMediaData) {
+      buffer.putUint8(150);
+      writeValue(buffer, value.encode());
+    }    else if (value is RawPickerConfiguration) {
+      buffer.putUint8(151);
+      writeValue(buffer, value.encode());
+    }    else if (value is RawEditConfiguration) {
+      buffer.putUint8(152);
+      writeValue(buffer, value.encode());
+    }    else if (value is RawCameraConfiguration) {
+      buffer.putUint8(153);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -828,18 +974,27 @@ class _PigeonCodec extends StandardMessageCodec {
         final int? value = readValue(buffer) as int?;
         return value == null ? null : VideoExportType.values[value];
       case 143: 
-        return RawUiConfiguration.decode(readValue(buffer)!);
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : ContentMode.values[value];
       case 144: 
-        return ClipAspectRatio.decode(readValue(buffer)!);
+        return RawAlignment.decode(readValue(buffer)!);
       case 145: 
-        return ClipOptions.decode(readValue(buffer)!);
+        return RawEdgeInsets.decode(readValue(buffer)!);
       case 146: 
-        return RawMediaData.decode(readValue(buffer)!);
+        return RawOverlayImage.decode(readValue(buffer)!);
       case 147: 
-        return RawPickerConfiguration.decode(readValue(buffer)!);
+        return RawUiConfiguration.decode(readValue(buffer)!);
       case 148: 
-        return RawEditConfiguration.decode(readValue(buffer)!);
+        return ClipAspectRatio.decode(readValue(buffer)!);
       case 149: 
+        return ClipOptions.decode(readValue(buffer)!);
+      case 150: 
+        return RawMediaData.decode(readValue(buffer)!);
+      case 151: 
+        return RawPickerConfiguration.decode(readValue(buffer)!);
+      case 152: 
+        return RawEditConfiguration.decode(readValue(buffer)!);
+      case 153: 
         return RawCameraConfiguration.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);

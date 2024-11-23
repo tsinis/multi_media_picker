@@ -1,3 +1,6 @@
+import 'dart:collection' show UnmodifiableListView;
+import 'dart:math' show max;
+
 import 'helpers/extensions/camera_configuration_extension.dart';
 import 'helpers/extensions/edit_configuration_extension.dart';
 import 'helpers/extensions/media_data_extension.dart';
@@ -9,6 +12,8 @@ import 'model/configs/edit_configuration.dart';
 import 'model/configs/picker_configuration.dart';
 import 'model/configs/ui_configuration.dart';
 import 'model/media_data.dart';
+import 'model/submodels/named_image.dart';
+import 'model/typedefs.dart';
 
 class MultiMediaPicker {
   const MultiMediaPicker({
@@ -28,20 +33,76 @@ class MultiMediaPicker {
 
   MultiMediaApi get _api => MultiMediaApi();
 
-  // ignore: prefer-getter-over-method, for better developer experience.
-  Future<MediaData?> openCamera() async {
+  // ignore: prefer-getter-over-method, more future-proof solution.
+  Future<MediaData?> openCamera() => _tryOpenCamera(hasToThrow: true);
+
+  // ignore: prefer-getter-over-method, same reason as above.
+  Future<MediaData?> tryOpenCamera() => _tryOpenCamera();
+
+  Future<MediaDataList> multipleFromCameraCount([
+    int? count, // TODO! Move it to extension.
+  ]) =>
+      multipleFromCamera(
+        namedOverlays: count == null
+            ? null
+            : Iterable.generate(max(0, count), (_) => const NamedImage()),
+      );
+
+  Future<MediaDataList> multipleFromCamera({
+    Iterable<NamedImage>? namedOverlays,
+  }) async {
+    final count = namedOverlays?.length;
+    if (count == 0) return UnmodifiableListView(const []);
+
+    final mediaList = <MediaData>[];
+    final maybeNamed = namedOverlays == null
+        ? null
+        : List<NamedImage>.unmodifiable(namedOverlays);
+
+    // ignore: avoid-complex-loop-conditions, it's not that complex.
+    for (int index = 0; count == null || index < count; index += 1) {
+      final image = maybeNamed?.elementAtOrNull(index);
+      final cameraConfig = _cameraConfig.copyWith(
+        imageName: image?.fileName,
+        overlayImage: image?.overlay,
+      );
+      final mediaData = await _tryOpenCamera(cameraConfiguration: cameraConfig);
+      if (mediaData == null) break;
+      mediaList.add(mediaData);
+    }
+
+    return MediaDataList(mediaList);
+  }
+
+  Future<MediaData?> _tryOpenCamera({
+    CameraConfiguration? cameraConfiguration,
+    EditConfiguration? editConfiguration,
+    bool hasToThrow = false,
+    PickerConfiguration? pickerConfiguration,
+    // ignore: avoid-similar-names, more convenient, it's a private method.
+    UiConfiguration? uiConfiguration,
+  }) async {
+    final camera = cameraConfiguration ?? _cameraConfig;
+    final edit = editConfiguration ?? _editConfig;
+    final picker = pickerConfiguration ?? _pickerConfig;
+    final ui = uiConfiguration ?? _uiConfig;
+
+    final isCameraDisabled = !camera.allowRecordVideo && !camera.allowTakePhoto;
     assert(
-      _cameraConfig.allowRecordVideo || _cameraConfig.allowTakePhoto,
+      !isCameraDisabled,
       'Either `allowTakePhoto` or `allowRecordVideo` must be `true`',
     );
+    if (isCameraDisabled) return null;
 
-    final rawMedia = await _api.openCamera(
-      _cameraConfig.raw,
-      _editConfig.raw,
-      _pickerConfig.raw,
-      _uiConfig.raw,
-    );
+    try {
+      final rawMedia =
+          await _api.openCamera(camera.raw, edit.raw, picker.raw, ui.raw);
 
-    return rawMedia?.toMediaData();
+      return rawMedia?.toMediaData();
+    } catch (_) {
+      if (hasToThrow) rethrow;
+
+      return null;
+    }
   }
 }

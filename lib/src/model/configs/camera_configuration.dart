@@ -3,6 +3,7 @@
 import 'package:flutter/foundation.dart' show immutable;
 
 import '../../messages.g.dart';
+import '../submodels/overlay_image.dart';
 
 @immutable
 class CameraConfiguration {
@@ -19,6 +20,7 @@ class CameraConfiguration {
     this.isFrontVideoMirrored = true,
     this.maxDuration = const Duration(seconds: 30),
     this.minDuration = Duration.zero,
+    this.overlayImage,
     this.sessionPreset = CaptureSessionPreset.hd1920x1080,
     this.showFlashSwitch = true,
     this.tapToRecordVideo = true,
@@ -77,6 +79,9 @@ class CameraConfiguration {
   /// The default camera position after entering the camera. Defaults to `back`.
   final DevicePosition devicePosition;
 
+  /// Overlay image on camera view. Defaults to `null`.
+  final OverlayImage? overlayImage;
+
   CameraConfiguration copyWith({
     bool? allowRecordVideo,
     bool? allowSwitchCamera,
@@ -90,6 +95,7 @@ class CameraConfiguration {
     bool? isFrontVideoMirrored,
     Duration? maxDuration,
     Duration? minDuration,
+    OverlayImage? overlayImage,
     CaptureSessionPreset? sessionPreset,
     bool? showFlashSwitch,
     bool? tapToRecordVideo,
@@ -108,6 +114,7 @@ class CameraConfiguration {
         isFrontVideoMirrored: isFrontVideoMirrored ?? this.isFrontVideoMirrored,
         maxDuration: maxDuration ?? this.maxDuration,
         minDuration: minDuration ?? this.minDuration,
+        overlayImage: overlayImage ?? this.overlayImage,
         sessionPreset: sessionPreset ?? this.sessionPreset,
         showFlashSwitch: showFlashSwitch ?? this.showFlashSwitch,
         tapToRecordVideo: tapToRecordVideo ?? this.tapToRecordVideo,
@@ -120,6 +127,7 @@ class CameraConfiguration {
       'maxDuration: $maxDuration, isFrontVideoMirrored: $isFrontVideoMirrored, '
       'sessionPreset: $sessionPreset, focusMode: $focusMode, '
       'exposureMode: $exposureMode, '
+      '${overlayImage == null ? '' : 'overlayImage: $overlayImage, '}'
       '${directoryPath == null ? '' : 'directoryPath: $directoryPath, '}'
       '${imageName == null ? '' : 'imageName: $imageName, '}'
       'showFlashSwitch: $showFlashSwitch, '

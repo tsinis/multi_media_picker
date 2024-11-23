@@ -49,7 +49,15 @@ dart_code_metrics:
     - test/**
     - pigeons/*.dart
   rules:
+    # Disabled:
+    - prefer-correct-throws: false # Introduces additional dependency.
     # Adjusted:
+    - prefer-correct-identifier-length:
+        # i for index, x/y for math operations, sb for StringBuffer, io for IO,
+        # a/b are convenient for sorting, e for the element, ui for user interface,
+        # k for key, v for value.
+        exceptions:
+          ["a", "b", "e", "i", "k", "v", "x", "y", "io", "id", "sb", "ui"]
     - parameters-ordering:
         super: last
         required: first
@@ -276,7 +284,6 @@ dart_code_metrics:
     - no-equal-switch-expression-cases
     - no-equal-then-else
     - no-object-declaration
-    - parameters-ordering
     - prefer-abstract-final-static-class
     - prefer-action-button-tooltip
     - prefer-add-all
@@ -297,13 +304,11 @@ dart_code_metrics:
     - prefer-correct-for-loop-increment
     - prefer-correct-future-return-type
     - prefer-correct-handler-name
-    - prefer-correct-identifier-length
     - prefer-correct-json-casts
     - prefer-correct-setter-parameter-name
     - prefer-correct-stream-return-type
     - prefer-correct-switch-length
     - prefer-correct-test-file-name
-    - prefer-correct-throws
     - prefer-correct-type-name
     - prefer-declaring-const-constructor
     - prefer-dedicated-media-query-methods

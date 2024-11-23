@@ -67,18 +67,75 @@ enum PhotoBrowserStyle { embedAlbumList, externalAlbumList }
 
 enum VideoExportType { mov, mp4 }
 
+enum ContentMode {
+  scaleToFill,
+  scaleAspectFit,
+  scaleAspectFill,
+  redraw,
+  center,
+  top,
+  bottom,
+  left,
+  right,
+  topLeft,
+  topRight,
+  bottomLeft,
+  bottomRight,
+}
+
+class RawAlignment {
+  const RawAlignment({this.x = 0.5, this.y = 0.5});
+
+  final double x;
+  final double y;
+}
+
+class RawEdgeInsets {
+  const RawEdgeInsets({
+    this.bottom = 0,
+    this.left = 0,
+    this.right = 0,
+    this.top = 0,
+  });
+
+  final double bottom;
+  final double left;
+  final double top;
+  final double right;
+}
+
+class RawOverlayImage {
+  const RawOverlayImage(
+    this.path, {
+    this.alignment,
+    this.contentMode = ContentMode.scaleAspectFit,
+    this.margin,
+    this.opacity = 1,
+    this.rotationAngle = 0,
+    this.tintColor = 0x00000000,
+  });
+
+  final String path;
+  final RawAlignment? alignment;
+  final ContentMode contentMode;
+  final RawEdgeInsets? margin;
+  final double opacity;
+  final double rotationAngle;
+  final int tintColor;
+}
+
 class RawUiConfiguration {
   const RawUiConfiguration({
     this.adjustSliderType = AdjustSliderType.vertical,
     this.animateSelectButtonWhenSelectInPreview = true,
     this.animateSelectButtonWhenSelectInThumbnail = false,
-    this.cellCornerRadio = 0.0,
+    this.cellCornerRadio = 0,
     this.columnCount = 4,
     this.hudStyle = HudStyle.dark,
     this.isDarkStatusBarStyle,
     this.languageType = UiLocale.system,
-    this.minimumItemSpacing = 2.0,
-    this.minimumLineSpacing = 2.0,
+    this.minimumItemSpacing = 2,
+    this.minimumLineSpacing = 2,
     this.navCancelButtonStyle = CancelButtonStyle.image,
     this.selectButtonAnimationDuration = 0.5,
     this.shouldCenterTools = false,
@@ -96,7 +153,7 @@ class RawUiConfiguration {
     this.style = PhotoBrowserStyle.embedAlbumList,
     this.themeColor = 0xFFf0aa00,
     this.themeFontName,
-    this.timeout = 20.0,
+    this.timeout = 20,
   });
 
   final bool sortAscending;
@@ -241,7 +298,7 @@ class RawEditConfiguration {
     this.dimClippedAreaDuringAdjustments = false,
     this.impactFeedbackStyle = ImpactFeedbackStyle.medium,
     this.impactFeedbackWhenAdjustSliderValueIsZero = true,
-    this.minimumZoomScale = 1.0,
+    this.minimumZoomScale = 1,
     this.showClipDirectlyIfOnlyHasClipTool = false,
     this.tools = const [],
   });
@@ -270,6 +327,7 @@ class RawCameraConfiguration {
     this.isFrontVideoMirrored = true,
     this.maxDurationSeconds = 30,
     this.minDurationSeconds = 0,
+    this.overlayImage,
     this.sessionPreset = CaptureSessionPreset.hd1920x1080,
     this.showFlashSwitch = true,
     this.tapToRecordVideo = true,
@@ -292,6 +350,7 @@ class RawCameraConfiguration {
   final bool enableWideCameras;
   final VideoExportType videoExportType;
   final DevicePosition devicePosition;
+  final RawOverlayImage? overlayImage;
 }
 
 @ConfigurePigeon(
