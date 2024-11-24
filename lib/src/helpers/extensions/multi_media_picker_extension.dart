@@ -24,7 +24,7 @@ extension MultiMediaPickerExtension on MultiMediaPicker {
   /// ```dart
   /// const picker = MultiMediaPicker();
   /// final photos = await picker.multipleFromCameraCount(
-  ///   5, namedImage: NamedImage(name: 'picture'),
+  ///   2, namedImage: const NamedImage(imageNameToSave: 'picture'),
   /// );
   /// ```
   Future<MediaDataList> multipleFromCameraCount(
@@ -40,7 +40,7 @@ extension MultiMediaPickerExtension on MultiMediaPicker {
 
                 return NamedImage(
                   directoryPath: namedImage.directoryPath,
-                  // ignore: avoid-nullable-interpolation, empty check is above.
+                  // ignore: avoid-nullable-interpolation, null-check is above.
                   imageNameToSave: '${namedImage.name}-$index',
                   overlay: namedImage.overlay,
                 );
