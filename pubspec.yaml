@@ -17,7 +17,7 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
-  pigeon: ^22.6.1
+  pigeon: ^22.6.2
 
 flutter:
   # This section identifies this Flutter project as a plugin project.
