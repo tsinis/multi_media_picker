@@ -4,7 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../../../helpers/extensions/picker_build_context_extension.dart';
+import '../../../helpers/extensions/model/picker_build_context_extension.dart';
 
 abstract class BaseConfigListView<T extends Object> extends StatelessWidget {
   const BaseConfigListView(

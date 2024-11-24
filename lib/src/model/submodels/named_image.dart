@@ -1,10 +1,12 @@
 import 'overlay_image.dart';
 
 class NamedImage<T extends Object> {
-  const NamedImage({T? image, this.overlay}) : _image = image;
+  const NamedImage({this.directoryPath, T? imageNameToSave, this.overlay})
+      : _imageNameToSave = imageNameToSave;
 
+  final String? directoryPath;
   final OverlayImage? overlay;
-  final T? _image;
+  final T? _imageNameToSave;
 
-  String? get fileName => _image?.toString();
+  String? get name => _imageNameToSave?.toString();
 }

@@ -1,5 +1,5 @@
-import '../../messages.g.dart';
-import '../../model/configs/ui_configuration.dart';
+import '../../../messages.g.dart';
+import '../../../model/configs/ui_configuration.dart';
 
 extension UiConfigurationExtension on UiConfiguration {
   RawUiConfiguration get raw => RawUiConfiguration(

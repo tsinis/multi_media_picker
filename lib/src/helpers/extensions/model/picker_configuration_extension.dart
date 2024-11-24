@@ -1,5 +1,5 @@
-import '../../messages.g.dart';
-import '../../model/configs/picker_configuration.dart';
+import '../../../messages.g.dart';
+import '../../../model/configs/picker_configuration.dart';
 
 extension PickerConfigurationExtension on PickerConfiguration {
   RawPickerConfiguration get raw => RawPickerConfiguration(

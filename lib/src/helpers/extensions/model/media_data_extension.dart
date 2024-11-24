@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import '../../messages.g.dart';
-import '../../model/media_data.dart';
+import '../../../messages.g.dart';
+import '../../../model/media_data.dart';
 
 extension MediaDataExtension on RawMediaData {
   MediaData toMediaData() {

@@ -1,11 +1,10 @@
 import 'dart:collection' show UnmodifiableListView;
-import 'dart:math' show max;
 
-import 'helpers/extensions/camera_configuration_extension.dart';
-import 'helpers/extensions/edit_configuration_extension.dart';
-import 'helpers/extensions/media_data_extension.dart';
-import 'helpers/extensions/picker_configuration_extension.dart';
-import 'helpers/extensions/ui_configuration_extension.dart';
+import 'helpers/extensions/model/camera_configuration_extension.dart';
+import 'helpers/extensions/model/edit_configuration_extension.dart';
+import 'helpers/extensions/model/media_data_extension.dart';
+import 'helpers/extensions/model/picker_configuration_extension.dart';
+import 'helpers/extensions/model/ui_configuration_extension.dart';
 import 'messages.g.dart';
 import 'model/configs/camera_configuration.dart';
 import 'model/configs/edit_configuration.dart';
@@ -39,15 +38,6 @@ class MultiMediaPicker {
   // ignore: prefer-getter-over-method, same reason as above.
   Future<MediaData?> tryOpenCamera() => _tryOpenCamera();
 
-  Future<MediaDataList> multipleFromCameraCount([
-    int? count, // TODO! Move it to extension.
-  ]) =>
-      multipleFromCamera(
-        namedOverlays: count == null
-            ? null
-            : Iterable.generate(max(0, count), (_) => const NamedImage()),
-      );
-
   Future<MediaDataList> multipleFromCamera({
     Iterable<NamedImage>? namedOverlays,
   }) async {
@@ -63,7 +53,8 @@ class MultiMediaPicker {
     for (int index = 0; count == null || index < count; index += 1) {
       final image = maybeNamed?.elementAtOrNull(index);
       final cameraConfig = _cameraConfig.copyWith(
-        imageName: image?.fileName,
+        directoryPath: image?.directoryPath,
+        imageName: image?.name,
         overlayImage: image?.overlay,
       );
       final mediaData = await _tryOpenCamera(cameraConfiguration: cameraConfig);

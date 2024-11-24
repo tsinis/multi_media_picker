@@ -1,3 +1,4 @@
+export 'src/helpers/extensions/multi_media_picker_extension.dart';
 export 'src/messages.g.dart'; // TODO! Reduce scope.
 export 'src/model/configs/camera_configuration.dart';
 export 'src/model/configs/edit_configuration.dart';
