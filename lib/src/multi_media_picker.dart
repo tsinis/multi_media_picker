@@ -132,8 +132,10 @@ class MultiMediaPicker {
       if (hasToThrow) rethrow;
     }
 
+    final outputData = rawOutput?.toMediaData();
+    if (outputData == inputData) return null;
     if (shouldEvictThumbnailCache) rawOutput?.willEvictImageCache(inputData);
 
-    return rawOutput?.toMediaData();
+    return outputData;
   }
 }

@@ -11,7 +11,7 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
   }
 
   private var nearestViewController: UIViewController? {
-    UIApplication.shared.keyWindow?.rootViewController?.nearestViewController
+    return UIApplication.shared.keyWindow?.rootViewController?.nearestViewController
   }
 
   func openCamera(
@@ -62,44 +62,87 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
       switch result {
       case .failure(let viewControllerError): completion(.failure(viewControllerError))
       case .success(let viewController):
-        let videoURL = URL(fileURLWithPath: data.path)
-        let videoEditor = ZLEditVideoViewController(avAsset: AVAsset(url: videoURL))
-        videoEditor.modalPresentationStyle = .fullScreen
         self.applyConfigs(pickerConfig: pickerConfig, uiConfig: uiConfig, editConfig: editConfig)
-        
-        videoEditor.cancelEditBlock = { completion(.success(nil)) }
-        videoEditor.editFinishBlock = { url in
-          guard let editedURL = url else { return completion(.success(nil)) }
 
-          if let videoReplaceError = self.replaceFile(at: videoURL, with: editedURL) {
-            completion(.failure(videoReplaceError))
-          } else {
-            let videoPath = videoURL.path
-            var updatedThumbPath = data.thumbPath
-
-            if let thumbPath = updatedThumbPath {
-              if let thumbData = self.getVideoThumbPath(url: videoPath) {
-                let isSuccess = self.createFile(atPath: thumbPath, data: thumbData)
-                if !isSuccess { print("Failed to create thumbnail file at path: \(thumbPath)") }
-              }
-            } else {
-              updatedThumbPath = self.saveVideoThumbnail(url: videoPath, config: pickerConfig)
-            }
-
-            let updatedMediaData = RawMediaData(
-              path: videoPath,
-              type: data.type,
-              thumbPath: updatedThumbPath,
-              size: self.getFileSize(atPath: videoPath)
-            )
-
-            completion(.success(updatedMediaData))
-          }
+        switch data.type {
+        case .video:
+          self.editVideo(
+            data: data,
+            viewController: viewController,
+            editConfig: editConfig,
+            pickerConfig: pickerConfig,
+            uiConfig: uiConfig,
+            completion: completion
+          )
+        case .image:
+          self.editImage(
+            data: data,
+            viewController: viewController,
+            editConfig: editConfig,
+            pickerConfig: pickerConfig,
+            uiConfig: uiConfig,
+            completion: completion
+          )
         }
-
-        viewController.present(videoEditor, animated: true, completion: nil)
       }
     }
+  }
+
+  private func editVideo(
+    data: RawMediaData,
+    viewController: UIViewController,
+    editConfig: RawEditConfiguration,
+    pickerConfig: RawPickerConfiguration,
+    uiConfig: RawUiConfiguration,
+    completion: @escaping (Result<RawMediaData?, Error>) -> Void
+  ) {
+    let videoURL = URL(fileURLWithPath: data.path)
+    let videoEditor = ZLEditVideoViewController(avAsset: AVAsset(url: videoURL))
+
+    videoEditor.modalPresentationStyle = .fullScreen
+    videoEditor.cancelEditBlock = { completion(.success(nil)) }
+    videoEditor.editFinishBlock = { url in
+      guard let editedURL = url else { return completion(.success(nil)) }
+
+      if let videoReplaceError = self.replaceFile(at: videoURL, with: editedURL) {
+        completion(.failure(videoReplaceError))
+      } else {
+        let videoPath = videoURL.path
+        var updatedThumbPath = data.thumbPath
+
+        if let thumbPath = updatedThumbPath {
+          if let thumbData = self.getVideoThumbPath(url: videoPath) {
+            let isSuccess = self.createFile(atPath: thumbPath, data: thumbData)
+            if !isSuccess { print("Failed to create thumbnail file at path: \(thumbPath)") }
+          }
+        } else {
+          updatedThumbPath = self.saveVideoThumbnail(url: videoPath, config: pickerConfig)
+        }
+
+        let updatedMediaData = RawMediaData(
+          path: videoPath,
+          type: data.type,
+          thumbPath: updatedThumbPath,
+          size: self.getFileSize(atPath: videoPath)
+        )
+
+        completion(.success(updatedMediaData))
+      }
+    }
+
+    viewController.present(videoEditor, animated: true, completion: nil)
+  }
+
+  private func editImage(
+    data: RawMediaData,
+    viewController: UIViewController,
+    editConfig: RawEditConfiguration,
+    pickerConfig: RawPickerConfiguration,
+    uiConfig: RawUiConfiguration,
+    completion: @escaping (Result<RawMediaData?, Error>) -> Void
+  ) {
+    // TODO! Implementation for editing images will go here.
+    completion(.success(nil))
   }
 
   private func getNearestViewController(
