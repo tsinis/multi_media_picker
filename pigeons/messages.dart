@@ -232,8 +232,10 @@ class RawPickerConfiguration {
     this.autoScrollWhenSlideSelectIsActive = true,
     this.callbackDirectlyAfterTakingPhoto = false,
     this.cropVideoAfterSelectThumbnail = true,
+    this.directoryPath,
     this.downloadVideoBeforeSelecting = false,
     this.editAfterSelectThumbnailImage = false,
+    this.imageName,
     this.initialIndex = 1,
     this.maxEditVideoDurationSeconds = 10,
     this.maxPreviewCount = 20,
@@ -289,6 +291,8 @@ class RawPickerConfiguration {
   final double? maxSelectVideoDataSizeKB;
   final double minSelectVideoDataSizeKB;
   final bool useCustomCamera;
+  final String? directoryPath;
+  final String? imageName;
 }
 
 class RawEditConfiguration {
@@ -319,11 +323,9 @@ class RawCameraConfiguration {
     this.allowSwitchCamera = true,
     this.allowTakePhoto = true,
     this.devicePosition = DevicePosition.back,
-    this.directoryPath,
     this.enableWideCameras = true,
     this.exposureMode = ExposureMode.continuousAutoExposure,
     this.focusMode = FocusMode.continuousAutoFocus,
-    this.imageName,
     this.isFrontVideoMirrored = true,
     this.maxDurationSeconds = 30,
     this.minDurationSeconds = 0,
@@ -342,8 +344,6 @@ class RawCameraConfiguration {
   final CaptureSessionPreset sessionPreset;
   final FocusMode focusMode;
   final ExposureMode exposureMode;
-  final String? directoryPath;
-  final String? imageName;
   final bool showFlashSwitch;
   final bool allowSwitchCamera;
   final bool tapToRecordVideo;
@@ -367,6 +367,14 @@ abstract class MultiMediaApi {
   @async
   RawMediaData? openCamera(
     RawCameraConfiguration cameraConfig,
+    RawEditConfiguration editConfig,
+    RawPickerConfiguration pickerConfig,
+    RawUiConfiguration uiConfig,
+  );
+
+  @async
+  RawMediaData? editMedia(
+    RawMediaData data,
     RawEditConfiguration editConfig,
     RawPickerConfiguration pickerConfig,
     RawUiConfiguration uiConfig,

@@ -1,7 +1,5 @@
 // ignore_for_file: avoid-nullable-interpolation, TODO: Remove this.
 
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:multi_media_picker/multi_media_picker.dart';
 import 'package:world_countries/helpers.dart';
@@ -11,25 +9,38 @@ class PreviewTab extends StatelessWidget {
 
   final ValueNotifier<MediaData?> _media;
 
+  Future<void> _handleEdit() async {
+    final media = await const MultiMediaPicker().tryEditMedia(_media.value);
+    if (media != null) _media.value = media;
+  }
+
   @override
   Widget build(BuildContext context) => ValueListenableBuilder(
         builder: (_, mediaData, __) => MaybeWidget(
-          mediaData?.thumbnail?.path,
-          (thumbnail) => Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('File: ${mediaData?.file.path}'),
-              Text('Size: ${mediaData?.size}', textAlign: TextAlign.center),
-              const SizedBox(height: 10),
-              Expanded(
-                child: Image.file(
-                  File(thumbnail),
-                  fit: BoxFit.cover,
-                  semanticLabel: 'Media Preview',
+          mediaData?.thumbnail,
+          (thumbnail) => InkWell(
+            // ignore: avoid-passing-async-when-sync-expected, just example.
+            onTap: _handleEdit,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('File: ${mediaData?.file.path}'),
+                Text('Size: ${mediaData?.size}', textAlign: TextAlign.center),
+                const SizedBox(height: 10),
+                Expanded(
+                  child: AnimatedSwitcher(
+                    duration: kThemeAnimationDuration,
+                    child: Image(
+                      fit: BoxFit.cover,
+                      image: FileImage(thumbnail),
+                      key: ValueKey(mediaData?.size),
+                      semanticLabel: 'Media Preview',
+                    ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           orElse: const Center(child: Text('No media to preview.')),
         ),

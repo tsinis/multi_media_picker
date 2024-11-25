@@ -525,6 +525,8 @@ class RawPickerConfiguration {
     this.maxSelectVideoDataSizeKB,
     this.minSelectVideoDataSizeKB = 0,
     this.useCustomCamera = true,
+    this.directoryPath,
+    this.imageName,
   });
 
   int maxSelectCount;
@@ -599,6 +601,10 @@ class RawPickerConfiguration {
 
   bool useCustomCamera;
 
+  String? directoryPath;
+
+  String? imageName;
+
   Object encode() {
     return <Object?>[
       maxSelectCount,
@@ -637,6 +643,8 @@ class RawPickerConfiguration {
       maxSelectVideoDataSizeKB,
       minSelectVideoDataSizeKB,
       useCustomCamera,
+      directoryPath,
+      imageName,
     ];
   }
 
@@ -679,6 +687,8 @@ class RawPickerConfiguration {
       maxSelectVideoDataSizeKB: result[33] as double?,
       minSelectVideoDataSizeKB: result[34]! as double,
       useCustomCamera: result[35]! as bool,
+      directoryPath: result[36] as String?,
+      imageName: result[37] as String?,
     );
   }
 }
@@ -749,8 +759,6 @@ class RawCameraConfiguration {
     this.sessionPreset = CaptureSessionPreset.hd1920x1080,
     this.focusMode = FocusMode.continuousAutoFocus,
     this.exposureMode = ExposureMode.continuousAutoExposure,
-    this.directoryPath,
-    this.imageName,
     this.showFlashSwitch = true,
     this.allowSwitchCamera = true,
     this.tapToRecordVideo = true,
@@ -776,10 +784,6 @@ class RawCameraConfiguration {
 
   ExposureMode exposureMode;
 
-  String? directoryPath;
-
-  String? imageName;
-
   bool showFlashSwitch;
 
   bool allowSwitchCamera;
@@ -804,8 +808,6 @@ class RawCameraConfiguration {
       sessionPreset,
       focusMode,
       exposureMode,
-      directoryPath,
-      imageName,
       showFlashSwitch,
       allowSwitchCamera,
       tapToRecordVideo,
@@ -827,15 +829,13 @@ class RawCameraConfiguration {
       sessionPreset: result[5]! as CaptureSessionPreset,
       focusMode: result[6]! as FocusMode,
       exposureMode: result[7]! as ExposureMode,
-      directoryPath: result[8] as String?,
-      imageName: result[9] as String?,
-      showFlashSwitch: result[10]! as bool,
-      allowSwitchCamera: result[11]! as bool,
-      tapToRecordVideo: result[12]! as bool,
-      enableWideCameras: result[13]! as bool,
-      videoExportType: result[14]! as VideoExportType,
-      devicePosition: result[15]! as DevicePosition,
-      overlayImage: result[16] as RawOverlayImage?,
+      showFlashSwitch: result[8]! as bool,
+      allowSwitchCamera: result[9]! as bool,
+      tapToRecordVideo: result[10]! as bool,
+      enableWideCameras: result[11]! as bool,
+      videoExportType: result[12]! as VideoExportType,
+      devicePosition: result[13]! as DevicePosition,
+      overlayImage: result[14] as RawOverlayImage?,
     );
   }
 }
@@ -1024,6 +1024,28 @@ class MultiMediaApi {
     );
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_channel.send(<Object?>[cameraConfig, editConfig, pickerConfig, uiConfig]) as List<Object?>?;
+    if (pigeonVar_replyList == null) {
+      throw _createConnectionError(pigeonVar_channelName);
+    } else if (pigeonVar_replyList.length > 1) {
+      throw PlatformException(
+        code: pigeonVar_replyList[0]! as String,
+        message: pigeonVar_replyList[1] as String?,
+        details: pigeonVar_replyList[2],
+      );
+    } else {
+      return (pigeonVar_replyList[0] as RawMediaData?);
+    }
+  }
+
+  Future<RawMediaData?> editMedia(RawMediaData data, RawEditConfiguration editConfig, RawPickerConfiguration pickerConfig, RawUiConfiguration uiConfig) async {
+    final String pigeonVar_channelName = 'dev.flutter.pigeon.multi_media_picker.MultiMediaApi.editMedia$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
+      pigeonVar_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: pigeonVar_binaryMessenger,
+    );
+    final List<Object?>? pigeonVar_replyList =
+        await pigeonVar_channel.send(<Object?>[data, editConfig, pickerConfig, uiConfig]) as List<Object?>?;
     if (pigeonVar_replyList == null) {
       throw _createConnectionError(pigeonVar_channelName);
     } else if (pigeonVar_replyList.length > 1) {

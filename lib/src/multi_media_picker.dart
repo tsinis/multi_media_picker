@@ -4,6 +4,7 @@ import 'helpers/extensions/model/camera_configuration_extension.dart';
 import 'helpers/extensions/model/edit_configuration_extension.dart';
 import 'helpers/extensions/model/media_data_extension.dart';
 import 'helpers/extensions/model/picker_configuration_extension.dart';
+import 'helpers/extensions/model/raw_media_data_extension.dart';
 import 'helpers/extensions/model/ui_configuration_extension.dart';
 import 'messages.g.dart';
 import 'model/configs/camera_configuration.dart';
@@ -16,27 +17,40 @@ import 'model/typedefs.dart';
 
 class MultiMediaPicker {
   const MultiMediaPicker({
-    CameraConfiguration cameraConfiguration = const CameraConfiguration(),
-    EditConfiguration editConfiguration = const EditConfiguration(),
-    PickerConfiguration pickerConfiguration = const PickerConfiguration(),
-    UiConfiguration uiConfiguration = const UiConfiguration(),
-  })  : _cameraConfig = cameraConfiguration,
-        _editConfig = editConfiguration,
-        _pickerConfig = pickerConfiguration,
-        _uiConfig = uiConfiguration;
+    this.cameraConfiguration = const CameraConfiguration(),
+    this.editConfiguration = const EditConfiguration(),
+    this.pickerConfiguration = const PickerConfiguration(),
+    this.uiConfiguration = const UiConfiguration(),
+  });
 
-  final CameraConfiguration _cameraConfig;
-  final EditConfiguration _editConfig;
-  final PickerConfiguration _pickerConfig;
-  final UiConfiguration _uiConfig;
+  final CameraConfiguration cameraConfiguration;
+  final EditConfiguration editConfiguration;
+  final PickerConfiguration pickerConfiguration;
+  final UiConfiguration uiConfiguration;
 
   MultiMediaApi get _api => MultiMediaApi();
 
-  // ignore: prefer-getter-over-method, more future-proof solution.
-  Future<MediaData?> openCamera() => _tryOpenCamera(hasToThrow: true);
+  // ignore: prefer-getter-over-method, method is more future-proof solution.
+  Future<MediaData?> openCamera() => _openCamera(hasToThrow: true);
 
   // ignore: prefer-getter-over-method, same reason as above.
-  Future<MediaData?> tryOpenCamera() => _tryOpenCamera();
+  Future<MediaData?> tryOpenCamera() => _openCamera();
+
+  Future<MediaData?> editMedia(
+    MediaData data, {
+    bool shouldEvictThumbnailCache = true,
+  }) =>
+      _editMedia(
+        data,
+        hasToThrow: true,
+        shouldEvictThumbnailCache: shouldEvictThumbnailCache,
+      );
+
+  Future<MediaData?> tryEditMedia(
+    MediaData? data, {
+    bool shouldEvictThumbnailCache = true,
+  }) =>
+      _editMedia(data, shouldEvictThumbnailCache: shouldEvictThumbnailCache);
 
   Future<MediaDataList> multipleFromCamera({
     Iterable<NamedImage>? namedOverlays,
@@ -52,48 +66,74 @@ class MultiMediaPicker {
     // ignore: avoid-complex-loop-conditions, it's not that complex.
     for (int index = 0; count == null || index < count; index += 1) {
       final image = maybeNamed?.elementAtOrNull(index);
-      final cameraConfig = _cameraConfig.copyWith(
+      final pick = pickerConfiguration.copyWith(
         directoryPath: image?.directoryPath,
         imageName: image?.name,
-        overlayImage: image?.overlay,
       );
-      final mediaData = await _tryOpenCamera(cameraConfiguration: cameraConfig);
-      if (mediaData == null) break;
-      mediaList.add(mediaData);
+      final camera = cameraConfiguration.copyWith(overlayImage: image?.overlay);
+      final data = await _openCamera(cameraConfig: camera, pickerConfig: pick);
+      if (data == null) break;
+      mediaList.add(data);
     }
 
     return MediaDataList(mediaList);
   }
 
-  Future<MediaData?> _tryOpenCamera({
-    CameraConfiguration? cameraConfiguration,
-    EditConfiguration? editConfiguration,
+  Future<MediaData?> _openCamera({
+    CameraConfiguration? cameraConfig,
+    EditConfiguration? editConfig,
     bool hasToThrow = false,
-    PickerConfiguration? pickerConfiguration,
-    // ignore: avoid-similar-names, more convenient, it's a private method.
-    UiConfiguration? uiConfiguration,
+    PickerConfiguration? pickerConfig,
+    UiConfiguration? uiConfig,
   }) async {
-    final camera = cameraConfiguration ?? _cameraConfig;
-    final edit = editConfiguration ?? _editConfig;
-    final picker = pickerConfiguration ?? _pickerConfig;
-    final ui = uiConfiguration ?? _uiConfig;
-
+    final camera = cameraConfig ?? cameraConfiguration;
     final isCameraDisabled = !camera.allowRecordVideo && !camera.allowTakePhoto;
     assert(
       !isCameraDisabled,
-      'Either `allowTakePhoto` or `allowRecordVideo` must be `true`',
+      'Either `allowTakePhoto` or `allowRecordVideo` must be set to `true`',
     );
     if (isCameraDisabled) return null;
 
-    try {
-      final rawMedia =
-          await _api.openCamera(camera.raw, edit.raw, picker.raw, ui.raw);
+    final edit = editConfig ?? editConfiguration;
+    final pick = pickerConfig ?? pickerConfiguration;
+    final ui = uiConfig ?? uiConfiguration;
 
-      return rawMedia?.toMediaData();
+    try {
+      final raw = await _api.openCamera(camera.raw, edit.raw, pick.raw, ui.raw);
+
+      return raw?.toMediaData();
     } catch (_) {
       if (hasToThrow) rethrow;
 
       return null;
     }
+  }
+
+  // ignore: avoid-long-parameter-list, it's a private method.
+  Future<MediaData?> _editMedia(
+    MediaData? inputData, {
+    required bool shouldEvictThumbnailCache,
+    EditConfiguration? editConfig,
+    bool hasToThrow = false,
+    PickerConfiguration? pickerConfig,
+    UiConfiguration? uiConfig,
+  }) async {
+    final rawInput = inputData?.raw;
+    if (rawInput == null) return null; // Assert is done in `raw` getter.
+
+    final edit = editConfig ?? editConfiguration;
+    final picker = pickerConfig ?? pickerConfiguration;
+    final ui = uiConfig ?? uiConfiguration;
+    RawMediaData? rawOutput;
+
+    try {
+      rawOutput = await _api.editMedia(rawInput, edit.raw, picker.raw, ui.raw);
+    } catch (_) {
+      if (hasToThrow) rethrow;
+    }
+
+    if (shouldEvictThumbnailCache) rawOutput?.willEvictImageCache(inputData);
+
+    return rawOutput?.toMediaData();
   }
 }

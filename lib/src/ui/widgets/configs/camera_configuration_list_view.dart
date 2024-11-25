@@ -159,27 +159,6 @@ class CameraConfigurationListView
                 title: exposureModeTitle,
                 trailing: Text(config.exposureMode.name.toUpperCase()),
               ),
-            if (directoryPathSubtitle != null &&
-                directoryPathDecoration != null)
-              ListTile(
-                subtitle: directoryPathSubtitle,
-                title: TextFormField(
-                  decoration: directoryPathDecoration,
-                  initialValue: config.directoryPath,
-                  onChanged: (directoryPath) => updateConfig =
-                      config.copyWith(directoryPath: directoryPath),
-                ),
-              ),
-            if (fileNameSubtitle != null && fileNameDecoration != null)
-              ListTile(
-                subtitle: fileNameSubtitle,
-                title: TextFormField(
-                  decoration: fileNameDecoration,
-                  initialValue: config.imageName,
-                  onChanged: (imageName) =>
-                      updateConfig = config.copyWith(imageName: imageName),
-                ),
-              ),
             if (showFlashSwitchSubtitle != null && showFlashSwitchTitle != null)
               TextStyledListTile(
                 onTap: () async => handleShowEnumPicker(

@@ -22,8 +22,10 @@ class PickerConfiguration {
     this.autoScrollWhenSlideSelectIsActive = true,
     this.callbackDirectlyAfterTakingPhoto = false,
     this.cropVideoAfterSelectThumbnail = true,
+    this.directoryPath,
     this.downloadVideoBeforeSelecting = false,
     this.editAfterSelectThumbnailImage = true,
+    this.imageName,
     this.initialIndex = 1,
     this.maxEditVideoDuration = const Duration(seconds: 10),
     this.maxPreviewCount = 20,
@@ -186,6 +188,14 @@ class PickerConfiguration {
   /// Whether to use custom camera. Defaults to `true`.
   final bool useCustomCamera;
 
+  /// Directory path for saving the file. Defaults to `null`,
+  /// the temporary directory.
+  final String? directoryPath;
+
+  /// Image file name for saving the image or thumbnail file.
+  /// Defaults to `null`, random UUID with `multi_media_` prefix.
+  final String? imageName;
+
   // ignore: avoid-high-cyclomatic-complexity, a lot of parameters.
   PickerConfiguration copyWith({
     bool? allowDragSelect,
@@ -205,8 +215,10 @@ class PickerConfiguration {
     bool? autoScrollWhenSlideSelectIsActive,
     bool? callbackDirectlyAfterTakingPhoto,
     bool? cropVideoAfterSelectThumbnail,
+    String? directoryPath,
     bool? downloadVideoBeforeSelecting,
     bool? editAfterSelectThumbnailImage,
+    String? imageName,
     int? initialIndex,
     Duration? maxEditVideoDuration,
     int? maxPreviewCount,
@@ -248,10 +260,12 @@ class PickerConfiguration {
             this.callbackDirectlyAfterTakingPhoto,
         cropVideoAfterSelectThumbnail:
             cropVideoAfterSelectThumbnail ?? this.cropVideoAfterSelectThumbnail,
+        directoryPath: directoryPath ?? this.directoryPath,
         downloadVideoBeforeSelecting:
             downloadVideoBeforeSelecting ?? this.downloadVideoBeforeSelecting,
         editAfterSelectThumbnailImage:
             editAfterSelectThumbnailImage ?? this.editAfterSelectThumbnailImage,
+        imageName: imageName ?? this.imageName,
         initialIndex: initialIndex ?? this.initialIndex,
         maxEditVideoDuration: maxEditVideoDuration ?? this.maxEditVideoDuration,
         maxPreviewCount: maxPreviewCount ?? this.maxPreviewCount,
@@ -296,6 +310,8 @@ class PickerConfiguration {
       'allowEditImage: $allowEditImage, allowEditVideo: $allowEditVideo, '
       'editAfterSelectThumbnailImage: $editAfterSelectThumbnailImage, '
       'cropVideoAfterSelectThumbnail: $cropVideoAfterSelectThumbnail, '
+      '${directoryPath == null ? '' : 'directoryPath: $directoryPath, '}'
+      '${imageName == null ? '' : 'imageName: $imageName, '}'
       'saveNewImageAfterEdit: $saveNewImageAfterEdit, '
       'allowSlideSelect: $allowSlideSelect, '
       'autoScrollWhenSlideSelectIsActive: $autoScrollWhenSlideSelectIsActive, '
@@ -340,6 +356,8 @@ class PickerConfiguration {
         other.allowEditVideo == allowEditVideo &&
         other.editAfterSelectThumbnailImage == editAfterSelectThumbnailImage &&
         other.cropVideoAfterSelectThumbnail == cropVideoAfterSelectThumbnail &&
+        other.directoryPath == directoryPath &&
+        other.imageName == imageName &&
         other.saveNewImageAfterEdit == saveNewImageAfterEdit &&
         other.allowSlideSelect == allowSlideSelect &&
         other.autoScrollWhenSlideSelectIsActive ==
@@ -383,6 +401,8 @@ class PickerConfiguration {
       allowEditVideo.hashCode ^
       editAfterSelectThumbnailImage.hashCode ^
       cropVideoAfterSelectThumbnail.hashCode ^
+      directoryPath.hashCode ^
+      imageName.hashCode ^
       saveNewImageAfterEdit.hashCode ^
       allowSlideSelect.hashCode ^
       autoScrollWhenSlideSelectIsActive.hashCode ^

@@ -12,11 +12,9 @@ class CameraConfiguration {
     this.allowSwitchCamera = true,
     this.allowTakePhoto = true,
     this.devicePosition = DevicePosition.back,
-    this.directoryPath,
     this.enableWideCameras = true,
     this.exposureMode = ExposureMode.continuousAutoExposure,
     this.focusMode = FocusMode.continuousAutoFocus,
-    this.imageName,
     this.isFrontVideoMirrored = true,
     this.maxDuration = const Duration(seconds: 30),
     this.minDuration = Duration.zero,
@@ -52,14 +50,6 @@ class CameraConfiguration {
   /// Camera exposure mode. Defaults to [ExposureMode.continuousAutoExposure].
   final ExposureMode exposureMode;
 
-  /// Directory path for saving the file. Defaults to `null`,
-  /// the temporary directory.
-  final String? directoryPath;
-
-  /// Image file name for saving the image or thumbnail file.
-  /// Defaults to `null`, random UUID with `multi_media_` prefix.
-  final String? imageName;
-
   /// Camera flash switch. Defaults to `true`.
   final bool showFlashSwitch;
 
@@ -87,11 +77,9 @@ class CameraConfiguration {
     bool? allowSwitchCamera,
     bool? allowTakePhoto,
     DevicePosition? devicePosition,
-    String? directoryPath,
     bool? enableWideCameras,
     ExposureMode? exposureMode,
     FocusMode? focusMode,
-    String? imageName,
     bool? isFrontVideoMirrored,
     Duration? maxDuration,
     Duration? minDuration,
@@ -106,11 +94,9 @@ class CameraConfiguration {
         allowSwitchCamera: allowSwitchCamera ?? this.allowSwitchCamera,
         allowTakePhoto: allowTakePhoto ?? this.allowTakePhoto,
         devicePosition: devicePosition ?? this.devicePosition,
-        directoryPath: directoryPath ?? this.directoryPath,
         enableWideCameras: enableWideCameras ?? this.enableWideCameras,
         exposureMode: exposureMode ?? this.exposureMode,
         focusMode: focusMode ?? this.focusMode,
-        imageName: imageName ?? this.imageName,
         isFrontVideoMirrored: isFrontVideoMirrored ?? this.isFrontVideoMirrored,
         maxDuration: maxDuration ?? this.maxDuration,
         minDuration: minDuration ?? this.minDuration,
@@ -128,8 +114,6 @@ class CameraConfiguration {
       'sessionPreset: $sessionPreset, focusMode: $focusMode, '
       'exposureMode: $exposureMode, '
       '${overlayImage == null ? '' : 'overlayImage: $overlayImage, '}'
-      '${directoryPath == null ? '' : 'directoryPath: $directoryPath, '}'
-      '${imageName == null ? '' : 'imageName: $imageName, '}'
       'showFlashSwitch: $showFlashSwitch, '
       'allowSwitchCamera: $allowSwitchCamera, '
       'tapToRecordVideo: $tapToRecordVideo, '
@@ -150,8 +134,6 @@ class CameraConfiguration {
         other.sessionPreset == sessionPreset &&
         other.focusMode == focusMode &&
         other.exposureMode == exposureMode &&
-        other.directoryPath == directoryPath &&
-        other.imageName == imageName &&
         other.showFlashSwitch == showFlashSwitch &&
         other.allowSwitchCamera == allowSwitchCamera &&
         other.tapToRecordVideo == tapToRecordVideo &&
@@ -170,8 +152,6 @@ class CameraConfiguration {
       sessionPreset.hashCode ^
       focusMode.hashCode ^
       exposureMode.hashCode ^
-      directoryPath.hashCode ^
-      imageName.hashCode ^
       showFlashSwitch.hashCode ^
       allowSwitchCamera.hashCode ^
       tapToRecordVideo.hashCode ^

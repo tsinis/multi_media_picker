@@ -532,6 +532,8 @@ struct RawPickerConfiguration {
   var maxSelectVideoDataSizeKB: Double? = nil
   var minSelectVideoDataSizeKB: Double
   var useCustomCamera: Bool
+  var directoryPath: String? = nil
+  var imageName: String? = nil
 
 
 
@@ -573,6 +575,8 @@ struct RawPickerConfiguration {
     let maxSelectVideoDataSizeKB: Double? = nilOrValue(pigeonVar_list[33])
     let minSelectVideoDataSizeKB = pigeonVar_list[34] as! Double
     let useCustomCamera = pigeonVar_list[35] as! Bool
+    let directoryPath: String? = nilOrValue(pigeonVar_list[36])
+    let imageName: String? = nilOrValue(pigeonVar_list[37])
 
     return RawPickerConfiguration(
       maxSelectCount: maxSelectCount,
@@ -610,7 +614,9 @@ struct RawPickerConfiguration {
       minSelectVideoDurationSeconds: minSelectVideoDurationSeconds,
       maxSelectVideoDataSizeKB: maxSelectVideoDataSizeKB,
       minSelectVideoDataSizeKB: minSelectVideoDataSizeKB,
-      useCustomCamera: useCustomCamera
+      useCustomCamera: useCustomCamera,
+      directoryPath: directoryPath,
+      imageName: imageName
     )
   }
   func toList() -> [Any?] {
@@ -651,6 +657,8 @@ struct RawPickerConfiguration {
       maxSelectVideoDataSizeKB,
       minSelectVideoDataSizeKB,
       useCustomCamera,
+      directoryPath,
+      imageName,
     ]
   }
 }
@@ -714,8 +722,6 @@ struct RawCameraConfiguration {
   var sessionPreset: CaptureSessionPreset
   var focusMode: FocusMode
   var exposureMode: ExposureMode
-  var directoryPath: String? = nil
-  var imageName: String? = nil
   var showFlashSwitch: Bool
   var allowSwitchCamera: Bool
   var tapToRecordVideo: Bool
@@ -736,15 +742,13 @@ struct RawCameraConfiguration {
     let sessionPreset = pigeonVar_list[5] as! CaptureSessionPreset
     let focusMode = pigeonVar_list[6] as! FocusMode
     let exposureMode = pigeonVar_list[7] as! ExposureMode
-    let directoryPath: String? = nilOrValue(pigeonVar_list[8])
-    let imageName: String? = nilOrValue(pigeonVar_list[9])
-    let showFlashSwitch = pigeonVar_list[10] as! Bool
-    let allowSwitchCamera = pigeonVar_list[11] as! Bool
-    let tapToRecordVideo = pigeonVar_list[12] as! Bool
-    let enableWideCameras = pigeonVar_list[13] as! Bool
-    let videoExportType = pigeonVar_list[14] as! VideoExportType
-    let devicePosition = pigeonVar_list[15] as! DevicePosition
-    let overlayImage: RawOverlayImage? = nilOrValue(pigeonVar_list[16])
+    let showFlashSwitch = pigeonVar_list[8] as! Bool
+    let allowSwitchCamera = pigeonVar_list[9] as! Bool
+    let tapToRecordVideo = pigeonVar_list[10] as! Bool
+    let enableWideCameras = pigeonVar_list[11] as! Bool
+    let videoExportType = pigeonVar_list[12] as! VideoExportType
+    let devicePosition = pigeonVar_list[13] as! DevicePosition
+    let overlayImage: RawOverlayImage? = nilOrValue(pigeonVar_list[14])
 
     return RawCameraConfiguration(
       allowTakePhoto: allowTakePhoto,
@@ -755,8 +759,6 @@ struct RawCameraConfiguration {
       sessionPreset: sessionPreset,
       focusMode: focusMode,
       exposureMode: exposureMode,
-      directoryPath: directoryPath,
-      imageName: imageName,
       showFlashSwitch: showFlashSwitch,
       allowSwitchCamera: allowSwitchCamera,
       tapToRecordVideo: tapToRecordVideo,
@@ -776,8 +778,6 @@ struct RawCameraConfiguration {
       sessionPreset,
       focusMode,
       exposureMode,
-      directoryPath,
-      imageName,
       showFlashSwitch,
       allowSwitchCamera,
       tapToRecordVideo,
@@ -1009,6 +1009,7 @@ class messagesPigeonCodec: FlutterStandardMessageCodec, @unchecked Sendable {
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol MultiMediaApi {
   func openCamera(cameraConfig: RawCameraConfiguration, editConfig: RawEditConfiguration, pickerConfig: RawPickerConfiguration, uiConfig: RawUiConfiguration, completion: @escaping (Result<RawMediaData?, Error>) -> Void)
+  func editMedia(data: RawMediaData, editConfig: RawEditConfiguration, pickerConfig: RawPickerConfiguration, uiConfig: RawUiConfiguration, completion: @escaping (Result<RawMediaData?, Error>) -> Void)
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -1036,6 +1037,26 @@ class MultiMediaApiSetup {
       }
     } else {
       openCameraChannel.setMessageHandler(nil)
+    }
+    let editMediaChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.multi_media_picker.MultiMediaApi.editMedia\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      editMediaChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let dataArg = args[0] as! RawMediaData
+        let editConfigArg = args[1] as! RawEditConfiguration
+        let pickerConfigArg = args[2] as! RawPickerConfiguration
+        let uiConfigArg = args[3] as! RawUiConfiguration
+        api.editMedia(data: dataArg, editConfig: editConfigArg, pickerConfig: pickerConfigArg, uiConfig: uiConfigArg) { result in
+          switch result {
+          case .success(let res):
+            reply(wrapResult(res))
+          case .failure(let error):
+            reply(wrapError(error))
+          }
+        }
+      }
+    } else {
+      editMediaChannel.setMessageHandler(nil)
     }
   }
 }

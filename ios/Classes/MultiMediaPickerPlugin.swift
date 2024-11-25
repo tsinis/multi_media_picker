@@ -21,7 +21,90 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     uiConfig: RawUiConfiguration,
     completion: @escaping (Result<RawMediaData?, Error>) -> Void
   ) {
-    /// First check if plugin can access top view controller to show camera view screen.
+    getNearestViewController { result in
+      switch result {
+      case .failure(let viewControllerError): completion(.failure(viewControllerError))
+      case .success(let viewController):
+        let camera = ZLCustomCamera()
+        self.applyConfigs(
+          pickerConfig: pickerConfig,
+          uiConfig: uiConfig,
+          cameraConfig: cameraConfig,
+          editConfig: editConfig
+        )
+
+        camera.cancelBlock = { completion(.success(nil)) }  // On cancel button tap.
+        camera.takeDoneBlock = { (image, video) in  // On done button tap.
+          var mediaData: RawMediaData?
+
+          if let image = image {
+            mediaData = self.resolveImage(image: image, config: pickerConfig)
+          } else if let video = video {
+            mediaData = self.resolveVideo(url: video, config: pickerConfig)
+          }
+
+          completion(.success(mediaData))
+        }
+
+        viewController.showDetailViewController(camera, sender: nil)
+      }
+    }
+  }
+
+  func editMedia(
+    data: RawMediaData,
+    editConfig: RawEditConfiguration,
+    pickerConfig: RawPickerConfiguration,
+    uiConfig: RawUiConfiguration,
+    completion: @escaping (Result<RawMediaData?, Error>) -> Void
+  ) {
+    getNearestViewController { result in
+      switch result {
+      case .failure(let viewControllerError): completion(.failure(viewControllerError))
+      case .success(let viewController):
+        let videoURL = URL(fileURLWithPath: data.path)
+        let videoEditor = ZLEditVideoViewController(avAsset: AVAsset(url: videoURL))
+        videoEditor.modalPresentationStyle = .fullScreen
+        self.applyConfigs(pickerConfig: pickerConfig, uiConfig: uiConfig, editConfig: editConfig)
+        
+        videoEditor.cancelEditBlock = { completion(.success(nil)) }
+        videoEditor.editFinishBlock = { url in
+          guard let editedURL = url else { return completion(.success(nil)) }
+
+          if let videoReplaceError = self.replaceFile(at: videoURL, with: editedURL) {
+            completion(.failure(videoReplaceError))
+          } else {
+            let videoPath = videoURL.path
+            var updatedThumbPath = data.thumbPath
+
+            if let thumbPath = updatedThumbPath {
+              if let thumbData = self.getVideoThumbPath(url: videoPath) {
+                let isSuccess = self.createFile(atPath: thumbPath, data: thumbData)
+                if !isSuccess { print("Failed to create thumbnail file at path: \(thumbPath)") }
+              }
+            } else {
+              updatedThumbPath = self.saveVideoThumbnail(url: videoPath, config: pickerConfig)
+            }
+
+            let updatedMediaData = RawMediaData(
+              path: videoPath,
+              type: data.type,
+              thumbPath: updatedThumbPath,
+              size: self.getFileSize(atPath: videoPath)
+            )
+
+            completion(.success(updatedMediaData))
+          }
+        }
+
+        viewController.present(videoEditor, animated: true, completion: nil)
+      }
+    }
+  }
+
+  private func getNearestViewController(
+    completion: @escaping (Result<UIViewController, PigeonError>) -> Void
+  ) {
     guard let viewController = nearestViewController else {
       return completion(
         .failure(
@@ -33,68 +116,48 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
         )
       )
     }
-
-    let camera = ZLCustomCamera()
-    applyConfigs(
-      cameraConfig: cameraConfig,
-      editConfig: editConfig,
-      pickerConfig: pickerConfig,
-      uiConfig: uiConfig
-    )
-
-    camera.cancelBlock = { completion(.success(nil)) }  // On cancel button tap.
-    camera.takeDoneBlock = { (image, video) in  // On done button tap.
-      var mediaData: RawMediaData?
-
-      if let image = image {
-        mediaData = self.resolveImage(image: image, cameraConfig: cameraConfig)
-      } else if let video = video {
-        mediaData = self.resolveVideo(url: video, cameraConfig: cameraConfig)
-      }
-
-      completion(.success(mediaData))
-    }
-
-    viewController.showDetailViewController(camera, sender: nil)
+    completion(.success(viewController))
   }
 
   private func applyConfigs(
-    cameraConfig: RawCameraConfiguration,
-    editConfig: RawEditConfiguration,
     pickerConfig: RawPickerConfiguration,
-    uiConfig: RawUiConfiguration
+    uiConfig: RawUiConfiguration,
+    cameraConfig: RawCameraConfiguration? = nil,
+    editConfig: RawEditConfiguration? = nil
   ) {
     let config = ZLPhotoConfiguration.default()  // Providing default configuration.
-    config.updateEditConfiguration(from: editConfig)
-    config.updateCameraConfiguration(from: cameraConfig)
+
+    if let editConfig = editConfig { config.updateEditConfiguration(from: editConfig) }
+    if let cameraConfig = cameraConfig { config.updateCameraConfiguration(from: cameraConfig) }
+
     config.updatePickerConfiguration(from: pickerConfig)
-    ZLPhotoUIConfiguration.default().updateUiConfiguration(from: uiConfig)  // Apply the UI configuration.
+    ZLPhotoUIConfiguration.default().updateUiConfiguration(from: uiConfig)  // Apply the UI config.
   }
 
-  private func resolveImage(image: UIImage, cameraConfig: RawCameraConfiguration) -> RawMediaData {
-    let path = saveImage(image: image, cameraConfig: cameraConfig)
+  private func resolveImage(image: UIImage, config: RawPickerConfiguration) -> RawMediaData? {
+    let path = saveImage(image: image, config: config)
+    guard let path = path else { return nil }
+
     let fileSize = getFileSize(atPath: path)
 
     return RawMediaData(path: path, type: .image, thumbPath: path, size: fileSize)
   }
 
-  private func resolveVideo(url: URL, cameraConfig: RawCameraConfiguration) -> RawMediaData {
+  private func resolveVideo(url: URL, config: RawPickerConfiguration) -> RawMediaData {
     let path = url.path
     let fileSize = getFileSize(atPath: path)
-    let thumbPath = saveVideoThumbnail(url: path, cameraConfig: cameraConfig)
+    let thumbPath = saveVideoThumbnail(url: path, config: config)
 
     return RawMediaData(path: path, type: .video, thumbPath: thumbPath, size: fileSize)
   }
 
-  private func saveImage(image: UIImage, cameraConfig: RawCameraConfiguration) -> String {
-    return createImageFile(data: image.jpegData(compressionQuality: 1), cameraConfig: cameraConfig)
+  private func saveImage(image: UIImage, config: RawPickerConfiguration) -> String? {
+    return createImageFile(data: image.jpegData(compressionQuality: 1), config: config)
   }
 
-  private func saveVideoThumbnail(url: String, cameraConfig: RawCameraConfiguration) -> String? {
-    if let thumb = getVideoThumbPath(url: url) {
-      let thumbData = thumb.jpegData(compressionQuality: 1)
-
-      return createImageFile(data: thumbData, cameraConfig: cameraConfig)
+  private func saveVideoThumbnail(url: String, config: RawPickerConfiguration) -> String? {
+    if let thumbData = getVideoThumbPath(url: url) {
+      return createImageFile(data: thumbData, config: config)
     }
 
     return nil
@@ -110,7 +173,7 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     }
   }
 
-  private func getVideoThumbPath(url: String) -> UIImage? {
+  private func getVideoThumbPath(url: String) -> Data? {
     do {
       let asset = AVAsset(url: NSURL.fileURL(withPath: url))
       let gen = AVAssetImageGenerator(asset: asset)
@@ -118,21 +181,53 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
       let time = CMTime(seconds: 0.0, preferredTimescale: 600)
       let image = try gen.copyCGImage(at: time, actualTime: nil)
 
-      return UIImage(cgImage: image)
+      return UIImage(cgImage: image).jpegData(compressionQuality: 1)
     } catch {
       return nil
     }
   }
 
-  private func createImageFile(data: Data?, cameraConfig: RawCameraConfiguration) -> String {
-    let directoryPath = cameraConfig.directoryPath ?? NSTemporaryDirectory()
-    var fileName = cameraConfig.imageName ?? "multi_media_\(UUID().uuidString)"
+  private func createImageFile(data: Data?, config: RawPickerConfiguration) -> String? {
+    let directoryPath = config.directoryPath ?? NSTemporaryDirectory()
+    var fileName = config.imageName ?? "multi_media_\(UUID().uuidString)"
     /// Ensure the file name includes the ".jpg" extension
     if !fileName.lowercased().hasSuffix(".jpg") { fileName += ".jpg" }
-
     let filePath = URL(fileURLWithPath: directoryPath).appendingPathComponent(fileName).path
-    FileManager.default.createFile(atPath: filePath, contents: data)
 
-    return filePath
+    return createFile(atPath: filePath, data: data) ? filePath : nil
+  }
+
+  private func createFile(atPath path: String?, data: Data?) -> Bool {
+    guard let path = path, let data = data else { return false }
+    let fileManager = FileManager.default
+
+    if fileManager.fileExists(atPath: path) {
+      do {
+        try fileManager.removeItem(atPath: path)
+      } catch {
+        print("Failed to remove existing file at: \(path), error: \(error.localizedDescription)")
+
+        return false
+      }
+    }
+
+    return fileManager.createFile(atPath: path, contents: data)
+  }
+
+  private func replaceFile(at originalURL: URL?, with newURL: URL) -> PigeonError? {
+    guard let originalURL = originalURL else { return nil }
+
+    do {
+      try FileManager.default.removeItem(at: originalURL)
+      try FileManager.default.moveItem(at: newURL, to: originalURL)
+
+      return nil
+    } catch {
+      return PigeonError(
+        code: "file_operation_error",
+        message: "Failed to replace the file at: \(originalURL.path) with: \(newURL.path)",
+        details: error.localizedDescription
+      )
+    }
   }
 }
