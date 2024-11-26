@@ -141,8 +141,58 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     uiConfig: RawUiConfiguration,
     completion: @escaping (Result<RawMediaData?, Error>) -> Void
   ) {
-    // TODO! Implementation for editing images will go here.
-    completion(.success(nil))
+    guard let image = UIImage(contentsOfFile: data.path) else {
+      return completion(
+        .failure(
+          PigeonError(
+            code: "image_load_error",
+            message: "Failed to load image from path: \(data.path)",
+            details: nil
+          )))
+    }
+
+    let imageEditor = ZLEditImageViewController(image: image)
+
+    imageEditor.modalPresentationStyle = .fullScreen
+    imageEditor.cancelEditBlock = { completion(.success(nil)) }
+    imageEditor.editFinishBlock = {
+      [weak self] (editedImage: UIImage, editModel: ZLEditImageModel?) in
+      guard let self = self else { return completion(.success(nil)) }
+
+      // TODO? Handle editing without explicitly converting it to JPG data?
+      if let imageData = editedImage.jpegData(compressionQuality: 1) {
+        let imagePath = data.path
+
+        if self.createFile(atPath: imagePath, data: imageData) {
+          let updatedMediaData = RawMediaData(
+            path: imagePath,
+            type: data.type,
+            thumbPath: imagePath,
+            size: self.getFileSize(atPath: imagePath)
+          )
+
+          completion(.success(updatedMediaData))
+        } else {
+          completion(
+            .failure(
+              PigeonError(
+                code: "image_save_error",
+                message: "Failed to save edited image to path: \(imagePath)",
+                details: nil
+              )))
+        }
+      } else {
+        completion(
+          .failure(
+            PigeonError(
+              code: "image_conversion_error",
+              message: "Failed to convert edited image to JPEG data",
+              details: nil
+            )))
+      }
+    }
+
+    viewController.present(imageEditor, animated: true, completion: nil)
   }
 
   private func getNearestViewController(
