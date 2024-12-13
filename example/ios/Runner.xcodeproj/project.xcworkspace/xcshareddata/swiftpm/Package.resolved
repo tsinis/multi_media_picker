@@ -1,0 +1,15 @@
+{
+  "originHash" : "ceae05f8de220436608d1c99f7caac84f401336ed8273bbd4c96a451b94cd739",
+  "pins" : [
+    {
+      "identity" : "zlphotobrowser",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/longitachi/ZLPhotoBrowser.git",
+      "state" : {
+        "revision" : "881f71efebb6bc888c7eb454718e2aecda8b74e2",
+        "version" : "4.5.7"
+      }
+    }
+  ],
+  "version" : 3
+}

@@ -1,3 +1,4 @@
+import UIKit
 import ZLPhotoBrowser
 
 extension ZLPhotoConfiguration {
