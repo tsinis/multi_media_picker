@@ -12,8 +12,8 @@ extension ZLPhotoConfiguration {
     this.maxRecordDuration = Int(config.maxDurationSeconds)
     this.minRecordDuration = Int(config.minDurationSeconds)
     this.showFlashSwitch = config.showFlashSwitch
-    //  this.enableWideCameras = config.enableWideCameras // TODO!
-    //  this.tapToRecordVideo = config.tapToRecordVideo // TODO!
+    this.enableWideCameras = config.enableWideCameras
+    this.tapToRecordVideo = config.tapToRecordVideo
     this.videoExportType =
       ZLCameraConfiguration.VideoExportType(rawValue: config.videoExportType.rawValue) ?? .mp4
     this.devicePosition =

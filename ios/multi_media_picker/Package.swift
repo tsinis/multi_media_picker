@@ -1,18 +1,16 @@
-// swift-tools-version: 5.9
+// swift-tools-version:6.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 let package = Package(
   name: "multi_media_picker",
-  platforms: [
-    .iOS("13.0")
-  ],
+  platforms: [.iOS(.v13)],
   products: [
     .library(name: "multi-media-picker", targets: ["multi_media_picker"])
   ],
   dependencies: [
-    .package(url: "https://github.com/longitachi/ZLPhotoBrowser.git", .upToNextMajor(from: "4.5.7"))
+    .package(url: "https://github.com/longitachi/ZLPhotoBrowser.git", exact: Version(4, 5, 7))
   ],
   targets: [
     .target(
@@ -24,5 +22,6 @@ let package = Package(
         .process("Resources")
       ]
     )
-  ]
+  ],
+  swiftLanguageVersions: [.v5]
 )

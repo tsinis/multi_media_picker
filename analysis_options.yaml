@@ -378,7 +378,7 @@ linter:
     always_use_package_imports: false # Conflicts with: prefer_relative_imports.
     avoid_classes_with_only_static_members: false # Conflicts with: prefer-static-class
     flutter_style_todos: false # Not a Flutter team.
-    # omit_obvious_local_variable_types: true # Conflicts with: specify_nonobvious_local_variable_types. #TODO! After Dart 3.6 is released.
+    specify_nonobvious_local_variable_types: false # Conflicts with: omit_obvious_local_variable_types.
     prefer_final_parameters: false # Conflicts with: avoid_final_parameters.
     prefer_double_quotes: false # Conflicts with: prefer_double_quotes.
     unnecessary_final: false # Conflicts with: prefer_final_locals.
@@ -386,8 +386,8 @@ linter:
     diagnostic_describe_all_properties: false # TODO? Enable and fix this in the far-future.
 
     # Enabled:
-    # specify_nonobvious_local_variable_types: true #TODO! After Dart 3.6 is released.
-    # use_truncating_division: true #TODO! After Dart 3.6 is released.
+    omit_obvious_local_variable_types: true
+    use_truncating_division: true
     always_declare_return_types: true
     always_put_required_named_parameters_first: true
     always_require_non_null_named_parameters: true
