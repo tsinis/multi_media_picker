@@ -4,20 +4,19 @@ version: 0.0.1
 publish_to: "none"
 
 environment:
-  sdk: ^3.5.4
-  flutter: ">=3.3.0"
+  sdk: ^3.6.0
+  flutter: ">=3.27.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  plugin_platform_interface: ^2.1.8
 
 dev_dependencies:
-  dart_code_metrics_presets: ^2.18.0
+  dart_code_metrics_presets: ^2.19.0
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
-  pigeon: ^22.6.2
+  pigeon: ^22.7.0
 
 flutter:
   # This section identifies this Flutter project as a plugin project.
