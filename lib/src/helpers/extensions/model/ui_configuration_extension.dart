@@ -1,5 +1,6 @@
 import '../../../messages.g.dart';
 import '../../../model/configs/ui_configuration.dart';
+import 'color_extension.dart';
 
 extension UiConfigurationExtension on UiConfiguration {
   RawUiConfiguration get raw => RawUiConfiguration(
@@ -32,7 +33,7 @@ extension UiConfigurationExtension on UiConfiguration {
         showStatusBarInPreviewInterface: showStatusBarInPreviewInterface,
         sortAscending: sortAscending,
         style: style,
-        themeColor: themeColor.value,
+        themeColor: themeColor.rawValue,
         timeout: timeout.inMilliseconds / Duration.millisecondsPerSecond,
       );
 }

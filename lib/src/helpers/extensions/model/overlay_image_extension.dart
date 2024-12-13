@@ -1,5 +1,6 @@
 import '../../../messages.g.dart';
 import '../../../model/submodels/overlay_image.dart';
+import 'color_extension.dart';
 
 extension OverlayImageExtension on OverlayImage {
   RawOverlayImage get raw => RawOverlayImage(
@@ -17,7 +18,7 @@ extension OverlayImageExtension on OverlayImage {
         opacity: opacity.clamp(0, 1),
         path: path,
         rotationAngle: rotationAngle,
-        tintColor: tintColor.value,
+        tintColor: tintColor.rawValue,
       );
 
   /// UIKit's `CGPoint` uses 0.5 for a center alignment.

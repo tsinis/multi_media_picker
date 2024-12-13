@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../../../helpers/extensions/model/color_extension.dart';
 import '../../../messages.g.dart';
 import '../../../model/configs/ui_configuration.dart';
 import '../interfaces/base_config_list_view.dart';
@@ -445,7 +446,7 @@ class UiConfigurationListView extends BaseConfigListView<UiConfiguration> {
                 subtitle: themeColorSubtitle,
                 title: TextFormField(
                   decoration: themeColorDecoration,
-                  initialValue: config.themeColor.value.toRadixString(16),
+                  initialValue: config.themeColor.rawValue.toRadixString(16),
                   onChanged: (value) => updateConfig = config.copyWith(
                     // ignore: no-magic-number, this is TODO!
                     themeColor: Color(int.parse(value, radix: 16)),
