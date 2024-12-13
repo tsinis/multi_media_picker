@@ -5,26 +5,21 @@
 Pod::Spec.new do |s|
   s.name             = 'multi_media_picker'
   s.version          = '0.0.1'
-  s.summary          = 'A new Flutter plugin project.'
+  s.summary          = 'Flutter plugin that shows an multimedia picker.'
   s.description      = <<-DESC
-A new Flutter plugin project.
+A Flutter plugin for picking multimedia from the gallery, and taking new pictures/videos with the camera.
+Downloaded by pub (not CocoaPods).
                        DESC
   s.homepage         = 'https://tsin.is'
-  s.license          = { :file => '../LICENSE' }
+  s.license          = { :type => 'MIT', :file => '../LICENSE' }
   s.author           = { 'Roman Cinis' => 'tsinis.dev@gmail.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
+  s.source_files = 'multi_media_picker/Sources/multi_media_picker/**/*.swift'
   s.dependency 'Flutter'
-  s.dependency 'ZLPhotoBrowser', '4.5.6'
-  s.platform = :ios, '12.0'
+  s.platform = :ios, '13.0'
 
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
   s.swift_version = '5.0'
-
-  # If your plugin requires a privacy manifest, for example if it uses any
-  # required reason APIs, update the PrivacyInfo.xcprivacy file to describe your
-  # plugin's privacy impact, and then uncomment this line. For more information,
-  # see https://developer.apple.com/documentation/bundleresources/privacy_manifest_files
-  # s.resource_bundles = {'multi_media_picker_privacy' => ['Resources/PrivacyInfo.xcprivacy']}
+  s.resource_bundles = {'multi_media_picker_privacy' => ['multi_media_picker/Sources/multi_media_picker/Resources/PrivacyInfo.xcprivacy']}
 end

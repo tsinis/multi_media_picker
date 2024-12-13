@@ -359,7 +359,8 @@ class RawCameraConfiguration {
     dartPackageName: 'multi_media_picker',
     debugGenerators: true,
     oneLanguage: false,
-    swiftOut: 'ios/Classes/messages.g.swift',
+    swiftOut:
+        'ios/multi_media_picker/Sources/multi_media_picker/messages.g.swift',
   ),
 )
 @HostApi(dartHostTestHandler: 'TestMultiMediaApi')
