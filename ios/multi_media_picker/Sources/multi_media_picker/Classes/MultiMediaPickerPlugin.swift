@@ -1,3 +1,4 @@
+import AVFoundation
 import Flutter
 import Photos
 import UIKit
@@ -119,10 +120,12 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
           updatedThumbPath = self.saveVideoThumbnail(url: videoPath, config: pickerConfig)
         }
 
+        let updatedDuration = self.getVideoDurationInSeconds(url: videoURL)
         let updatedMediaData = RawMediaData(
           path: videoPath,
           thumbPath: updatedThumbPath,
-          type: data.type
+          type: data.type,
+          duration: updatedDuration
         )
 
         completion(.success(updatedMediaData))
@@ -234,9 +237,10 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
 
   private func resolveVideo(url: URL, config: RawPickerConfiguration) -> RawMediaData {
     let path = url.path
+    let duration = getVideoDurationInSeconds(url: url)
     let thumbPath = saveVideoThumbnail(url: path, config: config)
 
-    return RawMediaData(path: path, thumbPath: thumbPath, type: .video)
+    return RawMediaData(path: path, thumbPath: thumbPath, type: .video, duration: duration)
   }
 
   private func saveImage(image: UIImage, config: RawPickerConfiguration) -> String? {
@@ -249,6 +253,12 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     }
 
     return nil
+  }
+
+  func getVideoDurationInSeconds(url: URL) -> Int64? {
+    let asset = AVAsset(url: url)
+
+    return Int64(CMTimeGetSeconds(asset.duration))
   }
 
   private func getVideoThumbPath(url: String) -> Data? {

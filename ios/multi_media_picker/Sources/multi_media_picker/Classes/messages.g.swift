@@ -467,6 +467,7 @@ struct RawMediaData {
   var path: String
   var thumbPath: String? = nil
   var type: MediaType
+  var duration: Int64? = nil
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
@@ -474,11 +475,13 @@ struct RawMediaData {
     let path = pigeonVar_list[0] as! String
     let thumbPath: String? = nilOrValue(pigeonVar_list[1])
     let type = pigeonVar_list[2] as! MediaType
+    let duration: Int64? = nilOrValue(pigeonVar_list[3])
 
     return RawMediaData(
       path: path,
       thumbPath: thumbPath,
-      type: type
+      type: type,
+      duration: duration
     )
   }
   func toList() -> [Any?] {
@@ -486,6 +489,7 @@ struct RawMediaData {
       path,
       thumbPath,
       type,
+      duration,
     ]
   }
 }

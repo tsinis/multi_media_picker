@@ -12,8 +12,15 @@ extension MediaDataExtension on RawMediaData {
     final thumbnail = thumbPath?.trim() ?? '';
     final thumb = thumbnail.isEmpty ? null : File(thumbnail);
     const size = 1; // TODO! Get the actual size of the file.
+    final durationInSec = Duration(seconds: duration ?? 0);
 
-    return MediaData(mediaFile, size: size, thumbnail: thumb, type: type);
+    return MediaData(
+      mediaFile,
+      duration: durationInSec,
+      size: size,
+      thumbnail: thumb,
+      type: type,
+    );
   }
 
   bool willEvictImageCache(MediaData? oldData) {

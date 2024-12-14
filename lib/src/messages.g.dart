@@ -463,6 +463,7 @@ class RawMediaData {
     required this.path,
     this.thumbPath,
     required this.type,
+    this.duration,
   });
 
   String path;
@@ -471,11 +472,14 @@ class RawMediaData {
 
   MediaType type;
 
+  int? duration;
+
   Object encode() {
     return <Object?>[
       path,
       thumbPath,
       type,
+      duration,
     ];
   }
 
@@ -485,6 +489,7 @@ class RawMediaData {
       path: result[0]! as String,
       thumbPath: result[1] as String?,
       type: result[2]! as MediaType,
+      duration: result[3] as int?,
     );
   }
 }

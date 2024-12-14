@@ -206,11 +206,12 @@ class ClipOptions {
 }
 
 class RawMediaData {
-  const RawMediaData(this.path, this.thumbPath, this.type);
+  const RawMediaData(this.path, this.thumbPath, this.type, {this.duration});
 
   final String path;
   final String? thumbPath;
   final MediaType type;
+  final int? duration;
 }
 
 class RawPickerConfiguration {
