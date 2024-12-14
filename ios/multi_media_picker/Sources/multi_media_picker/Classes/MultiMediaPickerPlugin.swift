@@ -121,9 +121,8 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
 
         let updatedMediaData = RawMediaData(
           path: videoPath,
-          type: data.type,
           thumbPath: updatedThumbPath,
-          size: self.getFileSize(atPath: videoPath)
+          type: data.type
         )
 
         completion(.success(updatedMediaData))
@@ -166,9 +165,8 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
         if self.createFile(atPath: imagePath, data: imageData) {
           let updatedMediaData = RawMediaData(
             path: imagePath,
-            type: data.type,
             thumbPath: imagePath,
-            size: self.getFileSize(atPath: imagePath)
+            type: data.type
           )
 
           completion(.success(updatedMediaData))
@@ -231,17 +229,14 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     let path = saveImage(image: image, config: config)
     guard let path = path else { return nil }
 
-    let fileSize = getFileSize(atPath: path)
-
-    return RawMediaData(path: path, type: .image, thumbPath: path, size: fileSize)
+    return RawMediaData(path: path, thumbPath: path, type: .image)
   }
 
   private func resolveVideo(url: URL, config: RawPickerConfiguration) -> RawMediaData {
     let path = url.path
-    let fileSize = getFileSize(atPath: path)
     let thumbPath = saveVideoThumbnail(url: path, config: config)
 
-    return RawMediaData(path: path, type: .video, thumbPath: thumbPath, size: fileSize)
+    return RawMediaData(path: path, thumbPath: thumbPath, type: .video)
   }
 
   private func saveImage(image: UIImage, config: RawPickerConfiguration) -> String? {
@@ -254,16 +249,6 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     }
 
     return nil
-  }
-
-  private func getFileSize(atPath path: String) -> Int64? {
-    do {
-      let attributes = try FileManager.default.attributesOfItem(atPath: path)
-
-      return attributes[FileAttributeKey.size] as? Int64
-    } catch {
-      return nil
-    }
   }
 
   private func getVideoThumbPath(url: String) -> Data? {

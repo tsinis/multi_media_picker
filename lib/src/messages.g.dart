@@ -461,25 +461,21 @@ class ClipOptions {
 class RawMediaData {
   RawMediaData({
     required this.path,
-    required this.type,
     this.thumbPath,
-    this.size,
+    required this.type,
   });
 
   String path;
 
-  MediaType type;
-
   String? thumbPath;
 
-  int? size;
+  MediaType type;
 
   Object encode() {
     return <Object?>[
       path,
-      type,
       thumbPath,
-      size,
+      type,
     ];
   }
 
@@ -487,9 +483,8 @@ class RawMediaData {
     result as List<Object?>;
     return RawMediaData(
       path: result[0]! as String,
-      type: result[1]! as MediaType,
-      thumbPath: result[2] as String?,
-      size: result[3] as int?,
+      thumbPath: result[1] as String?,
+      type: result[2]! as MediaType,
     );
   }
 }

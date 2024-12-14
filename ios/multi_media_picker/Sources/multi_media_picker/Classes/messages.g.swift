@@ -465,31 +465,27 @@ struct ClipOptions {
 /// Generated class from Pigeon that represents data sent in messages.
 struct RawMediaData {
   var path: String
-  var type: MediaType
   var thumbPath: String? = nil
-  var size: Int64? = nil
+  var type: MediaType
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> RawMediaData? {
     let path = pigeonVar_list[0] as! String
-    let type = pigeonVar_list[1] as! MediaType
-    let thumbPath: String? = nilOrValue(pigeonVar_list[2])
-    let size: Int64? = nilOrValue(pigeonVar_list[3])
+    let thumbPath: String? = nilOrValue(pigeonVar_list[1])
+    let type = pigeonVar_list[2] as! MediaType
 
     return RawMediaData(
       path: path,
-      type: type,
       thumbPath: thumbPath,
-      size: size
+      type: type
     )
   }
   func toList() -> [Any?] {
     return [
       path,
-      type,
       thumbPath,
-      size,
+      type,
     ]
   }
 }

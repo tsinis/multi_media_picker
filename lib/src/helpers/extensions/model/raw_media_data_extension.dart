@@ -9,7 +9,6 @@ extension RawMediaDataExtension on MediaData {
 
     return RawMediaData(
       path: file.path,
-      size: size,
       thumbPath: thumbnail?.path,
       type: type,
     );

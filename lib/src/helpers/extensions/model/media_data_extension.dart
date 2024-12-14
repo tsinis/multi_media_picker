@@ -9,7 +9,9 @@ extension MediaDataExtension on RawMediaData {
   MediaData toMediaData() {
     final mediaFile = File(path);
     assert(mediaFile.existsSync(), 'Media file $path does not exist!');
-    final thumb = (thumbPath?.isEmpty ?? true) ? null : File(thumbPath ?? '');
+    final thumbnail = thumbPath?.trim() ?? '';
+    final thumb = thumbnail.isEmpty ? null : File(thumbnail);
+    const size = 1; // TODO! Get the actual size of the file.
 
     return MediaData(mediaFile, size: size, thumbnail: thumb, type: type);
   }

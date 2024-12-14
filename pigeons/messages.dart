@@ -206,13 +206,11 @@ class ClipOptions {
 }
 
 class RawMediaData {
-  // ignore: parameters-ordering, it's a proxy class.
-  const RawMediaData(this.path, this.type, this.thumbPath, this.size);
+  const RawMediaData(this.path, this.thumbPath, this.type);
 
   final String path;
-  final MediaType type;
   final String? thumbPath;
-  final int? size;
+  final MediaType type;
 }
 
 class RawPickerConfiguration {
