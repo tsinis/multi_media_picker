@@ -10,7 +10,7 @@ abstract class BaseConfigListView<T extends Object> extends StatelessWidget {
   const BaseConfigListView(
     this.configuration, {
     Future<Duration> Function(Duration current)? onShowDurationPicker,
-    Future<E?> Function<E extends Enum>(E current, List<E> values)?
+    Future<E?> Function<E extends Enum>(E? current, List<E> values)?
         onShowEnumPicker,
     super.key,
   })  : _onShowEnumPicker = onShowEnumPicker,
@@ -19,13 +19,13 @@ abstract class BaseConfigListView<T extends Object> extends StatelessWidget {
   @protected
   final ValueNotifier<T> configuration;
   final Future<Duration?> Function(Duration current)? _onShowDurationPicker;
-  final Future<E?> Function<E extends Enum>(E current, List<E> values)?
+  final Future<E?> Function<E extends Enum>(E? current, List<E> values)?
       _onShowEnumPicker;
 
   @protected
   Future<void> handleShowEnumPicker<E extends Enum>(
     BuildContext context,
-    E current, {
+    E? current, {
     required ValueChanged<E> onSelected,
     required List<E> values,
   }) async {

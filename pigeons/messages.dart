@@ -67,6 +67,8 @@ enum PhotoBrowserStyle { embedAlbumList, externalAlbumList }
 
 enum VideoExportType { mov, mp4 }
 
+enum VideoStabilization { off, standard, cinematic, cinematicExtended }
+
 enum ContentMode {
   scaleToFill,
   scaleAspectFit,
@@ -334,6 +336,7 @@ class RawCameraConfiguration {
     this.showFlashSwitch = true,
     this.tapToRecordVideo = true,
     this.videoExportType = VideoExportType.mp4,
+    this.videoStabilization,
   });
 
   final bool allowTakePhoto;
@@ -351,6 +354,7 @@ class RawCameraConfiguration {
   final VideoExportType videoExportType;
   final DevicePosition devicePosition;
   final RawOverlayImage? overlayImage;
+  final VideoStabilization? videoStabilization;
 }
 
 @ConfigurePigeon(

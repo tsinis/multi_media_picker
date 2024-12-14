@@ -27,7 +27,7 @@ extension PickerBuildContextExtension on BuildContext {
     return selected == current ? null : selected;
   }
 
-  Future<T?> showEnumPicker<T extends Enum>(T current, List<T> values) =>
+  Future<E?> showEnumPicker<E extends Enum>(E? current, List<E> values) =>
       showModalBottomSheet(
         builder: (context) => ListView.separated(
           itemBuilder: (_, index) {

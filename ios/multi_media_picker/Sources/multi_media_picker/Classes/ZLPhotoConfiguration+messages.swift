@@ -1,3 +1,4 @@
+import AVFoundation
 import UIKit
 import ZLPhotoBrowser
 
@@ -28,6 +29,12 @@ extension ZLPhotoConfiguration {
     this.sessionPreset =
       ZLCameraConfiguration.CaptureSessionPreset(rawValue: config.sessionPreset.rawValue)
       ?? .hd1920x1080
+
+    let videoStabilizationRaw =
+      config.videoStabilization?.rawValue ?? AVCaptureVideoStabilizationMode.auto.rawValue
+    let videoStabilization =
+      AVCaptureVideoStabilizationMode(rawValue: videoStabilizationRaw) ?? .auto
+
   }
 
   func updatePickerConfiguration(from config: RawPickerConfiguration) {

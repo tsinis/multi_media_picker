@@ -23,6 +23,7 @@ class CameraConfiguration {
     this.showFlashSwitch = true,
     this.tapToRecordVideo = true,
     this.videoExportType = VideoExportType.mp4,
+    this.videoStabilization,
   });
 
   /// Allow taking photos in the camera. Defaults to `true`.
@@ -66,6 +67,9 @@ class CameraConfiguration {
   /// Video export format for recording/editing video. Defaults to `mp4`.
   final VideoExportType videoExportType;
 
+  /// Video stabilization configuration. Defaults to `null` - auto detection.
+  final VideoStabilization? videoStabilization;
+
   /// The default camera position after entering the camera. Defaults to `back`.
   final DevicePosition devicePosition;
 
@@ -88,6 +92,7 @@ class CameraConfiguration {
     bool? showFlashSwitch,
     bool? tapToRecordVideo,
     VideoExportType? videoExportType,
+    VideoStabilization? videoStabilization,
   }) =>
       CameraConfiguration(
         allowRecordVideo: allowRecordVideo ?? this.allowRecordVideo,
@@ -105,6 +110,7 @@ class CameraConfiguration {
         showFlashSwitch: showFlashSwitch ?? this.showFlashSwitch,
         tapToRecordVideo: tapToRecordVideo ?? this.tapToRecordVideo,
         videoExportType: videoExportType ?? this.videoExportType,
+        videoStabilization: videoStabilization ?? this.videoStabilization,
       );
 
   @override
@@ -119,6 +125,7 @@ class CameraConfiguration {
       'tapToRecordVideo: $tapToRecordVideo, '
       'enableWideCameras: $enableWideCameras, '
       'videoExportType: $videoExportType, '
+      '''${videoStabilization == null ? '' : 'videoStabilization: $videoStabilization, '}'''
       'devicePosition: $devicePosition)';
 
   @override
@@ -139,6 +146,7 @@ class CameraConfiguration {
         other.tapToRecordVideo == tapToRecordVideo &&
         other.enableWideCameras == enableWideCameras &&
         other.videoExportType == videoExportType &&
+        other.videoStabilization == videoStabilization &&
         other.devicePosition == devicePosition;
   }
 
@@ -157,5 +165,6 @@ class CameraConfiguration {
       tapToRecordVideo.hashCode ^
       enableWideCameras.hashCode ^
       videoExportType.hashCode ^
+      videoStabilization.hashCode ^
       devicePosition.hashCode;
 }

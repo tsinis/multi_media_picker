@@ -19,5 +19,6 @@ extension CameraConfigurationExtension on CameraConfiguration {
         showFlashSwitch: showFlashSwitch,
         tapToRecordVideo: tapToRecordVideo,
         videoExportType: videoExportType,
+        videoStabilization: videoStabilization,
       );
 }

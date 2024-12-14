@@ -21,4 +21,5 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
+  disable-swift-package-manager: false
   uses-material-design: true

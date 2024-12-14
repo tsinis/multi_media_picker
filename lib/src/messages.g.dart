@@ -114,6 +114,13 @@ enum VideoExportType {
   mp4,
 }
 
+enum VideoStabilization {
+  off,
+  standard,
+  cinematic,
+  cinematicExtended,
+}
+
 enum ContentMode {
   scaleToFill,
   scaleAspectFit,
@@ -766,6 +773,7 @@ class RawCameraConfiguration {
     this.videoExportType = VideoExportType.mp4,
     this.devicePosition = DevicePosition.back,
     this.overlayImage,
+    this.videoStabilization,
   });
 
   bool allowTakePhoto;
@@ -798,6 +806,8 @@ class RawCameraConfiguration {
 
   RawOverlayImage? overlayImage;
 
+  VideoStabilization? videoStabilization;
+
   Object encode() {
     return <Object?>[
       allowTakePhoto,
@@ -815,6 +825,7 @@ class RawCameraConfiguration {
       videoExportType,
       devicePosition,
       overlayImage,
+      videoStabilization,
     ];
   }
 
@@ -836,6 +847,7 @@ class RawCameraConfiguration {
       videoExportType: result[12]! as VideoExportType,
       devicePosition: result[13]! as DevicePosition,
       overlayImage: result[14] as RawOverlayImage?,
+      videoStabilization: result[15] as VideoStabilization?,
     );
   }
 }
@@ -890,38 +902,41 @@ class _PigeonCodec extends StandardMessageCodec {
     }    else if (value is VideoExportType) {
       buffer.putUint8(142);
       writeValue(buffer, value.index);
-    }    else if (value is ContentMode) {
+    }    else if (value is VideoStabilization) {
       buffer.putUint8(143);
       writeValue(buffer, value.index);
-    }    else if (value is RawAlignment) {
+    }    else if (value is ContentMode) {
       buffer.putUint8(144);
-      writeValue(buffer, value.encode());
-    }    else if (value is RawEdgeInsets) {
+      writeValue(buffer, value.index);
+    }    else if (value is RawAlignment) {
       buffer.putUint8(145);
       writeValue(buffer, value.encode());
-    }    else if (value is RawOverlayImage) {
+    }    else if (value is RawEdgeInsets) {
       buffer.putUint8(146);
       writeValue(buffer, value.encode());
-    }    else if (value is RawUiConfiguration) {
+    }    else if (value is RawOverlayImage) {
       buffer.putUint8(147);
       writeValue(buffer, value.encode());
-    }    else if (value is ClipAspectRatio) {
+    }    else if (value is RawUiConfiguration) {
       buffer.putUint8(148);
       writeValue(buffer, value.encode());
-    }    else if (value is ClipOptions) {
+    }    else if (value is ClipAspectRatio) {
       buffer.putUint8(149);
       writeValue(buffer, value.encode());
-    }    else if (value is RawMediaData) {
+    }    else if (value is ClipOptions) {
       buffer.putUint8(150);
       writeValue(buffer, value.encode());
-    }    else if (value is RawPickerConfiguration) {
+    }    else if (value is RawMediaData) {
       buffer.putUint8(151);
       writeValue(buffer, value.encode());
-    }    else if (value is RawEditConfiguration) {
+    }    else if (value is RawPickerConfiguration) {
       buffer.putUint8(152);
       writeValue(buffer, value.encode());
-    }    else if (value is RawCameraConfiguration) {
+    }    else if (value is RawEditConfiguration) {
       buffer.putUint8(153);
+      writeValue(buffer, value.encode());
+    }    else if (value is RawCameraConfiguration) {
+      buffer.putUint8(154);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -975,26 +990,29 @@ class _PigeonCodec extends StandardMessageCodec {
         return value == null ? null : VideoExportType.values[value];
       case 143: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : ContentMode.values[value];
+        return value == null ? null : VideoStabilization.values[value];
       case 144: 
-        return RawAlignment.decode(readValue(buffer)!);
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : ContentMode.values[value];
       case 145: 
-        return RawEdgeInsets.decode(readValue(buffer)!);
+        return RawAlignment.decode(readValue(buffer)!);
       case 146: 
-        return RawOverlayImage.decode(readValue(buffer)!);
+        return RawEdgeInsets.decode(readValue(buffer)!);
       case 147: 
-        return RawUiConfiguration.decode(readValue(buffer)!);
+        return RawOverlayImage.decode(readValue(buffer)!);
       case 148: 
-        return ClipAspectRatio.decode(readValue(buffer)!);
+        return RawUiConfiguration.decode(readValue(buffer)!);
       case 149: 
-        return ClipOptions.decode(readValue(buffer)!);
+        return ClipAspectRatio.decode(readValue(buffer)!);
       case 150: 
-        return RawMediaData.decode(readValue(buffer)!);
+        return ClipOptions.decode(readValue(buffer)!);
       case 151: 
-        return RawPickerConfiguration.decode(readValue(buffer)!);
+        return RawMediaData.decode(readValue(buffer)!);
       case 152: 
-        return RawEditConfiguration.decode(readValue(buffer)!);
+        return RawPickerConfiguration.decode(readValue(buffer)!);
       case 153: 
+        return RawEditConfiguration.decode(readValue(buffer)!);
+      case 154: 
         return RawCameraConfiguration.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);

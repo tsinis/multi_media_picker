@@ -46,6 +46,9 @@ class CameraConfigurationListView
     this.tapToRecordVideoTitle = const Text('Tap to Record Video'),
     this.videoExportTypeSubtitle = const SelectableText('videoExportType'),
     this.videoExportTypeTitle = const Text('Video Export Type'),
+    this.videoStabilizationSubtitle =
+        const SelectableText('videoStabilization'),
+    this.videoStabilizationTitle = const Text('Video Stabilization Mode'),
     super.key,
     super.onShowDurationPicker,
     super.onShowEnumPicker,
@@ -83,6 +86,8 @@ class CameraConfigurationListView
   final Widget? tapToRecordVideoTitle;
   final Widget? videoExportTypeSubtitle;
   final Widget? videoExportTypeTitle;
+  final Widget? videoStabilizationSubtitle;
+  final Widget? videoStabilizationTitle;
 
   @override
   // ignore: avoid-high-cyclomatic-complexity, a lot of configuration options.
@@ -247,6 +252,22 @@ class CameraConfigurationListView
                 subtitle: videoExportTypeSubtitle,
                 title: videoExportTypeTitle,
                 trailing: Text(config.videoExportType.name.toUpperCase()),
+              ),
+            if (videoStabilizationSubtitle != null &&
+                videoStabilizationTitle != null)
+              TextStyledListTile(
+                onTap: () async => handleShowEnumPicker(
+                  context,
+                  config.videoStabilization,
+                  onSelected: (videoStabilization) => updateConfig =
+                      config.copyWith(videoStabilization: videoStabilization),
+                  values: VideoStabilization.values,
+                ),
+                subtitle: videoStabilizationSubtitle,
+                title: videoStabilizationTitle,
+                trailing: Text(
+                  config.videoStabilization?.name.toUpperCase() ?? 'AUTO',
+                ),
               ),
           ],
         ),
