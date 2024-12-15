@@ -39,9 +39,9 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
           var mediaData: RawMediaData?
 
           if let image = image {
-            mediaData = self.resolveImage(image: image, config: pickerConfig)
+            mediaData = self.resolveImage(image: image, picker: pickerConfig)
           } else if let video = video {
-            mediaData = self.resolveVideo(url: video, config: pickerConfig)
+            mediaData = self.resolveVideo(url: video, picker: pickerConfig)
           }
 
           completion(.success(mediaData))
@@ -117,7 +117,7 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
             if !isSuccess { print("Failed to create thumbnail file at path: \(thumbPath)") }
           }
         } else {
-          updatedThumbPath = self.saveVideoThumbnail(url: videoPath, config: pickerConfig)
+          updatedThumbPath = self.saveVideoThumbnail(url: videoPath, picker: pickerConfig)
         }
 
         let updatedDuration = self.getVideoDurationInSeconds(url: videoURL)
@@ -228,28 +228,28 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     ZLPhotoUIConfiguration.default().updateUiConfiguration(from: uiConfig)  // Apply the UI config.
   }
 
-  private func resolveImage(image: UIImage, config: RawPickerConfiguration) -> RawMediaData? {
-    let path = saveImage(image: image, config: config)
-    guard let path = path else { return nil }
+  private func resolveImage(image: UIImage, picker: RawPickerConfiguration) -> RawMediaData? {
+    let imagePath = saveImage(image: image, picker: picker)
+    guard let imagePath = imagePath else { return nil }
 
-    return RawMediaData(path: path, thumbPath: path, type: .image)
+    return RawMediaData(path: imagePath, thumbPath: imagePath, type: .image)
   }
 
-  private func resolveVideo(url: URL, config: RawPickerConfiguration) -> RawMediaData {
-    let path = url.path
+  private func resolveVideo(url: URL, picker: RawPickerConfiguration) -> RawMediaData {
+    let videoPath = url.path
     let duration = getVideoDurationInSeconds(url: url)
-    let thumbPath = saveVideoThumbnail(url: path, config: config)
+    let thumbPath = saveVideoThumbnail(url: videoPath, picker: picker)
 
-    return RawMediaData(path: path, thumbPath: thumbPath, type: .video, duration: duration)
+    return RawMediaData(path: videoPath, thumbPath: thumbPath, type: .video, duration: duration)
   }
 
-  private func saveImage(image: UIImage, config: RawPickerConfiguration) -> String? {
-    return createImageFile(data: image.jpegData(compressionQuality: 1), config: config)
+  private func saveImage(image: UIImage, picker: RawPickerConfiguration) -> String? {
+    return createImageFile(data: image.jpegData(compressionQuality: 1), picker: picker)
   }
 
-  private func saveVideoThumbnail(url: String, config: RawPickerConfiguration) -> String? {
+  private func saveVideoThumbnail(url: String, picker: RawPickerConfiguration) -> String? {
     if let thumbData = getVideoThumbPath(url: url) {
-      return createImageFile(data: thumbData, config: config)
+      return createImageFile(data: thumbData, picker: picker)
     }
 
     return nil
@@ -275,9 +275,9 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     }
   }
 
-  private func createImageFile(data: Data?, config: RawPickerConfiguration) -> String? {
-    let directoryPath = config.directoryPath ?? NSTemporaryDirectory()
-    var fileName = config.imageName ?? "multi_media_\(UUID().uuidString)"
+  private func createImageFile(data: Data?, picker: RawPickerConfiguration) -> String? {
+    let directoryPath = picker.directoryPath ?? NSTemporaryDirectory()
+    var fileName = picker.imageName ?? "multi_media_\(UUID().uuidString)"
     /// Ensure the file name includes the ".jpg" extension
     if !fileName.lowercased().hasSuffix(".jpg") { fileName += ".jpg" }
     let filePath = URL(fileURLWithPath: directoryPath).appendingPathComponent(fileName).path
