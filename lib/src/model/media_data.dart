@@ -8,37 +8,40 @@ import '../messages.g.dart';
 class MediaData {
   const MediaData(
     this.file, {
+    required this.timestamp,
     this.duration = Duration.zero,
-    this.size,
+    this.fileSize = 0,
     this.thumbnail,
     this.type = MediaType.image,
   });
 
   final File file;
   final Duration duration;
-  final int? size;
+  final int fileSize;
   final File? thumbnail;
+  final DateTime timestamp;
   final MediaType type;
 
   MediaData copyWith({
     Duration? duration,
     File? file,
-    int? size,
+    int? fileSize,
     File? thumbnail,
+    DateTime? timestamp,
     MediaType? type,
   }) =>
       MediaData(
         file ?? this.file,
         duration: duration ?? this.duration,
-        size: size ?? this.size,
+        fileSize: fileSize ?? this.fileSize,
         thumbnail: thumbnail ?? this.thumbnail,
+        timestamp: timestamp ?? this.timestamp,
         type: type ?? this.type,
       );
 
   @override
   String toString() => 'MediaData(media: File(${file.path}), '
-      'duration: $duration, '
-      '${size == null ? '' : 'size: $size, '}'
+      'duration: $duration, fileSize: $fileSize, timestamp: $timestamp, '
       '''${thumbnail?.path == null ? '' : 'thumbnail: File(${thumbnail?.path}), '}'''
       'type: $type)';
 
@@ -48,17 +51,19 @@ class MediaData {
 
     return other is MediaData &&
         other.file == file &&
+        other.timestamp == timestamp &&
         other.duration == duration &&
         other.type == type &&
         other.thumbnail == thumbnail &&
-        other.size == size;
+        other.fileSize == fileSize;
   }
 
   @override
   int get hashCode =>
       file.hashCode ^
+      timestamp.hashCode ^
       duration.hashCode ^
       type.hashCode ^
       thumbnail.hashCode ^
-      size.hashCode;
+      fileSize.hashCode;
 }

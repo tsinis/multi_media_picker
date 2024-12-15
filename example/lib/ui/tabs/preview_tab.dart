@@ -21,25 +21,37 @@ class PreviewTab extends StatelessWidget {
           (thumbnail) => InkWell(
             // ignore: avoid-passing-async-when-sync-expected, just example.
             onTap: _handleEdit,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('File: ${mediaData?.file.path}'),
-                Text('Size: ${mediaData?.size}', textAlign: TextAlign.center),
-                const SizedBox(height: 10),
-                Expanded(
-                  child: AnimatedSwitcher(
-                    duration: kThemeAnimationDuration,
-                    child: Image(
-                      fit: BoxFit.cover,
-                      image: FileImage(thumbnail),
-                      key: ValueKey(mediaData?.size),
-                      semanticLabel: 'Media Preview',
-                    ),
-                  ),
+            child: AnimatedSwitcher(
+              duration: kThemeAnimationDuration,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  image: DecorationImage(image: FileImage(thumbnail)),
                 ),
-              ],
+                key: ValueKey(mediaData?.fileSize),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    MaybeWidget(
+                      mediaData?.filename(),
+                      (filename) => Chip(
+                        avatar: Icon(
+                          mediaData.isVideo
+                              ? Icons.smart_display_rounded
+                              : Icons.image_rounded,
+                        ),
+                        label: Text(filename),
+                      ),
+                    ),
+                    MaybeWidget(
+                      mediaData?.formattedSize(),
+                      (size) => Chip(
+                        avatar: const Icon(Icons.straighten),
+                        label: Text(size),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
           orElse: const Center(child: Text('No media to preview.')),

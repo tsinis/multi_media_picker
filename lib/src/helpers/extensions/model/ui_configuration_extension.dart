@@ -1,6 +1,6 @@
 import '../../../messages.g.dart';
 import '../../../model/configs/ui_configuration.dart';
-import 'color_extension.dart';
+import '../sdk_model/color_extension.dart';
 
 extension UiConfigurationExtension on UiConfiguration {
   RawUiConfiguration get raw => RawUiConfiguration(

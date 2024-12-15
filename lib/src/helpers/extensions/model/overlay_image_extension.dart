@@ -1,6 +1,6 @@
 import '../../../messages.g.dart';
 import '../../../model/submodels/overlay_image.dart';
-import 'color_extension.dart';
+import '../sdk_model/color_extension.dart';
 
 extension OverlayImageExtension on OverlayImage {
   RawOverlayImage get raw => RawOverlayImage(

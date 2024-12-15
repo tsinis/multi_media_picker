@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../helpers/extensions/model/color_extension.dart';
+import '../../../helpers/extensions/sdk_model/color_extension.dart';
 import '../../../messages.g.dart';
 import '../../../model/configs/ui_configuration.dart';
 import '../interfaces/base_config_list_view.dart';

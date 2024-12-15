@@ -1,33 +1,29 @@
-import 'dart:io';
+import 'dart:math';
 
-import 'package:flutter/rendering.dart';
-
-import '../../../messages.g.dart';
+import '../../../model/enum/file_size_unit.dart';
 import '../../../model/media_data.dart';
 
-extension MediaDataExtension on RawMediaData {
-  MediaData toMediaData() {
-    final mediaFile = File(path);
-    assert(mediaFile.existsSync(), 'Media file $path does not exist!');
-    final thumbnail = thumbPath?.trim() ?? '';
-    final thumb = thumbnail.isEmpty ? null : File(thumbnail);
-    const size = 1; // TODO! Get the actual size of the file.
-    final durationInSec = Duration(seconds: duration ?? 0);
+extension MediaDataExtension on MediaData {
+  String formattedSize({
+    int baseUnit = 1024,
+    int fractionDigits = 2,
+    List<Enum>? suffixes,
+  }) {
+    if (fileSize <= 0) return '0 ${FileSizeUnit.B.name}';
+    final list = suffixes ?? FileSizeUnit.values;
+    final i = (log(fileSize) / log(baseUnit)).floor();
 
-    return MediaData(
-      mediaFile,
-      duration: durationInSec,
-      size: size,
-      thumbnail: thumb,
-      type: type,
-    );
+    return '${(fileSize / pow(baseUnit, i)).toStringAsFixed(fractionDigits)} '
+        '${list.elementAtOrNull(min(i, list.length - 1))?.name ?? ''}';
   }
 
-  bool willEvictImageCache(MediaData? oldData) {
-    if (oldData == null) return false;
-    final thumbnail = thumbPath ?? '';
-    if (thumbnail.isEmpty || thumbnail != oldData.thumbnail?.path) return false;
+  // ignore: prefer-boolean-prefixes, more convenient in Dart.
+  String filename({bool withExtension = true}) {
+    final name = file.path.split('/').lastOrNull ?? '';
+    if (withExtension) return name;
+    final dotIndex = name.lastIndexOf('.');
 
-    return imageCache.evict(FileImage(File(thumbnail)));
+    // ignore: avoid-substring, filename has not emojis.
+    return dotIndex.isNegative ? name : name.substring(0, dotIndex);
   }
 }
