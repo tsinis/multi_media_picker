@@ -769,6 +769,7 @@ class RawCameraConfiguration {
     this.showFlashSwitch = true,
     this.allowSwitchCamera = true,
     this.tapToRecordVideo = true,
+    this.thumbnailWidth = 200,
     this.enableWideCameras = true,
     this.videoExportType = VideoExportType.mp4,
     this.devicePosition = DevicePosition.back,
@@ -798,6 +799,8 @@ class RawCameraConfiguration {
 
   bool tapToRecordVideo;
 
+  int thumbnailWidth;
+
   bool enableWideCameras;
 
   VideoExportType videoExportType;
@@ -821,6 +824,7 @@ class RawCameraConfiguration {
       showFlashSwitch,
       allowSwitchCamera,
       tapToRecordVideo,
+      thumbnailWidth,
       enableWideCameras,
       videoExportType,
       devicePosition,
@@ -843,11 +847,12 @@ class RawCameraConfiguration {
       showFlashSwitch: result[8]! as bool,
       allowSwitchCamera: result[9]! as bool,
       tapToRecordVideo: result[10]! as bool,
-      enableWideCameras: result[11]! as bool,
-      videoExportType: result[12]! as VideoExportType,
-      devicePosition: result[13]! as DevicePosition,
-      overlayImage: result[14] as RawOverlayImage?,
-      videoStabilization: result[15] as VideoStabilization?,
+      thumbnailWidth: result[11]! as int,
+      enableWideCameras: result[12]! as bool,
+      videoExportType: result[13]! as VideoExportType,
+      devicePosition: result[14]! as DevicePosition,
+      overlayImage: result[15] as RawOverlayImage?,
+      videoStabilization: result[16] as VideoStabilization?,
     );
   }
 }

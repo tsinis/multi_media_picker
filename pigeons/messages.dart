@@ -334,6 +334,7 @@ class RawCameraConfiguration {
     this.sessionPreset = CaptureSessionPreset.hd1920x1080,
     this.showFlashSwitch = true,
     this.tapToRecordVideo = true,
+    this.thumbnailWidth = 200,
     this.videoExportType = VideoExportType.mp4,
     this.videoStabilization,
   });
@@ -349,6 +350,7 @@ class RawCameraConfiguration {
   final bool showFlashSwitch;
   final bool allowSwitchCamera;
   final bool tapToRecordVideo;
+  final int thumbnailWidth;
   final bool enableWideCameras;
   final VideoExportType videoExportType;
   final DevicePosition devicePosition;

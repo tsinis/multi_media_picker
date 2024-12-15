@@ -723,6 +723,7 @@ struct RawCameraConfiguration {
   var showFlashSwitch: Bool
   var allowSwitchCamera: Bool
   var tapToRecordVideo: Bool
+  var thumbnailWidth: Int64
   var enableWideCameras: Bool
   var videoExportType: VideoExportType
   var devicePosition: DevicePosition
@@ -743,11 +744,12 @@ struct RawCameraConfiguration {
     let showFlashSwitch = pigeonVar_list[8] as! Bool
     let allowSwitchCamera = pigeonVar_list[9] as! Bool
     let tapToRecordVideo = pigeonVar_list[10] as! Bool
-    let enableWideCameras = pigeonVar_list[11] as! Bool
-    let videoExportType = pigeonVar_list[12] as! VideoExportType
-    let devicePosition = pigeonVar_list[13] as! DevicePosition
-    let overlayImage: RawOverlayImage? = nilOrValue(pigeonVar_list[14])
-    let videoStabilization: VideoStabilization? = nilOrValue(pigeonVar_list[15])
+    let thumbnailWidth = pigeonVar_list[11] as! Int64
+    let enableWideCameras = pigeonVar_list[12] as! Bool
+    let videoExportType = pigeonVar_list[13] as! VideoExportType
+    let devicePosition = pigeonVar_list[14] as! DevicePosition
+    let overlayImage: RawOverlayImage? = nilOrValue(pigeonVar_list[15])
+    let videoStabilization: VideoStabilization? = nilOrValue(pigeonVar_list[16])
 
     return RawCameraConfiguration(
       allowTakePhoto: allowTakePhoto,
@@ -761,6 +763,7 @@ struct RawCameraConfiguration {
       showFlashSwitch: showFlashSwitch,
       allowSwitchCamera: allowSwitchCamera,
       tapToRecordVideo: tapToRecordVideo,
+      thumbnailWidth: thumbnailWidth,
       enableWideCameras: enableWideCameras,
       videoExportType: videoExportType,
       devicePosition: devicePosition,
@@ -781,6 +784,7 @@ struct RawCameraConfiguration {
       showFlashSwitch,
       allowSwitchCamera,
       tapToRecordVideo,
+      thumbnailWidth,
       enableWideCameras,
       videoExportType,
       devicePosition,

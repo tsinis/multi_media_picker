@@ -1,4 +1,4 @@
-// ignore_for_file: prefer-boolean-prefixes
+// ignore_for_file: prefer-boolean-prefixes, no-magic-number
 
 import 'package:flutter/material.dart';
 
@@ -203,8 +203,9 @@ class UiConfigurationListView extends BaseConfigListView<UiConfiguration> {
                   decoration: cellCornerRadioDecoration,
                   initialValue: config.cellCornerRadio.toString(),
                   keyboardType: TextInputType.number,
+                  maxLength: 4,
                   onChanged: (value) => updateConfig = config.copyWith(
-                    cellCornerRadio: double.tryParse(value) ?? 0,
+                    cellCornerRadio: double.tryParse(value),
                   ),
                 ),
               ),
@@ -215,8 +216,9 @@ class UiConfigurationListView extends BaseConfigListView<UiConfiguration> {
                   decoration: columnCountDecoration,
                   initialValue: config.columnCount.toString(),
                   keyboardType: TextInputType.number,
+                  maxLength: 3,
                   onChanged: (value) => updateConfig =
-                      config.copyWith(columnCount: int.tryParse(value) ?? 4),
+                      config.copyWith(columnCount: int.tryParse(value)),
                 ),
               ),
             if (hudStyleSubtitle != null && hudStyleTitle != null)
@@ -262,8 +264,9 @@ class UiConfigurationListView extends BaseConfigListView<UiConfiguration> {
                   decoration: minimumItemSpacingDecoration,
                   initialValue: config.minimumItemSpacing.toString(),
                   keyboardType: TextInputType.number,
+                  maxLength: 4,
                   onChanged: (value) => updateConfig = config.copyWith(
-                    minimumItemSpacing: double.tryParse(value) ?? 2,
+                    minimumItemSpacing: double.tryParse(value),
                   ),
                 ),
               ),
@@ -275,8 +278,9 @@ class UiConfigurationListView extends BaseConfigListView<UiConfiguration> {
                   decoration: minimumItemSpacingDecoration,
                   initialValue: config.minimumLineSpacing.toString(),
                   keyboardType: TextInputType.number,
+                  maxLength: 4,
                   onChanged: (value) => updateConfig = config.copyWith(
-                    minimumLineSpacing: double.tryParse(value) ?? 2,
+                    minimumLineSpacing: double.tryParse(value),
                   ),
                 ),
               ),
@@ -448,7 +452,6 @@ class UiConfigurationListView extends BaseConfigListView<UiConfiguration> {
                   decoration: themeColorDecoration,
                   initialValue: config.themeColor.rawValue.toRadixString(16),
                   onChanged: (value) => updateConfig = config.copyWith(
-                    // ignore: no-magic-number, this is TODO!
                     themeColor: Color(int.parse(value, radix: 16)),
                   ),
                 ),

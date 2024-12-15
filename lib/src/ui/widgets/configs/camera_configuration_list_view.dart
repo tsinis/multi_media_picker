@@ -44,6 +44,9 @@ class CameraConfigurationListView
     this.showFlashSwitchTitle = const Text('Show Flash Switch'),
     this.tapToRecordVideoSubtitle = const SelectableText('tapToRecordVideo'),
     this.tapToRecordVideoTitle = const Text('Tap to Record Video'),
+    this.thumbnailWidthDecoration =
+        const InputDecoration(hintText: 'Thumbnail Width'),
+    this.thumbnailWidthSubtitle = const SelectableText('thumbnailWidth'),
     this.videoExportTypeSubtitle = const SelectableText('videoExportType'),
     this.videoExportTypeTitle = const Text('Video Export Type'),
     this.videoStabilizationSubtitle =
@@ -84,6 +87,8 @@ class CameraConfigurationListView
   final Widget? showFlashSwitchTitle;
   final Widget? tapToRecordVideoSubtitle;
   final Widget? tapToRecordVideoTitle;
+  final Widget? thumbnailWidthSubtitle;
+  final InputDecoration? thumbnailWidthDecoration;
   final Widget? videoExportTypeSubtitle;
   final Widget? videoExportTypeTitle;
   final Widget? videoStabilizationSubtitle;
@@ -239,6 +244,20 @@ class CameraConfigurationListView
                 subtitle: tapToRecordVideoSubtitle,
                 title: tapToRecordVideoTitle,
                 value: config.tapToRecordVideo,
+              ),
+            if (thumbnailWidthSubtitle != null &&
+                thumbnailWidthDecoration != null)
+              ListTile(
+                subtitle: thumbnailWidthSubtitle,
+                title: TextFormField(
+                  decoration: thumbnailWidthDecoration,
+                  initialValue: config.thumbnailWidth.toString(),
+                  keyboardType: TextInputType.number,
+                  maxLength: 4,
+                  onChanged: (value) => updateConfig = config.copyWith(
+                    thumbnailWidth: int.tryParse(value),
+                  ),
+                ),
               ),
             if (videoExportTypeSubtitle != null && videoExportTypeTitle != null)
               TextStyledListTile(
