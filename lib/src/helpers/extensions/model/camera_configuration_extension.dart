@@ -18,7 +18,6 @@ extension CameraConfigurationExtension on CameraConfiguration {
         sessionPreset: sessionPreset,
         showFlashSwitch: showFlashSwitch,
         tapToRecordVideo: tapToRecordVideo,
-        thumbnailWidth: thumbnailWidth,
         videoExportType: videoExportType,
         videoStabilization: videoStabilization,
       );

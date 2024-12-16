@@ -112,9 +112,13 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
         var updatedThumbPath = data.thumbPath
 
         if let thumbPath = updatedThumbPath {
-          if let thumbData = self.getVideoThumbPath(url: videoPath) {
-            let isSuccess = self.createFile(atPath: thumbPath, data: thumbData)
-            if !isSuccess { print("Failed to create thumbnail file at path: \(thumbPath)") }
+          if let thumbImage = self.getVideoThumbImage(url: videoPath) {
+            updatedThumbPath = self.createImageFile(
+              image: thumbImage,
+              picker: pickerConfig,
+              existingPath: thumbPath,
+              isThumbnail: true
+            )
           }
         } else {
           updatedThumbPath = self.saveVideoThumbnail(url: videoPath, picker: pickerConfig)
@@ -166,9 +170,15 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
         let imagePath = data.path
 
         if self.createFile(atPath: imagePath, data: imageData) {
+          let thumbPath = self.createImageFile(
+            image: editedImage,
+            picker: pickerConfig,
+            existingPath: data.thumbPath,
+            isThumbnail: true
+          )
           let updatedMediaData = RawMediaData(
             path: imagePath,
-            thumbPath: imagePath,
+            thumbPath: thumbPath,
             type: data.type
           )
 
@@ -229,10 +239,11 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
   }
 
   private func resolveImage(image: UIImage, picker: RawPickerConfiguration) -> RawMediaData? {
-    let imagePath = saveImage(image: image, picker: picker)
+    let imagePath = createImageFile(image: image, picker: picker)
     guard let imagePath = imagePath else { return nil }
+    let thumbPath = createImageFile(image: image, picker: picker, isThumbnail: true)
 
-    return RawMediaData(path: imagePath, thumbPath: imagePath, type: .image)
+    return RawMediaData(path: imagePath, thumbPath: thumbPath, type: .image)
   }
 
   private func resolveVideo(url: URL, picker: RawPickerConfiguration) -> RawMediaData {
@@ -243,13 +254,9 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     return RawMediaData(path: videoPath, thumbPath: thumbPath, type: .video, duration: duration)
   }
 
-  private func saveImage(image: UIImage, picker: RawPickerConfiguration) -> String? {
-    return createImageFile(data: image.jpegData(compressionQuality: 1), picker: picker)
-  }
-
   private func saveVideoThumbnail(url: String, picker: RawPickerConfiguration) -> String? {
-    if let thumbData = getVideoThumbPath(url: url) {
-      return createImageFile(data: thumbData, picker: picker)
+    if let image = getVideoThumbImage(url: url) {
+      return createImageFile(image: image, picker: picker, isThumbnail: true)
     }
 
     return nil
@@ -261,28 +268,55 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     return Int64(CMTimeGetSeconds(asset.duration))
   }
 
-  private func getVideoThumbPath(url: String) -> Data? {
+  private func getVideoThumbImage(url: String) -> UIImage? {
+    let time = CMTime(seconds: 0.0, preferredTimescale: 600)
     do {
       let asset = AVAsset(url: NSURL.fileURL(withPath: url))
       let gen = AVAssetImageGenerator(asset: asset)
       gen.appliesPreferredTrackTransform = true
-      let time = CMTime(seconds: 0.0, preferredTimescale: 600)
       let image = try gen.copyCGImage(at: time, actualTime: nil)
 
-      return UIImage(cgImage: image).jpegData(compressionQuality: 1)
+      return UIImage(cgImage: image)
     } catch {
       return nil
     }
   }
 
-  private func createImageFile(data: Data?, picker: RawPickerConfiguration) -> String? {
-    let directoryPath = picker.directoryPath ?? NSTemporaryDirectory()
-    var fileName = picker.imageName ?? "multi_media_\(UUID().uuidString)"
-    /// Ensure the file name includes the ".jpg" extension
-    if !fileName.lowercased().hasSuffix(".jpg") { fileName += ".jpg" }
-    let filePath = URL(fileURLWithPath: directoryPath).appendingPathComponent(fileName).path
+  private func createImageFile(
+    image: UIImage,
+    picker: RawPickerConfiguration,
+    existingPath: String? = nil,
+    isThumbnail: Bool = false
+  ) -> String? {
+    var filePath = existingPath ?? ""
+    if filePath.isEmpty {
+      let directoryPath = picker.directoryPath ?? NSTemporaryDirectory()
+      var fileName = picker.imageName ?? "media_\(UUID().uuidString)"
+      if isThumbnail { fileName = ".thumbnail_\(fileName)" }
+      /// Ensure the file name includes the ".jpg" extension
+      if !fileName.lowercased().hasSuffix(".jpg") { fileName += ".jpg" }
+      filePath = URL(fileURLWithPath: directoryPath).appendingPathComponent(fileName).path
+    }
 
-    return createFile(atPath: filePath, data: data) ? filePath : nil
+    let width = isThumbnail ? CGFloat(picker.thumbnailWidth) : nil
+    guard let imageData = resizeImage(image: image, width: width) else { return nil }
+
+    return createFile(atPath: filePath, data: imageData) ? filePath : nil
+  }
+
+  private func resizeImage(image: UIImage, width: CGFloat?) -> Data? {
+    guard let width = width, round(image.size.width) > round(width) else {
+      return image.jpegData(compressionQuality: 1)
+    }
+
+    let widthRatio = width / image.size.width
+    let newSize = CGSize(width: width, height: image.size.height * widthRatio)
+    let renderer = UIGraphicsImageRenderer(size: newSize)
+    let newImage = renderer.image { (context) in
+      image.draw(in: CGRect(origin: .zero, size: newSize))
+    }
+
+    return newImage.jpegData(compressionQuality: 1)
   }
 
   private func createFile(atPath path: String?, data: Data?) -> Bool {

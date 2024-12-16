@@ -526,6 +526,7 @@ class RawPickerConfiguration {
     this.showSelectCountOnDoneButton = true,
     this.showSelectButtonWhenSingleSelect = false,
     this.showSelectedIndex = true,
+    this.thumbnailWidth = 160,
     this.maxEditVideoDurationSeconds = 10,
     this.maxSelectVideoDurationSeconds = 120,
     this.minSelectVideoDurationSeconds = 0,
@@ -596,6 +597,8 @@ class RawPickerConfiguration {
 
   bool showSelectedIndex;
 
+  int thumbnailWidth;
+
   int maxEditVideoDurationSeconds;
 
   int maxSelectVideoDurationSeconds;
@@ -644,6 +647,7 @@ class RawPickerConfiguration {
       showSelectCountOnDoneButton,
       showSelectButtonWhenSingleSelect,
       showSelectedIndex,
+      thumbnailWidth,
       maxEditVideoDurationSeconds,
       maxSelectVideoDurationSeconds,
       minSelectVideoDurationSeconds,
@@ -688,14 +692,15 @@ class RawPickerConfiguration {
       showSelectCountOnDoneButton: result[27]! as bool,
       showSelectButtonWhenSingleSelect: result[28]! as bool,
       showSelectedIndex: result[29]! as bool,
-      maxEditVideoDurationSeconds: result[30]! as int,
-      maxSelectVideoDurationSeconds: result[31]! as int,
-      minSelectVideoDurationSeconds: result[32]! as int,
-      maxSelectVideoDataSizeKB: result[33] as double?,
-      minSelectVideoDataSizeKB: result[34]! as double,
-      useCustomCamera: result[35]! as bool,
-      directoryPath: result[36] as String?,
-      imageName: result[37] as String?,
+      thumbnailWidth: result[30]! as int,
+      maxEditVideoDurationSeconds: result[31]! as int,
+      maxSelectVideoDurationSeconds: result[32]! as int,
+      minSelectVideoDurationSeconds: result[33]! as int,
+      maxSelectVideoDataSizeKB: result[34] as double?,
+      minSelectVideoDataSizeKB: result[35]! as double,
+      useCustomCamera: result[36]! as bool,
+      directoryPath: result[37] as String?,
+      imageName: result[38] as String?,
     );
   }
 }
@@ -769,7 +774,6 @@ class RawCameraConfiguration {
     this.showFlashSwitch = true,
     this.allowSwitchCamera = true,
     this.tapToRecordVideo = true,
-    this.thumbnailWidth = 200,
     this.enableWideCameras = true,
     this.videoExportType = VideoExportType.mp4,
     this.devicePosition = DevicePosition.back,
@@ -799,8 +803,6 @@ class RawCameraConfiguration {
 
   bool tapToRecordVideo;
 
-  int thumbnailWidth;
-
   bool enableWideCameras;
 
   VideoExportType videoExportType;
@@ -824,7 +826,6 @@ class RawCameraConfiguration {
       showFlashSwitch,
       allowSwitchCamera,
       tapToRecordVideo,
-      thumbnailWidth,
       enableWideCameras,
       videoExportType,
       devicePosition,
@@ -847,12 +848,11 @@ class RawCameraConfiguration {
       showFlashSwitch: result[8]! as bool,
       allowSwitchCamera: result[9]! as bool,
       tapToRecordVideo: result[10]! as bool,
-      thumbnailWidth: result[11]! as int,
-      enableWideCameras: result[12]! as bool,
-      videoExportType: result[13]! as VideoExportType,
-      devicePosition: result[14]! as DevicePosition,
-      overlayImage: result[15] as RawOverlayImage?,
-      videoStabilization: result[16] as VideoStabilization?,
+      enableWideCameras: result[11]! as bool,
+      videoExportType: result[12]! as VideoExportType,
+      devicePosition: result[13]! as DevicePosition,
+      overlayImage: result[14] as RawOverlayImage?,
+      videoStabilization: result[15] as VideoStabilization?,
     );
   }
 }

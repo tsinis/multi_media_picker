@@ -23,33 +23,36 @@ class PreviewTab extends StatelessWidget {
             onTap: _handleEdit,
             child: AnimatedSwitcher(
               duration: kThemeAnimationDuration,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  image: DecorationImage(image: FileImage(thumbnail)),
-                ),
-                key: ValueKey(mediaData?.fileSize),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    MaybeWidget(
-                      mediaData?.filename(),
-                      (filename) => Chip(
-                        avatar: Icon(
-                          mediaData.isVideo
-                              ? Icons.smart_display_rounded
-                              : Icons.image_rounded,
+              child: Tooltip(
+                message: mediaData?.toString(),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(image: FileImage(thumbnail)),
+                  ),
+                  key: ValueKey(mediaData?.fileSize),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      MaybeWidget(
+                        mediaData?.filename(),
+                        (filename) => Chip(
+                          avatar: Icon(
+                            mediaData.isVideo
+                                ? Icons.smart_display_rounded
+                                : Icons.image_rounded,
+                          ),
+                          label: Text(filename),
                         ),
-                        label: Text(filename),
                       ),
-                    ),
-                    MaybeWidget(
-                      mediaData?.formattedSize(),
-                      (size) => Chip(
-                        avatar: const Icon(Icons.straighten),
-                        label: Text(size),
+                      MaybeWidget(
+                        mediaData?.formattedSize(),
+                        (size) => Chip(
+                          avatar: const Icon(Icons.straighten),
+                          label: Text(size),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

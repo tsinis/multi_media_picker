@@ -253,6 +253,7 @@ class RawPickerConfiguration {
     this.showSelectButtonWhenSingleSelect = false,
     this.showSelectCountOnDoneButton = true,
     this.showSelectedIndex = true,
+    this.thumbnailWidth = 160,
     this.useCustomCamera = true,
   });
 
@@ -286,6 +287,7 @@ class RawPickerConfiguration {
   final bool showSelectCountOnDoneButton;
   final bool showSelectButtonWhenSingleSelect;
   final bool showSelectedIndex;
+  final int thumbnailWidth;
   final int maxEditVideoDurationSeconds;
   final int maxSelectVideoDurationSeconds;
   final int minSelectVideoDurationSeconds;
@@ -334,7 +336,6 @@ class RawCameraConfiguration {
     this.sessionPreset = CaptureSessionPreset.hd1920x1080,
     this.showFlashSwitch = true,
     this.tapToRecordVideo = true,
-    this.thumbnailWidth = 200,
     this.videoExportType = VideoExportType.mp4,
     this.videoStabilization,
   });
@@ -350,7 +351,6 @@ class RawCameraConfiguration {
   final bool showFlashSwitch;
   final bool allowSwitchCamera;
   final bool tapToRecordVideo;
-  final int thumbnailWidth;
   final bool enableWideCameras;
   final VideoExportType videoExportType;
   final DevicePosition devicePosition;

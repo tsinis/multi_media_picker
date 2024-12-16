@@ -526,6 +526,7 @@ struct RawPickerConfiguration {
   var showSelectCountOnDoneButton: Bool
   var showSelectButtonWhenSingleSelect: Bool
   var showSelectedIndex: Bool
+  var thumbnailWidth: Int64
   var maxEditVideoDurationSeconds: Int64
   var maxSelectVideoDurationSeconds: Int64
   var minSelectVideoDurationSeconds: Int64
@@ -568,14 +569,15 @@ struct RawPickerConfiguration {
     let showSelectCountOnDoneButton = pigeonVar_list[27] as! Bool
     let showSelectButtonWhenSingleSelect = pigeonVar_list[28] as! Bool
     let showSelectedIndex = pigeonVar_list[29] as! Bool
-    let maxEditVideoDurationSeconds = pigeonVar_list[30] as! Int64
-    let maxSelectVideoDurationSeconds = pigeonVar_list[31] as! Int64
-    let minSelectVideoDurationSeconds = pigeonVar_list[32] as! Int64
-    let maxSelectVideoDataSizeKB: Double? = nilOrValue(pigeonVar_list[33])
-    let minSelectVideoDataSizeKB = pigeonVar_list[34] as! Double
-    let useCustomCamera = pigeonVar_list[35] as! Bool
-    let directoryPath: String? = nilOrValue(pigeonVar_list[36])
-    let imageName: String? = nilOrValue(pigeonVar_list[37])
+    let thumbnailWidth = pigeonVar_list[30] as! Int64
+    let maxEditVideoDurationSeconds = pigeonVar_list[31] as! Int64
+    let maxSelectVideoDurationSeconds = pigeonVar_list[32] as! Int64
+    let minSelectVideoDurationSeconds = pigeonVar_list[33] as! Int64
+    let maxSelectVideoDataSizeKB: Double? = nilOrValue(pigeonVar_list[34])
+    let minSelectVideoDataSizeKB = pigeonVar_list[35] as! Double
+    let useCustomCamera = pigeonVar_list[36] as! Bool
+    let directoryPath: String? = nilOrValue(pigeonVar_list[37])
+    let imageName: String? = nilOrValue(pigeonVar_list[38])
 
     return RawPickerConfiguration(
       maxSelectCount: maxSelectCount,
@@ -608,6 +610,7 @@ struct RawPickerConfiguration {
       showSelectCountOnDoneButton: showSelectCountOnDoneButton,
       showSelectButtonWhenSingleSelect: showSelectButtonWhenSingleSelect,
       showSelectedIndex: showSelectedIndex,
+      thumbnailWidth: thumbnailWidth,
       maxEditVideoDurationSeconds: maxEditVideoDurationSeconds,
       maxSelectVideoDurationSeconds: maxSelectVideoDurationSeconds,
       minSelectVideoDurationSeconds: minSelectVideoDurationSeconds,
@@ -650,6 +653,7 @@ struct RawPickerConfiguration {
       showSelectCountOnDoneButton,
       showSelectButtonWhenSingleSelect,
       showSelectedIndex,
+      thumbnailWidth,
       maxEditVideoDurationSeconds,
       maxSelectVideoDurationSeconds,
       minSelectVideoDurationSeconds,
@@ -723,7 +727,6 @@ struct RawCameraConfiguration {
   var showFlashSwitch: Bool
   var allowSwitchCamera: Bool
   var tapToRecordVideo: Bool
-  var thumbnailWidth: Int64
   var enableWideCameras: Bool
   var videoExportType: VideoExportType
   var devicePosition: DevicePosition
@@ -744,12 +747,11 @@ struct RawCameraConfiguration {
     let showFlashSwitch = pigeonVar_list[8] as! Bool
     let allowSwitchCamera = pigeonVar_list[9] as! Bool
     let tapToRecordVideo = pigeonVar_list[10] as! Bool
-    let thumbnailWidth = pigeonVar_list[11] as! Int64
-    let enableWideCameras = pigeonVar_list[12] as! Bool
-    let videoExportType = pigeonVar_list[13] as! VideoExportType
-    let devicePosition = pigeonVar_list[14] as! DevicePosition
-    let overlayImage: RawOverlayImage? = nilOrValue(pigeonVar_list[15])
-    let videoStabilization: VideoStabilization? = nilOrValue(pigeonVar_list[16])
+    let enableWideCameras = pigeonVar_list[11] as! Bool
+    let videoExportType = pigeonVar_list[12] as! VideoExportType
+    let devicePosition = pigeonVar_list[13] as! DevicePosition
+    let overlayImage: RawOverlayImage? = nilOrValue(pigeonVar_list[14])
+    let videoStabilization: VideoStabilization? = nilOrValue(pigeonVar_list[15])
 
     return RawCameraConfiguration(
       allowTakePhoto: allowTakePhoto,
@@ -763,7 +765,6 @@ struct RawCameraConfiguration {
       showFlashSwitch: showFlashSwitch,
       allowSwitchCamera: allowSwitchCamera,
       tapToRecordVideo: tapToRecordVideo,
-      thumbnailWidth: thumbnailWidth,
       enableWideCameras: enableWideCameras,
       videoExportType: videoExportType,
       devicePosition: devicePosition,
@@ -784,7 +785,6 @@ struct RawCameraConfiguration {
       showFlashSwitch,
       allowSwitchCamera,
       tapToRecordVideo,
-      thumbnailWidth,
       enableWideCameras,
       videoExportType,
       devicePosition,

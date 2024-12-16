@@ -245,20 +245,6 @@ class CameraConfigurationListView
                 title: tapToRecordVideoTitle,
                 value: config.tapToRecordVideo,
               ),
-            if (thumbnailWidthSubtitle != null &&
-                thumbnailWidthDecoration != null)
-              ListTile(
-                subtitle: thumbnailWidthSubtitle,
-                title: TextFormField(
-                  decoration: thumbnailWidthDecoration,
-                  initialValue: config.thumbnailWidth.toString(),
-                  keyboardType: TextInputType.number,
-                  maxLength: 4,
-                  onChanged: (value) => updateConfig = config.copyWith(
-                    thumbnailWidth: int.tryParse(value),
-                  ),
-                ),
-              ),
             if (videoExportTypeSubtitle != null && videoExportTypeTitle != null)
               TextStyledListTile(
                 onTap: () async => handleShowEnumPicker(

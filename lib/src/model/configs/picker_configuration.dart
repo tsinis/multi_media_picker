@@ -42,6 +42,7 @@ class PickerConfiguration {
     this.showSelectButtonWhenSingleSelect = false,
     this.showSelectCountOnDoneButton = true,
     this.showSelectedIndex = true,
+    this.thumbnailWidth = 160,
     this.useCustomCamera = true,
   });
 
@@ -169,6 +170,9 @@ class PickerConfiguration {
   /// Display the index of the selected photos. Defaults to `true`.
   final bool showSelectedIndex;
 
+  /// The width of the thumbnail image. Defaults to `160`.
+  final int thumbnailWidth;
+
   /// Maximum cropping time when editing video, unit: second. Defaults to `10`.
   final Duration maxEditVideoDuration;
 
@@ -235,6 +239,7 @@ class PickerConfiguration {
     bool? showSelectButtonWhenSingleSelect,
     bool? showSelectCountOnDoneButton,
     bool? showSelectedIndex,
+    int? thumbnailWidth,
     bool? useCustomCamera,
   }) =>
       PickerConfiguration(
@@ -292,6 +297,7 @@ class PickerConfiguration {
         showSelectCountOnDoneButton:
             showSelectCountOnDoneButton ?? this.showSelectCountOnDoneButton,
         showSelectedIndex: showSelectedIndex ?? this.showSelectedIndex,
+        thumbnailWidth: thumbnailWidth ?? this.thumbnailWidth,
         useCustomCamera: useCustomCamera ?? this.useCustomCamera,
       );
 
@@ -330,6 +336,7 @@ class PickerConfiguration {
       'minSelectVideoDuration: $minSelectVideoDuration, '
       '''${maxSelectVideoDataSizeKB == null ? '' : 'maxSelectVideoDataSizeKB: $maxSelectVideoDataSizeKB, '}'''
       'minSelectVideoDataSizeKB: $minSelectVideoDataSizeKB, '
+      'thumbnailWidth: $thumbnailWidth, '
       'useCustomCamera: $useCustomCamera)';
 
   @override
@@ -379,6 +386,7 @@ class PickerConfiguration {
         other.minSelectVideoDuration == minSelectVideoDuration &&
         other.maxSelectVideoDataSizeKB == maxSelectVideoDataSizeKB &&
         other.minSelectVideoDataSizeKB == minSelectVideoDataSizeKB &&
+        other.thumbnailWidth == thumbnailWidth &&
         other.useCustomCamera == useCustomCamera;
   }
 
@@ -421,5 +429,6 @@ class PickerConfiguration {
       minSelectVideoDuration.hashCode ^
       maxSelectVideoDataSizeKB.hashCode ^
       minSelectVideoDataSizeKB.hashCode ^
+      thumbnailWidth.hashCode ^
       useCustomCamera.hashCode;
 }

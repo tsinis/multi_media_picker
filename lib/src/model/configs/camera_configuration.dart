@@ -22,7 +22,6 @@ class CameraConfiguration {
     this.sessionPreset = CaptureSessionPreset.hd1920x1080,
     this.showFlashSwitch = true,
     this.tapToRecordVideo = true,
-    this.thumbnailWidth = 200,
     this.videoExportType = VideoExportType.mp4,
     this.videoStabilization,
   });
@@ -62,9 +61,6 @@ class CameraConfiguration {
   /// [allowTakePhoto] is set to `true`, [tapToRecordVideo] will be ignored.
   final bool tapToRecordVideo;
 
-  /// The width of the thumbnail image. Defaults to `200`.
-  final int thumbnailWidth;
-
   /// Enable the use of wide cameras (on supported devices). Defaults to `true`.
   final bool enableWideCameras;
 
@@ -95,7 +91,6 @@ class CameraConfiguration {
     CaptureSessionPreset? sessionPreset,
     bool? showFlashSwitch,
     bool? tapToRecordVideo,
-    int? thumbnailWidth,
     VideoExportType? videoExportType,
     VideoStabilization? videoStabilization,
   }) =>
@@ -114,7 +109,6 @@ class CameraConfiguration {
         sessionPreset: sessionPreset ?? this.sessionPreset,
         showFlashSwitch: showFlashSwitch ?? this.showFlashSwitch,
         tapToRecordVideo: tapToRecordVideo ?? this.tapToRecordVideo,
-        thumbnailWidth: thumbnailWidth ?? this.thumbnailWidth,
         videoExportType: videoExportType ?? this.videoExportType,
         videoStabilization: videoStabilization ?? this.videoStabilization,
       );
@@ -128,7 +122,7 @@ class CameraConfiguration {
       '${overlayImage == null ? '' : 'overlayImage: $overlayImage, '}'
       'showFlashSwitch: $showFlashSwitch, '
       'allowSwitchCamera: $allowSwitchCamera, '
-      'tapToRecordVideo: $tapToRecordVideo, thumbnailWidth: $thumbnailWidth, '
+      'tapToRecordVideo: $tapToRecordVideo, '
       'enableWideCameras: $enableWideCameras, '
       'videoExportType: $videoExportType, '
       '''${videoStabilization == null ? '' : 'videoStabilization: $videoStabilization, '}'''
@@ -150,7 +144,6 @@ class CameraConfiguration {
         other.showFlashSwitch == showFlashSwitch &&
         other.allowSwitchCamera == allowSwitchCamera &&
         other.tapToRecordVideo == tapToRecordVideo &&
-        other.thumbnailWidth == thumbnailWidth &&
         other.enableWideCameras == enableWideCameras &&
         other.videoExportType == videoExportType &&
         other.videoStabilization == videoStabilization &&
@@ -170,7 +163,6 @@ class CameraConfiguration {
       showFlashSwitch.hashCode ^
       allowSwitchCamera.hashCode ^
       tapToRecordVideo.hashCode ^
-      thumbnailWidth.hashCode ^
       enableWideCameras.hashCode ^
       videoExportType.hashCode ^
       videoStabilization.hashCode ^
