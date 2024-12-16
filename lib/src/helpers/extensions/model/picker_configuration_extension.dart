@@ -40,6 +40,7 @@ extension PickerConfigurationExtension on PickerConfiguration {
         showSelectButtonWhenSingleSelect: showSelectButtonWhenSingleSelect,
         showSelectCountOnDoneButton: showSelectCountOnDoneButton,
         showSelectedIndex: showSelectedIndex,
+        thumbnailPrefix: thumbnailPrefix,
         thumbnailWidth: thumbnailWidth,
         useCustomCamera: useCustomCamera,
       );

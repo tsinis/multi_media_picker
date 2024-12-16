@@ -9,9 +9,5 @@ class CameraTab extends StatelessWidget {
   final ValueNotifier<CameraConfiguration> _config;
 
   @override
-  Widget build(BuildContext context) => CameraConfigurationListView(
-        _config,
-        directoryPathDecoration: null,
-        directoryPathSubtitle: null,
-      );
+  Widget build(BuildContext context) => CameraConfigurationListView(_config);
 }

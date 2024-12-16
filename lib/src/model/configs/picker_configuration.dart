@@ -42,7 +42,8 @@ class PickerConfiguration {
     this.showSelectButtonWhenSingleSelect = false,
     this.showSelectCountOnDoneButton = true,
     this.showSelectedIndex = true,
-    this.thumbnailWidth = 160,
+    this.thumbnailPrefix = '.thumbnail_',
+    this.thumbnailWidth = 200,
     this.useCustomCamera = true,
   });
 
@@ -170,7 +171,10 @@ class PickerConfiguration {
   /// Display the index of the selected photos. Defaults to `true`.
   final bool showSelectedIndex;
 
-  /// The width of the thumbnail image. Defaults to `160`.
+  /// The prefix of the thumbnail image. Defaults to `.thumbnail_`.
+  final String thumbnailPrefix;
+
+  /// The width of the thumbnail image. Defaults to `200`.
   final int thumbnailWidth;
 
   /// Maximum cropping time when editing video, unit: second. Defaults to `10`.
@@ -239,6 +243,7 @@ class PickerConfiguration {
     bool? showSelectButtonWhenSingleSelect,
     bool? showSelectCountOnDoneButton,
     bool? showSelectedIndex,
+    String? thumbnailPrefix,
     int? thumbnailWidth,
     bool? useCustomCamera,
   }) =>
@@ -297,6 +302,7 @@ class PickerConfiguration {
         showSelectCountOnDoneButton:
             showSelectCountOnDoneButton ?? this.showSelectCountOnDoneButton,
         showSelectedIndex: showSelectedIndex ?? this.showSelectedIndex,
+        thumbnailPrefix: thumbnailPrefix ?? this.thumbnailPrefix,
         thumbnailWidth: thumbnailWidth ?? this.thumbnailWidth,
         useCustomCamera: useCustomCamera ?? this.useCustomCamera,
       );
@@ -336,7 +342,7 @@ class PickerConfiguration {
       'minSelectVideoDuration: $minSelectVideoDuration, '
       '''${maxSelectVideoDataSizeKB == null ? '' : 'maxSelectVideoDataSizeKB: $maxSelectVideoDataSizeKB, '}'''
       'minSelectVideoDataSizeKB: $minSelectVideoDataSizeKB, '
-      'thumbnailWidth: $thumbnailWidth, '
+      'thumbnailPrefix: $thumbnailPrefix, thumbnailWidth: $thumbnailWidth, '
       'useCustomCamera: $useCustomCamera)';
 
   @override
@@ -386,6 +392,7 @@ class PickerConfiguration {
         other.minSelectVideoDuration == minSelectVideoDuration &&
         other.maxSelectVideoDataSizeKB == maxSelectVideoDataSizeKB &&
         other.minSelectVideoDataSizeKB == minSelectVideoDataSizeKB &&
+        other.thumbnailPrefix == thumbnailPrefix &&
         other.thumbnailWidth == thumbnailWidth &&
         other.useCustomCamera == useCustomCamera;
   }
@@ -429,6 +436,7 @@ class PickerConfiguration {
       minSelectVideoDuration.hashCode ^
       maxSelectVideoDataSizeKB.hashCode ^
       minSelectVideoDataSizeKB.hashCode ^
+      thumbnailPrefix.hashCode ^
       thumbnailWidth.hashCode ^
       useCustomCamera.hashCode;
 }

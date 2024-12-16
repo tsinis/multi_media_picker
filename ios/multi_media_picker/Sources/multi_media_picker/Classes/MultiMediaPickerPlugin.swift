@@ -112,7 +112,9 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
         var updatedThumbPath = data.thumbPath
 
         if let thumbPath = updatedThumbPath {
-          if let thumbImage = self.getVideoThumbImage(url: videoPath) {
+          if let thumbImage = self.getVideoThumbImage(
+            url: videoPath, width: pickerConfig.thumbnailWidth
+          ) {
             updatedThumbPath = self.createImageFile(
               image: thumbImage,
               picker: pickerConfig,
@@ -177,9 +179,7 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
             isThumbnail: true
           )
           let updatedMediaData = RawMediaData(
-            path: imagePath,
-            thumbPath: thumbPath,
-            type: data.type
+            path: imagePath, thumbPath: thumbPath, type: data.type
           )
 
           completion(.success(updatedMediaData))
@@ -255,7 +255,7 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
   }
 
   private func saveVideoThumbnail(url: String, picker: RawPickerConfiguration) -> String? {
-    if let image = getVideoThumbImage(url: url) {
+    if let image = getVideoThumbImage(url: url, width: picker.thumbnailWidth) {
       return createImageFile(image: image, picker: picker, isThumbnail: true)
     }
 
@@ -268,11 +268,12 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     return Int64(CMTimeGetSeconds(asset.duration))
   }
 
-  private func getVideoThumbImage(url: String) -> UIImage? {
-    let time = CMTime(seconds: 0.0, preferredTimescale: 600)
+  private func getVideoThumbImage(url: String, width: Int64) -> UIImage? {
+    let time = CMTime(seconds: 0, preferredTimescale: 600)
+    let asset = AVAsset(url: NSURL.fileURL(withPath: url))
+    let gen = AVAssetImageGenerator(asset: asset)
     do {
-      let asset = AVAsset(url: NSURL.fileURL(withPath: url))
-      let gen = AVAssetImageGenerator(asset: asset)
+      gen.maximumSize = CGSize(width: CGFloat(width), height: CGFloat.greatestFiniteMagnitude)
       gen.appliesPreferredTrackTransform = true
       let image = try gen.copyCGImage(at: time, actualTime: nil)
 
@@ -292,7 +293,7 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     if filePath.isEmpty {
       let directoryPath = picker.directoryPath ?? NSTemporaryDirectory()
       var fileName = picker.imageName ?? "media_\(UUID().uuidString)"
-      if isThumbnail { fileName = ".thumbnail_\(fileName)" }
+      if isThumbnail { fileName = picker.thumbnailPrefix + fileName }
       /// Ensure the file name includes the ".jpg" extension
       if !fileName.lowercased().hasSuffix(".jpg") { fileName += ".jpg" }
       filePath = URL(fileURLWithPath: directoryPath).appendingPathComponent(fileName).path
@@ -311,7 +312,9 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
 
     let widthRatio = width / image.size.width
     let newSize = CGSize(width: width, height: image.size.height * widthRatio)
-    let renderer = UIGraphicsImageRenderer(size: newSize)
+    let renderer = UIGraphicsImageRenderer(
+      size: newSize, format: UIGraphicsImageRendererFormat.default()
+    )
     let newImage = renderer.image { (context) in
       image.draw(in: CGRect(origin: .zero, size: newSize))
     }

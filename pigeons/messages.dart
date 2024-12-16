@@ -253,6 +253,7 @@ class RawPickerConfiguration {
     this.showSelectButtonWhenSingleSelect = false,
     this.showSelectCountOnDoneButton = true,
     this.showSelectedIndex = true,
+    this.thumbnailPrefix = '.thumbnail_',
     this.thumbnailWidth = 160,
     this.useCustomCamera = true,
   });
@@ -287,6 +288,7 @@ class RawPickerConfiguration {
   final bool showSelectCountOnDoneButton;
   final bool showSelectButtonWhenSingleSelect;
   final bool showSelectedIndex;
+  final String thumbnailPrefix;
   final int thumbnailWidth;
   final int maxEditVideoDurationSeconds;
   final int maxSelectVideoDurationSeconds;

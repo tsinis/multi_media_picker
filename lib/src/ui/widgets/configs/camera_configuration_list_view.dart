@@ -19,16 +19,10 @@ class CameraConfigurationListView
     this.allowTakePhotoTitle = const Text('Allow Take Photo'),
     this.devicePositionSubtitle = const SelectableText('devicePosition'),
     this.devicePositionTitle = const Text('Device Position'),
-    this.directoryPathDecoration =
-        const InputDecoration(hintText: 'Directory where media is saved'),
-    this.directoryPathSubtitle = const SelectableText('directoryPath'),
     this.enableWideCamerasSubtitle = const SelectableText('enableWideCameras'),
     this.enableWideCamerasTitle = const Text('Enable Wide Cameras'),
     this.exposureModeSubtitle = const SelectableText('exposureMode'),
     this.exposureModeTitle = const Text('Exposure Mode'),
-    this.fileNameDecoration =
-        const InputDecoration(hintText: 'Name of the image file'),
-    this.fileNameSubtitle = const SelectableText('fileName'),
     this.focusModeSubtitle = const SelectableText('focusMode'),
     this.focusModeTitle = const Text('Focus Mode'),
     this.isFrontVideoMirroredSubtitle =
@@ -69,10 +63,6 @@ class CameraConfigurationListView
   final Widget? enableWideCamerasTitle;
   final Widget? exposureModeSubtitle;
   final Widget? exposureModeTitle;
-  final InputDecoration? directoryPathDecoration;
-  final Widget? directoryPathSubtitle;
-  final InputDecoration? fileNameDecoration;
-  final Widget? fileNameSubtitle;
   final Widget? focusModeSubtitle;
   final Widget? focusModeTitle;
   final Widget? isFrontVideoMirroredSubtitle;

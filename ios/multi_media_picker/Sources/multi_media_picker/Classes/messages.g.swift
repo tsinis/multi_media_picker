@@ -526,6 +526,7 @@ struct RawPickerConfiguration {
   var showSelectCountOnDoneButton: Bool
   var showSelectButtonWhenSingleSelect: Bool
   var showSelectedIndex: Bool
+  var thumbnailPrefix: String
   var thumbnailWidth: Int64
   var maxEditVideoDurationSeconds: Int64
   var maxSelectVideoDurationSeconds: Int64
@@ -569,15 +570,16 @@ struct RawPickerConfiguration {
     let showSelectCountOnDoneButton = pigeonVar_list[27] as! Bool
     let showSelectButtonWhenSingleSelect = pigeonVar_list[28] as! Bool
     let showSelectedIndex = pigeonVar_list[29] as! Bool
-    let thumbnailWidth = pigeonVar_list[30] as! Int64
-    let maxEditVideoDurationSeconds = pigeonVar_list[31] as! Int64
-    let maxSelectVideoDurationSeconds = pigeonVar_list[32] as! Int64
-    let minSelectVideoDurationSeconds = pigeonVar_list[33] as! Int64
-    let maxSelectVideoDataSizeKB: Double? = nilOrValue(pigeonVar_list[34])
-    let minSelectVideoDataSizeKB = pigeonVar_list[35] as! Double
-    let useCustomCamera = pigeonVar_list[36] as! Bool
-    let directoryPath: String? = nilOrValue(pigeonVar_list[37])
-    let imageName: String? = nilOrValue(pigeonVar_list[38])
+    let thumbnailPrefix = pigeonVar_list[30] as! String
+    let thumbnailWidth = pigeonVar_list[31] as! Int64
+    let maxEditVideoDurationSeconds = pigeonVar_list[32] as! Int64
+    let maxSelectVideoDurationSeconds = pigeonVar_list[33] as! Int64
+    let minSelectVideoDurationSeconds = pigeonVar_list[34] as! Int64
+    let maxSelectVideoDataSizeKB: Double? = nilOrValue(pigeonVar_list[35])
+    let minSelectVideoDataSizeKB = pigeonVar_list[36] as! Double
+    let useCustomCamera = pigeonVar_list[37] as! Bool
+    let directoryPath: String? = nilOrValue(pigeonVar_list[38])
+    let imageName: String? = nilOrValue(pigeonVar_list[39])
 
     return RawPickerConfiguration(
       maxSelectCount: maxSelectCount,
@@ -610,6 +612,7 @@ struct RawPickerConfiguration {
       showSelectCountOnDoneButton: showSelectCountOnDoneButton,
       showSelectButtonWhenSingleSelect: showSelectButtonWhenSingleSelect,
       showSelectedIndex: showSelectedIndex,
+      thumbnailPrefix: thumbnailPrefix,
       thumbnailWidth: thumbnailWidth,
       maxEditVideoDurationSeconds: maxEditVideoDurationSeconds,
       maxSelectVideoDurationSeconds: maxSelectVideoDurationSeconds,
@@ -653,6 +656,7 @@ struct RawPickerConfiguration {
       showSelectCountOnDoneButton,
       showSelectButtonWhenSingleSelect,
       showSelectedIndex,
+      thumbnailPrefix,
       thumbnailWidth,
       maxEditVideoDurationSeconds,
       maxSelectVideoDurationSeconds,

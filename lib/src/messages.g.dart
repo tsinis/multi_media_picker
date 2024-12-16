@@ -526,7 +526,8 @@ class RawPickerConfiguration {
     this.showSelectCountOnDoneButton = true,
     this.showSelectButtonWhenSingleSelect = false,
     this.showSelectedIndex = true,
-    this.thumbnailWidth = 160,
+    this.thumbnailPrefix = '.thumbnail_',
+    this.thumbnailWidth = 100,
     this.maxEditVideoDurationSeconds = 10,
     this.maxSelectVideoDurationSeconds = 120,
     this.minSelectVideoDurationSeconds = 0,
@@ -597,6 +598,8 @@ class RawPickerConfiguration {
 
   bool showSelectedIndex;
 
+  String thumbnailPrefix;
+
   int thumbnailWidth;
 
   int maxEditVideoDurationSeconds;
@@ -647,6 +650,7 @@ class RawPickerConfiguration {
       showSelectCountOnDoneButton,
       showSelectButtonWhenSingleSelect,
       showSelectedIndex,
+      thumbnailPrefix,
       thumbnailWidth,
       maxEditVideoDurationSeconds,
       maxSelectVideoDurationSeconds,
@@ -692,15 +696,16 @@ class RawPickerConfiguration {
       showSelectCountOnDoneButton: result[27]! as bool,
       showSelectButtonWhenSingleSelect: result[28]! as bool,
       showSelectedIndex: result[29]! as bool,
-      thumbnailWidth: result[30]! as int,
-      maxEditVideoDurationSeconds: result[31]! as int,
-      maxSelectVideoDurationSeconds: result[32]! as int,
-      minSelectVideoDurationSeconds: result[33]! as int,
-      maxSelectVideoDataSizeKB: result[34] as double?,
-      minSelectVideoDataSizeKB: result[35]! as double,
-      useCustomCamera: result[36]! as bool,
-      directoryPath: result[37] as String?,
-      imageName: result[38] as String?,
+      thumbnailPrefix: result[30]! as String,
+      thumbnailWidth: result[31]! as int,
+      maxEditVideoDurationSeconds: result[32]! as int,
+      maxSelectVideoDurationSeconds: result[33]! as int,
+      minSelectVideoDurationSeconds: result[34]! as int,
+      maxSelectVideoDataSizeKB: result[35] as double?,
+      minSelectVideoDataSizeKB: result[36]! as double,
+      useCustomCamera: result[37]! as bool,
+      directoryPath: result[38] as String?,
+      imageName: result[39] as String?,
     );
   }
 }
