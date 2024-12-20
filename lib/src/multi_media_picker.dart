@@ -18,15 +18,18 @@ import 'model/typedefs.dart';
 class MultiMediaPicker {
   const MultiMediaPicker({
     this.cameraConfiguration = const CameraConfiguration(),
+    DateTimeProvider? dateTimeProvider,
     this.editConfiguration = const EditConfiguration(),
     this.pickerConfiguration = const PickerConfiguration(),
     this.uiConfiguration = const UiConfiguration(),
-  });
+  }) : _dateTimeProvider = dateTimeProvider;
 
   final CameraConfiguration cameraConfiguration;
   final EditConfiguration editConfiguration;
   final PickerConfiguration pickerConfiguration;
   final UiConfiguration uiConfiguration;
+  // ignore: prefer-correct-callback-field-name, it's provider like callback.
+  final DateTimeProvider? _dateTimeProvider;
 
   MultiMediaApi get _api => MultiMediaApi();
 
@@ -37,20 +40,20 @@ class MultiMediaPicker {
   Future<MediaData?> tryOpenCamera() => _openCamera();
 
   Future<MediaData?> editMedia(
-    MediaData data, {
+    MediaData input, {
     bool shouldEvictThumbnailCache = true,
   }) =>
       _editMedia(
-        data,
+        input,
         hasToThrow: true,
         shouldEvictThumbnailCache: shouldEvictThumbnailCache,
       );
 
   Future<MediaData?> tryEditMedia(
-    MediaData? data, {
+    MediaData? input, {
     bool shouldEvictThumbnailCache = true,
   }) =>
-      _editMedia(data, shouldEvictThumbnailCache: shouldEvictThumbnailCache);
+      _editMedia(input, shouldEvictThumbnailCache: shouldEvictThumbnailCache);
 
   Future<MediaDataList> multipleFromCamera({
     Iterable<NamedImage>? namedOverlays,
@@ -101,7 +104,7 @@ class MultiMediaPicker {
     try {
       final raw = await _api.openCamera(camera.raw, edit.raw, pick.raw, ui.raw);
 
-      return raw?.toMediaData();
+      return raw?.toMediaData(dateTimeProvider: _dateTimeProvider);
     } catch (_) {
       if (hasToThrow) rethrow;
 
@@ -111,14 +114,14 @@ class MultiMediaPicker {
 
   // ignore: avoid-long-parameter-list, it's a private method.
   Future<MediaData?> _editMedia(
-    MediaData? inputData, {
+    MediaData? input, {
     required bool shouldEvictThumbnailCache,
     EditConfiguration? editConfig,
     bool hasToThrow = false,
     PickerConfiguration? pickerConfig,
     UiConfiguration? uiConfig,
   }) async {
-    final rawInput = inputData?.raw;
+    final rawInput = input?.raw;
     if (rawInput == null) return null; // Assert is done in `raw` getter.
 
     final edit = editConfig ?? editConfiguration;
@@ -132,10 +135,10 @@ class MultiMediaPicker {
       if (hasToThrow) rethrow;
     }
 
-    final outputData = rawOutput?.toMediaData();
-    if (outputData == inputData) return null;
-    if (shouldEvictThumbnailCache) rawOutput?.willEvictImageCache(inputData);
+    final output = rawOutput?.toMediaData(dateTimeProvider: _dateTimeProvider);
+    if (output == input) return null;
+    if (shouldEvictThumbnailCache) rawOutput?.willEvictImageCache(input);
 
-    return outputData;
+    return output;
   }
 }

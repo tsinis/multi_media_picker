@@ -1,5 +1,3 @@
-// ignore_for_file: avoid-nullable-interpolation, TODO: Remove this.
-
 import 'package:flutter/material.dart';
 import 'package:multi_media_picker/multi_media_picker.dart';
 import 'package:world_countries/helpers.dart';

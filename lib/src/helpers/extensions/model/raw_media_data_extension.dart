@@ -4,9 +4,10 @@ import 'package:flutter/rendering.dart';
 
 import '../../../messages.g.dart';
 import '../../../model/media_data.dart';
+import '../../../model/typedefs.dart';
 
 extension RawMediaDataExtension on RawMediaData {
-  MediaData toMediaData() {
+  MediaData toMediaData({DateTimeProvider? dateTimeProvider}) {
     final mediaFile = File(path);
     assert(mediaFile.existsSync(), 'Media file $path does not exist!');
     final thumbnail = thumbPath?.trim() ?? '';
@@ -16,7 +17,7 @@ extension RawMediaDataExtension on RawMediaData {
       duration: Duration(seconds: duration ?? 0),
       fileSize: mediaFile.lengthSync(),
       thumbnail: thumbnail.isEmpty ? null : File(thumbnail),
-      timestamp: DateTime.now().toUtc(),
+      timestamp: dateTimeProvider?.call() ?? DateTime.now().toUtc(),
       type: type,
     );
   }
