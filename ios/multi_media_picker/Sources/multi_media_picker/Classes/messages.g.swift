@@ -247,6 +247,7 @@ struct RawOverlayImage {
   var path: String
   var alignment: RawAlignment? = nil
   var contentMode: ContentMode
+  var isAsset: Bool
   var margin: RawEdgeInsets? = nil
   var opacity: Double
   var rotationAngle: Double
@@ -258,15 +259,17 @@ struct RawOverlayImage {
     let path = pigeonVar_list[0] as! String
     let alignment: RawAlignment? = nilOrValue(pigeonVar_list[1])
     let contentMode = pigeonVar_list[2] as! ContentMode
-    let margin: RawEdgeInsets? = nilOrValue(pigeonVar_list[3])
-    let opacity = pigeonVar_list[4] as! Double
-    let rotationAngle = pigeonVar_list[5] as! Double
-    let tintColor = pigeonVar_list[6] as! Int64
+    let isAsset = pigeonVar_list[3] as! Bool
+    let margin: RawEdgeInsets? = nilOrValue(pigeonVar_list[4])
+    let opacity = pigeonVar_list[5] as! Double
+    let rotationAngle = pigeonVar_list[6] as! Double
+    let tintColor = pigeonVar_list[7] as! Int64
 
     return RawOverlayImage(
       path: path,
       alignment: alignment,
       contentMode: contentMode,
+      isAsset: isAsset,
       margin: margin,
       opacity: opacity,
       rotationAngle: rotationAngle,
@@ -278,6 +281,7 @@ struct RawOverlayImage {
       path,
       alignment,
       contentMode,
+      isAsset,
       margin,
       opacity,
       rotationAngle,

@@ -204,6 +204,7 @@ class RawOverlayImage {
     required this.path,
     this.alignment,
     this.contentMode = ContentMode.scaleAspectFit,
+    this.isAsset = false,
     this.margin,
     this.opacity = 1,
     this.rotationAngle = 0,
@@ -215,6 +216,8 @@ class RawOverlayImage {
   RawAlignment? alignment;
 
   ContentMode contentMode;
+
+  bool isAsset;
 
   RawEdgeInsets? margin;
 
@@ -229,6 +232,7 @@ class RawOverlayImage {
       path,
       alignment,
       contentMode,
+      isAsset,
       margin,
       opacity,
       rotationAngle,
@@ -242,10 +246,11 @@ class RawOverlayImage {
       path: result[0]! as String,
       alignment: result[1] as RawAlignment?,
       contentMode: result[2]! as ContentMode,
-      margin: result[3] as RawEdgeInsets?,
-      opacity: result[4]! as double,
-      rotationAngle: result[5]! as double,
-      tintColor: result[6]! as int,
+      isAsset: result[3]! as bool,
+      margin: result[4] as RawEdgeInsets?,
+      opacity: result[5]! as double,
+      rotationAngle: result[6]! as double,
+      tintColor: result[7]! as int,
     );
   }
 }
@@ -527,7 +532,7 @@ class RawPickerConfiguration {
     this.showSelectButtonWhenSingleSelect = false,
     this.showSelectedIndex = true,
     this.thumbnailPrefix = '.thumbnail_',
-    this.thumbnailWidth = 100,
+    this.thumbnailWidth = 200,
     this.maxEditVideoDurationSeconds = 10,
     this.maxSelectVideoDurationSeconds = 120,
     this.minSelectVideoDurationSeconds = 0,

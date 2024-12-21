@@ -111,6 +111,7 @@ class RawOverlayImage {
     this.path, {
     this.alignment,
     this.contentMode = ContentMode.scaleAspectFit,
+    this.isAsset = false,
     this.margin,
     this.opacity = 1,
     this.rotationAngle = 0,
@@ -120,6 +121,7 @@ class RawOverlayImage {
   final String path;
   final RawAlignment? alignment;
   final ContentMode contentMode;
+  final bool isAsset;
   final RawEdgeInsets? margin;
   final double opacity;
   final double rotationAngle;
@@ -254,7 +256,7 @@ class RawPickerConfiguration {
     this.showSelectCountOnDoneButton = true,
     this.showSelectedIndex = true,
     this.thumbnailPrefix = '.thumbnail_',
-    this.thumbnailWidth = 160,
+    this.thumbnailWidth = 200,
     this.useCustomCamera = true,
   });
 
