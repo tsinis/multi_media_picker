@@ -18,7 +18,7 @@ class CameraConfiguration {
     this.isFrontVideoMirrored = true,
     this.maxDuration = const Duration(seconds: 30),
     this.minDuration = Duration.zero,
-    this.overlayImage,
+    this.overlayImage = OverlayImage.empty,
     this.sessionPreset = CaptureSessionPreset.hd1920x1080,
     this.showFlashSwitch = true,
     this.tapToRecordVideo = true,
@@ -73,8 +73,8 @@ class CameraConfiguration {
   /// The default camera position after entering the camera. Defaults to `back`.
   final DevicePosition devicePosition;
 
-  /// Overlay image on camera view. Defaults to `null`.
-  final OverlayImage? overlayImage;
+  /// Overlay image on camera view. Defaults to no overlay (empty image).
+  final OverlayImage overlayImage;
 
   CameraConfiguration copyWith({
     bool? allowRecordVideo,
@@ -118,8 +118,7 @@ class CameraConfiguration {
       'allowRecordVideo: $allowRecordVideo, minDuration: $minDuration, '
       'maxDuration: $maxDuration, isFrontVideoMirrored: $isFrontVideoMirrored, '
       'sessionPreset: $sessionPreset, focusMode: $focusMode, '
-      'exposureMode: $exposureMode, '
-      '${overlayImage == null ? '' : 'overlayImage: $overlayImage, '}'
+      'exposureMode: $exposureMode, overlayImage: $overlayImage, '
       'showFlashSwitch: $showFlashSwitch, '
       'allowSwitchCamera: $allowSwitchCamera, '
       'tapToRecordVideo: $tapToRecordVideo, '

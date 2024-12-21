@@ -13,6 +13,7 @@ import '../model/configs/picker_configuration.dart';
 import '../model/configs/ui_configuration.dart';
 import '../model/media_data.dart';
 import '../model/submodels/named_image.dart';
+import '../model/submodels/overlay_image.dart';
 import '../model/typedefs.dart';
 
 class MultiMediaPicker {
@@ -89,13 +90,17 @@ class MultiMediaPicker {
     PickerConfiguration? pickerConfig,
     UiConfiguration? uiConfig,
   }) async {
-    final camera = cameraConfig ?? cameraConfiguration;
+    CameraConfiguration camera = cameraConfig ?? cameraConfiguration;
     final isCameraDisabled = !camera.allowRecordVideo && !camera.allowTakePhoto;
     assert(
       !isCameraDisabled,
       'Either `allowTakePhoto` or `allowRecordVideo` must be set to `true`',
     );
     if (isCameraDisabled) return null;
+    if (camera.allowRecordVideo) {
+      // Due to bug on iOS side in video preview.
+      camera = camera.copyWith(overlayImage: OverlayImage.empty);
+    }
 
     final edit = editConfig ?? editConfiguration;
     final pick = pickerConfig ?? pickerConfiguration;

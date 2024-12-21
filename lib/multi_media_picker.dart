@@ -6,9 +6,7 @@ export 'src/messages.g.dart' // TODO: Keep reducing the scope of it.
     hide
         ClipAspectRatio,
         ClipOptions,
-        RawAlignment,
         RawCameraConfiguration,
-        RawEdgeInsets,
         RawEditConfiguration,
         RawMediaData,
         RawOverlayImage,

@@ -14,7 +14,7 @@ extension CameraConfigurationExtension on CameraConfiguration {
         isFrontVideoMirrored: isFrontVideoMirrored,
         maxDurationSeconds: maxDuration.inSeconds,
         minDurationSeconds: minDuration.inSeconds,
-        overlayImage: overlayImage?.raw,
+        overlayImage: overlayImage.path.isEmpty ? null : overlayImage.raw,
         sessionPreset: sessionPreset,
         showFlashSwitch: showFlashSwitch,
         tapToRecordVideo: tapToRecordVideo,

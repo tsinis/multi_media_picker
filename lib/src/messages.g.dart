@@ -121,91 +121,10 @@ enum VideoStabilization {
   cinematicExtended,
 }
 
-enum ContentMode {
-  scaleToFill,
-  scaleAspectFit,
-  scaleAspectFill,
-  redraw,
-  center,
-  top,
-  bottom,
-  left,
-  right,
-  topLeft,
-  topRight,
-  bottomLeft,
-  bottomRight,
-}
-
-class RawAlignment {
-  RawAlignment({
-    this.x = 0.5,
-    this.y = 0.5,
-  });
-
-  double x;
-
-  double y;
-
-  Object encode() {
-    return <Object?>[
-      x,
-      y,
-    ];
-  }
-
-  static RawAlignment decode(Object result) {
-    result as List<Object?>;
-    return RawAlignment(
-      x: result[0]! as double,
-      y: result[1]! as double,
-    );
-  }
-}
-
-class RawEdgeInsets {
-  RawEdgeInsets({
-    this.bottom = 0,
-    this.left = 0,
-    this.top = 0,
-    this.right = 0,
-  });
-
-  double bottom;
-
-  double left;
-
-  double top;
-
-  double right;
-
-  Object encode() {
-    return <Object?>[
-      bottom,
-      left,
-      top,
-      right,
-    ];
-  }
-
-  static RawEdgeInsets decode(Object result) {
-    result as List<Object?>;
-    return RawEdgeInsets(
-      bottom: result[0]! as double,
-      left: result[1]! as double,
-      top: result[2]! as double,
-      right: result[3]! as double,
-    );
-  }
-}
-
 class RawOverlayImage {
   RawOverlayImage({
     required this.path,
-    this.alignment,
-    this.contentMode = ContentMode.scaleAspectFit,
     this.isAsset = false,
-    this.margin,
     this.opacity = 1,
     this.rotationAngle = 0,
     this.tintColor = 0x00000000,
@@ -213,13 +132,7 @@ class RawOverlayImage {
 
   String path;
 
-  RawAlignment? alignment;
-
-  ContentMode contentMode;
-
   bool isAsset;
-
-  RawEdgeInsets? margin;
 
   double opacity;
 
@@ -230,10 +143,7 @@ class RawOverlayImage {
   Object encode() {
     return <Object?>[
       path,
-      alignment,
-      contentMode,
       isAsset,
-      margin,
       opacity,
       rotationAngle,
       tintColor,
@@ -244,13 +154,10 @@ class RawOverlayImage {
     result as List<Object?>;
     return RawOverlayImage(
       path: result[0]! as String,
-      alignment: result[1] as RawAlignment?,
-      contentMode: result[2]! as ContentMode,
-      isAsset: result[3]! as bool,
-      margin: result[4] as RawEdgeInsets?,
-      opacity: result[5]! as double,
-      rotationAngle: result[6]! as double,
-      tintColor: result[7]! as int,
+      isAsset: result[1]! as bool,
+      opacity: result[2]! as double,
+      rotationAngle: result[3]! as double,
+      tintColor: result[4]! as int,
     );
   }
 }
@@ -920,38 +827,29 @@ class _PigeonCodec extends StandardMessageCodec {
     }    else if (value is VideoStabilization) {
       buffer.putUint8(143);
       writeValue(buffer, value.index);
-    }    else if (value is ContentMode) {
-      buffer.putUint8(144);
-      writeValue(buffer, value.index);
-    }    else if (value is RawAlignment) {
-      buffer.putUint8(145);
-      writeValue(buffer, value.encode());
-    }    else if (value is RawEdgeInsets) {
-      buffer.putUint8(146);
-      writeValue(buffer, value.encode());
     }    else if (value is RawOverlayImage) {
-      buffer.putUint8(147);
+      buffer.putUint8(144);
       writeValue(buffer, value.encode());
     }    else if (value is RawUiConfiguration) {
-      buffer.putUint8(148);
+      buffer.putUint8(145);
       writeValue(buffer, value.encode());
     }    else if (value is ClipAspectRatio) {
-      buffer.putUint8(149);
+      buffer.putUint8(146);
       writeValue(buffer, value.encode());
     }    else if (value is ClipOptions) {
-      buffer.putUint8(150);
+      buffer.putUint8(147);
       writeValue(buffer, value.encode());
     }    else if (value is RawMediaData) {
-      buffer.putUint8(151);
+      buffer.putUint8(148);
       writeValue(buffer, value.encode());
     }    else if (value is RawPickerConfiguration) {
-      buffer.putUint8(152);
+      buffer.putUint8(149);
       writeValue(buffer, value.encode());
     }    else if (value is RawEditConfiguration) {
-      buffer.putUint8(153);
+      buffer.putUint8(150);
       writeValue(buffer, value.encode());
     }    else if (value is RawCameraConfiguration) {
-      buffer.putUint8(154);
+      buffer.putUint8(151);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -1007,27 +905,20 @@ class _PigeonCodec extends StandardMessageCodec {
         final int? value = readValue(buffer) as int?;
         return value == null ? null : VideoStabilization.values[value];
       case 144: 
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : ContentMode.values[value];
-      case 145: 
-        return RawAlignment.decode(readValue(buffer)!);
-      case 146: 
-        return RawEdgeInsets.decode(readValue(buffer)!);
-      case 147: 
         return RawOverlayImage.decode(readValue(buffer)!);
-      case 148: 
+      case 145: 
         return RawUiConfiguration.decode(readValue(buffer)!);
-      case 149: 
+      case 146: 
         return ClipAspectRatio.decode(readValue(buffer)!);
-      case 150: 
+      case 147: 
         return ClipOptions.decode(readValue(buffer)!);
-      case 151: 
+      case 148: 
         return RawMediaData.decode(readValue(buffer)!);
-      case 152: 
+      case 149: 
         return RawPickerConfiguration.decode(readValue(buffer)!);
-      case 153: 
+      case 150: 
         return RawEditConfiguration.decode(readValue(buffer)!);
-      case 154: 
+      case 151: 
         return RawCameraConfiguration.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);

@@ -69,60 +69,17 @@ enum VideoExportType { mov, mp4 }
 
 enum VideoStabilization { off, standard, cinematic, cinematicExtended }
 
-enum ContentMode {
-  scaleToFill,
-  scaleAspectFit,
-  scaleAspectFill,
-  redraw,
-  center,
-  top,
-  bottom,
-  left,
-  right,
-  topLeft,
-  topRight,
-  bottomLeft,
-  bottomRight,
-}
-
-class RawAlignment {
-  const RawAlignment({this.x = 0.5, this.y = 0.5});
-
-  final double x;
-  final double y;
-}
-
-class RawEdgeInsets {
-  const RawEdgeInsets({
-    this.bottom = 0,
-    this.left = 0,
-    this.right = 0,
-    this.top = 0,
-  });
-
-  final double bottom;
-  final double left;
-  final double top;
-  final double right;
-}
-
 class RawOverlayImage {
   const RawOverlayImage(
     this.path, {
-    this.alignment,
-    this.contentMode = ContentMode.scaleAspectFit,
     this.isAsset = false,
-    this.margin,
     this.opacity = 1,
     this.rotationAngle = 0,
     this.tintColor = 0x00000000,
   });
 
   final String path;
-  final RawAlignment? alignment;
-  final ContentMode contentMode;
   final bool isAsset;
-  final RawEdgeInsets? margin;
   final double opacity;
   final double rotationAngle;
   final int tintColor;

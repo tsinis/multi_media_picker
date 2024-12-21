@@ -5,8 +5,15 @@ import UIKit
 import ZLPhotoBrowser
 
 final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaApi {
+  private let registrar: FlutterPluginRegistrar
+
+  init(registrar: FlutterPluginRegistrar) {
+    self.registrar = registrar
+    super.init()
+  }
+
   public static func register(with registrar: FlutterPluginRegistrar) {
-    let plugin = MultiMediaPickerPlugin()
+    let plugin = MultiMediaPickerPlugin(registrar: registrar)
     MultiMediaApiSetup.setUp(binaryMessenger: registrar.messenger(), api: plugin)
     registrar.publish(plugin)
   }
@@ -33,6 +40,10 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
           cameraConfig: cameraConfig,
           editConfig: editConfig
         )
+
+        if let overlay = cameraConfig.overlayImage {  // Add overlay image if specified
+          self.showOverlayImage(overlay, registrar: self.registrar)
+        }
 
         camera.cancelBlock = { completion(.success(nil)) }  // On cancel button tap.
         camera.takeDoneBlock = { (image, video) in  // On done button tap.
@@ -236,6 +247,34 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
 
     config.updatePickerConfiguration(from: pickerConfig)
     ZLPhotoUIConfiguration.default().updateUiConfiguration(from: uiConfig)  // Apply the UI config.
+  }
+
+  private func showOverlayImage(_ overlay: RawOverlayImage, registrar: FlutterPluginRegistrar) {
+    var image: UIImage?
+
+    if overlay.isAsset {
+      let key = registrar.lookupKey(forAsset: overlay.path)
+      if let path = Bundle.main.path(forResource: key, ofType: nil) {
+        image = UIImage(contentsOfFile: path)
+      }
+    } else {
+      image = UIImage(contentsOfFile: overlay.path)
+    }
+
+    if let image = image {
+      let overlayView = UIImageView(image: image)
+
+      overlayView.transform = CGAffineTransform(rotationAngle: CGFloat(overlay.rotationAngle))
+      overlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+      overlayView.alpha = CGFloat(overlay.opacity)
+
+      if overlay.tintColor != 0 {
+        overlayView.tintColor = UIColor(rgbValue: overlay.tintColor)
+        overlayView.image = overlayView.image?.withRenderingMode(.alwaysTemplate)
+      }
+
+      ZLPhotoConfiguration.default().cameraConfiguration.overlayView = overlayView
+    }
   }
 
   private func resolveImage(image: UIImage, picker: RawPickerConfiguration) -> RawMediaData? {

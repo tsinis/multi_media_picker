@@ -170,85 +170,10 @@ enum VideoStabilization: Int {
   case cinematicExtended = 3
 }
 
-enum ContentMode: Int {
-  case scaleToFill = 0
-  case scaleAspectFit = 1
-  case scaleAspectFill = 2
-  case redraw = 3
-  case center = 4
-  case top = 5
-  case bottom = 6
-  case left = 7
-  case right = 8
-  case topLeft = 9
-  case topRight = 10
-  case bottomLeft = 11
-  case bottomRight = 12
-}
-
-/// Generated class from Pigeon that represents data sent in messages.
-struct RawAlignment {
-  var x: Double
-  var y: Double
-
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> RawAlignment? {
-    let x = pigeonVar_list[0] as! Double
-    let y = pigeonVar_list[1] as! Double
-
-    return RawAlignment(
-      x: x,
-      y: y
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      x,
-      y,
-    ]
-  }
-}
-
-/// Generated class from Pigeon that represents data sent in messages.
-struct RawEdgeInsets {
-  var bottom: Double
-  var left: Double
-  var top: Double
-  var right: Double
-
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> RawEdgeInsets? {
-    let bottom = pigeonVar_list[0] as! Double
-    let left = pigeonVar_list[1] as! Double
-    let top = pigeonVar_list[2] as! Double
-    let right = pigeonVar_list[3] as! Double
-
-    return RawEdgeInsets(
-      bottom: bottom,
-      left: left,
-      top: top,
-      right: right
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      bottom,
-      left,
-      top,
-      right,
-    ]
-  }
-}
-
 /// Generated class from Pigeon that represents data sent in messages.
 struct RawOverlayImage {
   var path: String
-  var alignment: RawAlignment? = nil
-  var contentMode: ContentMode
   var isAsset: Bool
-  var margin: RawEdgeInsets? = nil
   var opacity: Double
   var rotationAngle: Double
   var tintColor: Int64
@@ -257,20 +182,14 @@ struct RawOverlayImage {
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> RawOverlayImage? {
     let path = pigeonVar_list[0] as! String
-    let alignment: RawAlignment? = nilOrValue(pigeonVar_list[1])
-    let contentMode = pigeonVar_list[2] as! ContentMode
-    let isAsset = pigeonVar_list[3] as! Bool
-    let margin: RawEdgeInsets? = nilOrValue(pigeonVar_list[4])
-    let opacity = pigeonVar_list[5] as! Double
-    let rotationAngle = pigeonVar_list[6] as! Double
-    let tintColor = pigeonVar_list[7] as! Int64
+    let isAsset = pigeonVar_list[1] as! Bool
+    let opacity = pigeonVar_list[2] as! Double
+    let rotationAngle = pigeonVar_list[3] as! Double
+    let tintColor = pigeonVar_list[4] as! Int64
 
     return RawOverlayImage(
       path: path,
-      alignment: alignment,
-      contentMode: contentMode,
       isAsset: isAsset,
-      margin: margin,
       opacity: opacity,
       rotationAngle: rotationAngle,
       tintColor: tintColor
@@ -279,10 +198,7 @@ struct RawOverlayImage {
   func toList() -> [Any?] {
     return [
       path,
-      alignment,
-      contentMode,
       isAsset,
-      margin,
       opacity,
       rotationAngle,
       tintColor,
@@ -896,30 +812,20 @@ private class MessagesPigeonCodecReader: FlutterStandardReader {
       }
       return nil
     case 144:
-      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
-      if let enumResultAsInt = enumResultAsInt {
-        return ContentMode(rawValue: enumResultAsInt)
-      }
-      return nil
-    case 145:
-      return RawAlignment.fromList(self.readValue() as! [Any?])
-    case 146:
-      return RawEdgeInsets.fromList(self.readValue() as! [Any?])
-    case 147:
       return RawOverlayImage.fromList(self.readValue() as! [Any?])
-    case 148:
+    case 145:
       return RawUiConfiguration.fromList(self.readValue() as! [Any?])
-    case 149:
+    case 146:
       return ClipAspectRatio.fromList(self.readValue() as! [Any?])
-    case 150:
+    case 147:
       return ClipOptions.fromList(self.readValue() as! [Any?])
-    case 151:
+    case 148:
       return RawMediaData.fromList(self.readValue() as! [Any?])
-    case 152:
+    case 149:
       return RawPickerConfiguration.fromList(self.readValue() as! [Any?])
-    case 153:
+    case 150:
       return RawEditConfiguration.fromList(self.readValue() as! [Any?])
-    case 154:
+    case 151:
       return RawCameraConfiguration.fromList(self.readValue() as! [Any?])
     default:
       return super.readValue(ofType: type)
@@ -974,38 +880,29 @@ private class MessagesPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? VideoStabilization {
       super.writeByte(143)
       super.writeValue(value.rawValue)
-    } else if let value = value as? ContentMode {
-      super.writeByte(144)
-      super.writeValue(value.rawValue)
-    } else if let value = value as? RawAlignment {
-      super.writeByte(145)
-      super.writeValue(value.toList())
-    } else if let value = value as? RawEdgeInsets {
-      super.writeByte(146)
-      super.writeValue(value.toList())
     } else if let value = value as? RawOverlayImage {
-      super.writeByte(147)
+      super.writeByte(144)
       super.writeValue(value.toList())
     } else if let value = value as? RawUiConfiguration {
-      super.writeByte(148)
+      super.writeByte(145)
       super.writeValue(value.toList())
     } else if let value = value as? ClipAspectRatio {
-      super.writeByte(149)
+      super.writeByte(146)
       super.writeValue(value.toList())
     } else if let value = value as? ClipOptions {
-      super.writeByte(150)
+      super.writeByte(147)
       super.writeValue(value.toList())
     } else if let value = value as? RawMediaData {
-      super.writeByte(151)
+      super.writeByte(148)
       super.writeValue(value.toList())
     } else if let value = value as? RawPickerConfiguration {
-      super.writeByte(152)
+      super.writeByte(149)
       super.writeValue(value.toList())
     } else if let value = value as? RawEditConfiguration {
-      super.writeByte(153)
+      super.writeByte(150)
       super.writeValue(value.toList())
     } else if let value = value as? RawCameraConfiguration {
-      super.writeByte(154)
+      super.writeByte(151)
       super.writeValue(value.toList())
     } else {
       super.writeValue(value)
