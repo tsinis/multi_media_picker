@@ -9,6 +9,7 @@ extension OverlayImageExtension on OverlayImage {
           y: _nativeAlignment(alignment.y),
         ),
         contentMode: contentMode,
+        isAsset: isAsset,
         margin: RawEdgeInsets(
           bottom: margin.bottom,
           left: margin.left,
