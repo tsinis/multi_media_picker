@@ -1,8 +1,8 @@
 import 'dart:math' show max;
 
+import '../../api/multi_media_picker.dart';
 import '../../model/submodels/named_image.dart';
 import '../../model/typedefs.dart';
-import '../../multi_media_picker.dart';
 
 extension MultiMediaPickerExtension on MultiMediaPicker {
   /// Captures multiple photos using the camera.
