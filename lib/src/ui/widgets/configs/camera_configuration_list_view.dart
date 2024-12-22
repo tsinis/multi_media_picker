@@ -178,6 +178,7 @@ class CameraConfigurationListView
           ),
         if (exposureModeSubtitle != null && exposureModeTitle != null)
           TextStyledListTile(
+            leading: const Icon(Icons.exposure_outlined),
             onTap: () async => handleShowEnumPicker(
               context,
               currentConfig.exposureMode,
@@ -191,6 +192,7 @@ class CameraConfigurationListView
           ),
         if (showFlashSwitchSubtitle != null && showFlashSwitchTitle != null)
           TextStyledListTile(
+            leading: const Icon(Icons.filter_center_focus_outlined),
             onTap: () async => handleShowEnumPicker(
               context,
               currentConfig.focusMode,
@@ -207,12 +209,14 @@ class CameraConfigurationListView
           SwitchListTile(
             onChanged: (isFrontVideoMirrored) => updateConfig = currentConfig
                 .copyWith(isFrontVideoMirrored: isFrontVideoMirrored),
+            secondary: const Icon(Icons.photo_camera_front_outlined),
             subtitle: isFrontVideoMirroredSubtitle,
             title: isFrontVideoMirroredTitle,
             value: currentConfig.isFrontVideoMirrored,
           ),
         if (maxDurationTitle != null && maxDurationSubtitle != null)
           TextStyledListTile(
+            leading: const Icon(Icons.timelapse),
             onTap: () async => handleDurationPicker(
               context,
               currentConfig.maxDuration,
@@ -225,6 +229,7 @@ class CameraConfigurationListView
           ),
         if (minDurationTitle != null && minDurationSubtitle != null)
           TextStyledListTile(
+            leading: const Icon(Icons.timer_outlined),
             onTap: () async => handleDurationPicker(
               context,
               currentConfig.minDuration,
@@ -237,6 +242,7 @@ class CameraConfigurationListView
           ),
         if (sessionPresetSubtitle != null && sessionPresetTitle != null)
           TextStyledListTile(
+            leading: const Icon(Icons.hd_outlined),
             onTap: () async => handleShowEnumPicker(
               context,
               currentConfig.sessionPreset,
@@ -252,6 +258,11 @@ class CameraConfigurationListView
           SwitchListTile(
             onChanged: (showFlashSwitch) => updateConfig =
                 currentConfig.copyWith(showFlashSwitch: showFlashSwitch),
+            secondary: AnimatedChildSwitcher.icon(
+              condition: currentConfig.showFlashSwitch,
+              falseIcon: Icons.flash_off_outlined,
+              trueIcon: Icons.flash_on_outlined,
+            ),
             subtitle: showFlashSwitchSubtitle,
             title: showFlashSwitchTitle,
             value: currentConfig.showFlashSwitch,
@@ -260,12 +271,14 @@ class CameraConfigurationListView
           SwitchListTile(
             onChanged: (tapToRecordVideo) => updateConfig =
                 currentConfig.copyWith(tapToRecordVideo: tapToRecordVideo),
+            secondary: const Icon(Icons.touch_app_outlined),
             subtitle: tapToRecordVideoSubtitle,
             title: tapToRecordVideoTitle,
             value: currentConfig.tapToRecordVideo,
           ),
         if (videoExportTypeSubtitle != null && videoExportTypeTitle != null)
           TextStyledListTile(
+            leading: const Icon(Icons.local_movies_outlined),
             onTap: () async => handleShowEnumPicker(
               context,
               currentConfig.videoExportType,
@@ -280,6 +293,7 @@ class CameraConfigurationListView
         if (videoStabilizationSubtitle != null &&
             videoStabilizationTitle != null)
           TextStyledListTile(
+            leading: const Icon(Icons.video_stable_outlined),
             onTap: () async => handleShowEnumPicker(
               context,
               currentConfig.videoStabilization,
