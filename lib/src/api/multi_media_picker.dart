@@ -1,6 +1,6 @@
 import 'dart:collection' show UnmodifiableListView;
 
-import '../helpers/extensions/model/camera_configuration_extension.dart';
+import '../helpers/extensions/model/camera_configuration_extension_internal.dart';
 import '../helpers/extensions/model/edit_configuration_extension.dart';
 import '../helpers/extensions/model/media_data_extension_internal.dart';
 import '../helpers/extensions/model/picker_configuration_extension.dart';

@@ -28,16 +28,8 @@ class _MainState extends State<Main> with SingleTickerProviderStateMixin {
   late final _tabController = TabController(length: _tabs.length, vsync: this);
 
   Future<void> _handlePicker() async {
-    final overlayImageCameraConfig = _cameraConfig.value.copyWith(
-      overlayImage: const OverlayImage(
-        'assets/grid.gif', // Flutter assets declared in pubspec.yaml.
-        isAsset: true,
-        opacity: 1 / 2,
-        tintColor: Colors.white, // Actual gif is black.
-      ),
-    );
     final picker = MultiMediaPicker(
-      cameraConfiguration: overlayImageCameraConfig,
+      cameraConfiguration: _cameraConfig.value,
       uiConfiguration: _uiConfig.value,
     );
 

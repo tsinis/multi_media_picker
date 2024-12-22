@@ -5,7 +5,7 @@ import UIKit
 import ZLPhotoBrowser
 
 final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaApi {
-  private let registrar: FlutterPluginRegistrar
+  private var registrar: FlutterPluginRegistrar?
 
   init(registrar: FlutterPluginRegistrar) {
     self.registrar = registrar
@@ -41,11 +41,12 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
           editConfig: editConfig
         )
 
-        if let overlay = cameraConfig.overlayImage {  // Add overlay image if specified
-          self.showOverlayImage(overlay, registrar: self.registrar)
+        if let registrar = self.registrar {
+          self.showOverlayImage(cameraConfig.overlayImage, registrar: registrar)
         }
 
         camera.cancelBlock = { completion(.success(nil)) }  // On cancel button tap.
+
         camera.takeDoneBlock = { (image, video) in  // On done button tap.
           var mediaData: RawMediaData?
 
@@ -231,6 +232,7 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
         )
       )
     }
+
     completion(.success(viewController))
   }
 
@@ -249,7 +251,8 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     ZLPhotoUIConfiguration.default().updateUiConfiguration(from: uiConfig)  // Apply the UI config.
   }
 
-  private func showOverlayImage(_ overlay: RawOverlayImage, registrar: FlutterPluginRegistrar) {
+  private func showOverlayImage(_ overlay: RawOverlayImage?, registrar: FlutterPluginRegistrar) {
+    guard let overlay = overlay else { return setCameraOverlay() }
     var image: UIImage?
 
     if overlay.isAsset {
@@ -273,8 +276,12 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
         overlayView.image = overlayView.image?.withRenderingMode(.alwaysTemplate)
       }
 
-      ZLPhotoConfiguration.default().cameraConfiguration.overlayView = overlayView
+      setCameraOverlay(overlayView)
     }
+  }
+
+  private func setCameraOverlay(_ overlay: UIImageView? = nil) {
+    ZLPhotoConfiguration.default().cameraConfiguration.overlayView = overlay
   }
 
   private func resolveImage(image: UIImage, picker: RawPickerConfiguration) -> RawMediaData? {

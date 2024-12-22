@@ -83,6 +83,8 @@ dart_code_metrics:
         last:
           - child
           - children
+    - prefer-widget-private-members:
+        ignore-static: true
     # Enabled:
     - always-remove-listener
     - avoid-accessing-collections-by-constant-index
@@ -357,7 +359,6 @@ dart_code_metrics:
     - prefer-unwrapping-future-or
     - prefer-using-list-view
     - prefer-visible-for-testing-on-members
-    - prefer-widget-private-members
     - prefer-wildcard-pattern
     - proper-super-calls
     - unnecessary-trailing-comma

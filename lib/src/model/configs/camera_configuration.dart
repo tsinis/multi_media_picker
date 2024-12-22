@@ -136,6 +136,7 @@ class CameraConfiguration {
         other.allowRecordVideo == allowRecordVideo &&
         other.minDuration == minDuration &&
         other.maxDuration == maxDuration &&
+        other.overlayImage == overlayImage &&
         other.isFrontVideoMirrored == isFrontVideoMirrored &&
         other.sessionPreset == sessionPreset &&
         other.focusMode == focusMode &&
@@ -155,6 +156,7 @@ class CameraConfiguration {
       allowRecordVideo.hashCode ^
       minDuration.hashCode ^
       maxDuration.hashCode ^
+      overlayImage.hashCode ^
       isFrontVideoMirrored.hashCode ^
       sessionPreset.hashCode ^
       focusMode.hashCode ^
