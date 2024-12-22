@@ -22,15 +22,15 @@ class PickerConfiguration {
     this.autoScrollWhenSlideSelectIsActive = true,
     this.callbackDirectlyAfterTakingPhoto = false,
     this.cropVideoAfterSelectThumbnail = true,
-    this.directoryPath,
+    String directoryPath = '',
     this.downloadVideoBeforeSelecting = false,
     this.editAfterSelectThumbnailImage = true,
-    this.imageName,
+    String imageName = '',
     this.initialIndex = 1,
     this.maxEditVideoDuration = const Duration(seconds: 10),
     this.maxPreviewCount = 20,
     this.maxSelectCount = 9,
-    this.maxSelectVideoDataSizeKB,
+    this.maxSelectVideoDataSizeKB = -1,
     this.maxSelectVideoDuration = const Duration(seconds: 120),
     this.maxVideoSelectCount = 0,
     this.minSelectVideoDataSizeKB = 0,
@@ -45,7 +45,8 @@ class PickerConfiguration {
     this.thumbnailPrefix = '.thumbnail_',
     this.thumbnailWidth = 200,
     this.useCustomCamera = true,
-  });
+  })  : _directoryPath = directoryPath,
+        _imageName = imageName;
 
   /// Anything bigger than 1 will enable the multiple selection feature.
   /// Defaults to `9`.
@@ -187,8 +188,8 @@ class PickerConfiguration {
   final Duration minSelectVideoDuration;
 
   /// Allow to choose the maximum data size of the video (in KB).
-  /// Defaults to `null` (no limit).
-  final double? maxSelectVideoDataSizeKB;
+  /// Defaults to `-1` (no limit).
+  final double maxSelectVideoDataSizeKB;
 
   /// Allow to choose the minimum data size of the video. Defaults to `0` KB.
   final double minSelectVideoDataSizeKB;
@@ -196,13 +197,17 @@ class PickerConfiguration {
   /// Whether to use custom camera. Defaults to `true`.
   final bool useCustomCamera;
 
-  /// Directory path for saving the file. Defaults to `null`,
-  /// the temporary directory.
-  final String? directoryPath;
+  final String _directoryPath;
+
+  final String _imageName;
+
+  /// Directory path for saving the file. Defaults to empty string
+  /// - the temporary directory.
+  String get directoryPath => _directoryPath.trim();
 
   /// Image file name for saving the image or thumbnail file.
-  /// Defaults to `null`, random UUID with `multi_media_` prefix.
-  final String? imageName;
+  /// Defaults to empty string - random UUID with `multi_media_` prefix.
+  String get imageName => _imageName.trim();
 
   // ignore: avoid-high-cyclomatic-complexity, a lot of parameters.
   PickerConfiguration copyWith({
@@ -322,8 +327,7 @@ class PickerConfiguration {
       'allowEditImage: $allowEditImage, allowEditVideo: $allowEditVideo, '
       'editAfterSelectThumbnailImage: $editAfterSelectThumbnailImage, '
       'cropVideoAfterSelectThumbnail: $cropVideoAfterSelectThumbnail, '
-      '${directoryPath == null ? '' : 'directoryPath: $directoryPath, '}'
-      '${imageName == null ? '' : 'imageName: $imageName, '}'
+      'directoryPath: "$directoryPath", imageName: "$imageName", '
       'saveNewImageAfterEdit: $saveNewImageAfterEdit, '
       'allowSlideSelect: $allowSlideSelect, '
       'autoScrollWhenSlideSelectIsActive: $autoScrollWhenSlideSelectIsActive, '
@@ -340,9 +344,9 @@ class PickerConfiguration {
       'maxEditVideoDuration: $maxEditVideoDuration, '
       'maxSelectVideoDuration: $maxSelectVideoDuration, '
       'minSelectVideoDuration: $minSelectVideoDuration, '
-      '''${maxSelectVideoDataSizeKB == null ? '' : 'maxSelectVideoDataSizeKB: $maxSelectVideoDataSizeKB, '}'''
+      'maxSelectVideoDataSizeKB: $maxSelectVideoDataSizeKB, '
       'minSelectVideoDataSizeKB: $minSelectVideoDataSizeKB, '
-      'thumbnailPrefix: $thumbnailPrefix, thumbnailWidth: $thumbnailWidth, '
+      'thumbnailPrefix: "$thumbnailPrefix", thumbnailWidth: $thumbnailWidth, '
       'useCustomCamera: $useCustomCamera)';
 
   @override

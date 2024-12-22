@@ -8,5 +8,5 @@ class NamedImage<T extends Object> {
   final OverlayImage? overlay;
   final T? _imageNameToSave;
 
-  String? get name => _imageNameToSave?.toString();
+  String? get name => _imageNameToSave?.toString().trim();
 }

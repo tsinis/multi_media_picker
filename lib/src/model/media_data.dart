@@ -40,9 +40,9 @@ class MediaData {
       );
 
   @override
-  String toString() => 'MediaData(media: File(${file.path}), '
+  String toString() => 'MediaData(media: File("${file.path}"), '
       'duration: $duration, fileSize: $fileSize, timestamp: $timestamp, '
-      '''${thumbnail?.path == null ? '' : 'thumbnail: File(${thumbnail?.path}), '}'''
+      '''${thumbnail?.path == null ? '' : 'thumbnail: File("${thumbnail?.path}"), '}'''
       'type: $type)';
 
   @override
