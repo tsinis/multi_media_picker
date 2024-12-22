@@ -7,6 +7,7 @@ class TextStyledListTile extends ListTile {
   TextStyledListTile({
     required AsyncCallback onTap,
     super.key,
+    super.leading,
     super.subtitle,
     super.title,
     super.trailing,

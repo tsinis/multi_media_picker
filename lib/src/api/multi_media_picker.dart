@@ -1,11 +1,11 @@
 import 'dart:collection' show UnmodifiableListView;
 
-import '../helpers/extensions/model/camera_configuration_extension_internal.dart';
-import '../helpers/extensions/model/edit_configuration_extension.dart';
-import '../helpers/extensions/model/media_data_extension_internal.dart';
-import '../helpers/extensions/model/picker_configuration_extension.dart';
-import '../helpers/extensions/model/raw_media_data_extension.dart';
-import '../helpers/extensions/model/ui_configuration_extension.dart';
+import '../helpers/extensions/model/internal/camera_configuration_extension_internal.dart';
+import '../helpers/extensions/model/internal/edit_configuration_extension_internal.dart';
+import '../helpers/extensions/model/internal/media_data_extension_internal.dart';
+import '../helpers/extensions/model/internal/picker_configuration_extension_internal.dart';
+import '../helpers/extensions/model/internal/raw_media_data_extension.dart';
+import '../helpers/extensions/model/internal/ui_configuration_extension_internal.dart';
 import '../messages.g.dart';
 import '../model/configs/camera_configuration.dart';
 import '../model/configs/edit_configuration.dart';

@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/rendering.dart';
 
-import '../../../messages.g.dart';
-import '../../../model/media_data.dart';
-import '../../../model/typedefs.dart';
+import '../../../../messages.g.dart';
+import '../../../../model/media_data.dart';
+import '../../../../model/typedefs.dart';
 
 extension RawMediaDataExtension on RawMediaData {
   MediaData toMediaData({DateTimeProvider? dateTimeProvider}) {

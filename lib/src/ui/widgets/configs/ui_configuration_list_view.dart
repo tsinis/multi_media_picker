@@ -154,322 +154,317 @@ class UiConfigurationListView extends BaseConfigListView<UiConfiguration> {
 
   @override
   // ignore: avoid-high-cyclomatic-complexity, very rich UI configuration.
-  Widget build(BuildContext context) => ValueListenableBuilder<UiConfiguration>(
-        builder: (_, config, __) => ListView(
-          children: [
-            if (adjustSliderTypeSubtitle != null &&
-                adjustSliderTypeTitle != null)
-              TextStyledListTile(
-                onTap: () async => handleShowEnumPicker(
-                  context,
-                  config.adjustSliderType,
-                  onSelected: (adjustSliderType) => updateConfig =
-                      config.copyWith(adjustSliderType: adjustSliderType),
-                  values: AdjustSliderType.values,
-                ),
-                subtitle: adjustSliderTypeSubtitle,
-                title: adjustSliderTypeTitle,
-                trailing: Text(config.adjustSliderType.name.toUpperCase()),
+  List<Widget> childrenBuilder(
+    BuildContext context,
+    UiConfiguration currentConfig,
+  ) =>
+      [
+        if (adjustSliderTypeSubtitle != null && adjustSliderTypeTitle != null)
+          TextStyledListTile(
+            onTap: () async => handleShowEnumPicker(
+              context,
+              currentConfig.adjustSliderType,
+              onSelected: (adjustSliderType) => updateConfig =
+                  currentConfig.copyWith(adjustSliderType: adjustSliderType),
+              values: AdjustSliderType.values,
+            ),
+            subtitle: adjustSliderTypeSubtitle,
+            title: adjustSliderTypeTitle,
+            trailing: Text(currentConfig.adjustSliderType.name.toUpperCase()),
+          ),
+        if (animateSelectButtonWhenSelectInPreviewSubtitle != null &&
+            animateSelectButtonWhenSelectInPreviewTitle != null)
+          SwitchListTile(
+            onChanged: (animateSelectButtonWhenSelectInPreview) =>
+                updateConfig = currentConfig.copyWith(
+              animateSelectButtonWhenSelectInPreview:
+                  animateSelectButtonWhenSelectInPreview,
+            ),
+            subtitle: animateSelectButtonWhenSelectInPreviewSubtitle,
+            title: animateSelectButtonWhenSelectInPreviewTitle,
+            value: currentConfig.animateSelectButtonWhenSelectInPreview,
+          ),
+        if (animateSelectButtonWhenSelectInThumbnailSubtitle != null &&
+            animateSelectButtonWhenSelectInThumbnailTitle != null)
+          SwitchListTile(
+            onChanged: (animateSelectButtonWhenSelectInThumbnail) =>
+                updateConfig = currentConfig.copyWith(
+              animateSelectButtonWhenSelectInThumbnail:
+                  animateSelectButtonWhenSelectInThumbnail,
+            ),
+            subtitle: animateSelectButtonWhenSelectInThumbnailSubtitle,
+            title: animateSelectButtonWhenSelectInThumbnailTitle,
+            value: currentConfig.animateSelectButtonWhenSelectInThumbnail,
+          ),
+        if (cellCornerRadioSubtitle != null &&
+            cellCornerRadioDecoration != null)
+          ListTile(
+            subtitle: cellCornerRadioSubtitle,
+            title: TextFormField(
+              decoration: cellCornerRadioDecoration,
+              initialValue: currentConfig.cellCornerRadio.toString(),
+              keyboardType: TextInputType.number,
+              maxLength: 4,
+              onChanged: (value) => updateConfig = currentConfig.copyWith(
+                cellCornerRadio: double.tryParse(value),
               ),
-            if (animateSelectButtonWhenSelectInPreviewSubtitle != null &&
-                animateSelectButtonWhenSelectInPreviewTitle != null)
-              SwitchListTile(
-                onChanged: (animateSelectButtonWhenSelectInPreview) =>
-                    updateConfig = config.copyWith(
-                  animateSelectButtonWhenSelectInPreview:
-                      animateSelectButtonWhenSelectInPreview,
-                ),
-                subtitle: animateSelectButtonWhenSelectInPreviewSubtitle,
-                title: animateSelectButtonWhenSelectInPreviewTitle,
-                value: config.animateSelectButtonWhenSelectInPreview,
+            ),
+          ),
+        if (columnCountSubtitle != null && columnCountDecoration != null)
+          ListTile(
+            subtitle: columnCountSubtitle,
+            title: TextFormField(
+              decoration: columnCountDecoration,
+              initialValue: currentConfig.columnCount.toString(),
+              keyboardType: TextInputType.number,
+              maxLength: 3,
+              onChanged: (value) => updateConfig =
+                  currentConfig.copyWith(columnCount: int.tryParse(value)),
+            ),
+          ),
+        if (hudStyleSubtitle != null && hudStyleTitle != null)
+          TextStyledListTile(
+            onTap: () async => handleShowEnumPicker(
+              context,
+              currentConfig.hudStyle,
+              onSelected: (hudStyle) =>
+                  updateConfig = currentConfig.copyWith(hudStyle: hudStyle),
+              values: HudStyle.values,
+            ),
+            subtitle: hudStyleSubtitle,
+            title: hudStyleTitle,
+            trailing: Text(currentConfig.hudStyle.name.toUpperCase()),
+          ),
+        if (isDarkStatusBarStyleSubtitle != null &&
+            isDarkStatusBarStyleTitle != null)
+          SwitchListTile(
+            onChanged: (isDarkStatusBarStyle) => updateConfig = currentConfig
+                .copyWith(isDarkStatusBarStyle: isDarkStatusBarStyle),
+            subtitle: isDarkStatusBarStyleSubtitle,
+            title: isDarkStatusBarStyleTitle,
+            value: currentConfig.isDarkStatusBarStyle ?? false,
+          ),
+        if (languageTypeSubtitle != null && languageTypeTitle != null)
+          TextStyledListTile(
+            onTap: () async => handleShowEnumPicker(
+              context,
+              currentConfig.languageType,
+              onSelected: (languageType) => updateConfig =
+                  currentConfig.copyWith(languageType: languageType),
+              values: UiLocale.values,
+            ),
+            subtitle: languageTypeSubtitle,
+            title: languageTypeTitle,
+            trailing: Text(currentConfig.languageType.name.toUpperCase()),
+          ),
+        if (minimumItemSpacingSubtitle != null &&
+            minimumItemSpacingDecoration != null)
+          ListTile(
+            subtitle: minimumItemSpacingSubtitle,
+            title: TextFormField(
+              decoration: minimumItemSpacingDecoration,
+              initialValue: currentConfig.minimumItemSpacing.toString(),
+              keyboardType: TextInputType.number,
+              maxLength: 4,
+              onChanged: (value) => updateConfig = currentConfig.copyWith(
+                minimumItemSpacing: double.tryParse(value),
               ),
-            if (animateSelectButtonWhenSelectInThumbnailSubtitle != null &&
-                animateSelectButtonWhenSelectInThumbnailTitle != null)
-              SwitchListTile(
-                onChanged: (animateSelectButtonWhenSelectInThumbnail) =>
-                    updateConfig = config.copyWith(
-                  animateSelectButtonWhenSelectInThumbnail:
-                      animateSelectButtonWhenSelectInThumbnail,
-                ),
-                subtitle: animateSelectButtonWhenSelectInThumbnailSubtitle,
-                title: animateSelectButtonWhenSelectInThumbnailTitle,
-                value: config.animateSelectButtonWhenSelectInThumbnail,
+            ),
+          ),
+        if (minimumLineSpacingSubtitle != null &&
+            minimumLineSpacingTitle != null)
+          ListTile(
+            subtitle: minimumLineSpacingSubtitle,
+            title: TextFormField(
+              decoration: minimumItemSpacingDecoration,
+              initialValue: currentConfig.minimumLineSpacing.toString(),
+              keyboardType: TextInputType.number,
+              maxLength: 4,
+              onChanged: (value) => updateConfig = currentConfig.copyWith(
+                minimumLineSpacing: double.tryParse(value),
               ),
-            if (cellCornerRadioSubtitle != null &&
-                cellCornerRadioDecoration != null)
-              ListTile(
-                subtitle: cellCornerRadioSubtitle,
-                title: TextFormField(
-                  decoration: cellCornerRadioDecoration,
-                  initialValue: config.cellCornerRadio.toString(),
-                  keyboardType: TextInputType.number,
-                  maxLength: 4,
-                  onChanged: (value) => updateConfig = config.copyWith(
-                    cellCornerRadio: double.tryParse(value),
-                  ),
-                ),
+            ),
+          ),
+        if (navCancelButtonStyleSubtitle != null &&
+            navCancelButtonStyleTitle != null)
+          TextStyledListTile(
+            onTap: () async => handleShowEnumPicker(
+              context,
+              currentConfig.navCancelButtonStyle,
+              onSelected: (navCancelButtonStyle) => updateConfig = currentConfig
+                  .copyWith(navCancelButtonStyle: navCancelButtonStyle),
+              values: CancelButtonStyle.values,
+            ),
+            subtitle: navCancelButtonStyleSubtitle,
+            title: navCancelButtonStyleTitle,
+            trailing:
+                Text(currentConfig.navCancelButtonStyle.name.toUpperCase()),
+          ),
+        if (selectButtonAnimationDurationSubtitle != null &&
+            selectButtonAnimationDurationTitle != null)
+          TextStyledListTile(
+            onTap: () async => handleDurationPicker(
+              context,
+              currentConfig.selectButtonAnimationDuration,
+              onSelected: (selectButtonAnimationDuration) =>
+                  updateConfig = currentConfig.copyWith(
+                selectButtonAnimationDuration: selectButtonAnimationDuration,
               ),
-            if (columnCountSubtitle != null && columnCountDecoration != null)
-              ListTile(
-                subtitle: columnCountSubtitle,
-                title: TextFormField(
-                  decoration: columnCountDecoration,
-                  initialValue: config.columnCount.toString(),
-                  keyboardType: TextInputType.number,
-                  maxLength: 3,
-                  onChanged: (value) => updateConfig =
-                      config.copyWith(columnCount: int.tryParse(value)),
-                ),
+            ),
+            subtitle: selectButtonAnimationDurationSubtitle,
+            title: selectButtonAnimationDurationTitle,
+            trailing: Text(
+              currentConfig.selectButtonAnimationDuration.inSeconds.toString(),
+            ),
+          ),
+        if (shouldCenterToolsSubtitle != null && shouldCenterToolsTitle != null)
+          SwitchListTile(
+            onChanged: (shouldCenterTools) => updateConfig =
+                currentConfig.copyWith(shouldCenterTools: shouldCenterTools),
+            subtitle: shouldCenterToolsSubtitle,
+            title: shouldCenterToolsTitle,
+            value: currentConfig.shouldCenterTools,
+          ),
+        if (showAddPhotoButtonSubtitle != null &&
+            showAddPhotoButtonTitle != null)
+          SwitchListTile(
+            onChanged: (showAddPhotoButton) => updateConfig =
+                currentConfig.copyWith(showAddPhotoButton: showAddPhotoButton),
+            subtitle: showAddPhotoButtonSubtitle,
+            title: showAddPhotoButtonTitle,
+            value: currentConfig.showAddPhotoButton,
+          ),
+        if (showCaptureImageOnTakePhotoButtonSubtitle != null &&
+            showCaptureImageOnTakePhotoButtonTitle != null)
+          SwitchListTile(
+            onChanged: (showCaptureImageOnTakePhotoButton) =>
+                updateConfig = currentConfig.copyWith(
+              showCaptureImageOnTakePhotoButton:
+                  showCaptureImageOnTakePhotoButton,
+            ),
+            subtitle: showCaptureImageOnTakePhotoButtonSubtitle,
+            title: showCaptureImageOnTakePhotoButtonTitle,
+            value: currentConfig.showCaptureImageOnTakePhotoButton,
+          ),
+        if (showEnterSettingTipsSubtitle != null &&
+            showEnterSettingTipsTitle != null)
+          SwitchListTile(
+            onChanged: (showEnterSettingTips) => updateConfig = currentConfig
+                .copyWith(showEnterSettingTips: showEnterSettingTips),
+            subtitle: showEnterSettingTipsSubtitle,
+            title: showEnterSettingTipsTitle,
+            value: currentConfig.showEnterSettingTips,
+          ),
+        if (showIndexOnSelectButtonSubtitle != null &&
+            showIndexOnSelectButtonTitle != null)
+          SwitchListTile(
+            onChanged: (showIndexOnSelectButton) => updateConfig = currentConfig
+                .copyWith(showIndexOnSelectButton: showIndexOnSelectButton),
+            subtitle: showIndexOnSelectButtonSubtitle,
+            title: showIndexOnSelectButtonTitle,
+            value: currentConfig.showIndexOnSelectButton,
+          ),
+        if (showInvalidMaskSubtitle != null && showInvalidMaskTitle != null)
+          SwitchListTile(
+            onChanged: (showInvalidMask) => updateConfig =
+                currentConfig.copyWith(showInvalidMask: showInvalidMask),
+            subtitle: showInvalidMaskSubtitle,
+            title: showInvalidMaskTitle,
+            value: currentConfig.showInvalidMask,
+          ),
+        if (showScrollToBottomButtonSubtitle != null &&
+            showScrollToBottomButtonTitle != null)
+          SwitchListTile(
+            onChanged: (showScrollToBottomButton) =>
+                updateConfig = currentConfig.copyWith(
+              showScrollToBottomButton: showScrollToBottomButton,
+            ),
+            subtitle: showScrollToBottomButtonSubtitle,
+            title: showScrollToBottomButtonTitle,
+            value: currentConfig.showScrollToBottomButton,
+          ),
+        if (showSelectedBorderSubtitle != null &&
+            showSelectedBorderTitle != null)
+          SwitchListTile(
+            onChanged: (showSelectedBorder) => updateConfig =
+                currentConfig.copyWith(showSelectedBorder: showSelectedBorder),
+            subtitle: showSelectedBorderSubtitle,
+            title: showSelectedBorderTitle,
+            value: currentConfig.showSelectedBorder,
+          ),
+        if (showSelectedMaskSubtitle != null && showSelectedMaskTitle != null)
+          SwitchListTile(
+            onChanged: (showSelectedMask) => updateConfig =
+                currentConfig.copyWith(showSelectedMask: showSelectedMask),
+            subtitle: showSelectedMaskSubtitle,
+            title: showSelectedMaskTitle,
+            value: currentConfig.showSelectedMask,
+          ),
+        if (showSelectedPhotoPreviewSubtitle != null &&
+            showSelectedPhotoPreviewTitle != null)
+          SwitchListTile(
+            onChanged: (showSelectedPhotoPreview) =>
+                updateConfig = currentConfig.copyWith(
+              showSelectedPhotoPreview: showSelectedPhotoPreview,
+            ),
+            subtitle: showSelectedPhotoPreviewSubtitle,
+            title: showSelectedPhotoPreviewTitle,
+            value: currentConfig.showSelectedPhotoPreview,
+          ),
+        if (showStatusBarInPreviewInterfaceSubtitle != null &&
+            showStatusBarInPreviewInterfaceTitle != null)
+          SwitchListTile(
+            onChanged: (showStatusBarInPreviewInterface) =>
+                updateConfig = currentConfig.copyWith(
+              showStatusBarInPreviewInterface: showStatusBarInPreviewInterface,
+            ),
+            subtitle: showStatusBarInPreviewInterfaceSubtitle,
+            title: showStatusBarInPreviewInterfaceTitle,
+            value: currentConfig.showStatusBarInPreviewInterface,
+          ),
+        if (sortAscendingSubtitle != null && sortAscendingTitle != null)
+          SwitchListTile(
+            onChanged: (sortAscending) => updateConfig =
+                currentConfig.copyWith(sortAscending: sortAscending),
+            subtitle: sortAscendingSubtitle,
+            title: sortAscendingTitle,
+            value: currentConfig.sortAscending,
+          ),
+        if (styleSubtitle != null && styleTitle != null)
+          TextStyledListTile(
+            onTap: () async => handleShowEnumPicker(
+              context,
+              currentConfig.style,
+              onSelected: (style) =>
+                  updateConfig = currentConfig.copyWith(style: style),
+              values: PhotoBrowserStyle.values,
+            ),
+            subtitle: styleSubtitle,
+            title: styleTitle,
+            trailing: Text(currentConfig.style.name.toUpperCase()),
+          ),
+        if (themeColorSubtitle != null && themeColorDecoration != null)
+          ListTile(
+            subtitle: themeColorSubtitle,
+            title: TextFormField(
+              decoration: themeColorDecoration,
+              initialValue: currentConfig.themeColor.rawValue.toRadixString(16),
+              onChanged: (value) => updateConfig = currentConfig.copyWith(
+                themeColor: Color(int.parse(value, radix: 16)),
               ),
-            if (hudStyleSubtitle != null && hudStyleTitle != null)
-              TextStyledListTile(
-                onTap: () async => handleShowEnumPicker(
-                  context,
-                  config.hudStyle,
-                  onSelected: (hudStyle) =>
-                      updateConfig = config.copyWith(hudStyle: hudStyle),
-                  values: HudStyle.values,
-                ),
-                subtitle: hudStyleSubtitle,
-                title: hudStyleTitle,
-                trailing: Text(config.hudStyle.name.toUpperCase()),
-              ),
-            if (isDarkStatusBarStyleSubtitle != null &&
-                isDarkStatusBarStyleTitle != null)
-              SwitchListTile(
-                onChanged: (isDarkStatusBarStyle) => updateConfig =
-                    config.copyWith(isDarkStatusBarStyle: isDarkStatusBarStyle),
-                subtitle: isDarkStatusBarStyleSubtitle,
-                title: isDarkStatusBarStyleTitle,
-                value: config.isDarkStatusBarStyle ?? false,
-              ),
-            if (languageTypeSubtitle != null && languageTypeTitle != null)
-              TextStyledListTile(
-                onTap: () async => handleShowEnumPicker(
-                  context,
-                  config.languageType,
-                  onSelected: (languageType) => updateConfig =
-                      config.copyWith(languageType: languageType),
-                  values: UiLocale.values,
-                ),
-                subtitle: languageTypeSubtitle,
-                title: languageTypeTitle,
-                trailing: Text(config.languageType.name.toUpperCase()),
-              ),
-            if (minimumItemSpacingSubtitle != null &&
-                minimumItemSpacingDecoration != null)
-              ListTile(
-                subtitle: minimumItemSpacingSubtitle,
-                title: TextFormField(
-                  decoration: minimumItemSpacingDecoration,
-                  initialValue: config.minimumItemSpacing.toString(),
-                  keyboardType: TextInputType.number,
-                  maxLength: 4,
-                  onChanged: (value) => updateConfig = config.copyWith(
-                    minimumItemSpacing: double.tryParse(value),
-                  ),
-                ),
-              ),
-            if (minimumLineSpacingSubtitle != null &&
-                minimumLineSpacingTitle != null)
-              ListTile(
-                subtitle: minimumLineSpacingSubtitle,
-                title: TextFormField(
-                  decoration: minimumItemSpacingDecoration,
-                  initialValue: config.minimumLineSpacing.toString(),
-                  keyboardType: TextInputType.number,
-                  maxLength: 4,
-                  onChanged: (value) => updateConfig = config.copyWith(
-                    minimumLineSpacing: double.tryParse(value),
-                  ),
-                ),
-              ),
-            if (navCancelButtonStyleSubtitle != null &&
-                navCancelButtonStyleTitle != null)
-              TextStyledListTile(
-                onTap: () async => handleShowEnumPicker(
-                  context,
-                  config.navCancelButtonStyle,
-                  onSelected: (navCancelButtonStyle) => updateConfig = config
-                      .copyWith(navCancelButtonStyle: navCancelButtonStyle),
-                  values: CancelButtonStyle.values,
-                ),
-                subtitle: navCancelButtonStyleSubtitle,
-                title: navCancelButtonStyleTitle,
-                trailing: Text(config.navCancelButtonStyle.name.toUpperCase()),
-              ),
-            if (selectButtonAnimationDurationSubtitle != null &&
-                selectButtonAnimationDurationTitle != null)
-              TextStyledListTile(
-                onTap: () async => handleDurationPicker(
-                  context,
-                  config.selectButtonAnimationDuration,
-                  onSelected: (selectButtonAnimationDuration) =>
-                      updateConfig = config.copyWith(
-                    selectButtonAnimationDuration:
-                        selectButtonAnimationDuration,
-                  ),
-                ),
-                subtitle: selectButtonAnimationDurationSubtitle,
-                title: selectButtonAnimationDurationTitle,
-                trailing: Text(
-                  config.selectButtonAnimationDuration.inSeconds.toString(),
-                ),
-              ),
-            if (shouldCenterToolsSubtitle != null &&
-                shouldCenterToolsTitle != null)
-              SwitchListTile(
-                onChanged: (shouldCenterTools) => updateConfig =
-                    config.copyWith(shouldCenterTools: shouldCenterTools),
-                subtitle: shouldCenterToolsSubtitle,
-                title: shouldCenterToolsTitle,
-                value: config.shouldCenterTools,
-              ),
-            if (showAddPhotoButtonSubtitle != null &&
-                showAddPhotoButtonTitle != null)
-              SwitchListTile(
-                onChanged: (showAddPhotoButton) => updateConfig =
-                    config.copyWith(showAddPhotoButton: showAddPhotoButton),
-                subtitle: showAddPhotoButtonSubtitle,
-                title: showAddPhotoButtonTitle,
-                value: config.showAddPhotoButton,
-              ),
-            if (showCaptureImageOnTakePhotoButtonSubtitle != null &&
-                showCaptureImageOnTakePhotoButtonTitle != null)
-              SwitchListTile(
-                onChanged: (showCaptureImageOnTakePhotoButton) =>
-                    updateConfig = config.copyWith(
-                  showCaptureImageOnTakePhotoButton:
-                      showCaptureImageOnTakePhotoButton,
-                ),
-                subtitle: showCaptureImageOnTakePhotoButtonSubtitle,
-                title: showCaptureImageOnTakePhotoButtonTitle,
-                value: config.showCaptureImageOnTakePhotoButton,
-              ),
-            if (showEnterSettingTipsSubtitle != null &&
-                showEnterSettingTipsTitle != null)
-              SwitchListTile(
-                onChanged: (showEnterSettingTips) => updateConfig =
-                    config.copyWith(showEnterSettingTips: showEnterSettingTips),
-                subtitle: showEnterSettingTipsSubtitle,
-                title: showEnterSettingTipsTitle,
-                value: config.showEnterSettingTips,
-              ),
-            if (showIndexOnSelectButtonSubtitle != null &&
-                showIndexOnSelectButtonTitle != null)
-              SwitchListTile(
-                onChanged: (showIndexOnSelectButton) => updateConfig = config
-                    .copyWith(showIndexOnSelectButton: showIndexOnSelectButton),
-                subtitle: showIndexOnSelectButtonSubtitle,
-                title: showIndexOnSelectButtonTitle,
-                value: config.showIndexOnSelectButton,
-              ),
-            if (showInvalidMaskSubtitle != null && showInvalidMaskTitle != null)
-              SwitchListTile(
-                onChanged: (showInvalidMask) => updateConfig =
-                    config.copyWith(showInvalidMask: showInvalidMask),
-                subtitle: showInvalidMaskSubtitle,
-                title: showInvalidMaskTitle,
-                value: config.showInvalidMask,
-              ),
-            if (showScrollToBottomButtonSubtitle != null &&
-                showScrollToBottomButtonTitle != null)
-              SwitchListTile(
-                onChanged: (showScrollToBottomButton) =>
-                    updateConfig = config.copyWith(
-                  showScrollToBottomButton: showScrollToBottomButton,
-                ),
-                subtitle: showScrollToBottomButtonSubtitle,
-                title: showScrollToBottomButtonTitle,
-                value: config.showScrollToBottomButton,
-              ),
-            if (showSelectedBorderSubtitle != null &&
-                showSelectedBorderTitle != null)
-              SwitchListTile(
-                onChanged: (showSelectedBorder) => updateConfig =
-                    config.copyWith(showSelectedBorder: showSelectedBorder),
-                subtitle: showSelectedBorderSubtitle,
-                title: showSelectedBorderTitle,
-                value: config.showSelectedBorder,
-              ),
-            if (showSelectedMaskSubtitle != null &&
-                showSelectedMaskTitle != null)
-              SwitchListTile(
-                onChanged: (showSelectedMask) => updateConfig =
-                    config.copyWith(showSelectedMask: showSelectedMask),
-                subtitle: showSelectedMaskSubtitle,
-                title: showSelectedMaskTitle,
-                value: config.showSelectedMask,
-              ),
-            if (showSelectedPhotoPreviewSubtitle != null &&
-                showSelectedPhotoPreviewTitle != null)
-              SwitchListTile(
-                onChanged: (showSelectedPhotoPreview) =>
-                    updateConfig = config.copyWith(
-                  showSelectedPhotoPreview: showSelectedPhotoPreview,
-                ),
-                subtitle: showSelectedPhotoPreviewSubtitle,
-                title: showSelectedPhotoPreviewTitle,
-                value: config.showSelectedPhotoPreview,
-              ),
-            if (showStatusBarInPreviewInterfaceSubtitle != null &&
-                showStatusBarInPreviewInterfaceTitle != null)
-              SwitchListTile(
-                onChanged: (showStatusBarInPreviewInterface) =>
-                    updateConfig = config.copyWith(
-                  showStatusBarInPreviewInterface:
-                      showStatusBarInPreviewInterface,
-                ),
-                subtitle: showStatusBarInPreviewInterfaceSubtitle,
-                title: showStatusBarInPreviewInterfaceTitle,
-                value: config.showStatusBarInPreviewInterface,
-              ),
-            if (sortAscendingSubtitle != null && sortAscendingTitle != null)
-              SwitchListTile(
-                onChanged: (sortAscending) => updateConfig =
-                    config.copyWith(sortAscending: sortAscending),
-                subtitle: sortAscendingSubtitle,
-                title: sortAscendingTitle,
-                value: config.sortAscending,
-              ),
-            if (styleSubtitle != null && styleTitle != null)
-              TextStyledListTile(
-                onTap: () async => handleShowEnumPicker(
-                  context,
-                  config.style,
-                  onSelected: (style) =>
-                      updateConfig = config.copyWith(style: style),
-                  values: PhotoBrowserStyle.values,
-                ),
-                subtitle: styleSubtitle,
-                title: styleTitle,
-                trailing: Text(config.style.name.toUpperCase()),
-              ),
-            if (themeColorSubtitle != null && themeColorDecoration != null)
-              ListTile(
-                subtitle: themeColorSubtitle,
-                title: TextFormField(
-                  decoration: themeColorDecoration,
-                  initialValue: config.themeColor.rawValue.toRadixString(16),
-                  onChanged: (value) => updateConfig = config.copyWith(
-                    themeColor: Color(int.parse(value, radix: 16)),
-                  ),
-                ),
-              ),
-            if (timeoutSubtitle != null && timeoutTitle != null)
-              TextStyledListTile(
-                onTap: () async => handleDurationPicker(
-                  context,
-                  config.timeout,
-                  onSelected: (timeout) =>
-                      updateConfig = config.copyWith(timeout: timeout),
-                ),
-                subtitle: timeoutSubtitle,
-                title: timeoutTitle,
-                trailing: Text(config.timeout.inSeconds.toString()),
-              ),
-          ],
-        ),
-        valueListenable: configuration,
-      );
+            ),
+          ),
+        if (timeoutSubtitle != null && timeoutTitle != null)
+          TextStyledListTile(
+            onTap: () async => handleDurationPicker(
+              context,
+              currentConfig.timeout,
+              onSelected: (timeout) =>
+                  updateConfig = currentConfig.copyWith(timeout: timeout),
+            ),
+            subtitle: timeoutSubtitle,
+            title: timeoutTitle,
+            trailing: Text(currentConfig.timeout.inSeconds.toString()),
+          ),
+      ];
 }

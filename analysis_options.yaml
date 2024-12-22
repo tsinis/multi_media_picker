@@ -59,6 +59,7 @@ dart_code_metrics:
         exceptions:
           ["a", "b", "e", "i", "k", "v", "x", "y", "io", "id", "sb", "ui"]
     - parameters-ordering:
+        ignore-overridden: true
         super: last
         required: first
     - prefer-named-parameters:

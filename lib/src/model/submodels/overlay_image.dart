@@ -4,20 +4,23 @@ import 'package:flutter/rendering.dart';
 @immutable
 class OverlayImage {
   const OverlayImage(
-    this.path, {
+    String? path, {
     this.isAsset = false,
     this.opacity = 1,
     this.rotationAngle = 0,
     this.tintColor = const Color(0x00000000),
-  });
+  }) : _path = path ?? '';
 
-  static const empty = OverlayImage('');
+  static const empty = OverlayImage(null);
 
-  final String path;
   final bool isAsset;
   final double opacity;
   final double rotationAngle;
   final Color tintColor;
+
+  final String _path;
+
+  String get path => _path.trim();
 
   OverlayImage copyWith({
     bool? isAsset,
@@ -35,7 +38,7 @@ class OverlayImage {
       );
 
   @override
-  String toString() => 'OverlayImage(path: $path, isAsset: $isAsset, '
+  String toString() => 'OverlayImage(path: "$path", isAsset: $isAsset, '
       'opacity: $opacity, rotationAngle: $rotationAngle, tintColor: $tintColor'
       ')';
 

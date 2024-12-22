@@ -252,7 +252,7 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
   }
 
   private func showOverlayImage(_ overlay: RawOverlayImage?, registrar: FlutterPluginRegistrar) {
-    guard let overlay = overlay else { return setCameraOverlay() }
+    guard let overlay = overlay else { return setCameraOverlay(nil) }
     var image: UIImage?
 
     if overlay.isAsset {
@@ -270,7 +270,6 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
       overlayView.transform = CGAffineTransform(rotationAngle: CGFloat(overlay.rotationAngle))
       overlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
       overlayView.alpha = CGFloat(overlay.opacity)
-
       if overlay.tintColor != 0 {
         overlayView.tintColor = UIColor(rgbValue: overlay.tintColor)
         overlayView.image = overlayView.image?.withRenderingMode(.alwaysTemplate)
@@ -280,7 +279,7 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     }
   }
 
-  private func setCameraOverlay(_ overlay: UIImageView? = nil) {
+  private func setCameraOverlay(_ overlay: UIImageView?) {
     ZLPhotoConfiguration.default().cameraConfiguration.overlayView = overlay
   }
 

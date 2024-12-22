@@ -1,6 +1,6 @@
-import '../../../messages.g.dart';
-import '../../../model/configs/camera_configuration.dart';
-import 'camera_configuration_extension.dart';
+import '../../../../messages.g.dart';
+import '../../../../model/configs/camera_configuration.dart';
+import '../public/camera_configuration_extension.dart';
 import 'overlay_image_extension_internal.dart';
 
 extension CameraConfigurationExtensionInternal on CameraConfiguration {

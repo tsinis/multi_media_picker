@@ -1,7 +1,7 @@
-import '../../../messages.g.dart';
-import '../../../model/configs/picker_configuration.dart';
+import '../../../../messages.g.dart';
+import '../../../../model/configs/picker_configuration.dart';
 
-extension PickerConfigurationExtension on PickerConfiguration {
+extension PickerConfigurationExtensionInternal on PickerConfiguration {
   RawPickerConfiguration get raw => RawPickerConfiguration(
         allowDragSelect: allowDragSelect,
         allowEditImage: allowEditImage,

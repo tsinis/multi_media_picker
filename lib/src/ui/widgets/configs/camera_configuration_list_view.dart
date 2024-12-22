@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 
+import '../../../helpers/extensions/model/public/device_position_extension.dart';
 import '../../../messages.g.dart';
 import '../../../model/configs/camera_configuration.dart';
+import '../common/animated_child_switcher.dart';
 import '../interfaces/base_config_list_view.dart';
 import '../tiles/text_styled_list_tile.dart';
 
@@ -47,8 +49,10 @@ class CameraConfigurationListView
         const SelectableText('videoStabilization'),
     this.videoStabilizationTitle = const Text('Video Stabilization Mode'),
     super.key,
+    super.leadingBuilder,
     super.onShowDurationPicker,
     super.onShowEnumPicker,
+    super.trailingBuilder,
   });
 
   final Widget? allowRecordVideoSubtitle;
@@ -86,186 +90,208 @@ class CameraConfigurationListView
 
   @override
   // ignore: avoid-high-cyclomatic-complexity, a lot of configuration options.
-  Widget build(BuildContext context) =>
-      ValueListenableBuilder<CameraConfiguration>(
-        builder: (_, config, __) => ListView(
-          children: [
-            if (allowRecordVideoSubtitle != null &&
-                allowRecordVideoTitle != null)
-              SwitchListTile(
-                onChanged: (allowRecordVideo) => updateConfig = config.copyWith(
-                  allowRecordVideo: allowRecordVideo,
-                  allowTakePhoto: !allowRecordVideo && !config.allowTakePhoto
-                      ? !allowRecordVideo && !config.allowTakePhoto
-                      : config.allowTakePhoto,
-                ),
-                subtitle: allowRecordVideoSubtitle,
-                title: allowRecordVideoTitle,
-                value: config.allowRecordVideo,
-              ),
-            if (allowSwitchCameraSubtitle != null &&
-                allowSwitchCameraTitle != null)
-              SwitchListTile(
-                onChanged: (allowSwitchCamera) => updateConfig =
-                    config.copyWith(allowSwitchCamera: allowSwitchCamera),
-                subtitle: allowSwitchCameraSubtitle,
-                title: allowSwitchCameraTitle,
-                value: config.allowSwitchCamera,
-              ),
-            if (allowTakePhotoSubtitle != null && allowTakePhotoTitle != null)
-              SwitchListTile(
-                onChanged: (allowTakePhoto) => updateConfig = config.copyWith(
-                  allowRecordVideo: !allowTakePhoto && !config.allowRecordVideo
-                      ? !allowTakePhoto && !config.allowRecordVideo
-                      : config.allowRecordVideo,
-                  allowTakePhoto: allowTakePhoto,
-                ),
-                subtitle: allowTakePhotoSubtitle,
-                title: allowTakePhotoTitle,
-                value: config.allowTakePhoto,
-              ),
-            if (devicePositionSubtitle != null && devicePositionTitle != null)
-              TextStyledListTile(
-                onTap: () async => handleShowEnumPicker(
-                  context,
-                  config.devicePosition,
-                  onSelected: (devicePosition) => updateConfig =
-                      config.copyWith(devicePosition: devicePosition),
-                  values: DevicePosition.values,
-                ),
-                subtitle: devicePositionSubtitle,
-                title: devicePositionTitle,
-                trailing: Text(config.devicePosition.name.toUpperCase()),
-              ),
-            if (enableWideCamerasSubtitle != null &&
-                enableWideCamerasTitle != null)
-              SwitchListTile(
-                onChanged: (enableWideCameras) => updateConfig =
-                    config.copyWith(enableWideCameras: enableWideCameras),
-                subtitle: enableWideCamerasSubtitle,
-                title: enableWideCamerasTitle,
-                value: config.enableWideCameras,
-              ),
-            if (exposureModeSubtitle != null && exposureModeTitle != null)
-              TextStyledListTile(
-                onTap: () async => handleShowEnumPicker(
-                  context,
-                  config.exposureMode,
-                  onSelected: (exposureMode) => updateConfig =
-                      config.copyWith(exposureMode: exposureMode),
-                  values: ExposureMode.values,
-                ),
-                subtitle: exposureModeSubtitle,
-                title: exposureModeTitle,
-                trailing: Text(config.exposureMode.name.toUpperCase()),
-              ),
-            if (showFlashSwitchSubtitle != null && showFlashSwitchTitle != null)
-              TextStyledListTile(
-                onTap: () async => handleShowEnumPicker(
-                  context,
-                  config.focusMode,
-                  onSelected: (focusMode) =>
-                      updateConfig = config.copyWith(focusMode: focusMode),
-                  values: FocusMode.values,
-                ),
-                subtitle: focusModeSubtitle,
-                title: focusModeTitle,
-                trailing: Text(config.focusMode.name.toUpperCase()),
-              ),
-            if (isFrontVideoMirroredSubtitle != null &&
-                isFrontVideoMirroredTitle != null)
-              SwitchListTile(
-                onChanged: (isFrontVideoMirrored) => updateConfig =
-                    config.copyWith(isFrontVideoMirrored: isFrontVideoMirrored),
-                subtitle: isFrontVideoMirroredSubtitle,
-                title: isFrontVideoMirroredTitle,
-                value: config.isFrontVideoMirrored,
-              ),
-            if (maxDurationTitle != null && maxDurationSubtitle != null)
-              TextStyledListTile(
-                onTap: () async => handleDurationPicker(
-                  context,
-                  config.maxDuration,
-                  onSelected: (maxDuration) =>
-                      updateConfig = config.copyWith(maxDuration: maxDuration),
-                ),
-                subtitle: maxDurationSubtitle,
-                title: maxDurationTitle,
-                trailing: Text(config.maxDuration.inSeconds.toString()),
-              ),
-            if (minDurationTitle != null && minDurationSubtitle != null)
-              TextStyledListTile(
-                onTap: () async => handleDurationPicker(
-                  context,
-                  config.minDuration,
-                  onSelected: (minDuration) =>
-                      updateConfig = config.copyWith(minDuration: minDuration),
-                ),
-                subtitle: minDurationSubtitle,
-                title: minDurationTitle,
-                trailing: Text(config.minDuration.inSeconds.toString()),
-              ),
-            if (sessionPresetSubtitle != null && sessionPresetTitle != null)
-              TextStyledListTile(
-                onTap: () async => handleShowEnumPicker(
-                  context,
-                  config.sessionPreset,
-                  onSelected: (sessionPreset) => updateConfig =
-                      config.copyWith(sessionPreset: sessionPreset),
-                  values: CaptureSessionPreset.values,
-                ),
-                subtitle: sessionPresetSubtitle,
-                title: sessionPresetTitle,
-                trailing: Text(config.sessionPreset.name.toUpperCase()),
-              ),
-            if (showFlashSwitchSubtitle != null && showFlashSwitchTitle != null)
-              SwitchListTile(
-                onChanged: (showFlashSwitch) => updateConfig =
-                    config.copyWith(showFlashSwitch: showFlashSwitch),
-                subtitle: showFlashSwitchSubtitle,
-                title: showFlashSwitchTitle,
-                value: config.showFlashSwitch,
-              ),
-            if (tapToRecordVideoSubtitle != null &&
-                tapToRecordVideoTitle != null)
-              SwitchListTile(
-                onChanged: (tapToRecordVideo) => updateConfig =
-                    config.copyWith(tapToRecordVideo: tapToRecordVideo),
-                subtitle: tapToRecordVideoSubtitle,
-                title: tapToRecordVideoTitle,
-                value: config.tapToRecordVideo,
-              ),
-            if (videoExportTypeSubtitle != null && videoExportTypeTitle != null)
-              TextStyledListTile(
-                onTap: () async => handleShowEnumPicker(
-                  context,
-                  config.videoExportType,
-                  onSelected: (videoExportType) => updateConfig =
-                      config.copyWith(videoExportType: videoExportType),
-                  values: VideoExportType.values,
-                ),
-                subtitle: videoExportTypeSubtitle,
-                title: videoExportTypeTitle,
-                trailing: Text(config.videoExportType.name.toUpperCase()),
-              ),
-            if (videoStabilizationSubtitle != null &&
-                videoStabilizationTitle != null)
-              TextStyledListTile(
-                onTap: () async => handleShowEnumPicker(
-                  context,
-                  config.videoStabilization,
-                  onSelected: (videoStabilization) => updateConfig =
-                      config.copyWith(videoStabilization: videoStabilization),
-                  values: VideoStabilization.values,
-                ),
-                subtitle: videoStabilizationSubtitle,
-                title: videoStabilizationTitle,
-                trailing: Text(
-                  config.videoStabilization?.name.toUpperCase() ?? 'AUTO',
-                ),
-              ),
-          ],
-        ),
-        valueListenable: configuration,
-      );
+  List<Widget> childrenBuilder(
+    BuildContext context,
+    CameraConfiguration currentConfig,
+  ) =>
+      [
+        if (allowRecordVideoSubtitle != null && allowRecordVideoTitle != null)
+          SwitchListTile(
+            onChanged: (allowRecordVideo) =>
+                updateConfig = currentConfig.copyWith(
+              allowRecordVideo: allowRecordVideo,
+              allowTakePhoto: !allowRecordVideo && !currentConfig.allowTakePhoto
+                  ? !allowRecordVideo && !currentConfig.allowTakePhoto
+                  : currentConfig.allowTakePhoto,
+            ),
+            secondary: AnimatedChildSwitcher.icon(
+              condition: currentConfig.allowRecordVideo,
+              falseIcon: Icons.videocam_off_outlined,
+              trueIcon: Icons.videocam_outlined,
+            ),
+            subtitle: allowRecordVideoSubtitle,
+            title: allowRecordVideoTitle,
+            value: currentConfig.allowRecordVideo,
+          ),
+        if (allowSwitchCameraSubtitle != null && allowSwitchCameraTitle != null)
+          SwitchListTile(
+            onChanged: (allowSwitchCamera) => updateConfig =
+                currentConfig.copyWith(allowSwitchCamera: allowSwitchCamera),
+            secondary: AnimatedChildSwitcher.icon(
+              condition: currentConfig.allowSwitchCamera,
+              falseIcon: Icons.sync_disabled_rounded,
+              trueIcon: Icons.sync_rounded,
+            ),
+            subtitle: allowSwitchCameraSubtitle,
+            title: allowSwitchCameraTitle,
+            value: currentConfig.allowSwitchCamera,
+          ),
+        if (allowTakePhotoSubtitle != null && allowTakePhotoTitle != null)
+          SwitchListTile(
+            onChanged: (allowTakePhoto) =>
+                updateConfig = currentConfig.copyWith(
+              allowRecordVideo:
+                  !allowTakePhoto && !currentConfig.allowRecordVideo
+                      ? !allowTakePhoto && !currentConfig.allowRecordVideo
+                      : currentConfig.allowRecordVideo,
+              allowTakePhoto: allowTakePhoto,
+            ),
+            secondary: AnimatedChildSwitcher.icon(
+              condition: currentConfig.allowTakePhoto,
+              falseIcon: Icons.no_photography_outlined,
+              trueIcon: Icons.camera_enhance_outlined,
+            ),
+            subtitle: allowTakePhotoSubtitle,
+            title: allowTakePhotoTitle,
+            value: currentConfig.allowTakePhoto,
+          ),
+        if (devicePositionSubtitle != null && devicePositionTitle != null)
+          TextStyledListTile(
+            leading: AnimatedChildSwitcher.icon(
+              condition: currentConfig.devicePosition.isFront,
+              falseIcon: Icons.camera_rear_outlined,
+              trueIcon: Icons.camera_front_outlined,
+            ),
+            onTap: () async => handleShowEnumPicker(
+              context,
+              currentConfig.devicePosition,
+              onSelected: (devicePosition) => updateConfig =
+                  currentConfig.copyWith(devicePosition: devicePosition),
+              values: DevicePosition.values,
+            ),
+            subtitle: devicePositionSubtitle,
+            title: devicePositionTitle,
+            trailing: Text(currentConfig.devicePosition.name.toUpperCase()),
+          ),
+        if (enableWideCamerasSubtitle != null && enableWideCamerasTitle != null)
+          SwitchListTile(
+            onChanged: (enableWideCameras) => updateConfig =
+                currentConfig.copyWith(enableWideCameras: enableWideCameras),
+            secondary: AnimatedChildSwitcher.icon(
+              condition: currentConfig.enableWideCameras,
+              falseIcon: Icons.image_outlined,
+              trueIcon: Icons.panorama_outlined,
+            ),
+            subtitle: enableWideCamerasSubtitle,
+            title: enableWideCamerasTitle,
+            value: currentConfig.enableWideCameras,
+          ),
+        if (exposureModeSubtitle != null && exposureModeTitle != null)
+          TextStyledListTile(
+            onTap: () async => handleShowEnumPicker(
+              context,
+              currentConfig.exposureMode,
+              onSelected: (exposureMode) => updateConfig =
+                  currentConfig.copyWith(exposureMode: exposureMode),
+              values: ExposureMode.values,
+            ),
+            subtitle: exposureModeSubtitle,
+            title: exposureModeTitle,
+            trailing: Text(currentConfig.exposureMode.name.toUpperCase()),
+          ),
+        if (showFlashSwitchSubtitle != null && showFlashSwitchTitle != null)
+          TextStyledListTile(
+            onTap: () async => handleShowEnumPicker(
+              context,
+              currentConfig.focusMode,
+              onSelected: (focusMode) =>
+                  updateConfig = currentConfig.copyWith(focusMode: focusMode),
+              values: FocusMode.values,
+            ),
+            subtitle: focusModeSubtitle,
+            title: focusModeTitle,
+            trailing: Text(currentConfig.focusMode.name.toUpperCase()),
+          ),
+        if (isFrontVideoMirroredSubtitle != null &&
+            isFrontVideoMirroredTitle != null)
+          SwitchListTile(
+            onChanged: (isFrontVideoMirrored) => updateConfig = currentConfig
+                .copyWith(isFrontVideoMirrored: isFrontVideoMirrored),
+            subtitle: isFrontVideoMirroredSubtitle,
+            title: isFrontVideoMirroredTitle,
+            value: currentConfig.isFrontVideoMirrored,
+          ),
+        if (maxDurationTitle != null && maxDurationSubtitle != null)
+          TextStyledListTile(
+            onTap: () async => handleDurationPicker(
+              context,
+              currentConfig.maxDuration,
+              onSelected: (maxDuration) => updateConfig =
+                  currentConfig.copyWith(maxDuration: maxDuration),
+            ),
+            subtitle: maxDurationSubtitle,
+            title: maxDurationTitle,
+            trailing: Text(currentConfig.maxDuration.inSeconds.toString()),
+          ),
+        if (minDurationTitle != null && minDurationSubtitle != null)
+          TextStyledListTile(
+            onTap: () async => handleDurationPicker(
+              context,
+              currentConfig.minDuration,
+              onSelected: (minDuration) => updateConfig =
+                  currentConfig.copyWith(minDuration: minDuration),
+            ),
+            subtitle: minDurationSubtitle,
+            title: minDurationTitle,
+            trailing: Text(currentConfig.minDuration.inSeconds.toString()),
+          ),
+        if (sessionPresetSubtitle != null && sessionPresetTitle != null)
+          TextStyledListTile(
+            onTap: () async => handleShowEnumPicker(
+              context,
+              currentConfig.sessionPreset,
+              onSelected: (sessionPreset) => updateConfig =
+                  currentConfig.copyWith(sessionPreset: sessionPreset),
+              values: CaptureSessionPreset.values,
+            ),
+            subtitle: sessionPresetSubtitle,
+            title: sessionPresetTitle,
+            trailing: Text(currentConfig.sessionPreset.name.toUpperCase()),
+          ),
+        if (showFlashSwitchSubtitle != null && showFlashSwitchTitle != null)
+          SwitchListTile(
+            onChanged: (showFlashSwitch) => updateConfig =
+                currentConfig.copyWith(showFlashSwitch: showFlashSwitch),
+            subtitle: showFlashSwitchSubtitle,
+            title: showFlashSwitchTitle,
+            value: currentConfig.showFlashSwitch,
+          ),
+        if (tapToRecordVideoSubtitle != null && tapToRecordVideoTitle != null)
+          SwitchListTile(
+            onChanged: (tapToRecordVideo) => updateConfig =
+                currentConfig.copyWith(tapToRecordVideo: tapToRecordVideo),
+            subtitle: tapToRecordVideoSubtitle,
+            title: tapToRecordVideoTitle,
+            value: currentConfig.tapToRecordVideo,
+          ),
+        if (videoExportTypeSubtitle != null && videoExportTypeTitle != null)
+          TextStyledListTile(
+            onTap: () async => handleShowEnumPicker(
+              context,
+              currentConfig.videoExportType,
+              onSelected: (videoExportType) => updateConfig =
+                  currentConfig.copyWith(videoExportType: videoExportType),
+              values: VideoExportType.values,
+            ),
+            subtitle: videoExportTypeSubtitle,
+            title: videoExportTypeTitle,
+            trailing: Text(currentConfig.videoExportType.name.toUpperCase()),
+          ),
+        if (videoStabilizationSubtitle != null &&
+            videoStabilizationTitle != null)
+          TextStyledListTile(
+            onTap: () async => handleShowEnumPicker(
+              context,
+              currentConfig.videoStabilization,
+              onSelected: (videoStabilization) => updateConfig = currentConfig
+                  .copyWith(videoStabilization: videoStabilization),
+              values: VideoStabilization.values,
+            ),
+            subtitle: videoStabilizationSubtitle,
+            title: videoStabilizationTitle,
+            trailing: Text(
+              currentConfig.videoStabilization?.name.toUpperCase() ?? 'AUTO',
+            ),
+          ),
+      ];
 }

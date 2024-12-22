@@ -1,7 +1,7 @@
-import '../../../messages.g.dart';
-import '../../../model/configs/edit_configuration.dart';
+import '../../../../messages.g.dart';
+import '../../../../model/configs/edit_configuration.dart';
 
-extension EditConfigurationExtension on EditConfiguration {
+extension EditConfigurationExtensionInternal on EditConfiguration {
   RawEditConfiguration get raw => RawEditConfiguration(
         adjustTools: adjustTools.toList(growable: false),
         clipOptions: clipOptions,

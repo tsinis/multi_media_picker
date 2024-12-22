@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import '../../../model/enum/file_size_unit.dart';
-import '../../../model/media_data.dart';
+import '../../../../model/enum/file_size_unit.dart';
+import '../../../../model/media_data.dart';
 
 extension MediaDataExtension on MediaData {
   String formattedSize({

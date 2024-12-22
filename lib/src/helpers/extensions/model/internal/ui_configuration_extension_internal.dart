@@ -1,8 +1,8 @@
-import '../../../messages.g.dart';
-import '../../../model/configs/ui_configuration.dart';
-import '../sdk_model/color_extension.dart';
+import '../../../../messages.g.dart';
+import '../../../../model/configs/ui_configuration.dart';
+import '../../sdk_model/color_extension.dart';
 
-extension UiConfigurationExtension on UiConfiguration {
+extension UiConfigurationExtensionInternal on UiConfiguration {
   RawUiConfiguration get raw => RawUiConfiguration(
         adjustSliderType: adjustSliderType,
         animateSelectButtonWhenSelectInPreview:
