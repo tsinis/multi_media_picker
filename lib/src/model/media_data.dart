@@ -15,6 +15,16 @@ class MediaData {
     this.type = MediaType.image,
   });
 
+  MediaData.fromFile(
+    this.file, {
+    this.duration = Duration.zero,
+    int? fileSize,
+    this.thumbnail,
+    DateTime? timestamp,
+    this.type = MediaType.image,
+  })  : timestamp = timestamp ?? file.lastModifiedSync(),
+        fileSize = fileSize ?? file.lengthSync();
+
   final File file;
   final Duration duration;
   final int fileSize;

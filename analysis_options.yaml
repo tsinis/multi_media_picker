@@ -207,6 +207,7 @@ dart_code_metrics:
     - avoid-shrink-wrap-in-lists
     - avoid-similar-names
     - avoid-single-child-column-or-row
+    - avoid-single-field-destructuring
     - avoid-slow-collection-methods
     - avoid-state-constructors
     - avoid-stateless-widget-initialized-fields
@@ -238,6 +239,7 @@ dart_code_metrics:
     - avoid-unnecessary-nullable-return-type
     - avoid-unnecessary-overrides
     - avoid-unnecessary-overrides-in-state
+    - avoid-unnecessary-patterns
     - avoid-unnecessary-reassignment
     - avoid-unnecessary-return
     - avoid-unnecessary-setstate
@@ -292,6 +294,7 @@ dart_code_metrics:
     - prefer-add-all
     - prefer-addition-subtraction-assignments
     - prefer-any-or-every
+    - prefer-assigning-await-expressions
     - prefer-async-await
     - prefer-boolean-prefixes
     - prefer-both-inlining-annotations
@@ -300,6 +303,7 @@ dart_code_metrics:
     - prefer-commenting-analyzer-ignores
     - prefer-conditional-expressions
     - prefer-const-border-radius
+    - prefer-container
     - prefer-contains
     - prefer-correct-callback-field-name
     - prefer-correct-edge-insets-constructor
@@ -362,6 +366,7 @@ dart_code_metrics:
     - prefer-visible-for-testing-on-members
     - prefer-wildcard-pattern
     - proper-super-calls
+    - record-fields-ordering
     - unnecessary-trailing-comma
     - use-existing-variable
     - use-setstate-synchronously
