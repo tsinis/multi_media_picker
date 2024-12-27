@@ -8,5 +8,5 @@ extension ColorExtension on Color {
       _floatToInt8(b);
 
   // ignore: no-magic-number, used in old value calculation.
-  int _floatToInt8(double x) => (x * 255.0).round() & 0xff;
+  int _floatToInt8(double x) => (x * 255).round() & 0xff;
 }

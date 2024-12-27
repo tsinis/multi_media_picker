@@ -6,7 +6,7 @@ import 'package:multi_media_picker/multi_media_picker.dart';
 class CameraTab extends StatelessWidget {
   const CameraTab(this._config, {super.key});
 
-  static const _defaultOverlay = OverlayImage(
+  static const defaultOverlay = OverlayImage(
     'assets/grid.gif',
     isAsset: true,
     opacity: 1 / 2,
@@ -22,9 +22,7 @@ class CameraTab extends StatelessWidget {
           SwitchListTile(
             onChanged: (showOverlay) => onUpdate(
               currentConfig.copyWith(
-                allowRecordVideo: showOverlay ? false : null,
-                overlayImage:
-                    showOverlay ? _defaultOverlay : OverlayImage.empty,
+                overlayImage: showOverlay ? defaultOverlay : OverlayImage.empty,
               ),
             ),
             secondary: AnimatedChildSwitcher.icon(
@@ -32,7 +30,7 @@ class CameraTab extends StatelessWidget {
               falseIcon: Icons.grid_off_outlined,
               trueIcon: Icons.grid_on_outlined,
             ),
-            subtitle: const Text('When taking a photo'),
+            subtitle: const Text('On top of the camera view'),
             title: const Text('Show overlay image'),
             value: currentConfig.hasOverlay,
           ),

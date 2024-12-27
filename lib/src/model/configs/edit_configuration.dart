@@ -1,6 +1,6 @@
 // ignore_for_file: prefer-boolean-prefixes
 
-import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart' show immutable, setEquals;
 
 import '../../messages.g.dart';
 

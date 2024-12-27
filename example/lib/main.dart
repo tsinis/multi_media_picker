@@ -50,6 +50,7 @@ class _MainState extends State<Main> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
+        darkTheme: ThemeData.dark(),
         home: Scaffold(
           appBar: AppBar(
             bottom: TabBar(controller: _tabController, tabs: _tabs),
@@ -73,6 +74,6 @@ class _MainState extends State<Main> with SingleTickerProviderStateMixin {
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
         ),
-        theme: ThemeData.dark(),
+        theme: ThemeData.light(),
       );
 }
