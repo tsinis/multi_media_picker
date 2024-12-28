@@ -1,3 +1,7 @@
+// Copyright 2025 Roman Cinis. All rights reserved.
+// Use of this source code is governed by a Apache 2.0 license that can be
+//found in the LICENSE file.
+
 // ignore_for_file: prefer-single-declaration-per-file, prefer-boolean-prefixes,
 // ignore_for_file: enum-constants-ordering, no-magic-number, add-copy-with
 // ignore_for_file: prefer-named-parameters,
@@ -321,6 +325,7 @@ class RawCameraConfiguration {
 
 @ConfigurePigeon(
   PigeonOptions(
+    copyrightHeader: 'pigeons/copyright_header.txt',
     dartOut: 'lib/src/messages.g.dart',
     dartPackageName: 'multi_media_picker',
     debugGenerators: true,

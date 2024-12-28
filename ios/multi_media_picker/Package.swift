@@ -10,7 +10,8 @@ let package = Package(
     .library(name: "multi-media-picker", targets: ["multi_media_picker"])
   ],
   dependencies: [
-    .package(url: "https://github.com/longitachi/ZLPhotoBrowser.git", exact: Version(4, 5, 7))
+    // .package(url: "https://github.com/longitachi/ZLPhotoBrowser.git", exact: Version(4, 5, 8)) // TODO! Waiting for the next release.
+    .package(url: "https://github.com/longitachi/ZLPhotoBrowser.git", .branch("master"))
   ],
   targets: [
     .target(

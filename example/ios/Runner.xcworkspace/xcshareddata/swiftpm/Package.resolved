@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/longitachi/ZLPhotoBrowser.git",
       "state" : {
-        "revision" : "881f71efebb6bc888c7eb454718e2aecda8b74e2",
-        "version" : "4.5.7"
+        "branch" : "master",
+        "revision" : "140695322d4fc2538cc69a93f869d10ade44b744"
       }
     }
   ],
