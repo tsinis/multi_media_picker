@@ -103,6 +103,8 @@ dart_code_metrics:
     - avoid-collection-equality-checks
     - avoid-collection-methods-with-unrelated-types
     - avoid-collection-mutating-methods
+    - avoid-commented-out-code
+    - avoid-complex-arithmetic-expressions
     - avoid-complex-loop-conditions
     - avoid-conditions-with-boolean-literals
     - avoid-contradictory-expressions
@@ -131,11 +133,13 @@ dart_code_metrics:
     - avoid-extensions-on-records
     - avoid-flexible-outside-flex
     - avoid-function-type-in-records
+    - avoid-future-ignore
     - avoid-future-tostring
     - avoid-generics-shadowing
     - avoid-global-state
     - avoid-high-cyclomatic-complexity
     - avoid-identical-exception-handling-blocks
+    - avoid-if-with-many-branches
     - avoid-implicitly-nullable-extension-types
     - avoid-importing-entrypoint-exports
     - avoid-incomplete-copy-with
@@ -227,6 +231,7 @@ dart_code_metrics:
     - avoid-unnecessary-collections
     - avoid-unnecessary-conditionals
     - avoid-unnecessary-constructor
+    - avoid-unnecessary-continue
     - avoid-unnecessary-enum-arguments
     - avoid-unnecessary-enum-prefix
     - avoid-unnecessary-extends
@@ -289,6 +294,7 @@ dart_code_metrics:
     - no-equal-switch-expression-cases
     - no-equal-then-else
     - no-object-declaration
+    - pattern-fields-ordering
     - prefer-abstract-final-static-class
     - prefer-action-button-tooltip
     - prefer-add-all
@@ -301,6 +307,7 @@ dart_code_metrics:
     - prefer-bytes-builder
     - prefer-center-over-align
     - prefer-commenting-analyzer-ignores
+    - prefer-commenting-future-delayed
     - prefer-conditional-expressions
     - prefer-const-border-radius
     - prefer-container
@@ -354,6 +361,7 @@ dart_code_metrics:
     - prefer-sliver-prefix
     - prefer-specific-cases-first
     - prefer-static-class
+    - prefer-switch-expression
     - prefer-switch-with-enums
     - prefer-switch-with-sealed-classes
     - prefer-text-rich
@@ -368,6 +376,7 @@ dart_code_metrics:
     - proper-super-calls
     - record-fields-ordering
     - unnecessary-trailing-comma
+    - use-existing-destructuring
     - use-existing-variable
     - use-setstate-synchronously
 
@@ -375,6 +384,8 @@ dart_code_metrics:
     - avoid-adjacent-strings: false # Only being used in toString() methods.
     - avoid-ignoring-return-values: false # Mostly, collection methods are ignored.
     - prefer-test-matchers: true # Introduces coupling in tests.
+    - no-empty-string: false #This will be a breaking change.
+    - prefer-class-destructuring: false # Increasing complexity, reducing readability.
 
 linter:
   rules:
