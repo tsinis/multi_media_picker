@@ -8,7 +8,7 @@ extension PickerConfigurationExtensionInternal on PickerConfiguration {
         allowEditVideo: allowEditVideo,
         allowMixSelect: allowMixSelect,
         allowPreviewPhotos: allowPreviewPhotos,
-        allowSelectGif: allowSelectGif,
+        allowSelectGif: false, // TODO allowSelectGif, Implement in the future.
         allowSelectImage: allowSelectImage,
         allowSelectLivePhoto: allowSelectLivePhoto,
         allowSelectOriginal: allowSelectOriginal,

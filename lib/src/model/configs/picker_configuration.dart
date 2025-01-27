@@ -10,7 +10,7 @@ class PickerConfiguration {
     this.allowEditVideo = true,
     this.allowMixSelect = true,
     this.allowPreviewPhotos = true,
-    this.allowSelectGif = true,
+    // TODO this.allowSelectGif = true, // Implement this in the future.
     this.allowSelectImage = true,
     this.allowSelectLivePhoto = false,
     this.allowSelectOriginal = true,
@@ -85,7 +85,7 @@ class PickerConfiguration {
 
   /// Allow select GIF, it only controls whether it is displayed in GIF form.
   /// If value is `false`, the GIF logo is not displayed. Defaults to `true`.
-  final bool allowSelectGif;
+  // TODO final bool allowSelectGif; // Implement this in the future.
 
   /// Allow select live photo, it only controls whether it is displayed in
   /// live photo form. If value is `false` the live photo logo is not displayed.
@@ -216,7 +216,7 @@ class PickerConfiguration {
     bool? allowEditVideo,
     bool? allowMixSelect,
     bool? allowPreviewPhotos,
-    bool? allowSelectGif,
+    // TODO bool? allowSelectGif, // Implement this in the future.
     bool? allowSelectImage,
     bool? allowSelectLivePhoto,
     bool? allowSelectOriginal,
@@ -258,7 +258,7 @@ class PickerConfiguration {
         allowEditVideo: allowEditVideo ?? this.allowEditVideo,
         allowMixSelect: allowMixSelect ?? this.allowMixSelect,
         allowPreviewPhotos: allowPreviewPhotos ?? this.allowPreviewPhotos,
-        allowSelectGif: allowSelectGif ?? this.allowSelectGif,
+        // TODO: allowSelectGif: allowSelectGif ?? this.allowSelectGif.
         allowSelectImage: allowSelectImage ?? this.allowSelectImage,
         allowSelectLivePhoto: allowSelectLivePhoto ?? this.allowSelectLivePhoto,
         allowSelectOriginal: allowSelectOriginal ?? this.allowSelectOriginal,
@@ -320,7 +320,7 @@ class PickerConfiguration {
       'initialIndex: $initialIndex, allowSelectImage: $allowSelectImage, '
       'allowSelectVideo: $allowSelectVideo, '
       'downloadVideoBeforeSelecting: $downloadVideoBeforeSelecting, '
-      'allowSelectGif: $allowSelectGif, '
+      // TODO 'allowSelectGif: $allowSelectGif, ', Implement this in the future.
       'allowSelectLivePhoto: $allowSelectLivePhoto, '
       'allowTakePhotoInLibrary: $allowTakePhotoInLibrary, '
       'callbackDirectlyAfterTakingPhoto: $callbackDirectlyAfterTakingPhoto, '
@@ -364,7 +364,7 @@ class PickerConfiguration {
         other.allowSelectImage == allowSelectImage &&
         other.allowSelectVideo == allowSelectVideo &&
         other.downloadVideoBeforeSelecting == downloadVideoBeforeSelecting &&
-        other.allowSelectGif == allowSelectGif &&
+        // TODO other.allowSelectGif == allowSelectGif &&.
         other.allowSelectLivePhoto == allowSelectLivePhoto &&
         other.allowTakePhotoInLibrary == allowTakePhotoInLibrary &&
         other.callbackDirectlyAfterTakingPhoto ==
@@ -412,7 +412,7 @@ class PickerConfiguration {
       allowSelectImage.hashCode ^
       allowSelectVideo.hashCode ^
       downloadVideoBeforeSelecting.hashCode ^
-      allowSelectGif.hashCode ^
+      // TODO allowSelectGif.hashCode ^ // Implement this in the future.
       allowSelectLivePhoto.hashCode ^
       allowTakePhotoInLibrary.hashCode ^
       callbackDirectlyAfterTakingPhoto.hashCode ^
