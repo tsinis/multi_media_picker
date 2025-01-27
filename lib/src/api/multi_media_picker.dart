@@ -1,3 +1,5 @@
+// ignore_for_file: prefer-getter-over-method, more future-proof solution.
+
 import 'dart:collection' show UnmodifiableListView;
 
 import '../helpers/extensions/model/internal/camera_configuration_extension_internal.dart';
@@ -33,11 +35,14 @@ class MultiMediaPicker {
 
   MultiMediaApi get _api => MultiMediaApi();
 
-  // ignore: prefer-getter-over-method, method is more future-proof solution.
   Future<MediaData?> openCamera() => _openCamera(hasToThrow: true);
 
-  // ignore: prefer-getter-over-method, same reason as above.
   Future<MediaData?> tryOpenCamera() => _openCamera();
+
+  Future<List<MediaData>> openGallery() async =>
+      (await _openGallery(hasToThrow: true)) ?? const [];
+
+  Future<List<MediaData>?> tryOpenGallery() => _openGallery();
 
   Future<MediaData?> editMedia(
     MediaData input, {
@@ -110,6 +115,31 @@ class MultiMediaPicker {
 
       return null;
     }
+  }
+
+  Future<List<MediaData>?> _openGallery({
+    EditConfiguration? editConfig,
+    bool hasToThrow = false,
+    PickerConfiguration? pickerConfig,
+    UiConfiguration? uiConfig,
+  }) async {
+    final edit = editConfig ?? editConfiguration;
+    final pick = pickerConfig ?? pickerConfiguration;
+    final ui = uiConfig ?? uiConfiguration;
+    final list = <RawMediaData>[];
+
+    try {
+      final rawList = await _api.openGallery(edit.raw, pick.raw, ui.raw);
+      list.addAll(rawList?.nonNulls ?? []);
+    } catch (_) {
+      if (hasToThrow) rethrow;
+
+      return null;
+    }
+
+    return List.unmodifiable(
+      list.map((raw) => raw.toMediaData(dateTimeProvider: _dateTimeProvider)),
+    );
   }
 
   // ignore: avoid-long-parameter-list, it's a private method.

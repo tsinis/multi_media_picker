@@ -351,4 +351,11 @@ abstract class MultiMediaApi {
     RawPickerConfiguration pickerConfig,
     RawUiConfiguration uiConfig,
   );
+
+  @async
+  List<RawMediaData>? openGallery(
+    RawEditConfiguration editConfig,
+    RawPickerConfiguration pickerConfig,
+    RawUiConfiguration uiConfig,
+  );
 }

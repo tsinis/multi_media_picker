@@ -932,6 +932,7 @@ class MessagesPigeonCodec: FlutterStandardMessageCodec, @unchecked Sendable {
 protocol MultiMediaApi {
   func openCamera(cameraConfig: RawCameraConfiguration, editConfig: RawEditConfiguration, pickerConfig: RawPickerConfiguration, uiConfig: RawUiConfiguration, completion: @escaping (Result<RawMediaData?, Error>) -> Void)
   func editMedia(data: RawMediaData, editConfig: RawEditConfiguration, pickerConfig: RawPickerConfiguration, uiConfig: RawUiConfiguration, completion: @escaping (Result<RawMediaData?, Error>) -> Void)
+  func openGallery(editConfig: RawEditConfiguration, pickerConfig: RawPickerConfiguration, uiConfig: RawUiConfiguration, completion: @escaping (Result<[RawMediaData]?, Error>) -> Void)
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -979,6 +980,25 @@ class MultiMediaApiSetup {
       }
     } else {
       editMediaChannel.setMessageHandler(nil)
+    }
+    let openGalleryChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.multi_media_picker.MultiMediaApi.openGallery\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      openGalleryChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let editConfigArg = args[0] as! RawEditConfiguration
+        let pickerConfigArg = args[1] as! RawPickerConfiguration
+        let uiConfigArg = args[2] as! RawUiConfiguration
+        api.openGallery(editConfig: editConfigArg, pickerConfig: pickerConfigArg, uiConfig: uiConfigArg) { result in
+          switch result {
+          case .success(let res):
+            reply(wrapResult(res))
+          case .failure(let error):
+            reply(wrapError(error))
+          }
+        }
+      }
+    } else {
+      openGalleryChannel.setMessageHandler(nil)
     }
   }
 }
