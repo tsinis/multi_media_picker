@@ -1,3 +1,5 @@
+// ignore_for_file: avoid-passing-async-when-sync-expected, just an example app.
+
 import 'package:flutter/material.dart';
 import 'package:multi_media_picker/multi_media_picker.dart';
 
@@ -27,14 +29,24 @@ class _MainState extends State<Main> with SingleTickerProviderStateMixin {
 
   late final _tabController = TabController(length: _tabs.length, vsync: this);
 
-  Future<void> _handlePicker() async {
+  Future<void> _handleCameraPicker() =>
+      _pickMedia((picker) => picker.multipleFromCameraCount(1));
+
+  Future<void> _handleGalleryPicker() =>
+      _pickMedia((picker) => picker.openGallery());
+
+  Future<void> _pickMedia(
+    // ignore: prefer-typedefs-for-callbacks, just an example app.
+    Future<List<MediaData>> Function(MultiMediaPicker picker) action,
+  ) async {
     final picker = MultiMediaPicker(
       cameraConfiguration: _cameraConfig.value,
       uiConfiguration: _uiConfig.value,
     );
 
-    final media = await picker.multipleFromCameraCount(1);
+    final media = await action(picker);
     if (media.isEmpty) return;
+
     _media.value = media.firstOrNull;
     _tabController.animateTo(_tabs.length - 1);
   }
@@ -64,12 +76,14 @@ class _MainState extends State<Main> with SingleTickerProviderStateMixin {
               PreviewTab(_media),
             ],
           ),
-          floatingActionButton: FloatingActionButton(
-            heroTag: 'picker',
-            // ignore: avoid-passing-async-when-sync-expected, not necessary.
-            onPressed: _handlePicker,
-            tooltip: 'Open Picker',
-            child: const Icon(Icons.add),
+          floatingActionButton: InkWell(
+            onLongPress: _handleGalleryPicker,
+            // ignore: prefer-action-button-tooltip, we have long press too.
+            child: FloatingActionButton(
+              heroTag: 'picker',
+              onPressed: _handleCameraPicker,
+              child: const Icon(Icons.add),
+            ),
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,

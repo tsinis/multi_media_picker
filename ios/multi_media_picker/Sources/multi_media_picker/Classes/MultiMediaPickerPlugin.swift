@@ -101,6 +101,70 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     }
   }
 
+
+func openGallery(
+    editConfig: RawEditConfiguration,
+    pickerConfig: RawPickerConfiguration,
+    uiConfig: RawUiConfiguration,
+    completion: @escaping (Result<[RawMediaData]?, Error>) -> Void
+) {
+    getNearestViewController { result in
+        switch result {
+        case .failure(let viewControllerError): completion(.failure(viewControllerError))
+        case .success(let viewController):
+            let photoSheet = ZLPhotoPreviewSheet()
+            self.applyConfigs(pickerConfig: pickerConfig, uiConfig: uiConfig, editConfig: editConfig)
+
+            photoSheet.selectImageBlock = { [weak self] (results, isOriginal) in
+                guard let self = self else { return completion(.success(nil)) }
+
+                let group = DispatchGroup()
+                let manager = PHImageManager.default()
+                let videoOptions = PHVideoRequestOptions()
+                videoOptions.isNetworkAccessAllowed = true
+                videoOptions.deliveryMode = .automatic
+                videoOptions.version = .original
+
+                var mediaResults: [RawMediaData] = []
+
+                for result in results {
+                    group.enter()
+
+                    switch result.asset.mediaType {
+                    case .image:
+                        if let mediaData = self.resolveImage(
+                            image: result.image,
+                            picker: pickerConfig
+                        ) {
+                            mediaResults.append(mediaData)
+                        }
+                        group.leave()
+
+                    case .video:
+                        manager.requestAVAsset(forVideo: result.asset, options: videoOptions)
+                         { avasset, _, _ in
+                            if let videoAsset = avasset as? AVURLAsset {
+                                let mediaData =
+                                self.resolveVideo(url: videoAsset.url, picker: pickerConfig)
+                                mediaResults.append(mediaData)
+                            }
+                            group.leave()
+                        }
+
+                    default:
+                        group.leave()
+                    }
+                }
+
+                group.notify(queue: .main) { completion(.success(mediaResults)) }
+            }
+
+            photoSheet.cancelBlock = { completion(.success(nil))}
+            photoSheet.showPhotoLibrary(sender: viewController)
+        }
+    }
+}
+
   private func editVideo(
     data: RawMediaData,
     viewController: UIViewController,
