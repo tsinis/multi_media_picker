@@ -39,10 +39,10 @@ class MultiMediaPicker {
 
   Future<MediaData?> tryOpenCamera() => _openCamera();
 
-  Future<List<MediaData>> openGallery() async =>
-      (await _openGallery(hasToThrow: true)) ?? const [];
+  Future<MediaDataList> openGallery() async =>
+      (await _openGallery(hasToThrow: true)) ?? MediaDataList(const []);
 
-  Future<List<MediaData>?> tryOpenGallery() => _openGallery();
+  Future<MediaDataList?> tryOpenGallery() => _openGallery();
 
   Future<MediaData?> editMedia(
     MediaData input, {
@@ -117,7 +117,7 @@ class MultiMediaPicker {
     }
   }
 
-  Future<List<MediaData>?> _openGallery({
+  Future<MediaDataList?> _openGallery({
     EditConfiguration? editConfig,
     bool hasToThrow = false,
     PickerConfiguration? pickerConfig,
@@ -137,7 +137,7 @@ class MultiMediaPicker {
       return null;
     }
 
-    return List.unmodifiable(
+    return MediaDataList(
       list.map((raw) => raw.toMediaData(dateTimeProvider: _dateTimeProvider)),
     );
   }
