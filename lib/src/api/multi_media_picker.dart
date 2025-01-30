@@ -75,7 +75,7 @@ class MultiMediaPicker {
     for (int index = 0; count == null || index < count; index += 1) {
       final image = maybeNamed?.elementAtOrNull(index);
       final pick = pickerConfiguration.copyWith(
-        directoryPath: image?.directoryPath,
+        directory: image?.directory,
         imageName: image?.name,
       );
       final camera = cameraConfiguration.copyWith(overlayImage: image?.overlay);

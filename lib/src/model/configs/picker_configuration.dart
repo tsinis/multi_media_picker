@@ -1,5 +1,7 @@
 // ignore_for_file: prefer-boolean-prefixes
 
+import 'dart:io' show Directory;
+
 import 'package:flutter/foundation.dart' show immutable;
 
 @immutable
@@ -22,7 +24,7 @@ class PickerConfiguration {
     this.autoScrollWhenSlideSelectIsActive = true,
     this.callbackDirectlyAfterTakingPhoto = false,
     this.cropVideoAfterSelectThumbnail = true,
-    String directoryPath = '',
+    this.directory,
     this.downloadVideoBeforeSelecting = false,
     this.editAfterSelectThumbnailImage = true,
     String imageName = '',
@@ -45,8 +47,7 @@ class PickerConfiguration {
     this.thumbnailPrefix = '.thumbnail_',
     this.thumbnailWidth = 200,
     this.useCustomCamera = true,
-  })  : _directoryPath = directoryPath,
-        _imageName = imageName;
+  }) : _imageName = imageName;
 
   /// Anything bigger than 1 will enable the multiple selection feature.
   /// Defaults to `9`.
@@ -197,13 +198,11 @@ class PickerConfiguration {
   /// Whether to use custom camera. Defaults to `true`.
   final bool useCustomCamera;
 
-  final String _directoryPath;
+  /// [Directory] path for saving the file. Defaults to `null` - the temporary
+  /// directory.
+  final Directory? directory;
 
   final String _imageName;
-
-  /// Directory path for saving the file. Defaults to empty string
-  /// - the temporary directory.
-  String get directoryPath => _directoryPath.trim();
 
   /// Image file name for saving the image or thumbnail file.
   /// Defaults to empty string - random UUID with `multi_media_` prefix.
@@ -228,7 +227,7 @@ class PickerConfiguration {
     bool? autoScrollWhenSlideSelectIsActive,
     bool? callbackDirectlyAfterTakingPhoto,
     bool? cropVideoAfterSelectThumbnail,
-    String? directoryPath,
+    Directory? directory,
     bool? downloadVideoBeforeSelecting,
     bool? editAfterSelectThumbnailImage,
     String? imageName,
@@ -275,7 +274,7 @@ class PickerConfiguration {
             this.callbackDirectlyAfterTakingPhoto,
         cropVideoAfterSelectThumbnail:
             cropVideoAfterSelectThumbnail ?? this.cropVideoAfterSelectThumbnail,
-        directoryPath: directoryPath ?? this.directoryPath,
+        directory: directory ?? this.directory,
         downloadVideoBeforeSelecting:
             downloadVideoBeforeSelecting ?? this.downloadVideoBeforeSelecting,
         editAfterSelectThumbnailImage:
@@ -327,8 +326,8 @@ class PickerConfiguration {
       'allowEditImage: $allowEditImage, allowEditVideo: $allowEditVideo, '
       'editAfterSelectThumbnailImage: $editAfterSelectThumbnailImage, '
       'cropVideoAfterSelectThumbnail: $cropVideoAfterSelectThumbnail, '
-      'directoryPath: "$directoryPath", imageName: "$imageName", '
-      'saveNewImageAfterEdit: $saveNewImageAfterEdit, '
+      '${directory == null ? '' : 'directory: "$directory", '}'
+      'imageName: "$imageName", saveNewImageAfterEdit: $saveNewImageAfterEdit, '
       'allowSlideSelect: $allowSlideSelect, '
       'autoScrollWhenSlideSelectIsActive: $autoScrollWhenSlideSelectIsActive, '
       'autoScrollMaxSpeed: $autoScrollMaxSpeed, '
@@ -373,7 +372,7 @@ class PickerConfiguration {
         other.allowEditVideo == allowEditVideo &&
         other.editAfterSelectThumbnailImage == editAfterSelectThumbnailImage &&
         other.cropVideoAfterSelectThumbnail == cropVideoAfterSelectThumbnail &&
-        other.directoryPath == directoryPath &&
+        other.directory == directory &&
         other.imageName == imageName &&
         other.saveNewImageAfterEdit == saveNewImageAfterEdit &&
         other.allowSlideSelect == allowSlideSelect &&
@@ -420,7 +419,7 @@ class PickerConfiguration {
       allowEditVideo.hashCode ^
       editAfterSelectThumbnailImage.hashCode ^
       cropVideoAfterSelectThumbnail.hashCode ^
-      directoryPath.hashCode ^
+      directory.hashCode ^
       imageName.hashCode ^
       saveNewImageAfterEdit.hashCode ^
       allowSlideSelect.hashCode ^

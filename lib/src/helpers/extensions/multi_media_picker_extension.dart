@@ -35,15 +35,15 @@ extension MultiMediaPickerExtension on MultiMediaPicker {
         namedOverlays: count == null
             ? null
             : Iterable.generate(max(0, count), (index) {
-                final isNameEmpty = namedImage.name?.isEmpty ?? true;
-                if (isNameEmpty) return namedImage;
+                final name = namedImage.name;
 
-                return NamedImage(
-                  directoryPath: namedImage.directoryPath,
-                  // ignore: avoid-nullable-interpolation, null-check is above.
-                  imageNameToSave: '${namedImage.name}-$index',
-                  overlay: namedImage.overlay,
-                );
+                return name == null || name.isEmpty
+                    ? namedImage
+                    : NamedImage(
+                        directory: namedImage.directory,
+                        imageNameToSave: '$name-$index',
+                        overlay: namedImage.overlay,
+                      );
               }),
       );
 }

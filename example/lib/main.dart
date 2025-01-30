@@ -1,16 +1,25 @@
 // ignore_for_file: avoid-passing-async-when-sync-expected, just an example app.
 
+import 'dart:io' show Directory;
+
 import 'package:flutter/material.dart';
 import 'package:multi_media_picker/multi_media_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'ui/tabs/camera_tab.dart';
 import 'ui/tabs/preview_tab.dart';
 import 'ui/tabs/ui_tab.dart';
 
-void main() => runApp(const Main());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final docsDir = await getApplicationDocumentsDirectory();
+  runApp(Main(docsDir));
+}
 
 class Main extends StatefulWidget {
-  const Main({super.key});
+  const Main(this.outputDir, {super.key});
+
+  final Directory outputDir;
 
   @override
   State<Main> createState() => _MainState();
@@ -41,11 +50,19 @@ class _MainState extends State<Main> with SingleTickerProviderStateMixin {
   ) async {
     final picker = MultiMediaPicker(
       cameraConfiguration: _cameraConfig.value,
+      pickerConfiguration: PickerConfiguration(
+        directory: widget.outputDir,
+        imageName: 'image',
+      ),
       uiConfiguration: _uiConfig.value,
     );
 
     final media = await action(picker);
     if (media.isEmpty) return;
+
+    for (final item in media) {
+      print('MEDIA: $item');
+    }
 
     _media.value = media.firstOrNull;
     _tabController.animateTo(_tabs.length - 1);
@@ -80,7 +97,7 @@ class _MainState extends State<Main> with SingleTickerProviderStateMixin {
             onLongPress: _handleGalleryPicker,
             // ignore: prefer-action-button-tooltip, we have long press too.
             child: FloatingActionButton(
-              heroTag: 'picker',
+              heroTag: '$FloatingActionButton',
               onPressed: _handleCameraPicker,
               child: const Icon(Icons.add),
             ),
