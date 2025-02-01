@@ -91,7 +91,8 @@ public final class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
       }
     }
   }
-
+  // swiftlint:disable function_body_length
+  // swiftlint:disable:next cyclomatic_complexity
   func openGallery(
     editConfig: RawEditConfiguration,
     pickerConfig: RawPickerConfiguration,
@@ -99,6 +100,7 @@ public final class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     // swiftlint:disable:next discouraged_optional_collection
     completion: @escaping (Result<[RawMediaData]?, Error>) -> Void
   ) {
+    // swiftlint:disable:next closure_body_length
     getNearestViewController { result in
       switch result {
       case .failure(let viewControllerError): completion(.failure(viewControllerError))
@@ -107,6 +109,7 @@ public final class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
         let photoSheet = ZLPhotoPreviewSheet()
         self.applyConfigs(pickerConfig: pickerConfig, uiConfig: uiConfig, editConfig: editConfig)
 
+        // swiftlint:disable:next closure_body_length
         photoSheet.selectImageBlock = { [weak self] results, _ in
           guard let self else { return completion(.success(nil)) }
 
@@ -135,11 +138,40 @@ public final class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
               group.leave()
 
             case .video:
-              manager.requestAVAsset(forVideo: result.asset, options: videoOptions) { asset, _, _ in
-                if let videoAsset = asset as? AVURLAsset {
-                  let data = self.resolveVideo(url: videoAsset.url, picker: customPickerConfig)
-                  mediaResults.append(data)
+              manager.requestAVAsset(
+                forVideo: result.asset,
+                options: videoOptions
+              ) { asset, _, info in
+                if let info, let error = info[PHImageErrorKey] as? NSError {
+                  completion(
+                    .failure(
+                      PigeonError(
+                        code: "video_asset_error",
+                        message: "Failed to load video asset",
+                        details: error.localizedDescription
+                      )
+                    )
+                  )
+                  group.leave()
+                  return
                 }
+
+                guard let videoAsset = asset as? AVURLAsset else {
+                  completion(
+                    .failure(
+                      PigeonError(
+                        code: "video_conversion_error",
+                        message: "Failed to convert video asset to URL asset",
+                        details: nil
+                      )
+                    )
+                  )
+                  group.leave()
+                  return
+                }
+
+                let data = self.resolveVideo(url: videoAsset.url, picker: customPickerConfig)
+                mediaResults.append(data)
                 group.leave()
               }
 
@@ -156,6 +188,7 @@ public final class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
       }
     }
   }
+  // swiftlint:enable function_body_length
 
   private func editVideo(
     _ data: RawMediaData,
