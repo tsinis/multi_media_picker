@@ -11,11 +11,11 @@ dependencies:
     sdk: flutter
 
 dev_dependencies:
-  dart_code_metrics_presets: ^2.19.0
+  dart_code_metrics_presets: ^2.20.0
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
-  pigeon: ^22.7.1
+  pigeon: ^22.7.4
 
 flutter:
   disable-swift-package-manager: false

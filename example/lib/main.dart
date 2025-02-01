@@ -1,14 +1,25 @@
+// ignore_for_file: avoid-passing-async-when-sync-expected, just an example app.
+
+import 'dart:io' show Directory;
+
 import 'package:flutter/material.dart';
 import 'package:multi_media_picker/multi_media_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'ui/tabs/camera_tab.dart';
 import 'ui/tabs/preview_tab.dart';
 import 'ui/tabs/ui_tab.dart';
 
-void main() => runApp(const Main());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final docsDir = await getApplicationDocumentsDirectory();
+  runApp(Main(docsDir));
+}
 
 class Main extends StatefulWidget {
-  const Main({super.key});
+  const Main(this.outputDir, {super.key});
+
+  final Directory outputDir;
 
   @override
   State<Main> createState() => _MainState();
@@ -27,14 +38,28 @@ class _MainState extends State<Main> with SingleTickerProviderStateMixin {
 
   late final _tabController = TabController(length: _tabs.length, vsync: this);
 
-  Future<void> _handlePicker() async {
+  Future<void> _handleCameraPicker() =>
+      _pickMedia((picker) => picker.multipleFromCameraCount(1));
+
+  Future<void> _handleGalleryPicker() =>
+      _pickMedia((picker) => picker.openGallery());
+
+  Future<void> _pickMedia(
+    // ignore: prefer-typedefs-for-callbacks, just an example app.
+    Future<List<MediaData>> Function(MultiMediaPicker picker) action,
+  ) async {
     final picker = MultiMediaPicker(
       cameraConfiguration: _cameraConfig.value,
+      pickerConfiguration: PickerConfiguration(
+        directory: widget.outputDir,
+        imageName: 'image',
+      ),
       uiConfiguration: _uiConfig.value,
     );
 
-    final media = await picker.multipleFromCameraCount(1);
+    final media = await action(picker);
     if (media.isEmpty) return;
+
     _media.value = media.firstOrNull;
     _tabController.animateTo(_tabs.length - 1);
   }
@@ -64,12 +89,14 @@ class _MainState extends State<Main> with SingleTickerProviderStateMixin {
               PreviewTab(_media),
             ],
           ),
-          floatingActionButton: FloatingActionButton(
-            heroTag: 'picker',
-            // ignore: avoid-passing-async-when-sync-expected, not necessary.
-            onPressed: _handlePicker,
-            tooltip: 'Open Picker',
-            child: const Icon(Icons.add),
+          floatingActionButton: InkWell(
+            onLongPress: _handleGalleryPicker,
+            // ignore: prefer-action-button-tooltip, we have long press too.
+            child: FloatingActionButton(
+              heroTag: '$FloatingActionButton',
+              onPressed: _handleCameraPicker,
+              child: const Icon(Icons.add),
+            ),
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,

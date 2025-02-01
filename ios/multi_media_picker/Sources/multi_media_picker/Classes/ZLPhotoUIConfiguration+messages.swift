@@ -35,15 +35,9 @@ extension ZLPhotoUIConfiguration {
     self.themeFontName = config.themeFontName
     self.timeout = TimeInterval(config.timeout)
     self.statusBarStyle = {
-      if let isDark = config.isDarkStatusBarStyle {
-        if #available(iOS 13.0, *) {
-          return isDark ? .darkContent : .lightContent
-        } else {
-          return isDark ? .default : .lightContent
-        }
-      } else {
-        return .default
-      }
+      guard let isDark = config.isDarkStatusBarStyle else { return .default }
+      if #available(iOS 13.0, *) { return isDark ? .darkContent : .lightContent }
+      return isDark ? .default : .lightContent
     }()
   }
 }

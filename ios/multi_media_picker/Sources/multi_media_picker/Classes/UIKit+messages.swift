@@ -1,3 +1,4 @@
+// swiftlint:disable no_magic_numbers
 import UIKit
 
 extension UIColor {
@@ -10,3 +11,4 @@ extension UIColor {
     self.init(red: red, green: green, blue: blue, alpha: alpha)
   }
 }
+// swiftlint:enable no_magic_numbers

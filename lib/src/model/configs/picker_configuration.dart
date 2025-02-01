@@ -1,5 +1,7 @@
 // ignore_for_file: prefer-boolean-prefixes
 
+import 'dart:io' show Directory;
+
 import 'package:flutter/foundation.dart' show immutable;
 
 @immutable
@@ -10,7 +12,7 @@ class PickerConfiguration {
     this.allowEditVideo = true,
     this.allowMixSelect = true,
     this.allowPreviewPhotos = true,
-    this.allowSelectGif = true,
+    // TODO this.allowSelectGif = true, // Implement this in the future.
     this.allowSelectImage = true,
     this.allowSelectLivePhoto = false,
     this.allowSelectOriginal = true,
@@ -22,7 +24,7 @@ class PickerConfiguration {
     this.autoScrollWhenSlideSelectIsActive = true,
     this.callbackDirectlyAfterTakingPhoto = false,
     this.cropVideoAfterSelectThumbnail = true,
-    String directoryPath = '',
+    this.directory,
     this.downloadVideoBeforeSelecting = false,
     this.editAfterSelectThumbnailImage = true,
     String imageName = '',
@@ -45,8 +47,7 @@ class PickerConfiguration {
     this.thumbnailPrefix = '.thumbnail_',
     this.thumbnailWidth = 200,
     this.useCustomCamera = true,
-  })  : _directoryPath = directoryPath,
-        _imageName = imageName;
+  }) : _imageName = imageName;
 
   /// Anything bigger than 1 will enable the multiple selection feature.
   /// Defaults to `9`.
@@ -85,7 +86,7 @@ class PickerConfiguration {
 
   /// Allow select GIF, it only controls whether it is displayed in GIF form.
   /// If value is `false`, the GIF logo is not displayed. Defaults to `true`.
-  final bool allowSelectGif;
+  // TODO final bool allowSelectGif; // Implement this in the future.
 
   /// Allow select live photo, it only controls whether it is displayed in
   /// live photo form. If value is `false` the live photo logo is not displayed.
@@ -197,13 +198,11 @@ class PickerConfiguration {
   /// Whether to use custom camera. Defaults to `true`.
   final bool useCustomCamera;
 
-  final String _directoryPath;
+  /// [Directory] path for saving the file. Defaults to `null` - the temporary
+  /// directory.
+  final Directory? directory;
 
   final String _imageName;
-
-  /// Directory path for saving the file. Defaults to empty string
-  /// - the temporary directory.
-  String get directoryPath => _directoryPath.trim();
 
   /// Image file name for saving the image or thumbnail file.
   /// Defaults to empty string - random UUID with `multi_media_` prefix.
@@ -216,7 +215,7 @@ class PickerConfiguration {
     bool? allowEditVideo,
     bool? allowMixSelect,
     bool? allowPreviewPhotos,
-    bool? allowSelectGif,
+    // TODO bool? allowSelectGif, // Implement this in the future.
     bool? allowSelectImage,
     bool? allowSelectLivePhoto,
     bool? allowSelectOriginal,
@@ -228,7 +227,7 @@ class PickerConfiguration {
     bool? autoScrollWhenSlideSelectIsActive,
     bool? callbackDirectlyAfterTakingPhoto,
     bool? cropVideoAfterSelectThumbnail,
-    String? directoryPath,
+    Directory? directory,
     bool? downloadVideoBeforeSelecting,
     bool? editAfterSelectThumbnailImage,
     String? imageName,
@@ -258,7 +257,7 @@ class PickerConfiguration {
         allowEditVideo: allowEditVideo ?? this.allowEditVideo,
         allowMixSelect: allowMixSelect ?? this.allowMixSelect,
         allowPreviewPhotos: allowPreviewPhotos ?? this.allowPreviewPhotos,
-        allowSelectGif: allowSelectGif ?? this.allowSelectGif,
+        // TODO: allowSelectGif: allowSelectGif ?? this.allowSelectGif.
         allowSelectImage: allowSelectImage ?? this.allowSelectImage,
         allowSelectLivePhoto: allowSelectLivePhoto ?? this.allowSelectLivePhoto,
         allowSelectOriginal: allowSelectOriginal ?? this.allowSelectOriginal,
@@ -275,7 +274,7 @@ class PickerConfiguration {
             this.callbackDirectlyAfterTakingPhoto,
         cropVideoAfterSelectThumbnail:
             cropVideoAfterSelectThumbnail ?? this.cropVideoAfterSelectThumbnail,
-        directoryPath: directoryPath ?? this.directoryPath,
+        directory: directory ?? this.directory,
         downloadVideoBeforeSelecting:
             downloadVideoBeforeSelecting ?? this.downloadVideoBeforeSelecting,
         editAfterSelectThumbnailImage:
@@ -320,15 +319,15 @@ class PickerConfiguration {
       'initialIndex: $initialIndex, allowSelectImage: $allowSelectImage, '
       'allowSelectVideo: $allowSelectVideo, '
       'downloadVideoBeforeSelecting: $downloadVideoBeforeSelecting, '
-      'allowSelectGif: $allowSelectGif, '
+      // TODO 'allowSelectGif: $allowSelectGif, ', Implement this in the future.
       'allowSelectLivePhoto: $allowSelectLivePhoto, '
       'allowTakePhotoInLibrary: $allowTakePhotoInLibrary, '
       'callbackDirectlyAfterTakingPhoto: $callbackDirectlyAfterTakingPhoto, '
       'allowEditImage: $allowEditImage, allowEditVideo: $allowEditVideo, '
       'editAfterSelectThumbnailImage: $editAfterSelectThumbnailImage, '
       'cropVideoAfterSelectThumbnail: $cropVideoAfterSelectThumbnail, '
-      'directoryPath: "$directoryPath", imageName: "$imageName", '
-      'saveNewImageAfterEdit: $saveNewImageAfterEdit, '
+      '${directory == null ? '' : 'directory: "$directory", '}'
+      'imageName: "$imageName", saveNewImageAfterEdit: $saveNewImageAfterEdit, '
       'allowSlideSelect: $allowSlideSelect, '
       'autoScrollWhenSlideSelectIsActive: $autoScrollWhenSlideSelectIsActive, '
       'autoScrollMaxSpeed: $autoScrollMaxSpeed, '
@@ -364,7 +363,7 @@ class PickerConfiguration {
         other.allowSelectImage == allowSelectImage &&
         other.allowSelectVideo == allowSelectVideo &&
         other.downloadVideoBeforeSelecting == downloadVideoBeforeSelecting &&
-        other.allowSelectGif == allowSelectGif &&
+        // TODO other.allowSelectGif == allowSelectGif &&.
         other.allowSelectLivePhoto == allowSelectLivePhoto &&
         other.allowTakePhotoInLibrary == allowTakePhotoInLibrary &&
         other.callbackDirectlyAfterTakingPhoto ==
@@ -373,7 +372,7 @@ class PickerConfiguration {
         other.allowEditVideo == allowEditVideo &&
         other.editAfterSelectThumbnailImage == editAfterSelectThumbnailImage &&
         other.cropVideoAfterSelectThumbnail == cropVideoAfterSelectThumbnail &&
-        other.directoryPath == directoryPath &&
+        other.directory == directory &&
         other.imageName == imageName &&
         other.saveNewImageAfterEdit == saveNewImageAfterEdit &&
         other.allowSlideSelect == allowSlideSelect &&
@@ -412,7 +411,7 @@ class PickerConfiguration {
       allowSelectImage.hashCode ^
       allowSelectVideo.hashCode ^
       downloadVideoBeforeSelecting.hashCode ^
-      allowSelectGif.hashCode ^
+      // TODO allowSelectGif.hashCode ^ // Implement this in the future.
       allowSelectLivePhoto.hashCode ^
       allowTakePhotoInLibrary.hashCode ^
       callbackDirectlyAfterTakingPhoto.hashCode ^
@@ -420,7 +419,7 @@ class PickerConfiguration {
       allowEditVideo.hashCode ^
       editAfterSelectThumbnailImage.hashCode ^
       cropVideoAfterSelectThumbnail.hashCode ^
-      directoryPath.hashCode ^
+      directory.hashCode ^
       imageName.hashCode ^
       saveNewImageAfterEdit.hashCode ^
       allowSlideSelect.hashCode ^

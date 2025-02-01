@@ -62,7 +62,8 @@ extension ZLPhotoConfiguration {
     self.maxPreviewCount = Int(config.maxPreviewCount)
     self.maxSelectCount = Int(config.maxSelectCount)
     self.maxSelectVideoDataSize = CGFloat(
-      config.maxSelectVideoDataSizeKB ?? .greatestFiniteMagnitude)
+      config.maxSelectVideoDataSizeKB ?? .greatestFiniteMagnitude
+    )
     self.maxSelectVideoDuration = Int(config.maxSelectVideoDurationSeconds)
     self.maxVideoSelectCount = Int(config.maxVideoSelectCount)
     self.minSelectVideoDataSize = CGFloat(config.minSelectVideoDataSizeKB)
@@ -91,14 +92,14 @@ extension ZLPhotoConfiguration {
       ?? .medium
 
     if !config.tools.isEmpty {
-      this.tools = config.tools.compactMap {
-        ZLEditImageConfiguration.EditTool(rawValue: $0.rawValue)
+      this.tools = config.tools.compactMap { tool in
+        ZLEditImageConfiguration.EditTool(rawValue: tool.rawValue)
       }
     }
 
     if !config.adjustTools.isEmpty {
-      this.adjustTools = config.adjustTools.compactMap {
-        ZLEditImageConfiguration.AdjustTool(rawValue: $0.rawValue)
+      this.adjustTools = config.adjustTools.compactMap { adjustTool in
+        ZLEditImageConfiguration.AdjustTool(rawValue: adjustTool.rawValue)
       }
     }
 
@@ -114,6 +115,5 @@ extension ZLPhotoConfiguration {
         ]
       }
     }
-
   }
 }
