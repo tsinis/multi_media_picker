@@ -60,10 +60,6 @@ class _MainState extends State<Main> with SingleTickerProviderStateMixin {
     final media = await action(picker);
     if (media.isEmpty) return;
 
-    for (final item in media) {
-      print('MEDIA: $item');
-    }
-
     _media.value = media.firstOrNull;
     _tabController.animateTo(_tabs.length - 1);
   }

@@ -1,9 +1,12 @@
+// swiftlint:disable file_length
+
 import AVFoundation
 import Flutter
 import Photos
 import UIKit
 import ZLPhotoBrowser
 
+// swiftlint:disable type_body_length
 final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaApi {
   private var registrar: FlutterPluginRegistrar?
 
@@ -114,7 +117,7 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
         let photoSheet = ZLPhotoPreviewSheet()
         self.applyConfigs(pickerConfig: pickerConfig, uiConfig: uiConfig, editConfig: editConfig)
 
-        photoSheet.selectImageBlock = { [weak self] (results, isOriginal) in
+        photoSheet.selectImageBlock = { [weak self] (results, _) in
           guard let self = self else { return completion(.success(nil)) }
 
           let group = DispatchGroup()
@@ -136,18 +139,16 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
 
             switch result.asset.mediaType {
             case .image:
-              if let mediaData = self.resolveImage(image: result.image, picker: customPickerConfig)
-              {
-                mediaResults.append(mediaData)
+              if let data = self.resolveImage(image: result.image, picker: customPickerConfig) {
+                mediaResults.append(data)
               }
               group.leave()
 
             case .video:
-              manager.requestAVAsset(forVideo: result.asset, options: videoOptions) {
-                avasset, _, _ in
-                if let videoAsset = avasset as? AVURLAsset {
-                  let mediaData = self.resolveVideo(url: videoAsset.url, picker: customPickerConfig)
-                  mediaResults.append(mediaData)
+              manager.requestAVAsset(forVideo: result.asset, options: videoOptions) { asset, _, _ in
+                if let videoAsset = asset as? AVURLAsset {
+                  let data = self.resolveVideo(url: videoAsset.url, picker: customPickerConfig)
+                  mediaResults.append(data)
                 }
                 group.leave()
               }
@@ -240,11 +241,9 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
 
     imageEditor.modalPresentationStyle = .fullScreen
     imageEditor.cancelEditBlock = { completion(.success(nil)) }
-    imageEditor.editFinishBlock = {
-      [weak self] (editedImage: UIImage, editModel: ZLEditImageModel?) in
+    imageEditor.editFinishBlock = { [weak self] (editedImage: UIImage, _: ZLEditImageModel?) in
       guard let self = self else { return completion(.success(nil)) }
 
-      // TODO? Handle editing without explicitly converting it to JPG data?
       if let imageData = editedImage.jpegData(compressionQuality: 1) {
         let imagePath = data.path
 
@@ -425,7 +424,7 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     let renderer = UIGraphicsImageRenderer(
       size: newSize, format: UIGraphicsImageRendererFormat.default()
     )
-    let newImage = renderer.image { (context) in
+    let newImage = renderer.image { (_) in
       image.draw(in: CGRect(origin: .zero, size: newSize))
     }
 
@@ -466,3 +465,5 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     }
   }
 }
+// swiftlint:enable type_body_length
+// swiftlint:enable file_length

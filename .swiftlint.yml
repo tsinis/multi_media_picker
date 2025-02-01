@@ -1,0 +1,10 @@
+included:
+  - "**/multi_media_picker/Classes/**"
+excluded:
+  - "**/Classes/messages.g.swift"
+
+line_length: 100
+
+function_parameter_count:
+  warning: 6
+  error: 10
