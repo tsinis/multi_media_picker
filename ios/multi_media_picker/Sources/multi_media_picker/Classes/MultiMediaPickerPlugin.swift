@@ -391,6 +391,7 @@ public final class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
 
   private func resolveVideo(url: URL, picker: RawPickerConfiguration) -> RawMediaData {
     let videoPath = url.path
+    // ! Move video to the specified directory.
     let duration = getVideoDurationInSeconds(url: url)
     let thumbPath = saveVideoThumbnail(url: videoPath, picker: picker)
 
