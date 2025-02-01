@@ -6,11 +6,11 @@ import Photos
 import UIKit
 import ZLPhotoBrowser
 
-// swiftlint:disable type_body_length
-final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaApi {
+// swiftlint:disable:next type_body_length
+public final class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaApi {
   private var registrar: FlutterPluginRegistrar?
 
-  init(registrar: FlutterPluginRegistrar) {
+  public init(registrar: FlutterPluginRegistrar) {
     self.registrar = registrar
     super.init()
   }
@@ -22,7 +22,7 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
   }
 
   private var nearestViewController: UIViewController? {
-    return UIApplication.shared.keyWindow?.rootViewController?.nearestViewController
+    UIApplication.shared.keyWindow?.rootViewController?.nearestViewController
   }
 
   func openCamera(
@@ -35,6 +35,7 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     getNearestViewController { result in
       switch result {
       case .failure(let viewControllerError): completion(.failure(viewControllerError))
+
       case .success(let viewController):
         let camera = ZLCustomCamera()
         self.applyConfigs(
@@ -50,12 +51,12 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
 
         camera.cancelBlock = { completion(.success(nil)) }  // On cancel button tap.
 
-        camera.takeDoneBlock = { (image, video) in  // On done button tap.
+        camera.takeDoneBlock = { image, video in  // On done button tap.
           var mediaData: RawMediaData?
 
-          if let image = image {
+          if let image {
             mediaData = self.resolveImage(image: image, picker: pickerConfig)
-          } else if let video = video {
+          } else if let video {
             mediaData = self.resolveVideo(url: video, picker: pickerConfig)
           }
 
@@ -77,28 +78,15 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     getNearestViewController { result in
       switch result {
       case .failure(let viewControllerError): completion(.failure(viewControllerError))
+
       case .success(let viewController):
         self.applyConfigs(pickerConfig: pickerConfig, uiConfig: uiConfig, editConfig: editConfig)
-
         switch data.type {
         case .video:
-          self.editVideo(
-            data: data,
-            viewController: viewController,
-            editConfig: editConfig,
-            pickerConfig: pickerConfig,
-            uiConfig: uiConfig,
-            completion: completion
-          )
+          self.editVideo(data, viewController, pickerConfig: pickerConfig, completion: completion)
+
         case .image:
-          self.editImage(
-            data: data,
-            viewController: viewController,
-            editConfig: editConfig,
-            pickerConfig: pickerConfig,
-            uiConfig: uiConfig,
-            completion: completion
-          )
+          self.editImage(data, viewController, pickerConfig: pickerConfig, completion: completion)
         }
       }
     }
@@ -108,17 +96,19 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     editConfig: RawEditConfiguration,
     pickerConfig: RawPickerConfiguration,
     uiConfig: RawUiConfiguration,
+    // swiftlint:disable:next discouraged_optional_collection
     completion: @escaping (Result<[RawMediaData]?, Error>) -> Void
   ) {
     getNearestViewController { result in
       switch result {
       case .failure(let viewControllerError): completion(.failure(viewControllerError))
+
       case .success(let viewController):
         let photoSheet = ZLPhotoPreviewSheet()
         self.applyConfigs(pickerConfig: pickerConfig, uiConfig: uiConfig, editConfig: editConfig)
 
-        photoSheet.selectImageBlock = { [weak self] (results, _) in
-          guard let self = self else { return completion(.success(nil)) }
+        photoSheet.selectImageBlock = { [weak self] results, _ in
+          guard let self else { return completion(.success(nil)) }
 
           let group = DispatchGroup()
           let manager = PHImageManager.default()
@@ -139,7 +129,7 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
 
             switch result.asset.mediaType {
             case .image:
-              if let data = self.resolveImage(image: result.image, picker: customPickerConfig) {
+              if let data = resolveImage(image: result.image, picker: customPickerConfig) {
                 mediaResults.append(data)
               }
               group.leave()
@@ -168,11 +158,9 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
   }
 
   private func editVideo(
-    data: RawMediaData,
-    viewController: UIViewController,
-    editConfig: RawEditConfiguration,
+    _ data: RawMediaData,
+    _ viewController: UIViewController,
     pickerConfig: RawPickerConfiguration,
-    uiConfig: RawUiConfiguration,
     completion: @escaping (Result<RawMediaData?, Error>) -> Void
   ) {
     let videoURL = URL(fileURLWithPath: data.path)
@@ -219,22 +207,25 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     viewController.present(videoEditor, animated: true, completion: nil)
   }
 
+  // swiftlint:disable:next function_body_length
   private func editImage(
-    data: RawMediaData,
-    viewController: UIViewController,
-    editConfig: RawEditConfiguration,
+    _ data: RawMediaData,
+    _ viewController: UIViewController,
     pickerConfig: RawPickerConfiguration,
-    uiConfig: RawUiConfiguration,
     completion: @escaping (Result<RawMediaData?, Error>) -> Void
   ) {
     guard let image = UIImage(contentsOfFile: data.path) else {
-      return completion(
+      completion(
         .failure(
           PigeonError(
             code: "image_load_error",
             message: "Failed to load image from path: \(data.path)",
             details: nil
-          )))
+          )
+        )
+      )
+
+      return
     }
 
     let imageEditor = ZLEditImageViewController(image: image)
@@ -242,7 +233,7 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     imageEditor.modalPresentationStyle = .fullScreen
     imageEditor.cancelEditBlock = { completion(.success(nil)) }
     imageEditor.editFinishBlock = { [weak self] (editedImage: UIImage, _: ZLEditImageModel?) in
-      guard let self = self else { return completion(.success(nil)) }
+      guard let self else { return completion(.success(nil)) }
 
       if let imageData = editedImage.jpegData(compressionQuality: 1) {
         let imagePath = data.path
@@ -266,7 +257,9 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
                 code: "image_save_error",
                 message: "Failed to save edited image to path: \(imagePath)",
                 details: nil
-              )))
+              )
+            )
+          )
         }
       } else {
         completion(
@@ -275,7 +268,9 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
               code: "image_conversion_error",
               message: "Failed to convert edited image to JPEG data",
               details: nil
-            )))
+            )
+          )
+        )
       }
     }
 
@@ -286,7 +281,7 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     completion: @escaping (Result<UIViewController, PigeonError>) -> Void
   ) {
     guard let viewController = nearestViewController else {
-      return completion(
+      completion(
         .failure(
           PigeonError(
             code: "no_native_view_controller",
@@ -295,6 +290,8 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
           )
         )
       )
+
+      return
     }
 
     completion(.success(viewController))
@@ -308,15 +305,19 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
   ) {
     let config = ZLPhotoConfiguration.default()  // Providing default configuration.
 
-    if let editConfig = editConfig { config.updateEditConfiguration(from: editConfig) }
-    if let cameraConfig = cameraConfig { config.updateCameraConfiguration(from: cameraConfig) }
+    if let editConfig { config.updateEditConfiguration(from: editConfig) }
+    if let cameraConfig { config.updateCameraConfiguration(from: cameraConfig) }
 
     config.updatePickerConfiguration(from: pickerConfig)
     ZLPhotoUIConfiguration.default().updateUiConfiguration(from: uiConfig)  // Apply the UI config.
   }
 
   private func showOverlayImage(_ overlay: RawOverlayImage?, registrar: FlutterPluginRegistrar) {
-    guard let overlay = overlay else { return setCameraOverlay(nil) }
+    guard let overlay else {
+      setCameraOverlay(nil)
+      return
+    }
+
     var image: UIImage?
 
     if overlay.isAsset {
@@ -328,7 +329,7 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
       image = UIImage(contentsOfFile: overlay.path)
     }
 
-    if let image = image {
+    if let image {
       let overlayView = UIImageView(image: image)
 
       overlayView.transform = CGAffineTransform(rotationAngle: CGFloat(overlay.rotationAngle))
@@ -349,7 +350,7 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
 
   private func resolveImage(image: UIImage, picker: RawPickerConfiguration) -> RawMediaData? {
     let imagePath = createImageFile(image: image, picker: picker)
-    guard let imagePath = imagePath else { return nil }
+    guard let imagePath else { return nil }
     let thumbPath = createImageFile(image: image, picker: picker, isThumbnail: true)
 
     return RawMediaData(path: imagePath, thumbPath: thumbPath, type: .image)
@@ -378,8 +379,9 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
   }
 
   private func getVideoThumbImage(url: String, width: Int64) -> UIImage? {
+    // swiftlint:disable:next no_magic_numbers
     let time = CMTime(seconds: 0, preferredTimescale: 600)
-    let asset = AVAsset(url: NSURL.fileURL(withPath: url))
+    let asset = AVAsset(url: URL(fileURLWithPath: url))
     let gen = AVAssetImageGenerator(asset: asset)
     do {
       gen.maximumSize = CGSize(width: CGFloat(width), height: CGFloat.greatestFiniteMagnitude)
@@ -403,7 +405,7 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
       let directoryPath = picker.directoryPath ?? NSTemporaryDirectory()
       var fileName = picker.imageName ?? "media_\(UUID().uuidString)"
       if isThumbnail { fileName = picker.thumbnailPrefix + fileName }
-      /// Ensure the file name includes the ".jpg" extension
+      // Ensure the file name includes the ".jpg" extension
       if !fileName.lowercased().hasSuffix(".jpg") { fileName += ".jpg" }
       filePath = URL(fileURLWithPath: directoryPath).appendingPathComponent(fileName).path
     }
@@ -415,7 +417,7 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
   }
 
   private func resizeImage(image: UIImage, width: CGFloat?) -> Data? {
-    guard let width = width, round(image.size.width) > round(width) else {
+    guard let width, round(image.size.width) > round(width) else {
       return image.jpegData(compressionQuality: 1)
     }
 
@@ -424,7 +426,7 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     let renderer = UIGraphicsImageRenderer(
       size: newSize, format: UIGraphicsImageRendererFormat.default()
     )
-    let newImage = renderer.image { (_) in
+    let newImage = renderer.image { _ in
       image.draw(in: CGRect(origin: .zero, size: newSize))
     }
 
@@ -432,7 +434,7 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
   }
 
   private func createFile(atPath path: String?, data: Data?) -> Bool {
-    guard let path = path, let data = data else { return false }
+    guard let path, let data else { return false }
     let fileManager = FileManager.default
 
     if fileManager.fileExists(atPath: path) {
@@ -449,7 +451,7 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
   }
 
   private func replaceFile(at originalURL: URL?, with newURL: URL) -> PigeonError? {
-    guard let originalURL = originalURL else { return nil }
+    guard let originalURL else { return nil }
 
     do {
       try FileManager.default.removeItem(at: originalURL)
@@ -465,5 +467,4 @@ final public class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     }
   }
 }
-// swiftlint:enable type_body_length
 // swiftlint:enable file_length
