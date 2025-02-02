@@ -458,7 +458,7 @@ struct RawPickerConfiguration {
   var minSelectVideoDataSizeKB: Double
   var useCustomCamera: Bool
   var directoryPath: String? = nil
-  var imageName: String? = nil
+  var filename: String? = nil
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
@@ -502,7 +502,7 @@ struct RawPickerConfiguration {
     let minSelectVideoDataSizeKB = pigeonVar_list[36] as! Double
     let useCustomCamera = pigeonVar_list[37] as! Bool
     let directoryPath: String? = nilOrValue(pigeonVar_list[38])
-    let imageName: String? = nilOrValue(pigeonVar_list[39])
+    let filename: String? = nilOrValue(pigeonVar_list[39])
 
     return RawPickerConfiguration(
       maxSelectCount: maxSelectCount,
@@ -544,7 +544,7 @@ struct RawPickerConfiguration {
       minSelectVideoDataSizeKB: minSelectVideoDataSizeKB,
       useCustomCamera: useCustomCamera,
       directoryPath: directoryPath,
-      imageName: imageName
+      filename: filename
     )
   }
   func toList() -> [Any?] {
@@ -588,7 +588,7 @@ struct RawPickerConfiguration {
       minSelectVideoDataSizeKB,
       useCustomCamera,
       directoryPath,
-      imageName,
+      filename,
     ]
   }
 }

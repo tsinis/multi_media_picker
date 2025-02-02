@@ -31,7 +31,7 @@ extension PickerConfigurationExtensionInternal on PickerConfiguration {
       directoryPath: canUseDirectory ? directory?.path : null,
       downloadVideoBeforeSelecting: downloadVideoBeforeSelecting,
       editAfterSelectThumbnailImage: editAfterSelectThumbnailImage,
-      imageName: imageName.isEmpty ? null : imageName,
+      filename: filename.isEmpty ? null : filename,
       initialIndex: initialIndex,
       maxEditVideoDurationSeconds: maxEditVideoDuration.inSeconds,
       maxPreviewCount: maxPreviewCount,

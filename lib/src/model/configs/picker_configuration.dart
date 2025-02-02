@@ -27,7 +27,7 @@ class PickerConfiguration {
     this.directory,
     this.downloadVideoBeforeSelecting = false,
     this.editAfterSelectThumbnailImage = true,
-    String imageName = '',
+    String filename = '',
     this.initialIndex = 1,
     this.maxEditVideoDuration = const Duration(seconds: 10),
     this.maxPreviewCount = 20,
@@ -47,7 +47,7 @@ class PickerConfiguration {
     this.thumbnailPrefix = '.thumbnail_',
     this.thumbnailWidth = 200,
     this.useCustomCamera = true,
-  }) : _imageName = imageName;
+  }) : _filename = filename;
 
   /// Anything bigger than 1 will enable the multiple selection feature.
   /// Defaults to `9`.
@@ -202,11 +202,11 @@ class PickerConfiguration {
   /// directory.
   final Directory? directory;
 
-  final String _imageName;
+  final String _filename;
 
-  /// Image file name for saving the image or thumbnail file.
+  /// Image file name for saving the media or thumbnail file.
   /// Defaults to empty string - random UUID with `multi_media_` prefix.
-  String get imageName => _imageName.trim();
+  String get filename => _filename.trim();
 
   // ignore: avoid-high-cyclomatic-complexity, a lot of parameters.
   PickerConfiguration copyWith({
@@ -230,7 +230,7 @@ class PickerConfiguration {
     Directory? directory,
     bool? downloadVideoBeforeSelecting,
     bool? editAfterSelectThumbnailImage,
-    String? imageName,
+    String? filename,
     int? initialIndex,
     Duration? maxEditVideoDuration,
     int? maxPreviewCount,
@@ -279,7 +279,7 @@ class PickerConfiguration {
             downloadVideoBeforeSelecting ?? this.downloadVideoBeforeSelecting,
         editAfterSelectThumbnailImage:
             editAfterSelectThumbnailImage ?? this.editAfterSelectThumbnailImage,
-        imageName: imageName ?? this.imageName,
+        filename: filename ?? this.filename,
         initialIndex: initialIndex ?? this.initialIndex,
         maxEditVideoDuration: maxEditVideoDuration ?? this.maxEditVideoDuration,
         maxPreviewCount: maxPreviewCount ?? this.maxPreviewCount,
@@ -327,7 +327,7 @@ class PickerConfiguration {
       'editAfterSelectThumbnailImage: $editAfterSelectThumbnailImage, '
       'cropVideoAfterSelectThumbnail: $cropVideoAfterSelectThumbnail, '
       '${directory == null ? '' : 'directory: "$directory", '}'
-      'imageName: "$imageName", saveNewImageAfterEdit: $saveNewImageAfterEdit, '
+      'filename: "$filename", saveNewImageAfterEdit: $saveNewImageAfterEdit, '
       'allowSlideSelect: $allowSlideSelect, '
       'autoScrollWhenSlideSelectIsActive: $autoScrollWhenSlideSelectIsActive, '
       'autoScrollMaxSpeed: $autoScrollMaxSpeed, '
@@ -373,7 +373,7 @@ class PickerConfiguration {
         other.editAfterSelectThumbnailImage == editAfterSelectThumbnailImage &&
         other.cropVideoAfterSelectThumbnail == cropVideoAfterSelectThumbnail &&
         other.directory == directory &&
-        other.imageName == imageName &&
+        other.filename == filename &&
         other.saveNewImageAfterEdit == saveNewImageAfterEdit &&
         other.allowSlideSelect == allowSlideSelect &&
         other.autoScrollWhenSlideSelectIsActive ==
@@ -420,7 +420,7 @@ class PickerConfiguration {
       editAfterSelectThumbnailImage.hashCode ^
       cropVideoAfterSelectThumbnail.hashCode ^
       directory.hashCode ^
-      imageName.hashCode ^
+      filename.hashCode ^
       saveNewImageAfterEdit.hashCode ^
       allowSlideSelect.hashCode ^
       autoScrollWhenSlideSelectIsActive.hashCode ^

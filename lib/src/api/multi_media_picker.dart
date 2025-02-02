@@ -76,7 +76,7 @@ class MultiMediaPicker {
       final image = maybeNamed?.elementAtOrNull(index);
       final pick = pickerConfiguration.copyWith(
         directory: image?.directory,
-        imageName: image?.name,
+        filename: image?.name,
       );
       final camera = cameraConfiguration.copyWith(overlayImage: image?.overlay);
       final data = await _openCamera(cameraConfig: camera, pickerConfig: pick);
