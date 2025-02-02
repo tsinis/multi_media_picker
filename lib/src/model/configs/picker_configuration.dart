@@ -199,7 +199,10 @@ class PickerConfiguration {
   final bool useCustomCamera;
 
   /// [Directory] path for saving the file. Defaults to `null` - the temporary
-  /// directory.
+  /// directory for images (from camera and gallery) and videos (from camera).
+  ///
+  /// For videos from gallery, it's recommended to specify, because operating
+  /// system (especially iOS) may limit editing and saving videos from gallery.
   final Directory? directory;
 
   final String _filename;
