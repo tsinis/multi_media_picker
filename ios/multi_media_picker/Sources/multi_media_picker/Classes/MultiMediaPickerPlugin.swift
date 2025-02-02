@@ -57,7 +57,7 @@ public final class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
           if let image {
             mediaData = self.resolveImage(image: image, picker: pickerConfig)
           } else if let video {
-            mediaData = self.resolveVideo(url: video, picker: pickerConfig)
+            mediaData = self.resolveVideo(url: video, picker: pickerConfig, isNew: true)
           }
 
           completion(.success(mediaData))
@@ -125,14 +125,14 @@ public final class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
           for (index, result) in results.enumerated() {
             group.enter()
 
-            var customPickerConfig = pickerConfig
-            if let oldName = customPickerConfig.imageName, results.count > 1 {
-              customPickerConfig.imageName = "\(oldName)-\(index)"
+            var newConfig = pickerConfig
+            if let oldName = newConfig.filename, results.count > 1 {
+              newConfig.filename = "\(oldName)-\(index)"
             }
 
             switch result.asset.mediaType {
             case .image:
-              if let data = resolveImage(image: result.image, picker: customPickerConfig) {
+              if let data = resolveImage(image: result.image, picker: newConfig) {
                 mediaResults.append(data)
               }
               group.leave()
@@ -170,7 +170,7 @@ public final class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
                   return
                 }
 
-                let data = self.resolveVideo(url: videoAsset.url, picker: customPickerConfig)
+                let data = self.resolveVideo(url: videoAsset.url, picker: newConfig, isNew: false)
                 mediaResults.append(data)
                 group.leave()
               }
@@ -389,13 +389,15 @@ public final class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     return RawMediaData(path: imagePath, thumbPath: thumbPath, type: .image)
   }
 
-  private func resolveVideo(url: URL, picker: RawPickerConfiguration) -> RawMediaData {
-    let videoPath = url.path
-    // ! Move video to the specified directory.
+  private func resolveVideo(url: URL, picker: RawPickerConfiguration, isNew: Bool) -> RawMediaData {
+    var path = url.path
+    if let directory = picker.directoryPath {
+      path = copyVideoFile(directory, url: url, filename: picker.filename, isNew: isNew) ?? url.path
+    }
+    let thumbPath = saveVideoThumbnail(url: path, picker: picker)
     let duration = getVideoDurationInSeconds(url: url)
-    let thumbPath = saveVideoThumbnail(url: videoPath, picker: picker)
 
-    return RawMediaData(path: videoPath, thumbPath: thumbPath, type: .video, duration: duration)
+    return RawMediaData(path: path, thumbPath: thumbPath, type: .video, duration: duration)
   }
 
   private func saveVideoThumbnail(url: String, picker: RawPickerConfiguration) -> String? {
@@ -437,11 +439,11 @@ public final class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     var filePath = existingPath ?? ""
     if filePath.isEmpty {
       let directoryPath = picker.directoryPath ?? NSTemporaryDirectory()
-      var fileName = picker.imageName ?? "media_\(UUID().uuidString)"
-      if isThumbnail { fileName = picker.thumbnailPrefix + fileName }
+      var filename = picker.filename ?? "media_\(UUID().uuidString)"
+      if isThumbnail { filename = picker.thumbnailPrefix + filename }
       // Ensure the file name includes the ".jpg" extension
-      if !fileName.lowercased().hasSuffix(".jpg") { fileName += ".jpg" }
-      filePath = URL(fileURLWithPath: directoryPath).appendingPathComponent(fileName).path
+      if !filename.lowercased().hasSuffix(".jpg") { filename += ".jpg" }
+      filePath = URL(fileURLWithPath: directoryPath).appendingPathComponent(filename).path
     }
 
     let width = isThumbnail ? CGFloat(picker.thumbnailWidth) : nil
@@ -467,11 +469,26 @@ public final class MultiMediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     return newImage.jpegData(compressionQuality: 1)
   }
 
-  private func createFile(atPath path: String?, data: Data?) -> Bool {
+  private func copyVideoFile(_ path: String, url: URL, filename: String?, isNew: Bool) -> String? {
+    let fileExtension = url.pathExtension.lowercased()
+    let targetFilename = (filename ?? "media_\(UUID().uuidString)") + ".\(fileExtension)"
+    let targetURL = URL(fileURLWithPath: path).appendingPathComponent(targetFilename)
+
+    do {
+      let videoData = try Data(contentsOf: url)
+      return createFile(atPath: targetURL.path, data: videoData, removeOriginal: isNew)
+        ? targetURL.path : nil
+    } catch {
+      print("Failed to copy video file: \(error.localizedDescription)")
+      return nil
+    }
+  }
+
+  private func createFile(atPath path: String?, data: Data?, removeOriginal: Bool = true) -> Bool {
     guard let path, let data else { return false }
     let fileManager = FileManager.default
 
-    if fileManager.fileExists(atPath: path) {
+    if removeOriginal && fileManager.fileExists(atPath: path) {
       do {
         try fileManager.removeItem(atPath: path)
       } catch {
