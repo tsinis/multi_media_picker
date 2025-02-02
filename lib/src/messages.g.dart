@@ -450,7 +450,7 @@ class RawPickerConfiguration {
     this.minSelectVideoDataSizeKB = 0,
     this.useCustomCamera = true,
     this.directoryPath,
-    this.imageName,
+    this.filename,
   });
 
   int maxSelectCount;
@@ -531,7 +531,7 @@ class RawPickerConfiguration {
 
   String? directoryPath;
 
-  String? imageName;
+  String? filename;
 
   Object encode() {
     return <Object?>[
@@ -574,7 +574,7 @@ class RawPickerConfiguration {
       minSelectVideoDataSizeKB,
       useCustomCamera,
       directoryPath,
-      imageName,
+      filename,
     ];
   }
 
@@ -620,7 +620,7 @@ class RawPickerConfiguration {
       minSelectVideoDataSizeKB: result[36]! as double,
       useCustomCamera: result[37]! as bool,
       directoryPath: result[38] as String?,
-      imageName: result[39] as String?,
+      filename: result[39] as String?,
     );
   }
 }

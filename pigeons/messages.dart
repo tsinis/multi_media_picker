@@ -199,7 +199,7 @@ class RawPickerConfiguration {
     this.directoryPath,
     this.downloadVideoBeforeSelecting = false,
     this.editAfterSelectThumbnailImage = false,
-    this.imageName,
+    this.filename,
     this.initialIndex = 1,
     this.maxEditVideoDurationSeconds = 10,
     this.maxPreviewCount = 20,
@@ -260,7 +260,7 @@ class RawPickerConfiguration {
   final double minSelectVideoDataSizeKB;
   final bool useCustomCamera;
   final String? directoryPath;
-  final String? imageName;
+  final String? filename;
 }
 
 class RawEditConfiguration {

@@ -50,10 +50,8 @@ class _MainState extends State<Main> with SingleTickerProviderStateMixin {
   ) async {
     final picker = MultiMediaPicker(
       cameraConfiguration: _cameraConfig.value,
-      pickerConfiguration: PickerConfiguration(
-        directory: widget.outputDir,
-        imageName: 'image',
-      ),
+      pickerConfiguration:
+          PickerConfiguration(directory: widget.outputDir, filename: 'file'),
       uiConfiguration: _uiConfig.value,
     );
 
