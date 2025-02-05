@@ -1,5 +1,5 @@
 name: multi_media_picker
-description: "Multi media picker plugin for Flutter"
+description: "Multi-media picker plugin for Flutter"
 version: 0.0.1
 publish_to: "none"
 
@@ -15,7 +15,7 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
-  pigeon: ^22.7.4
+  pigeon: ^24.0.0
 
 flutter:
   disable-swift-package-manager: false
