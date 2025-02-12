@@ -15,7 +15,7 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
-  pigeon: ^24.0.0
+  pigeon: ^24.1.1
 
 flutter:
   disable-swift-package-manager: false

@@ -14,7 +14,7 @@ class PreviewTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ValueListenableBuilder(
-        builder: (_, mediaData, __) => MaybeWidget(
+        builder: (_, mediaData, __) => MaybeWidget.identifiable(
           mediaData?.thumbnail,
           (thumbnail) => InkWell(
             // ignore: avoid-passing-async-when-sync-expected, just example.
