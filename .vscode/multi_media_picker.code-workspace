@@ -1,10 +1,11 @@
 {
   "folders": [
-    { "name": "VS Code", "path": "../.vscode" },
-    { "name": "API", "path": "../multi_media_picker" },
-    { "name": "iOS", "path": "../multi_media_picker_ios" },
-    { "name": "Android", "path": "../multi_media_picker_android" },
-    { "name": "Interface", "path": "../multi_media_picker_platform_interface" }
+    { "name": "IDE", "path": "../.vscode" },
+    { "name": "GitHub", "path": "../.github" },
+    { "name": "Picker", "path": "../multimedia_picker" },
+    { "name": "iOS", "path": "../multimedia_picker_ios" },
+    { "name": "Android", "path": "../multimedia_picker_android" },
+    { "name": "Interface", "path": "../multimedia_picker_platform_interface" }
   ],
   "settings": {
     "search.exclude": {
