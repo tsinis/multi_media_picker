@@ -1,0 +1,25 @@
+name: multimedia_picker_example
+description: Demonstrates how to use the multimedia_picker plugin.
+publish_to: none
+
+environment:
+  sdk: ^3.7.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  multimedia_picker:
+    path: ../
+  path: ^1.9.1
+  path_provider: ^2.1.5
+  world_countries: ^3.1.0
+
+dev_dependencies:
+  dart_code_metrics_presets: ^2.20.0
+  flutter_lints: ^5.0.0
+
+flutter:
+  disable-swift-package-manager: false
+  uses-material-design: true
+  assets:
+    - assets/

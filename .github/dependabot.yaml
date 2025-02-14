@@ -1,0 +1,27 @@
+version: 2
+enable-beta-ecosystems: true
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pub"
+    directory: "/multimedia_picker"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pub"
+    directory: "/multimedia_picker/example"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pub"
+    directory: "/multimedia_picker_platform_interface"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pub"
+    directory: "/multimedia_picker_android"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pub"
+    directory: "/multimedia_picker_ios"
+    schedule:
+      interval: "weekly"

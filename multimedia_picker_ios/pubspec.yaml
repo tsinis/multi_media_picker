@@ -1,0 +1,25 @@
+name: multimedia_picker_ios
+description: iOS implementation of the multimedia_picker plugin
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ^3.7.0
+
+flutter:
+  plugin:
+    implements: multimedia_picker
+    platforms:
+      ios:
+        pluginClass: MultimediaPickerPlugin
+        dartPluginClass: MultimediaPickerIOS
+
+dependencies:
+  flutter:
+    sdk: flutter
+  multimedia_picker_platform_interface:
+    path: ../multimedia_picker_platform_interface
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
