@@ -35,22 +35,40 @@ abstract class MultimediaPickerPlatform extends PlatformInterface {
   }
 
   Future<RawMediaData?> openCamera(
+    /// Configuration for camera settings like position, flash, etc.
     RawCameraConfiguration cameraConfig,
+
+    /// Configuration for editing capabilities.
     RawEditConfiguration editConfig,
+
+    /// Configuration for picker UI and behavior.
     RawPickerConfiguration pickerConfig,
+
+    /// Configuration for UI elements and localization.
     RawUiConfiguration uiConfig,
   ) => throw UnimplementedError('openCamera() has not been implemented.');
 
   Future<RawMediaData?> editMedia(
     RawMediaData data,
+
+    /// Configuration for editing capabilities.
     RawEditConfiguration editConfig,
+
+    /// Configuration for picker UI and behavior.
     RawPickerConfiguration pickerConfig,
+
+    /// Configuration for UI elements and localization.
     RawUiConfiguration uiConfig,
   ) => throw UnimplementedError('editMedia() has not been implemented.');
 
   Future<List<RawMediaData>?> openGallery(
+    /// Configuration for editing capabilities.
     RawEditConfiguration editConfig,
+
+    /// Configuration for picker UI and behavior.
     RawPickerConfiguration pickerConfig,
+
+    /// Configuration for UI elements and localization.
     RawUiConfiguration uiConfig,
   ) => throw UnimplementedError('openGallery() has not been implemented.');
 }

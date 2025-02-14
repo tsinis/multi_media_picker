@@ -1,7 +1,6 @@
 import 'dart:io' show File;
 
 import 'package:flutter/foundation.dart' show immutable;
-
 // ignore: depend_on_referenced_packages, it has vertical dependency structure.
 import 'package:multimedia_picker_platform_interface/multimedia_picker_platform_interface.dart';
 
@@ -16,16 +15,44 @@ class MediaData {
     this.type = MediaType.image,
   });
 
-  MediaData.fromFile(
-    this.file, {
-    this.duration = Duration.zero,
+  factory MediaData.fromFile(
+    File file, {
+    Duration duration = Duration.zero,
     int? fileSize,
-    this.thumbnail,
+    File? thumbnail,
     DateTime? timestamp,
-    this.type = MediaType.image,
-  }) : timestamp = timestamp ?? file.lastModifiedSync(),
-       fileSize = fileSize ?? file.lengthSync();
+    MediaType type = MediaType.image,
+    // ignore: avoid-non-empty-constructor-bodies, it's a factory constructor.
+  }) {
+    DateTime? maybeTimestamp = timestamp;
+    if (maybeTimestamp == null) {
+      try {
+        maybeTimestamp = file.lastModifiedSync();
+        // ignore: avoid_catches_without_on_clauses, it's a generic catch.
+      } catch (_) {
+        maybeTimestamp = DateTime.now().toUtc();
+      }
+    }
 
+    int? maybeFileSize = fileSize;
+    if (maybeFileSize == null) {
+      try {
+        maybeFileSize = file.lengthSync();
+        // ignore: avoid_catches_without_on_clauses, it's a generic catch.
+      } catch (_) {
+        maybeFileSize = -1;
+      }
+    }
+
+    return MediaData(
+      file,
+      duration: duration,
+      fileSize: maybeFileSize,
+      thumbnail: thumbnail,
+      timestamp: maybeTimestamp,
+      type: type,
+    );
+  }
   final File file;
   final Duration duration;
   final int fileSize;

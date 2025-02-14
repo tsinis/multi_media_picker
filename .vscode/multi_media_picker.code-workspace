@@ -14,6 +14,11 @@
       "**/coverage/*": true,
       "**/*.g.dart": true
     },
+    "files.watcherExclude": {
+      "**/coverage/**": true,
+      "**/build/**": true,
+      "**/.dart_tool": true
+    },
     "explorer.confirmDragAndDrop": false,
     "explorer.fileNesting.enabled": true,
     "explorer.fileNesting.expand": false,
@@ -72,6 +77,7 @@
     "git.branchValidationRegex": "^(docs|feat|fix|bug|chore|ci|style|refactor|test|perf)/[a-zA-Z0-9-/]+$",
     "git.detectSubmodulesLimit": 4,
     "git.enableSmartCommit": true,
+    "git.fetchOnPull": true,
     "jsonToDart.avoidDynamicTypes": true,
     "jsonToDart.copyWith": true,
     "jsonToDart.immutable": true,
