@@ -2,7 +2,7 @@ import 'package:multimedia_picker_platform_interface/multimedia_picker_platform_
 
 /// The Android implementation of [MultimediaPickerPlatform].
 class MultimediaPickerAndroid extends MultimediaPickerPlatform {
-  /// The API that connects to the iOS platform code via Pigeon.
+  /// The API that connects to the Android platform code via Pigeon.
   final _api = MultiMediaApi();
 
   /// Registers this class as the default instance
