@@ -1,6 +1,6 @@
 name: multimedia_picker_android
 description: Android implementation of the multimedia_picker plugin
-version: 0.1.0
+version: 0.0.1
 publish_to: none
 
 environment:

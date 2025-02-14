@@ -1,6 +1,6 @@
 name: multimedia_picker
 description: Flutter plugin for selecting images from the iOS media library, and taking new media with the camera.
-version: 0.1.0
+version: 0.0.1
 publish_to: none
 
 topics:
