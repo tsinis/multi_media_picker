@@ -1,8 +1,7 @@
 name: multimedia_picker_android
 description: Android implementation of the multimedia_picker plugin
-version: 0.1.0
+version: 0.0.1
 publish_to: none
-
 
 environment:
   sdk: ^3.7.0
@@ -21,7 +20,3 @@ dependencies:
     sdk: flutter
   multimedia_picker_platform_interface:
     path: ../multimedia_picker_platform_interface
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
