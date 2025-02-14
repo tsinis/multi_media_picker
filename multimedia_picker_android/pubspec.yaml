@@ -4,7 +4,7 @@ version: 0.0.1
 publish_to: none
 
 environment:
-  sdk: ^3.6.2
+  sdk: ^3.7.0
 
 flutter:
   plugin:
@@ -20,7 +20,3 @@ dependencies:
     sdk: flutter
   multimedia_picker_platform_interface:
     path: ../multimedia_picker_platform_interface
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
