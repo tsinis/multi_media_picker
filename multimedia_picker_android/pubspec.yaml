@@ -3,9 +3,8 @@ description: Android implementation of the multimedia_picker plugin
 version: 0.1.0
 publish_to: none
 
-
 environment:
-  sdk: ^3.7.0
+  sdk: ^3.6.2
 
 flutter:
   plugin:

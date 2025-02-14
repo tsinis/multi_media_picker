@@ -3,7 +3,7 @@ description: A common platform interface for the multimedia_picker plugin
 version: 0.1.0
 
 environment:
-  sdk: ^3.7.0
+  sdk: ^3.6.2
 
 dependencies:
   flutter:
