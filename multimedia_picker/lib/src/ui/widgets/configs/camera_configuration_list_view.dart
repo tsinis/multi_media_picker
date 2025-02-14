@@ -1,9 +1,9 @@
 // ignore_for_file: prefer-boolean-prefixes, prefer-typedefs-for-callbacks
 
 import 'package:flutter/material.dart';
-
 // ignore: depend_on_referenced_packages, it has vertical dependency structure.
 import 'package:multimedia_picker_platform_interface/multimedia_picker_platform_interface.dart';
+
 import '../../../helpers/extensions/model/public/device_position_extension.dart';
 import '../../../model/configs/camera_configuration.dart';
 import '../common/animated_child_switcher.dart';
@@ -210,7 +210,7 @@ class CameraConfigurationListView
         title: exposureModeTitle,
         trailing: Text(currentConfig.exposureMode.name.toUpperCase()),
       ),
-    if (showFlashSwitchSubtitle != null && showFlashSwitchTitle != null)
+    if (focusModeSubtitle != null && focusModeTitle != null)
       TextStyledListTile(
         leading: const Icon(Icons.filter_center_focus_outlined),
         onTap:

@@ -18,7 +18,7 @@ abstract class MultimediaPickerPlatform extends PlatformInterface {
 
   static final _token = Object();
 
-  // ignore: avoid-referencing-subclasses, it's standart for federated plugins.
+  // ignore: avoid-referencing-subclasses, it's standard for federated plugins.
   static MultimediaPickerPlatform _instance = MethodChannelMultimediaPicker();
 
   /// The default instance of [MultimediaPickerPlatform] to use.

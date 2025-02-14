@@ -9,7 +9,7 @@ let package = Package(
   ],
   dependencies: [
     // .package(url: "https://github.com/longitachi/ZLPhotoBrowser.git", exact: Version(4, 5, 8)) // TODO! Waiting for the next release.
-    .package(url: "https://github.com/longitachi/ZLPhotoBrowser.git", branch: "master")
+    .package(url: "https://github.com/tsinis/ZLPhotoBrowser.git", branch: "master")
   ],
   targets: [
     .target(
