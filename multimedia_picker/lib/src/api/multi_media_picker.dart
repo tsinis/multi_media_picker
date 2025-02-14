@@ -80,8 +80,15 @@ class MultiMediaPicker {
     // ignore: omit_obvious_local_variable_types, avoid-complex-loop-conditions, it's not that complex.,
     for (int index = 0; count == null || index < count; index += 1) {
       final image = maybeNamed?.elementAtOrNull(index);
+      final directory = image?.directory;
+
+      assert(
+        directory == null || directory.existsSync(),
+        'Directory does not exist: ${directory.path}',
+      );
+
       final pick = pickerConfiguration.copyWith(
-        directory: image?.directory,
+        directory: directory,
         filename: image?.name,
       );
       final camera = cameraConfiguration.copyWith(overlayImage: image?.overlay);
