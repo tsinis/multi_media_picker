@@ -12,17 +12,17 @@ abstract class BaseConfigListView<T extends Object> extends StatelessWidget {
     this.leadingBuilder,
     Future<Duration> Function(Duration current)? onShowDurationPicker,
     Future<E?> Function<E extends Enum>(E? current, List<E> values)?
-        onShowEnumPicker,
+    onShowEnumPicker,
     this.trailingBuilder,
     super.key,
-  })  : _onShowEnumPicker = onShowEnumPicker,
-        _onShowDurationPicker = onShowDurationPicker;
+  }) : _onShowEnumPicker = onShowEnumPicker,
+       _onShowDurationPicker = onShowDurationPicker;
 
   @protected
   final ValueNotifier<T> configuration;
   final Future<Duration?> Function(Duration current)? _onShowDurationPicker;
   final Future<E?> Function<E extends Enum>(E? current, List<E> values)?
-      _onShowEnumPicker;
+  _onShowEnumPicker;
 
   @protected
   Future<void> handleShowEnumPicker<E extends Enum>(
@@ -55,20 +55,23 @@ abstract class BaseConfigListView<T extends Object> extends StatelessWidget {
     BuildContext context,
     T currentConfig,
     ValueSetter<T> onUpdate,
-  )? leadingBuilder;
+  )?
+  leadingBuilder;
 
   final List<Widget?>? Function(
     BuildContext context,
     T currentConfig,
     ValueSetter<T> onUpdate,
-  )? trailingBuilder;
+  )?
+  trailingBuilder;
 
   @protected
   List<Widget?>? childrenBuilder(BuildContext context, T currentConfig);
 
   @override
   Widget build(BuildContext context) => ValueListenableBuilder<T>(
-        builder: (newContext, config, _) => ListView(
+    builder:
+        (newContext, config, _) => ListView(
           children: List.unmodifiable(
             [
               ...?leadingBuilder?.call(
@@ -85,6 +88,6 @@ abstract class BaseConfigListView<T extends Object> extends StatelessWidget {
             ].nonNulls,
           ),
         ),
-        valueListenable: configuration,
-      );
+    valueListenable: configuration,
+  );
 }

@@ -13,11 +13,11 @@ class AnimatedChildSwitcher extends AnimatedSwitcher {
     super.switchOutCurve = Curves.linear,
     super.transitionBuilder = AnimatedSwitcher.defaultTransitionBuilder,
   }) : super(
-          child: SizedBox(
-            key: ValueKey(condition),
-            child: condition ? trueChild : falseChild,
-          ),
-        );
+         child: SizedBox(
+           key: ValueKey(condition),
+           child: condition ? trueChild : falseChild,
+         ),
+       );
 
   AnimatedChildSwitcher.icon({
     required bool condition,
@@ -31,9 +31,9 @@ class AnimatedChildSwitcher extends AnimatedSwitcher {
     super.switchOutCurve = Curves.linear,
     super.transitionBuilder = AnimatedSwitcher.defaultTransitionBuilder,
   }) : super(
-          child: Icon(
-            condition ? trueIcon : falseIcon,
-            key: ValueKey(condition),
-          ),
-        );
+         child: Icon(
+           condition ? trueIcon : falseIcon,
+           key: ValueKey(condition),
+         ),
+       );
 }

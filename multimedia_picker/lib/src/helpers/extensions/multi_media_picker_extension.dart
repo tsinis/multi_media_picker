@@ -30,20 +30,20 @@ extension MultiMediaPickerExtension on MultiMediaPicker {
   Future<MediaDataList> multipleFromCameraCount(
     int? count, {
     NamedImage namedImage = const NamedImage(),
-  }) =>
-      multipleFromCamera(
-        namedOverlays: count == null
+  }) => multipleFromCamera(
+    namedOverlays:
+        count == null
             ? null
             : Iterable.generate(max(0, count), (index) {
-                final name = namedImage.name;
+              final name = namedImage.name;
 
-                return name == null || name.isEmpty
-                    ? namedImage
-                    : NamedImage(
-                        directory: namedImage.directory,
-                        imageNameToSave: '$name-$index',
-                        overlay: namedImage.overlay,
-                      );
-              }),
-      );
+              return name == null || name.isEmpty
+                  ? namedImage
+                  : NamedImage(
+                    directory: namedImage.directory,
+                    imageNameToSave: '$name-$index',
+                    overlay: namedImage.overlay,
+                  );
+            }),
+  );
 }

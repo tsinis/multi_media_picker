@@ -45,6 +45,7 @@
     "[dart]": {
       "editor.rulers": [80],
       "editor.defaultFormatter": "Dart-Code.dart-code",
+      "editor.bracketPairColorization.enabled": true,
       "editor.codeActionsOnSave": {
         "source.fixAll": "always",
         "source.organizeImports": "always",

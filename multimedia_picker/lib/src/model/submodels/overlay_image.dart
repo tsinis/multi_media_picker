@@ -28,19 +28,18 @@ class OverlayImage {
     String? path,
     double? rotationAngle,
     Color? tintColor,
-  }) =>
-      OverlayImage(
-        path ?? this.path,
-        isAsset: isAsset ?? this.isAsset,
-        opacity: opacity ?? this.opacity,
-        rotationAngle: rotationAngle ?? this.rotationAngle,
-        tintColor: tintColor ?? this.tintColor,
-      );
+  }) => OverlayImage(
+    path ?? this.path,
+    isAsset: isAsset ?? this.isAsset,
+    opacity: opacity ?? this.opacity,
+    rotationAngle: rotationAngle ?? this.rotationAngle,
+    tintColor: tintColor ?? this.tintColor,
+  );
 
   @override
-  String toString() => 'OverlayImage(path: "$path", isAsset: $isAsset, '
-      'opacity: $opacity, rotationAngle: $rotationAngle, tintColor: $tintColor'
-      ')';
+  String toString() =>
+      'OverlayImage(path: "$path", isAsset: $isAsset, opacity: $opacity, '
+      'rotationAngle: $rotationAngle, tintColor: $tintColor)';
 
   @override
   bool operator ==(Object other) {

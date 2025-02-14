@@ -12,7 +12,7 @@ class TextStyledListTile extends ListTile {
     super.title,
     super.trailing,
   }) : super(
-          onTap: () => unawaited(onTap()),
-          leadingAndTrailingTextStyle: const TextStyle(),
-        );
+         onTap: () => unawaited(onTap()),
+         leadingAndTrailingTextStyle: const TextStyle(),
+       );
 }

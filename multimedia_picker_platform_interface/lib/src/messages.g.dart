@@ -27,15 +27,7 @@ enum CaptureSessionPreset {
   photo,
 }
 
-enum EditTool {
-  draw,
-  clip,
-  imageSticker,
-  textSticker,
-  mosaic,
-  filter,
-  adjust,
-}
+enum EditTool { draw, clip, imageSticker, textSticker, mosaic, filter, adjust }
 
 enum UiLocale {
   system,
@@ -58,71 +50,29 @@ enum UiLocale {
   dutch,
 }
 
-enum AdjustSliderType {
-  vertical,
-  horizontal,
-}
+enum AdjustSliderType { vertical, horizontal }
 
-enum AdjustTool {
-  brightness,
-  contrast,
-  saturation,
-}
+enum AdjustTool { brightness, contrast, saturation }
 
-enum CancelButtonStyle {
-  text,
-  image,
-}
+enum CancelButtonStyle { text, image }
 
-enum DevicePosition {
-  back,
-  front,
-}
+enum DevicePosition { back, front }
 
-enum ExposureMode {
-  autoExpose,
-  continuousAutoExposure,
-}
+enum ExposureMode { autoExpose, continuousAutoExposure }
 
-enum FocusMode {
-  autoFocus,
-  continuousAutoFocus,
-}
+enum FocusMode { autoFocus, continuousAutoFocus }
 
-enum HudStyle {
-  light,
-  lightBlur,
-  dark,
-  darkBlur,
-}
+enum HudStyle { light, lightBlur, dark, darkBlur }
 
-enum ImpactFeedbackStyle {
-  light,
-  medium,
-  heavy,
-}
+enum ImpactFeedbackStyle { light, medium, heavy }
 
-enum MediaType {
-  image,
-  video,
-}
+enum MediaType { image, video }
 
-enum PhotoBrowserStyle {
-  embedAlbumList,
-  externalAlbumList,
-}
+enum PhotoBrowserStyle { embedAlbumList, externalAlbumList }
 
-enum VideoExportType {
-  mov,
-  mp4,
-}
+enum VideoExportType { mov, mp4 }
 
-enum VideoStabilization {
-  off,
-  standard,
-  cinematic,
-  cinematicExtended,
-}
+enum VideoStabilization { off, standard, cinematic, cinematicExtended }
 
 class RawOverlayImage {
   RawOverlayImage({
@@ -144,13 +94,7 @@ class RawOverlayImage {
   int tintColor;
 
   Object encode() {
-    return <Object?>[
-      path,
-      isAsset,
-      opacity,
-      rotationAngle,
-      tintColor,
-    ];
+    return <Object?>[path, isAsset, opacity, rotationAngle, tintColor];
   }
 
   static RawOverlayImage decode(Object result) {
@@ -322,20 +266,14 @@ class RawUiConfiguration {
 }
 
 class ClipAspectRatio {
-  ClipAspectRatio({
-    required this.aspectRatioX,
-    required this.aspectRatioY,
-  });
+  ClipAspectRatio({required this.aspectRatioX, required this.aspectRatioY});
 
   int aspectRatioX;
 
   int aspectRatioY;
 
   Object encode() {
-    return <Object?>[
-      aspectRatioX,
-      aspectRatioY,
-    ];
+    return <Object?>[aspectRatioX, aspectRatioY];
   }
 
   static ClipAspectRatio decode(Object result) {
@@ -348,20 +286,14 @@ class ClipAspectRatio {
 }
 
 class ClipOptions {
-  ClipOptions({
-    this.isCircle = false,
-    this.aspectRatio,
-  });
+  ClipOptions({this.isCircle = false, this.aspectRatio});
 
   bool isCircle;
 
   ClipAspectRatio? aspectRatio;
 
   Object encode() {
-    return <Object?>[
-      isCircle,
-      aspectRatio,
-    ];
+    return <Object?>[isCircle, aspectRatio];
   }
 
   static ClipOptions decode(Object result) {
@@ -390,12 +322,7 @@ class RawMediaData {
   int? duration;
 
   Object encode() {
-    return <Object?>[
-      path,
-      thumbPath,
-      type,
-      duration,
-    ];
+    return <Object?>[path, thumbPath, type, duration];
   }
 
   static RawMediaData decode(Object result) {
@@ -777,7 +704,6 @@ class RawCameraConfiguration {
   }
 }
 
-
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
   @override
@@ -785,73 +711,73 @@ class _PigeonCodec extends StandardMessageCodec {
     if (value is int) {
       buffer.putUint8(4);
       buffer.putInt64(value);
-    }    else if (value is CaptureSessionPreset) {
+    } else if (value is CaptureSessionPreset) {
       buffer.putUint8(129);
       writeValue(buffer, value.index);
-    }    else if (value is EditTool) {
+    } else if (value is EditTool) {
       buffer.putUint8(130);
       writeValue(buffer, value.index);
-    }    else if (value is UiLocale) {
+    } else if (value is UiLocale) {
       buffer.putUint8(131);
       writeValue(buffer, value.index);
-    }    else if (value is AdjustSliderType) {
+    } else if (value is AdjustSliderType) {
       buffer.putUint8(132);
       writeValue(buffer, value.index);
-    }    else if (value is AdjustTool) {
+    } else if (value is AdjustTool) {
       buffer.putUint8(133);
       writeValue(buffer, value.index);
-    }    else if (value is CancelButtonStyle) {
+    } else if (value is CancelButtonStyle) {
       buffer.putUint8(134);
       writeValue(buffer, value.index);
-    }    else if (value is DevicePosition) {
+    } else if (value is DevicePosition) {
       buffer.putUint8(135);
       writeValue(buffer, value.index);
-    }    else if (value is ExposureMode) {
+    } else if (value is ExposureMode) {
       buffer.putUint8(136);
       writeValue(buffer, value.index);
-    }    else if (value is FocusMode) {
+    } else if (value is FocusMode) {
       buffer.putUint8(137);
       writeValue(buffer, value.index);
-    }    else if (value is HudStyle) {
+    } else if (value is HudStyle) {
       buffer.putUint8(138);
       writeValue(buffer, value.index);
-    }    else if (value is ImpactFeedbackStyle) {
+    } else if (value is ImpactFeedbackStyle) {
       buffer.putUint8(139);
       writeValue(buffer, value.index);
-    }    else if (value is MediaType) {
+    } else if (value is MediaType) {
       buffer.putUint8(140);
       writeValue(buffer, value.index);
-    }    else if (value is PhotoBrowserStyle) {
+    } else if (value is PhotoBrowserStyle) {
       buffer.putUint8(141);
       writeValue(buffer, value.index);
-    }    else if (value is VideoExportType) {
+    } else if (value is VideoExportType) {
       buffer.putUint8(142);
       writeValue(buffer, value.index);
-    }    else if (value is VideoStabilization) {
+    } else if (value is VideoStabilization) {
       buffer.putUint8(143);
       writeValue(buffer, value.index);
-    }    else if (value is RawOverlayImage) {
+    } else if (value is RawOverlayImage) {
       buffer.putUint8(144);
       writeValue(buffer, value.encode());
-    }    else if (value is RawUiConfiguration) {
+    } else if (value is RawUiConfiguration) {
       buffer.putUint8(145);
       writeValue(buffer, value.encode());
-    }    else if (value is ClipAspectRatio) {
+    } else if (value is ClipAspectRatio) {
       buffer.putUint8(146);
       writeValue(buffer, value.encode());
-    }    else if (value is ClipOptions) {
+    } else if (value is ClipOptions) {
       buffer.putUint8(147);
       writeValue(buffer, value.encode());
-    }    else if (value is RawMediaData) {
+    } else if (value is RawMediaData) {
       buffer.putUint8(148);
       writeValue(buffer, value.encode());
-    }    else if (value is RawPickerConfiguration) {
+    } else if (value is RawPickerConfiguration) {
       buffer.putUint8(149);
       writeValue(buffer, value.encode());
-    }    else if (value is RawEditConfiguration) {
+    } else if (value is RawEditConfiguration) {
       buffer.putUint8(150);
       writeValue(buffer, value.encode());
-    }    else if (value is RawCameraConfiguration) {
+    } else if (value is RawCameraConfiguration) {
       buffer.putUint8(151);
       writeValue(buffer, value.encode());
     } else {
@@ -862,66 +788,66 @@ class _PigeonCodec extends StandardMessageCodec {
   @override
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
-      case 129: 
+      case 129:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : CaptureSessionPreset.values[value];
-      case 130: 
+      case 130:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : EditTool.values[value];
-      case 131: 
+      case 131:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : UiLocale.values[value];
-      case 132: 
+      case 132:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : AdjustSliderType.values[value];
-      case 133: 
+      case 133:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : AdjustTool.values[value];
-      case 134: 
+      case 134:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : CancelButtonStyle.values[value];
-      case 135: 
+      case 135:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : DevicePosition.values[value];
-      case 136: 
+      case 136:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : ExposureMode.values[value];
-      case 137: 
+      case 137:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : FocusMode.values[value];
-      case 138: 
+      case 138:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : HudStyle.values[value];
-      case 139: 
+      case 139:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : ImpactFeedbackStyle.values[value];
-      case 140: 
+      case 140:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : MediaType.values[value];
-      case 141: 
+      case 141:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PhotoBrowserStyle.values[value];
-      case 142: 
+      case 142:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : VideoExportType.values[value];
-      case 143: 
+      case 143:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : VideoStabilization.values[value];
-      case 144: 
+      case 144:
         return RawOverlayImage.decode(readValue(buffer)!);
-      case 145: 
+      case 145:
         return RawUiConfiguration.decode(readValue(buffer)!);
-      case 146: 
+      case 146:
         return ClipAspectRatio.decode(readValue(buffer)!);
-      case 147: 
+      case 147:
         return ClipOptions.decode(readValue(buffer)!);
-      case 148: 
+      case 148:
         return RawMediaData.decode(readValue(buffer)!);
-      case 149: 
+      case 149:
         return RawPickerConfiguration.decode(readValue(buffer)!);
-      case 150: 
+      case 150:
         return RawEditConfiguration.decode(readValue(buffer)!);
-      case 151: 
+      case 151:
         return RawCameraConfiguration.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -933,24 +859,40 @@ class MultiMediaApi {
   /// Constructor for [MultiMediaApi].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  MultiMediaApi({BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
-      : pigeonVar_binaryMessenger = binaryMessenger,
-        pigeonVar_messageChannelSuffix = messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+  MultiMediaApi({
+    BinaryMessenger? binaryMessenger,
+    String messageChannelSuffix = '',
+  }) : pigeonVar_binaryMessenger = binaryMessenger,
+       pigeonVar_messageChannelSuffix =
+           messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
   final BinaryMessenger? pigeonVar_binaryMessenger;
 
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
 
   final String pigeonVar_messageChannelSuffix;
 
-  Future<RawMediaData?> openCamera(RawCameraConfiguration cameraConfig, RawEditConfiguration editConfig, RawPickerConfiguration pickerConfig, RawUiConfiguration uiConfig) async {
-    final String pigeonVar_channelName = 'dev.flutter.pigeon.multimedia_picker.MultiMediaApi.openCamera$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
-    );
+  Future<RawMediaData?> openCamera(
+    RawCameraConfiguration cameraConfig,
+    RawEditConfiguration editConfig,
+    RawPickerConfiguration pickerConfig,
+    RawUiConfiguration uiConfig,
+  ) async {
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.multimedia_picker.MultiMediaApi.openCamera$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel =
+        BasicMessageChannel<Object?>(
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
     final List<Object?>? pigeonVar_replyList =
-        await pigeonVar_channel.send(<Object?>[cameraConfig, editConfig, pickerConfig, uiConfig]) as List<Object?>?;
+        await pigeonVar_channel.send(<Object?>[
+              cameraConfig,
+              editConfig,
+              pickerConfig,
+              uiConfig,
+            ])
+            as List<Object?>?;
     if (pigeonVar_replyList == null) {
       throw _createConnectionError(pigeonVar_channelName);
     } else if (pigeonVar_replyList.length > 1) {
@@ -964,15 +906,28 @@ class MultiMediaApi {
     }
   }
 
-  Future<RawMediaData?> editMedia(RawMediaData data, RawEditConfiguration editConfig, RawPickerConfiguration pickerConfig, RawUiConfiguration uiConfig) async {
-    final String pigeonVar_channelName = 'dev.flutter.pigeon.multimedia_picker.MultiMediaApi.editMedia$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
-    );
+  Future<RawMediaData?> editMedia(
+    RawMediaData data,
+    RawEditConfiguration editConfig,
+    RawPickerConfiguration pickerConfig,
+    RawUiConfiguration uiConfig,
+  ) async {
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.multimedia_picker.MultiMediaApi.editMedia$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel =
+        BasicMessageChannel<Object?>(
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
     final List<Object?>? pigeonVar_replyList =
-        await pigeonVar_channel.send(<Object?>[data, editConfig, pickerConfig, uiConfig]) as List<Object?>?;
+        await pigeonVar_channel.send(<Object?>[
+              data,
+              editConfig,
+              pickerConfig,
+              uiConfig,
+            ])
+            as List<Object?>?;
     if (pigeonVar_replyList == null) {
       throw _createConnectionError(pigeonVar_channelName);
     } else if (pigeonVar_replyList.length > 1) {
@@ -986,15 +941,26 @@ class MultiMediaApi {
     }
   }
 
-  Future<List<RawMediaData>?> openGallery(RawEditConfiguration editConfig, RawPickerConfiguration pickerConfig, RawUiConfiguration uiConfig) async {
-    final String pigeonVar_channelName = 'dev.flutter.pigeon.multimedia_picker.MultiMediaApi.openGallery$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
-    );
+  Future<List<RawMediaData>?> openGallery(
+    RawEditConfiguration editConfig,
+    RawPickerConfiguration pickerConfig,
+    RawUiConfiguration uiConfig,
+  ) async {
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.multimedia_picker.MultiMediaApi.openGallery$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel =
+        BasicMessageChannel<Object?>(
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
     final List<Object?>? pigeonVar_replyList =
-        await pigeonVar_channel.send(<Object?>[editConfig, pickerConfig, uiConfig]) as List<Object?>?;
+        await pigeonVar_channel.send(<Object?>[
+              editConfig,
+              pickerConfig,
+              uiConfig,
+            ])
+            as List<Object?>?;
     if (pigeonVar_replyList == null) {
       throw _createConnectionError(pigeonVar_channelName);
     } else if (pigeonVar_replyList.length > 1) {

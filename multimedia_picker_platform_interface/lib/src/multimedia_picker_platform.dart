@@ -49,6 +49,7 @@ abstract class MultimediaPickerPlatform extends PlatformInterface {
   ) => throw UnimplementedError('openCamera() has not been implemented.');
 
   Future<RawMediaData?> editMedia(
+    /// The media data to be edited.
     RawMediaData data,
 
     /// Configuration for editing capabilities.
