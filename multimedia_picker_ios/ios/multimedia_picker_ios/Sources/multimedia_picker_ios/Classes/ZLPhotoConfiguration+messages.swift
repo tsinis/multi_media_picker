@@ -34,7 +34,7 @@ extension ZLPhotoConfiguration {
       config.videoStabilization?.rawValue ?? AVCaptureVideoStabilizationMode.auto.rawValue
     let videoStabilization =
       AVCaptureVideoStabilizationMode(rawValue: videoStabilizationRaw) ?? .auto
-    // this.videoStabilizationMode = videoStabilization // TODO! Waiting for the next release.
+    // this.videoStabilizationMode = videoStabilization // Waiting for the next release.
   }
 
   func updatePickerConfiguration(from config: RawPickerConfiguration) {

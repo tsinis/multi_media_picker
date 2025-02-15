@@ -86,6 +86,8 @@
     "merge-conflict.autoNavigateNextConflict.enabled": true,
     "code-runner.clearPreviousOutput": false,
     "yaml.keyOrdering": false,
+    "lldb.library": "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB",
+    "lldb.launch.expressions": "native",
     "material-icon-theme.hidesExplorerArrows": true,
     "material-icon-theme.saturation": 0.66,
     "material-icon-theme.folders.associations": {
