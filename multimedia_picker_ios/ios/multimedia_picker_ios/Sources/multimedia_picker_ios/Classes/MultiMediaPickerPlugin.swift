@@ -230,7 +230,7 @@ public final class MultimediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
           path: videoPath,
           thumbPath: updatedThumbPath,
           type: data.type,
-          duration: updatedDuration
+          durationSec: updatedDuration
         )
 
         completion(.success(updatedMediaData))
@@ -397,7 +397,7 @@ public final class MultimediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     let thumbPath = saveVideoThumbnail(url: path, picker: picker)
     let duration = getVideoDurationInSeconds(url: url)
 
-    return RawMediaData(path: path, thumbPath: thumbPath, type: .video, duration: duration)
+    return RawMediaData(path: path, thumbPath: thumbPath, type: .video, durationSec: duration)
   }
 
   private func saveVideoThumbnail(url: String, picker: RawPickerConfiguration) -> String? {

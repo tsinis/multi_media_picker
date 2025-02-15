@@ -15,7 +15,7 @@ extension RawMediaDataExtension on RawMediaData {
 
     return MediaData.fromFile(
       mediaFile,
-      duration: Duration(seconds: duration ?? 0),
+      duration: Duration(seconds: durationSec ?? 0),
       thumbnail: thumbnail.isEmpty ? null : File(thumbnail),
       timestamp: dateTimeProvider?.call(),
       type: type,

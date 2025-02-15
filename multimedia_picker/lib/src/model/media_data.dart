@@ -1,11 +1,11 @@
 import 'dart:io' show File;
 
-import 'package:flutter/foundation.dart' show immutable;
+import 'package:flutter/foundation.dart' show immutable, protected;
 // ignore: depend_on_referenced_packages, it has vertical dependency structure.
 import 'package:multimedia_picker_platform_interface/multimedia_picker_platform_interface.dart';
 
 @immutable
-class MediaData {
+class MediaData implements RawMediaData {
   const MediaData(
     this.file, {
     required this.timestamp,
@@ -58,6 +58,8 @@ class MediaData {
   final int fileSize;
   final File? thumbnail;
   final DateTime timestamp;
+
+  @override
   final MediaType type;
 
   MediaData copyWith({
@@ -104,4 +106,34 @@ class MediaData {
       type.hashCode ^
       thumbnail.hashCode ^
       fileSize.hashCode;
+
+  // [RawMediaData] implementation.
+
+  @override
+  int get durationSec => duration.inSeconds;
+
+  @override
+  String get path => file.path;
+
+  @override
+  String? get thumbPath => thumbnail?.path;
+
+  @override
+  List<Object?> encode() => [path, thumbPath, type, durationSec];
+
+  @override
+  @protected
+  set durationSec(int? value) => value;
+
+  @override
+  @protected
+  set path(String value) => value;
+
+  @override
+  @protected
+  set thumbPath(String? value) => value;
+
+  @override
+  @protected
+  set type(MediaType value) => value;
 }
