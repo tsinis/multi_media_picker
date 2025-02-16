@@ -1,0 +1,63 @@
+name: pull_requests
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  branch-name:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - name: 🔀 Assert Branch Naming Convention
+        uses: lekterable/branchlint-action@2.1.0
+        with:
+          errorMessage: 'Branch name should only contain latin characters, numbers and those symbols: ".", "/", "-", "_" and must start with: `feature/`, `feat/`, `test/`, `tests/`, `fix/`, `bug/`, `chore/`, `deps/`, `ci/`, `build/`, `docs/`, `doc/`, `style/` or `refactor/`.'
+          allowed: /(feature|feat|test|tests|fix|bug|chore|dependabot|deps|ci|build|docs|doc|style|refactor)\/([a-zA-Z0-9_.\/-]*)/
+
+  assign:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    if: ${{ github.event.pull_request.assignee == null && join(github.event.pull_request.assignees) == '' }}
+    steps:
+      - name: ✍🏻 Add Reviewer and Author Assign
+        uses: kentaro-m/auto-assign-action@v2.0.0
+        with:
+          configuration-path: ".github/workflows/config/auto-assign.yaml"
+
+  pr-title:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - name: 📰 Lint Pull Request Title
+        uses: amannn/action-semantic-pull-request@v5.5.3
+        with:
+          requireScope: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  auto-approve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - name: 🎟️ Approve Dependabot and owner
+        uses: hmarr/auto-approve-action@v4.0.0
+        if: github.actor == 'dependabot[bot]' || github.actor == 'tsinis'
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  pr-labels:
+    runs-on: ubuntu-latest
+    needs: branch-name
+    timeout-minutes: 4
+    steps:
+      - name: 🏷️ Detect and add label(s)
+        uses: TimonVS/pr-labeler-action@v5.0.0
+        with:
+          configuration-path: .github/workflows/config/pr-labels.yaml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -25,3 +25,7 @@ updates:
     directory: "/multimedia_picker_ios"
     schedule:
       interval: "weekly"
+  - package-ecosystem: "pub"
+    directory: "/multimedia_picker_testing"
+    schedule:
+      interval: "weekly"

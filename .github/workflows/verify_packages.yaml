@@ -1,0 +1,45 @@
+name: verify_packages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "multimedia_*/**"
+  pull_request:
+    branches: [main]
+    paths:
+      - "multimedia_*/**"
+      - ".github/workflows/verify_packages.yaml"
+
+jobs:
+  detect-packages:
+    name: 🔍 Detect Changed Packages
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      packages: ${{ steps.set-packages.outputs.packages }}
+    steps:
+      - name: 📚 Git Checkout
+        uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: 🔎 Find Changed Packages
+        id: set-packages
+        run: |
+          PACKAGES=$(git diff --name-only "${{ github.event.pull_request.base.sha || 'HEAD^' }}" "${{ github.event.pull_request.head.sha || 'HEAD' }}" -- 'multimedia_*/*' | cut -d'/' -f1 | sort -u | jq -R -s -c 'split("\n")[:-1]')
+          echo "packages=${PACKAGES}" >> "$GITHUB_OUTPUT"
+          echo "Changed packages: ${PACKAGES}"
+
+  verify-packages:
+    name: Verify ${{ matrix.package }}
+    needs: detect-packages
+    if: fromJson(needs.detect-packages.outputs.packages)[0] != null
+    strategy:
+      fail-fast: false
+      matrix:
+        package: ${{ fromJson(needs.detect-packages.outputs.packages) }}
+    uses: ./.github/workflows/verify_package_workflow.yaml
+    with:
+      package_name: ${{ matrix.package }}
+    secrets: inherit
