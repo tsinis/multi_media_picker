@@ -1,9 +1,8 @@
 // ignore_for_file: prefer-boolean-prefixes, no-magic-number, avoid-long-files
 
 import 'package:flutter/material.dart';
-
-// ignore: depend_on_referenced_packages, it has vertical dependency structure.
 import 'package:multimedia_picker_platform_interface/multimedia_picker_platform_interface.dart';
+
 import '../../../helpers/extensions/sdk_model/color_extension.dart';
 import '../../../model/configs/ui_configuration.dart';
 import '../interfaces/base_config_list_view.dart';

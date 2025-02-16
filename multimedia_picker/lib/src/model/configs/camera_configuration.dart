@@ -1,9 +1,8 @@
 // ignore_for_file: prefer-boolean-prefixes
 
 import 'package:flutter/foundation.dart' show immutable;
-
-// ignore: depend_on_referenced_packages, it has vertical dependency structure.
 import 'package:multimedia_picker_platform_interface/multimedia_picker_platform_interface.dart';
+
 import '../submodels/overlay_image.dart';
 
 @immutable

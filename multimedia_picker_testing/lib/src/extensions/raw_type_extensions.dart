@@ -4,7 +4,6 @@ import 'dart:io' show Directory;
 
 import 'package:flutter/material.dart' show Color;
 import 'package:multimedia_picker/multimedia_picker.dart';
-// ignore: depend_on_referenced_packages, it has vertical dependency structure.
 import 'package:multimedia_picker_platform_interface/multimedia_picker_platform_interface.dart';
 
 // Extensions for converting Raw* types to their public counterparts.

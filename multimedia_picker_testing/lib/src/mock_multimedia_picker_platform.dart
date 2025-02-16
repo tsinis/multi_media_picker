@@ -4,10 +4,10 @@
 
 import 'dart:async' show FutureOr;
 
+import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:multimedia_picker/multimedia_picker.dart';
 // ignore: directives_ordering, implementation_imports, it's a testing package.
 import 'package:multimedia_picker/src/helpers/extensions/model/internal/raw_media_data_extension.dart';
-// ignore: depend_on_referenced_packages, underling platform interface.
 import 'package:multimedia_picker_platform_interface/multimedia_picker_platform_interface.dart';
 
 import 'extensions/raw_type_extensions.dart';
@@ -20,6 +20,7 @@ import 'models/picker_call.dart';
 class MockMultimediaPickerPlatform<T extends RawMediaData>
     extends MultimediaPickerPlatform {
   /// Creates a new mock instance.
+  @visibleForTesting
   MockMultimediaPickerPlatform({
     this.dateTimeProvider,
     this.onEditMedia,

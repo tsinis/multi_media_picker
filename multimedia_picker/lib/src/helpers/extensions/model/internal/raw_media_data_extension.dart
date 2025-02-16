@@ -1,7 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter/rendering.dart';
-// ignore: depend_on_referenced_packages, it has vertical dependency structure.
+import 'package:flutter/rendering.dart' show FileImage, imageCache;
 import 'package:multimedia_picker_platform_interface/multimedia_picker_platform_interface.dart';
 
 import '../../../../model/media_data.dart';

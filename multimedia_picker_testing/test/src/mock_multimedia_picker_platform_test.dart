@@ -1,5 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages, just a unit-test.
-import 'dart:io';
+import 'dart:io' show File;
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:multimedia_picker/multimedia_picker.dart';

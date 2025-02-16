@@ -1,6 +1,9 @@
+version: 0.0.1
 name: multimedia_picker
 description: Flutter plugin for selecting images from the iOS media library, and taking new media with the camera.
-version: 0.0.1
+repository: https://github.com/tsinis/multi_media_picker/tree/main/multimedia_picker
+issue_tracker: https://github.com/tsinis/multi_media_picker/issues
+maintainer: Roman Cinis
 publish_to: none
 
 topics:
@@ -12,6 +15,7 @@ topics:
 
 environment:
   sdk: ^3.7.0
+  flutter: ">=3.29.0"
 
 resolution: workspace
 
@@ -28,6 +32,8 @@ dependencies:
     sdk: flutter
   multimedia_picker_ios:
     path: ../multimedia_picker_ios
+  multimedia_picker_platform_interface:
+    path: ../multimedia_picker_platform_interface
 
 dev_dependencies:
   dart_code_metrics_presets: ^2.20.0

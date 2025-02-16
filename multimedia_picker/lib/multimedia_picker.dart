@@ -1,10 +1,7 @@
 // ignore_for_file: avoid-barrel-files, those are package exports.
 
-// ignore: depend_on_referenced_packages, it has vertical dependency structure.
 export 'package:multimedia_picker_platform_interface/multimedia_picker_platform_interface.dart'
     hide // TODO: Keep reducing the scope of it.
-        ClipAspectRatio,
-        ClipOptions,
         RawCameraConfiguration,
         RawEditConfiguration,
         RawMediaData,
