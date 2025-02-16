@@ -1,0 +1,23 @@
+name: multimedia_picker_workspace
+publish_to: none
+description: Workspace for multimedia_picker ecosystem.
+maintainer: Roman Cinis
+repository: https://github.com/tsinis/multi_media_picker
+issue_tracker: https://github.com/tsinis/multi_media_picker/issues
+topics:
+  - multi-media-picker
+  - multimedia-picker
+  - multimedia-selector
+  - multimedia-recorder
+  - image-picker
+
+environment:
+  sdk: ^3.7.0
+
+workspace:
+  - multimedia_picker # High-level picker.
+  - multimedia_picker/example # Example app.
+  - multimedia_picker_android # Android implementation.
+  - multimedia_picker_ios # iOS implementation.
+  - multimedia_picker_platform_interface # Platform interface.
+  - multimedia_picker_testing # Testing suite.

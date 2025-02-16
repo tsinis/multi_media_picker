@@ -1,5 +1,5 @@
-// ignore: depend_on_referenced_packages, it has vertical dependency structure.
 import 'package:multimedia_picker_platform_interface/multimedia_picker_platform_interface.dart';
+
 import '../../../../model/configs/camera_configuration.dart';
 import '../public/camera_configuration_extension.dart';
 import 'overlay_image_extension_internal.dart';

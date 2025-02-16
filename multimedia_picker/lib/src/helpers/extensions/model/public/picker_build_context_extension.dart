@@ -43,7 +43,7 @@ extension PickerBuildContextExtension on BuildContext {
                 );
               },
               itemCount: values.length,
-              separatorBuilder: (_, __) => const Divider(height: 1),
+              separatorBuilder: (_, _) => const Divider(height: 1),
             ),
         context: this,
       );

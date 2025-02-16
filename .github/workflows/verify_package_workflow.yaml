@@ -1,0 +1,45 @@
+name: verify_package_workflow
+
+on:
+  workflow_call:
+    inputs:
+      package_name:
+        required: true
+        type: string
+
+jobs:
+  verify-package:
+    env:
+      relative_path: ${{ inputs.package_name }}
+    name: ⏳ Verify ${{ inputs.package_name }} Package
+    defaults:
+      run:
+        working-directory: ${{ env.relative_path }}
+
+    runs-on: "ubuntu-latest"
+    timeout-minutes: 20
+
+    steps:
+      - name: 📚 Git checkout
+        uses: actions/checkout@v4.2.2
+
+      - name: 🐦 Setup Flutter
+        uses: subosito/flutter-action@v2.18.0
+        with:
+          channel: "stable"
+
+      - name: 📦 Install dependencies
+        run: flutter pub get
+
+      - name: 🕵️ Analyze code
+        uses: ValentinVignal/action-dart-analyze@v0.17
+        if: ${{ github.event_name == 'pull_request' }}
+        with:
+          fail-on: "format"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          working-directory: ${{ env.relative_path }}
+          format: true
+
+      - name: 🏜️ Publish - dry run
+        if: false # TODO: ${{ github.event_name == 'pull_request' }}
+        run: dart pub publish --dry-run

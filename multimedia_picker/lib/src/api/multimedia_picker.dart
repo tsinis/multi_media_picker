@@ -3,7 +3,6 @@
 import 'dart:collection' show UnmodifiableListView;
 
 import 'package:flutter/foundation.dart' show visibleForTesting;
-// ignore: depend_on_referenced_packages, it has vertical dependency structure.
 import 'package:multimedia_picker_platform_interface/multimedia_picker_platform_interface.dart';
 
 import '../helpers/extensions/model/internal/camera_configuration_extension_internal.dart';
@@ -20,8 +19,8 @@ import '../model/media_data.dart';
 import '../model/submodels/named_image.dart';
 import '../model/typedefs.dart';
 
-class MultiMediaPicker {
-  const MultiMediaPicker({
+class MultimediaPicker {
+  const MultimediaPicker({
     this.cameraConfiguration = const CameraConfiguration(),
     DateTimeProvider? dateTimeProvider,
     this.editConfiguration = const EditConfiguration(),
@@ -39,8 +38,6 @@ class MultiMediaPicker {
   final UiConfiguration uiConfiguration;
   // ignore: prefer-correct-callback-field-name, it's provider like callback.
   final DateTimeProvider? _dateTimeProvider;
-
-  MultiMediaApi get _api => MultiMediaApi();
 
   Future<MediaData?> openCamera() => _openCamera(hasToThrow: true);
 
@@ -120,7 +117,12 @@ class MultiMediaPicker {
     final ui = uiConfig ?? uiConfiguration;
 
     try {
-      final raw = await _api.openCamera(camera.raw, edit.raw, pick.raw, ui.raw);
+      final raw = await platform.openCamera(
+        camera.raw,
+        edit.raw,
+        pick.raw,
+        ui.raw,
+      );
 
       return raw?.toMediaData(dateTimeProvider: _dateTimeProvider);
     } catch (_) {
@@ -142,7 +144,7 @@ class MultiMediaPicker {
     final list = <RawMediaData>[];
 
     try {
-      final rawList = await _api.openGallery(edit.raw, pick.raw, ui.raw);
+      final rawList = await platform.openGallery(edit.raw, pick.raw, ui.raw);
       list.addAll(rawList?.nonNulls ?? []);
     } catch (_) {
       if (hasToThrow) rethrow;
@@ -170,17 +172,17 @@ class MultiMediaPicker {
     final edit = editConfig ?? editConfiguration;
     final picker = pickerConfig ?? pickerConfiguration;
     final ui = uiConfig ?? uiConfiguration;
-    RawMediaData? rawOutput;
+    RawMediaData? raw;
 
     try {
-      rawOutput = await _api.editMedia(rawInput, edit.raw, picker.raw, ui.raw);
+      raw = await platform.editMedia(rawInput, edit.raw, picker.raw, ui.raw);
     } catch (_) {
       if (hasToThrow) rethrow;
     }
 
-    final output = rawOutput?.toMediaData(dateTimeProvider: _dateTimeProvider);
+    final output = raw?.toMediaData(dateTimeProvider: _dateTimeProvider);
     if (output == input) return null;
-    if (shouldEvictThumbnailCache) rawOutput?.willEvictImageCache(input);
+    if (shouldEvictThumbnailCache) raw?.willEvictImageCache(input);
 
     return output;
   }

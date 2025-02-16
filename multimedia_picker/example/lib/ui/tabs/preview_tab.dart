@@ -8,14 +8,14 @@ class PreviewTab extends StatelessWidget {
   final ValueNotifier<MediaData?> _media;
 
   Future<void> _handleEdit() async {
-    final media = await const MultiMediaPicker().tryEditMedia(_media.value);
+    final media = await const MultimediaPicker().tryEditMedia(_media.value);
     if (media != null) _media.value = media;
   }
 
   @override
   Widget build(BuildContext context) => ValueListenableBuilder(
     builder:
-        (_, mediaData, __) => MaybeWidget.identifiable(
+        (_, mediaData, _) => MaybeWidget.identifiable(
           mediaData?.thumbnail,
           (thumbnail) => InkWell(
             // ignore: avoid-passing-async-when-sync-expected, just example.
