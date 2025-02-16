@@ -130,6 +130,9 @@ class _MethodCallLog {
   void _addCall(PickerCall callType) =>
       _calls[callType] = callCount(callType) + 1;
 
+  /// Returns whether there were no method calls.
+  bool get hasZeroInteractions => _calls.isEmpty;
+
   /// Gets the number of times a method was called.
   int callCount(PickerCall callType) => _calls[callType] ?? 0;
 

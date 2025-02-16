@@ -1,6 +1,6 @@
 # multimedia_picker
 
-A Flutter plugin for iOS and Android that provides a unified interface for picking media (images/videos) from gallery or camera, with built-in editing capabilities.
+A Flutter plugin for iOS that provides a unified interface for picking media (images/videos) from gallery or camera, with built-in editing capabilities.
 
 ## Features
 

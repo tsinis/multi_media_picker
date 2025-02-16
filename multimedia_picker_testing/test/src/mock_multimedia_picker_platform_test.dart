@@ -1,5 +1,6 @@
 import 'dart:io' show File;
 
+import 'package:flutter/services.dart' show PlatformException;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:multimedia_picker/multimedia_picker.dart';
 import 'package:multimedia_picker_platform_interface/multimedia_picker_platform_interface.dart';
@@ -44,6 +45,17 @@ void main() => group('$MockMultimediaPickerPlatform', () {
       expect(result?.path, file.path);
       expect(mock.log.callCount(PickerCall.openCamera), 1);
     });
+
+    test('on exception', () {
+      mock.onOpenCamera = (_, _, _, _) => throw PlatformException(code: '');
+      expect(mock.log.hasZeroInteractions, isTrue);
+      expect(
+        // ignore: avoid-redundant-async, false positive.
+        () async => const MultimediaPicker().openCamera(),
+        throwsA(isA<PlatformException>()),
+      );
+      expect(mock.log.callCount(PickerCall.openCamera), 1);
+    });
   });
 
   group('editMedia', () {
@@ -54,6 +66,19 @@ void main() => group('$MockMultimediaPickerPlatform', () {
       final result = await const MultimediaPicker().editMedia(originalMedia);
 
       expect(result?.file.path, file.path);
+      expect(mock.log.callCount(PickerCall.editMedia), 1);
+    });
+
+    test('exception handler', () {
+      mock.onEditMedia = (_, _, _, _) => throw PlatformException(code: '');
+      expect(mock.log.hasZeroInteractions, isTrue);
+      expect(
+        // ignore: avoid-redundant-async, false positive.
+        () async => const MultimediaPicker().editMedia(
+          MediaData.ts(file, DateTime.timestamp),
+        ),
+        throwsA(isA<PlatformException>()),
+      );
       expect(mock.log.callCount(PickerCall.editMedia), 1);
     });
 
@@ -78,6 +103,17 @@ void main() => group('$MockMultimediaPickerPlatform', () {
   });
 
   group('openGallery', () {
+    test('exception', () {
+      mock.onOpenGallery = (_, _, _) => throw PlatformException(code: '');
+      expect(mock.log.hasZeroInteractions, isTrue);
+      expect(
+        // ignore: avoid-redundant-async, false positive.
+        () async => const MultimediaPicker().openGallery(),
+        throwsA(isA<PlatformException>()),
+      );
+      expect(mock.log.callCount(PickerCall.openGallery), 1);
+    });
+
     test(highLevelHandler, () async {
       mock.onOpenGallery = (_, _, _) => [MediaData.ts(file, DateTime.now)];
 

@@ -10,7 +10,7 @@ on:
 jobs:
   verify-package:
     env:
-      relative_path: packages/${{ inputs.package_name }}
+      relative_path: ${{ inputs.package_name }}
     name: ⏳ Verify ${{ inputs.package_name }} Package
     defaults:
       run:
@@ -31,7 +31,7 @@ jobs:
           cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
 
       - name: 📦 Install dependencies
-        run: dart pub get
+        run: flutter pub get
 
       - name: 🕵️ Analyze code
         uses: ValentinVignal/action-dart-analyze@v0.17

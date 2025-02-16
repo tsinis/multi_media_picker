@@ -64,6 +64,7 @@ class MediaData implements RawMediaData {
       type: type,
     );
   }
+
   final File file;
   final Duration duration;
   final int fileSize;
@@ -132,19 +133,22 @@ class MediaData implements RawMediaData {
   @override
   List<Object?> encode() => [path, thumbPath, type, durationSec];
 
-  @override
-  @protected
-  set durationSec(int? value) => value;
+  static const _readOnlyError =
+      "MediaData is immutable, you can't change its properties.";
 
   @override
   @protected
-  set path(String value) => value;
+  set durationSec(int? value) => UnsupportedError(_readOnlyError);
 
   @override
   @protected
-  set thumbPath(String? value) => value;
+  set path(String value) => UnsupportedError(_readOnlyError);
 
   @override
   @protected
-  set type(MediaType value) => value;
+  set thumbPath(String? value) => UnsupportedError(_readOnlyError);
+
+  @override
+  @protected
+  set type(MediaType value) => UnsupportedError(_readOnlyError);
 }
