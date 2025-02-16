@@ -1,8 +1,11 @@
 import 'dart:io' show File;
 
-import 'package:flutter/foundation.dart' show immutable, protected;
+import 'package:flutter/foundation.dart' show ValueGetter, immutable, protected;
 // ignore: depend_on_referenced_packages, it has vertical dependency structure.
-import 'package:multimedia_picker_platform_interface/multimedia_picker_platform_interface.dart';
+import 'package:multimedia_picker_platform_interface/multimedia_picker_platform_interface.dart'
+    show RawMediaData;
+
+import '../../multimedia_picker.dart';
 
 @immutable
 class MediaData implements RawMediaData {
@@ -14,6 +17,15 @@ class MediaData implements RawMediaData {
     this.thumbnail,
     this.type = MediaType.image,
   });
+
+  MediaData.ts(
+    this.file,
+    ValueGetter<DateTime> timestampGetter, {
+    this.duration = Duration.zero,
+    this.fileSize = 0,
+    this.thumbnail,
+    this.type = MediaType.image,
+  }) : timestamp = timestampGetter();
 
   factory MediaData.fromFile(
     File file, {
@@ -107,7 +119,7 @@ class MediaData implements RawMediaData {
       thumbnail.hashCode ^
       fileSize.hashCode;
 
-  // [RawMediaData] implementation.
+  // [RawMediaData] implementations, since it's Pigeon generated class...
 
   @override
   int get durationSec => duration.inSeconds;

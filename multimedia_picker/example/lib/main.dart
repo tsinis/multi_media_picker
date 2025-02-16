@@ -46,9 +46,9 @@ class _MainState extends State<Main> with SingleTickerProviderStateMixin {
 
   Future<void> _pickMedia(
     // ignore: prefer-typedefs-for-callbacks, just an example app.
-    Future<List<MediaData>> Function(MultiMediaPicker picker) action,
+    Future<List<MediaData>> Function(MultimediaPicker picker) action,
   ) async {
-    final picker = MultiMediaPicker(
+    final picker = MultimediaPicker(
       cameraConfiguration: _cameraConfig.value,
       pickerConfiguration: PickerConfiguration(
         directory: widget.outputDir,

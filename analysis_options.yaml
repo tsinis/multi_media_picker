@@ -394,21 +394,20 @@ linter:
   rules:
     # Disabled:
     always_put_control_body_on_new_line: false # Makes code harder to read.
-    omit_local_variable_types: false # Conflicts with: prefer-type-over-var.
     always_specify_types: false # Conflicts with: omit_local_variable_types.
     always_use_package_imports: false # Conflicts with: prefer_relative_imports.
     avoid_classes_with_only_static_members: false # Conflicts with: prefer-static-class
+    diagnostic_describe_all_properties: false # TODO? Enable and fix this in the far-future.
     flutter_style_todos: false # Not a Flutter team.
-    specify_nonobvious_local_variable_types: false # Conflicts with: omit_obvious_local_variable_types.
-    prefer_final_parameters: false # Conflicts with: avoid_final_parameters.
+    omit_local_variable_types: false # Conflicts with: prefer-type-over-var.
     prefer_double_quotes: false # Conflicts with: prefer_double_quotes.
+    prefer_final_parameters: false # Conflicts with: avoid_final_parameters.
+    specify_nonobvious_local_variable_types: false # Conflicts with: omit_obvious_local_variable_types.
+    specify_nonobvious_property_types: false # Conflicts with: avoid-explicit-type-declaration.
     unnecessary_final: false # Conflicts with: prefer_final_locals.
     unnecessary_library_name: false # To prevent breaking changes for those who use this libs.
-    diagnostic_describe_all_properties: false # TODO? Enable and fix this in the far-future.
 
     # Enabled:
-    omit_obvious_local_variable_types: true
-    use_truncating_division: true
     always_declare_return_types: true
     always_put_required_named_parameters_first: true
     always_require_non_null_named_parameters: true
@@ -513,6 +512,8 @@ linter:
     noop_primitive_operations: true
     null_check_on_nullable_type_parameter: true
     null_closures: true
+    omit_obvious_local_variable_types: true
+    omit_obvious_property_types: true
     one_member_abstracts: true
     only_throw_errors: true
     overridden_fields: true
@@ -569,6 +570,7 @@ linter:
     sort_constructors_first: true
     sort_pub_dependencies: true
     sort_unnamed_constructors_first: true
+    strict_top_level_inference: true
     test_types_in_equals: true
     throw_in_finally: true
     tighten_type_of_initializing_formals: true
@@ -583,6 +585,7 @@ linter:
     unnecessary_const: true
     unnecessary_constructor_name: true
     unnecessary_getters_setters: true
+    unnecessary_ignore: true
     unnecessary_lambdas: true
     unnecessary_late: true
     unnecessary_library_directive: true
@@ -600,6 +603,7 @@ linter:
     unnecessary_string_interpolations: true
     unnecessary_this: true
     unnecessary_to_list_in_spreads: true
+    unnecessary_underscores: true
     unreachable_from_main: true
     unrelated_type_equality_checks: true
     use_build_context_synchronously: true
@@ -621,5 +625,6 @@ linter:
     use_super_parameters: true
     use_test_throws_matchers: true
     use_to_and_as_if_applicable: true
+    use_truncating_division: true
     valid_regexps: true
     void_checks: true

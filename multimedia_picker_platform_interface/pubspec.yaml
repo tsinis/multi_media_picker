@@ -1,9 +1,11 @@
 name: multimedia_picker_platform_interface
-description: A common platform interface for the multimedia_picker plugin
+description: A common platform interface for the multimedia_picker plugin.
 version: 0.0.1
 
 environment:
   sdk: ^3.7.0
+
+resolution: workspace
 
 dependencies:
   flutter:

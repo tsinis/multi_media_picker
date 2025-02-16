@@ -1,10 +1,10 @@
 import 'dart:math' show max;
 
-import '../../api/multi_media_picker.dart';
+import '../../api/multimedia_picker.dart';
 import '../../model/submodels/named_image.dart';
 import '../../model/typedefs.dart';
 
-extension MultiMediaPickerExtension on MultiMediaPicker {
+extension MultimediaPickerExtension on MultimediaPicker {
   /// Captures multiple photos using the camera.
   ///
   /// If [count] is `null`, the method will continue to capture photos until the
@@ -22,7 +22,7 @@ extension MultiMediaPickerExtension on MultiMediaPicker {
   ///
   /// Example usage:
   /// ```dart
-  /// const picker = MultiMediaPicker();
+  /// const picker = MultimediaPicker();
   /// final photos = await picker.multipleFromCameraCount(
   ///   2, namedImage: const NamedImage(imageNameToSave: 'picture'),
   /// );

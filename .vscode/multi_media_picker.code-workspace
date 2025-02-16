@@ -190,16 +190,6 @@
     "tasks": [
       {
         "type": "shell",
-        "command": "dart pub get --no-example",
-        "label": "Dart Pub Get"
-      },
-      {
-        "type": "shell",
-        "command": "dart analyze .",
-        "label": "Dart Analyze"
-      },
-      {
-        "type": "shell",
         "command": "dart format .",
         "label": "Dart Format",
         "presentation": {
@@ -207,6 +197,30 @@
           "revealProblems": "onProblem",
           "close": true
         }
+      },
+      {
+        "type": "shell",
+        "command": "dart run pigeon --input pigeons/messages.dart && dart format .",
+        "label": "Run Pigeon and Format",
+        "presentation": {
+          "reveal": "never",
+          "revealProblems": "onProblem",
+          "close": true
+        },
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        }
+      },
+      {
+        "type": "shell",
+        "command": "dart pub get --no-example",
+        "label": "Dart Pub Get"
+      },
+      {
+        "type": "shell",
+        "command": "dart analyze .",
+        "label": "Dart Analyze"
       },
       {
         "type": "shell",
@@ -220,16 +234,6 @@
         "problemMatcher": ["$dart-build_runner"],
         "group": "build",
         "label": "Dart Build Runner"
-      },
-      {
-        "type": "shell",
-        "command": "dart run pigeon --input pigeons/messages.dart",
-        "label": "Run Pigeon",
-        "presentation": {
-          "reveal": "always",
-          "revealProblems": "onProblem",
-          "close": true
-        }
       },
       {
         "type": "shell",
@@ -339,6 +343,7 @@
         "dependsOrder": "sequence",
         "dependsOn": [
           "Dart Pub Get",
+          "Run Pigeon and Format",
           "Dart Test",
           "Dart Format",
           "Dart Analyze",
@@ -354,6 +359,7 @@
         "dependsOrder": "sequence",
         "dependsOn": [
           "Dart Pub Get",
+          "Run Pigeon and Format",
           "Flutter Test",
           "Dart Format",
           "Flutter Analyze",

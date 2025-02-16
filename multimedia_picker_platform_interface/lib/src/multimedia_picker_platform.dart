@@ -12,13 +12,13 @@ import 'method_channel_multimedia_picker.dart';
 /// the subclass will get the default implementation, while platform
 /// implementations that `implements` this interface will be broken by newly
 /// added [MultimediaPickerPlatform] methods.
-abstract class MultimediaPickerPlatform extends PlatformInterface {
+abstract class MultimediaPickerPlatform<T extends RawMediaData>
+    extends PlatformInterface {
   /// Constructs a [MultimediaPickerPlatform].
   MultimediaPickerPlatform() : super(token: _token);
 
   static final _token = Object();
 
-  // ignore: avoid-referencing-subclasses, it's standard for federated plugins.
   static MultimediaPickerPlatform _instance = MethodChannelMultimediaPicker();
 
   /// The default instance of [MultimediaPickerPlatform] to use.
@@ -34,7 +34,7 @@ abstract class MultimediaPickerPlatform extends PlatformInterface {
     _instance = value;
   }
 
-  Future<RawMediaData?> openCamera(
+  Future<T?> openCamera(
     /// Configuration for camera settings like position, flash, etc.
     RawCameraConfiguration cameraConfig,
 
@@ -48,9 +48,9 @@ abstract class MultimediaPickerPlatform extends PlatformInterface {
     RawUiConfiguration uiConfig,
   ) => throw UnimplementedError('openCamera() has not been implemented.');
 
-  Future<RawMediaData?> editMedia(
+  Future<T?> editMedia(
     /// The media data to be edited.
-    RawMediaData data,
+    T data,
 
     /// Configuration for editing capabilities.
     RawEditConfiguration editConfig,
@@ -62,7 +62,7 @@ abstract class MultimediaPickerPlatform extends PlatformInterface {
     RawUiConfiguration uiConfig,
   ) => throw UnimplementedError('editMedia() has not been implemented.');
 
-  Future<List<RawMediaData>?> openGallery(
+  Future<List<T>?> openGallery(
     /// Configuration for editing capabilities.
     RawEditConfiguration editConfig,
 

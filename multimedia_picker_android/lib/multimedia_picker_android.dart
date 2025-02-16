@@ -1,9 +1,13 @@
+import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:multimedia_picker_platform_interface/multimedia_picker_platform_interface.dart';
 
 /// The Android implementation of [MultimediaPickerPlatform].
 class MultimediaPickerAndroid extends MultimediaPickerPlatform {
-  /// The API that connects to the Android platform code via Pigeon.
-  final _api = MultiMediaApi();
+  /// Creates a new plugin implementation instance.
+  MultimediaPickerAndroid({@visibleForTesting MultiMediaApi? api})
+    : _api = api ?? MultiMediaApi();
+
+  final MultiMediaApi _api;
 
   /// Registers this class as the default instance
   /// of [MultimediaPickerPlatform].
