@@ -1,23 +1,53 @@
 {
   "folders": [
-    { "name": "IDE", "path": "../.vscode" },
-    { "name": "GitHub", "path": "../.github" },
-    { "name": "Picker", "path": "../multimedia_picker" },
-    { "name": "iOS", "path": "../multimedia_picker_ios" },
-    { "name": "Android", "path": "../multimedia_picker_android" },
-    { "name": "Interface", "path": "../multimedia_picker_platform_interface" }
+    {
+      "name": "IDE",
+      "path": "."
+    },
+    {
+      "name": "GitHub",
+      "path": "../.github"
+    },
+    {
+      "name": "Picker",
+      "path": "../multimedia_picker"
+    },
+    {
+      "name": "iOS",
+      "path": "../multimedia_picker_ios"
+    },
+    {
+      "name": "Android",
+      "path": "../multimedia_picker_android"
+    },
+    {
+      "name": "Interface",
+      "path": "../multimedia_picker_platform_interface"
+    },
+    {
+      "name": "Testing",
+      "path": "../multimedia_picker_testing"
+    }
   ],
   "settings": {
     "search.exclude": {
       "**/.git": true,
       "coverage/**": true,
       "**/coverage/*": true,
-      "**/*.g.dart": true
+      "**/*.g.dart": true,
+      "**/*.symlinks": true,
+      "**/fvm/**": true,
+      "**/.build/**": true,
+      "**/pubspec.lock": true,
+      "**/build/**": true
     },
     "files.watcherExclude": {
       "**/coverage/**": true,
+      "**/.build/**": true,
       "**/build/**": true,
-      "**/.dart_tool": true
+      "**/.dart_tool": true,
+      "**/*.symlinks": true,
+      "**/fvm/**": true
     },
     "explorer.confirmDragAndDrop": false,
     "explorer.fileNesting.enabled": true,

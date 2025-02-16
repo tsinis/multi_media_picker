@@ -1,0 +1,28 @@
+name: multimedia_picker_testing
+description: A multimedia_picker testing suite.
+version: 0.0.1
+publish_to: none
+
+topics:
+  - multimedia-picker-test
+  - multimedia-picker-testing
+  - multimedia-picker-tests
+  - multi-media-picker-test
+  - multimedia-picker-testing-suite
+
+resolution: workspace
+
+environment:
+  sdk: ^3.7.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  multimedia_picker:
+    path: ../multimedia_picker
+
+dev_dependencies:
+  dart_code_metrics_presets: ^2.20.0
+  flutter_lints: ^5.0.0
+  flutter_test:
+    sdk: flutter

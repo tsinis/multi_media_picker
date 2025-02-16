@@ -52,6 +52,10 @@ dart_code_metrics:
     # Disabled:
     - prefer-correct-throws: false # Introduces additional dependency.
     # Adjusted:
+    - avoid-long-functions:
+        exclude:
+          - test/**/*.dart
+          - integration_test/**
     - prefer-correct-identifier-length:
         # i for index, x/y for math operations, sb for StringBuffer, io for IO,
         # a/b are convenient for sorting, e for the element, ui for user interface,
@@ -153,7 +157,6 @@ dart_code_metrics:
     - avoid-late-final-reassignment
     - avoid-local-functions
     - avoid-long-files
-    - avoid-long-functions
     - avoid-long-parameter-list
     - avoid-long-records
     - avoid-map-keys-contains
@@ -383,7 +386,7 @@ dart_code_metrics:
     # Disabled:
     - avoid-adjacent-strings: false # Only being used in toString() methods.
     - avoid-ignoring-return-values: false # Mostly, collection methods are ignored.
-    - prefer-test-matchers: true # Introduces coupling in tests.
+    - prefer-test-matchers: false # Introduces coupling in tests.
     - no-empty-string: false #This will be a breaking change.
     - prefer-class-destructuring: false # Increasing complexity, reducing readability.
 
