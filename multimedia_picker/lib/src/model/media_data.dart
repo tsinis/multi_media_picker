@@ -2,9 +2,7 @@ import 'dart:io' show File;
 
 import 'package:flutter/foundation.dart' show ValueGetter, immutable, protected;
 import 'package:multimedia_picker_platform_interface/multimedia_picker_platform_interface.dart'
-    show RawMediaData;
-
-import '../../multimedia_picker.dart';
+    show MediaType, RawMediaData;
 
 @immutable
 class MediaData implements RawMediaData {

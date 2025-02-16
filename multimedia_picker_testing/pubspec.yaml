@@ -21,6 +21,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_test:
+    sdk: flutter
   multimedia_picker:
     path: ../multimedia_picker
   multimedia_picker_platform_interface:
@@ -29,5 +31,3 @@ dependencies:
 dev_dependencies:
   dart_code_metrics_presets: ^2.20.0
   flutter_lints: ^5.0.0
-  flutter_test:
-    sdk: flutter

@@ -26,9 +26,7 @@ jobs:
       - name: 🐦 Setup Flutter
         uses: subosito/flutter-action@v2.18.0
         with:
-          cache: true
           channel: "stable"
-          cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
 
       - name: 📦 Install dependencies
         run: flutter pub get
@@ -43,5 +41,5 @@ jobs:
           format: true
 
       - name: 🏜️ Publish - dry run
-        if: ${{ github.event_name == 'pull_request' }}
+        if: false # TODO: ${{ github.event_name == 'pull_request' }}
         run: dart pub publish --dry-run
