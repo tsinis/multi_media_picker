@@ -18,6 +18,20 @@ PlatformException _createConnectionError(String channelName) {
   );
 }
 
+List<Object?> wrapResponse({
+  Object? result,
+  PlatformException? error,
+  bool empty = false,
+}) {
+  if (empty) {
+    return <Object?>[];
+  }
+  if (error == null) {
+    return <Object?>[result];
+  }
+  return <Object?>[error.code, error.message, error.details];
+}
+
 enum CaptureSessionPreset {
   cif352x288,
   vga640x480,

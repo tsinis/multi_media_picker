@@ -320,13 +320,15 @@ class RawCameraConfiguration {
     copyrightHeader: 'pigeons/copyright_header.txt',
     dartOut: 'lib/src/messages.g.dart',
     dartPackageName: 'multimedia_picker',
+    dartTestOut:
+        '../multimedia_picker_testing/lib/src/test_multimedia_api.g.dart',
     debugGenerators: true,
     oneLanguage: false,
     swiftOut:
         '../multimedia_picker_ios/ios/multimedia_picker_ios/Sources/multimedia_picker_ios/Classes/messages.g.swift',
   ),
 )
-@HostApi(dartHostTestHandler: 'TestMultiMediaApi')
+@HostApi(dartHostTestHandler: 'TestMultimediaApi')
 abstract class MultiMediaApi {
   @async
   RawMediaData? openCamera(
