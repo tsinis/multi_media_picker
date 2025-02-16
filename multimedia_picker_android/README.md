@@ -1,6 +1,6 @@
 # multimedia_picker_android
 
-The Android implementation of [`multimedia_picker`](../multimedia_picker/).
+The Android implementation of [`multimedia_picker`](../../multimedia_picker/).
 
 ## Usage
 

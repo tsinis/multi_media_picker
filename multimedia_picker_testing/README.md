@@ -1,6 +1,6 @@
 # multimedia_picker_testing
 
-Testing utilities for the [`multimedia_picker`](../multimedia_picker/) plugin.
+Testing utilities for the [`multimedia_picker`](../../multimedia_picker/) plugin.
 
 ## Usage
 

@@ -1,6 +1,6 @@
 # multimedia_picker_ios
 
-The iOS implementation of [`multimedia_picker`](../multimedia_picker/).
+The iOS implementation of [`multimedia_picker`](../../multimedia_picker/).
 
 ## Usage
 
