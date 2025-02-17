@@ -34,7 +34,7 @@ void main() {
 
   test('can mock camera capture', () async {
     mock.onOpenCamera = (_, _, _, _) =>
-        MediaData(File('test.jpg'), timestamp: DateTime.now());
+        MediaData(File('test.jpg'), timestamp: DateTime.timestamp());
 
     final result = await const MultimediaPicker().openCamera();
     expect(result?.file.path, 'test.jpg');
