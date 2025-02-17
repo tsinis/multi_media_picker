@@ -23,7 +23,7 @@ void main() => group('$MockMultimediaPickerPlatform', () {
 
   group('openCamera', () {
     test(highLevelHandler, () async {
-      mock.onOpenCamera = (_, _, _, _) => MediaData.ts(file, DateTime.now);
+      mock.onOpenCamera = (_, _, _, _) => MediaData.ts(file);
 
       final result = await const MultimediaPicker().openCamera();
 
@@ -60,9 +60,9 @@ void main() => group('$MockMultimediaPickerPlatform', () {
 
   group('editMedia', () {
     test(highLevelHandler, () async {
-      mock.onEditMedia = (_, _, _, _) => MediaData.ts(file, DateTime.now);
+      mock.onEditMedia = (_, _, _, _) => MediaData.ts(file);
 
-      final originalMedia = MediaData.ts(file, DateTime.timestamp);
+      final originalMedia = MediaData.ts(file);
       final result = await const MultimediaPicker().editMedia(originalMedia);
 
       expect(result?.file.path, file.path);
@@ -74,9 +74,7 @@ void main() => group('$MockMultimediaPickerPlatform', () {
       expect(mock.log.hasZeroInteractions, isTrue);
       expect(
         // ignore: avoid-redundant-async, false positive.
-        () async => const MultimediaPicker().editMedia(
-          MediaData.ts(file, DateTime.timestamp),
-        ),
+        () async => const MultimediaPicker().editMedia(MediaData.ts(file)),
         throwsA(isA<PlatformException>()),
       );
       expect(mock.log.callCount(PickerCall.editMedia), 1);
@@ -115,7 +113,7 @@ void main() => group('$MockMultimediaPickerPlatform', () {
     });
 
     test(highLevelHandler, () async {
-      mock.onOpenGallery = (_, _, _) => [MediaData.ts(file, DateTime.now)];
+      mock.onOpenGallery = (_, _, _) => [MediaData.ts(file)];
 
       final resultsList = await const MultimediaPicker().openGallery();
 

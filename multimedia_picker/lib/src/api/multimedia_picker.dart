@@ -2,7 +2,7 @@
 
 import 'dart:collection' show UnmodifiableListView;
 
-import 'package:flutter/foundation.dart' show visibleForTesting;
+import 'package:flutter/foundation.dart' show immutable, visibleForTesting;
 import 'package:multimedia_picker_platform_interface/multimedia_picker_platform_interface.dart';
 
 import '../helpers/extensions/model/internal/camera_configuration_extension_internal.dart';
@@ -19,25 +19,26 @@ import '../model/media_data.dart';
 import '../model/submodels/named_image.dart';
 import '../model/typedefs.dart';
 
+@immutable
 class MultimediaPicker {
   const MultimediaPicker({
     this.cameraConfiguration = const CameraConfiguration(),
-    DateTimeProvider? dateTimeProvider,
+    this.dateTimeProvider = DateTime.timestamp,
     this.editConfiguration = const EditConfiguration(),
     this.pickerConfiguration = const PickerConfiguration(),
     this.uiConfiguration = const UiConfiguration(),
-  }) : _dateTimeProvider = dateTimeProvider;
+  });
 
   @visibleForTesting
   static MultimediaPickerPlatform get platform =>
       MultimediaPickerPlatform.instance;
 
   final CameraConfiguration cameraConfiguration;
+  // ignore: prefer-correct-callback-field-name, it's provider like callback.
+  final DateTimeProvider dateTimeProvider;
   final EditConfiguration editConfiguration;
   final PickerConfiguration pickerConfiguration;
   final UiConfiguration uiConfiguration;
-  // ignore: prefer-correct-callback-field-name, it's provider like callback.
-  final DateTimeProvider? _dateTimeProvider;
 
   Future<MediaData?> openCamera() => _openCamera(hasToThrow: true);
 
@@ -124,7 +125,7 @@ class MultimediaPicker {
         ui.raw,
       );
 
-      return raw?.toMediaData(dateTimeProvider: _dateTimeProvider);
+      return raw?.toMediaData(dateTimeProvider: dateTimeProvider);
     } catch (_) {
       if (hasToThrow) rethrow;
 
@@ -153,7 +154,7 @@ class MultimediaPicker {
     }
 
     return MediaDataList(
-      list.map((raw) => raw.toMediaData(dateTimeProvider: _dateTimeProvider)),
+      list.map((raw) => raw.toMediaData(dateTimeProvider: dateTimeProvider)),
     );
   }
 
@@ -180,7 +181,7 @@ class MultimediaPicker {
       if (hasToThrow) rethrow;
     }
 
-    final output = raw?.toMediaData(dateTimeProvider: _dateTimeProvider);
+    final output = raw?.toMediaData(dateTimeProvider: dateTimeProvider);
     if (output == input) return null;
     if (shouldEvictThumbnailCache) raw?.willEvictImageCache(input);
 

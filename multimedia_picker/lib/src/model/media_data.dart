@@ -16,13 +16,13 @@ class MediaData implements RawMediaData {
   });
 
   MediaData.ts(
-    this.file,
-    ValueGetter<DateTime> timestampGetter, {
+    this.file, {
     this.duration = Duration.zero,
     this.fileSize = 0,
     this.thumbnail,
+    ValueGetter<DateTime> timestamp = DateTime.timestamp,
     this.type = MediaType.image,
-  }) : timestamp = timestampGetter();
+  }) : timestamp = timestamp();
 
   factory MediaData.fromFile(
     File file, {
@@ -39,7 +39,7 @@ class MediaData implements RawMediaData {
         maybeTimestamp = file.lastModifiedSync();
         // ignore: avoid_catches_without_on_clauses, it's a generic catch.
       } catch (_) {
-        maybeTimestamp = DateTime.now().toUtc();
+        maybeTimestamp = DateTime.timestamp();
       }
     }
 
@@ -136,17 +136,17 @@ class MediaData implements RawMediaData {
 
   @override
   @protected
-  set durationSec(int? value) => UnsupportedError(_readOnlyError);
+  set durationSec(int? value) => throw UnsupportedError(_readOnlyError);
 
   @override
   @protected
-  set path(String value) => UnsupportedError(_readOnlyError);
+  set path(String value) => throw UnsupportedError(_readOnlyError);
 
   @override
   @protected
-  set thumbPath(String? value) => UnsupportedError(_readOnlyError);
+  set thumbPath(String? value) => throw UnsupportedError(_readOnlyError);
 
   @override
   @protected
-  set type(MediaType value) => UnsupportedError(_readOnlyError);
+  set type(MediaType value) => throw UnsupportedError(_readOnlyError);
 }

@@ -1,10 +1,6 @@
 name: verify_packages
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "multimedia_*/**"
   pull_request:
     branches: [main]
     paths:
