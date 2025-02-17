@@ -9,7 +9,9 @@ import '../../../../model/typedefs.dart';
 extension RawMediaDataExtension on RawMediaData {
   MediaData toMediaData({DateTimeProvider? dateTimeProvider}) {
     final mediaFile = File(path);
-    assert(mediaFile.existsSync(), 'Media file $path does not exist!');
+    if (!mediaFile.existsSync()) {
+      throw FileSystemException('Media file does not exist!', path);
+    }
     final thumbnail = thumbPath?.trim() ?? '';
 
     return MediaData.fromFile(
