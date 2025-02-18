@@ -4,6 +4,8 @@ import 'dart:io' show Directory;
 
 import 'package:flutter/foundation.dart' show immutable;
 
+import '../../helpers/multimedia_picker_defaults.dart';
+
 @immutable
 class PickerConfiguration {
   const PickerConfiguration({
@@ -20,32 +22,35 @@ class PickerConfiguration {
     this.allowSlideSelect = true,
     this.allowTakePhotoInLibrary = true,
     this.alwaysRequestOriginal = false,
-    this.autoScrollMaxSpeed = 600,
+    this.autoScrollMaxSpeed = MultimediaPickerDefaults.autoScrollMaxSpeed,
     this.autoScrollWhenSlideSelectIsActive = true,
     this.callbackDirectlyAfterTakingPhoto = false,
     this.cropVideoAfterSelectThumbnail = true,
     this.directory,
     this.downloadVideoBeforeSelecting = false,
     this.editAfterSelectThumbnailImage = true,
-    String filename = '',
-    this.initialIndex = 1,
-    this.maxEditVideoDuration = const Duration(seconds: 10),
-    this.maxPreviewCount = 20,
-    this.maxSelectCount = 9,
+    String filename = MultimediaPickerDefaults.filename,
+    this.initialIndex = MultimediaPickerDefaults.initialIndex,
+    this.maxEditVideoDuration = MultimediaPickerDefaults.maxEditVideoDuration,
+    this.maxPreviewCount = MultimediaPickerDefaults.maxPreviewCount,
+    this.maxSelectCount = MultimediaPickerDefaults.maxSelectCount,
     this.maxSelectVideoDataSizeKB = -1,
-    this.maxSelectVideoDuration = const Duration(seconds: 120),
-    this.maxVideoSelectCount = 0,
-    this.minSelectVideoDataSizeKB = 0,
-    this.minSelectVideoDuration = Duration.zero,
-    this.minVideoSelectCount = 0,
+    this.maxSelectVideoDuration =
+        MultimediaPickerDefaults.maxSelectVideoDuration,
+    this.maxVideoSelectCount = MultimediaPickerDefaults.maxVideoSelectCount,
+    this.minSelectVideoDataSizeKB =
+        MultimediaPickerDefaults.minSelectVideoDataSizeKB,
+    this.minSelectVideoDuration =
+        MultimediaPickerDefaults.minSelectVideoDuration,
+    this.minVideoSelectCount = MultimediaPickerDefaults.minVideoSelectCount,
     this.saveNewImageAfterEdit = true,
     this.showOriginalSizeWhenSelectOriginal = true,
     this.showPreviewButtonInAlbum = true,
     this.showSelectButtonWhenSingleSelect = false,
     this.showSelectCountOnDoneButton = true,
     this.showSelectedIndex = true,
-    this.thumbnailPrefix = '.thumbnail_',
-    this.thumbnailWidth = 200,
+    this.thumbnailPrefix = MultimediaPickerDefaults.thumbnailPrefix,
+    this.thumbnailWidth = MultimediaPickerDefaults.thumbnailWidth,
     this.useCustomCamera = true,
   }) : _filename = filename;
 

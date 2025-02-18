@@ -5,21 +5,24 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart' show immutable;
 import 'package:multimedia_picker_platform_interface/multimedia_picker_platform_interface.dart';
 
+import '../../helpers/multimedia_picker_defaults.dart';
+
 @immutable
 class UiConfiguration {
   const UiConfiguration({
-    this.adjustSliderType = AdjustSliderType.vertical,
+    this.adjustSliderType = MultimediaPickerDefaults.adjustSliderType,
     this.animateSelectButtonWhenSelectInPreview = true,
     this.animateSelectButtonWhenSelectInThumbnail = false,
-    this.cellCornerRadio = 0,
-    this.columnCount = 4,
-    this.hudStyle = HudStyle.dark,
+    this.cellCornerRadio = MultimediaPickerDefaults.cellCornerRadio,
+    this.columnCount = MultimediaPickerDefaults.columnCount,
+    this.hudStyle = MultimediaPickerDefaults.hudStyle,
     this.isDarkStatusBarStyle,
-    this.languageType = UiLocale.system,
-    this.minimumItemSpacing = 2,
-    this.minimumLineSpacing = 2,
-    this.navCancelButtonStyle = CancelButtonStyle.image,
-    this.selectButtonAnimationDuration = const Duration(milliseconds: 500),
+    this.languageType = MultimediaPickerDefaults.languageType,
+    this.minimumItemSpacing = MultimediaPickerDefaults.minimumItemSpacing,
+    this.minimumLineSpacing = MultimediaPickerDefaults.minimumLineSpacing,
+    this.navCancelButtonStyle = MultimediaPickerDefaults.navCancelButtonStyle,
+    this.selectButtonAnimationDuration =
+        MultimediaPickerDefaults.selectButtonAnimationDuration,
     this.shouldCenterTools = false,
     this.showAddPhotoButton = true,
     this.showCaptureImageOnTakePhotoButton = false,
@@ -32,9 +35,10 @@ class UiConfiguration {
     this.showSelectedPhotoPreview = true,
     this.showStatusBarInPreviewInterface = false,
     this.sortAscending = true,
-    this.style = PhotoBrowserStyle.embedAlbumList,
-    this.themeColor = const Color(0xFFf0aa00),
-    this.timeout = const Duration(seconds: 20),
+    this.style = MultimediaPickerDefaults.photoBrowserStyle,
+    this.themeColor = MultimediaPickerDefaults.themeColor,
+    this.themeFontName,
+    this.timeout = MultimediaPickerDefaults.timeout,
   });
 
   /// Photo sorting method, the preview interface is not affected by this
@@ -131,6 +135,9 @@ class UiConfiguration {
   /// The theme color of picker. Defaults to `Color.fromARGB(255, 240, 170, 0)`.
   final Color themeColor;
 
+  // The font name of the theme. Defaults to `null`.
+  final String? themeFontName;
+
   // ignore: avoid-high-cyclomatic-complexity, regular copyWith of a big class.
   UiConfiguration copyWith({
     AdjustSliderType? adjustSliderType,
@@ -159,6 +166,7 @@ class UiConfiguration {
     bool? sortAscending,
     PhotoBrowserStyle? style,
     Color? themeColor,
+    String? themeFontName,
     Duration? timeout,
   }) => UiConfiguration(
     adjustSliderType: adjustSliderType ?? this.adjustSliderType,
@@ -198,6 +206,7 @@ class UiConfiguration {
     sortAscending: sortAscending ?? this.sortAscending,
     style: style ?? this.style,
     themeColor: themeColor ?? this.themeColor,
+    themeFontName: themeFontName ?? this.themeFontName,
     timeout: timeout ?? this.timeout,
   );
 
@@ -225,6 +234,7 @@ class UiConfiguration {
       'showEnterSettingTips: $showEnterSettingTips, '
       'shouldCenterTools: $shouldCenterTools, '
       'timeout: $timeout, languageType: $languageType, '
+      '${themeFontName == null ? '' : "themeFontName: '$themeFontName', "}'
       'themeColor: $themeColor)';
 
   @override
@@ -263,6 +273,7 @@ class UiConfiguration {
         other.shouldCenterTools == shouldCenterTools &&
         other.timeout == timeout &&
         other.languageType == languageType &&
+        other.themeFontName == themeFontName &&
         other.themeColor == themeColor;
   }
 
@@ -294,5 +305,6 @@ class UiConfiguration {
       shouldCenterTools.hashCode ^
       timeout.hashCode ^
       languageType.hashCode ^
+      themeFontName.hashCode ^
       themeColor.hashCode;
 }

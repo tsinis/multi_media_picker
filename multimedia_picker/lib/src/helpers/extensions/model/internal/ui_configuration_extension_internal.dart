@@ -35,6 +35,7 @@ extension UiConfigurationExtensionInternal on UiConfiguration {
     sortAscending: sortAscending,
     style: style,
     themeColor: themeColor.rawValue,
+    themeFontName: themeFontName,
     timeout: timeout.inMilliseconds / Duration.millisecondsPerSecond,
   );
 }

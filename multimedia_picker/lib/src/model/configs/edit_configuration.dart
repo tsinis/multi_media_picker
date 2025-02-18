@@ -3,15 +3,17 @@
 import 'package:flutter/foundation.dart' show immutable, setEquals;
 import 'package:multimedia_picker_platform_interface/multimedia_picker_platform_interface.dart';
 
+import '../../helpers/multimedia_picker_defaults.dart';
+
 @immutable
 class EditConfiguration {
   const EditConfiguration({
     this.adjustTools = const {},
     this.clipOptions,
     this.dimClippedAreaDuringAdjustments = false,
-    this.impactFeedbackStyle = ImpactFeedbackStyle.medium,
+    this.impactFeedbackStyle = MultimediaPickerDefaults.impactFeedbackStyle,
     this.impactFeedbackWhenAdjustSliderValueIsZero = true,
-    this.minimumZoomScale = 1.0,
+    this.minimumZoomScale = MultimediaPickerDefaults.minimumZoomScale,
     this.showClipDirectlyIfOnlyHasClipTool = false,
     this.tools = const {},
   });
