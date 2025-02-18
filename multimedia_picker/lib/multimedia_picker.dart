@@ -16,6 +16,7 @@ export 'src/helpers/extensions/model/public/maybe_media_data_extension.dart';
 export 'src/helpers/extensions/model/public/media_data_extension.dart';
 export 'src/helpers/extensions/model/public/overlay_image_extension.dart';
 export 'src/helpers/extensions/multimedia_picker_extension.dart';
+export 'src/helpers/multimedia_picker_defaults.dart';
 export 'src/model/configs/camera_configuration.dart';
 export 'src/model/configs/edit_configuration.dart';
 export 'src/model/configs/picker_configuration.dart';

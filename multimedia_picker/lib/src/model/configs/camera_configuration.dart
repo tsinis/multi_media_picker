@@ -3,6 +3,7 @@
 import 'package:flutter/foundation.dart' show immutable;
 import 'package:multimedia_picker_platform_interface/multimedia_picker_platform_interface.dart';
 
+import '../../helpers/multimedia_picker_defaults.dart';
 import '../submodels/overlay_image.dart';
 
 @immutable
@@ -11,18 +12,18 @@ class CameraConfiguration {
     this.allowRecordVideo = true,
     this.allowSwitchCamera = true,
     this.allowTakePhoto = true,
-    this.devicePosition = DevicePosition.back,
+    this.devicePosition = MultimediaPickerDefaults.devicePosition,
     this.enableWideCameras = true,
-    this.exposureMode = ExposureMode.continuousAutoExposure,
-    this.focusMode = FocusMode.continuousAutoFocus,
+    this.exposureMode = MultimediaPickerDefaults.exposureMode,
+    this.focusMode = MultimediaPickerDefaults.focusMode,
     this.isFrontVideoMirrored = true,
-    this.maxDuration = const Duration(seconds: 30),
-    this.minDuration = Duration.zero,
+    this.maxDuration = MultimediaPickerDefaults.maxVideoDuration,
+    this.minDuration = MultimediaPickerDefaults.minVideoDuration,
     this.overlayImage = OverlayImage.empty,
-    this.sessionPreset = CaptureSessionPreset.hd1920x1080,
+    this.sessionPreset = MultimediaPickerDefaults.sessionPreset,
     this.showFlashSwitch = true,
     this.tapToRecordVideo = true,
-    this.videoExportType = VideoExportType.mp4,
+    this.videoExportType = MultimediaPickerDefaults.videoExportType,
     this.videoStabilization,
   });
 
