@@ -392,7 +392,7 @@ class RawPickerConfiguration {
     this.showSelectedIndex = true,
     this.thumbnailPrefix = '.thumbnail_',
     this.thumbnailWidth = 200,
-    this.maxEditVideoDurationSeconds = 10,
+    this.maxEditVideoDurationSeconds = 30,
     this.maxSelectVideoDurationSeconds = 120,
     this.minSelectVideoDurationSeconds = 0,
     this.maxSelectVideoDataSizeKB,

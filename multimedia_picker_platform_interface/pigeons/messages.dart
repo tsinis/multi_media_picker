@@ -201,7 +201,7 @@ class RawPickerConfiguration {
     this.editAfterSelectThumbnailImage = false,
     this.filename,
     this.initialIndex = 1,
-    this.maxEditVideoDurationSeconds = 10,
+    this.maxEditVideoDurationSeconds = 30,
     this.maxPreviewCount = 20,
     this.maxSelectCount = 9,
     this.maxSelectVideoDataSizeKB,

@@ -77,10 +77,6 @@ sealed class MultimediaPickerDefaults {
   /// Value: `-1.0` KB (no limit).
   static const defaultSelectVideoDataSizeKB = -1.0;
 
-  /// Maximum duration for video editing.
-  /// Value: `Duration(seconds: 10)`.
-  static const maxEditVideoDuration = Duration(seconds: 10);
-
   /// Maximum duration of selectable videos.
   /// Value: `Duration(seconds: 120)`.
   static const maxSelectVideoDuration = Duration(seconds: 120);
