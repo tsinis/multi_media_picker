@@ -54,7 +54,11 @@ class _MainState extends State<Main> with SingleTickerProviderStateMixin {
         directory: widget.outputDir,
         filename: 'file',
       ),
-      uiConfiguration: _uiConfig.value,
+      uiConfiguration: _uiConfig.value.copyWith(
+        l10n: const PickerLocalizations(
+          iOsCameraTapToRecordVideoTip: 'Custom tap to record video message',
+        ),
+      ),
     );
 
     final media = await action(picker);
