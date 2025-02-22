@@ -145,6 +145,10 @@ sealed class MultimediaPickerDefaults {
   /// Value: `DevicePosition.back`.
   static const devicePosition = DevicePosition.back;
 
+  /// Default camera orientation.
+  /// Value: `CameraOrientation.any`.
+  static const orientation = CameraOrientation.any;
+
   /// Default haptic feedback intensity.
   /// Value: `ImpactFeedbackStyle.medium`.
   static const impactFeedbackStyle = ImpactFeedbackStyle.medium;

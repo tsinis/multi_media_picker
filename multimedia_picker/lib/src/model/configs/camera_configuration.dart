@@ -19,6 +19,7 @@ class CameraConfiguration {
     this.isFrontVideoMirrored = true,
     this.maxDuration = MultimediaPickerDefaults.maxVideoDuration,
     this.minDuration = MultimediaPickerDefaults.minVideoDuration,
+    this.orientation = MultimediaPickerDefaults.orientation,
     this.overlayImage = OverlayImage.empty,
     this.sessionPreset = MultimediaPickerDefaults.sessionPreset,
     this.showFlashSwitch = true,
@@ -77,6 +78,9 @@ class CameraConfiguration {
   /// Overlay image on camera view. Defaults to no overlay (empty image).
   final OverlayImage overlayImage;
 
+  /// Camera outputs orientation. Defaults to `any` (not specified).
+  final CameraOrientation orientation;
+
   CameraConfiguration copyWith({
     bool? allowRecordVideo,
     bool? allowSwitchCamera,
@@ -88,6 +92,7 @@ class CameraConfiguration {
     bool? isFrontVideoMirrored,
     Duration? maxDuration,
     Duration? minDuration,
+    CameraOrientation? orientation,
     OverlayImage? overlayImage,
     CaptureSessionPreset? sessionPreset,
     bool? showFlashSwitch,
@@ -105,6 +110,7 @@ class CameraConfiguration {
     isFrontVideoMirrored: isFrontVideoMirrored ?? this.isFrontVideoMirrored,
     maxDuration: maxDuration ?? this.maxDuration,
     minDuration: minDuration ?? this.minDuration,
+    orientation: orientation ?? this.orientation,
     overlayImage: overlayImage ?? this.overlayImage,
     sessionPreset: sessionPreset ?? this.sessionPreset,
     showFlashSwitch: showFlashSwitch ?? this.showFlashSwitch,
@@ -119,8 +125,8 @@ class CameraConfiguration {
       'allowRecordVideo: $allowRecordVideo, minDuration: $minDuration, '
       'maxDuration: $maxDuration, isFrontVideoMirrored: $isFrontVideoMirrored, '
       'sessionPreset: $sessionPreset, focusMode: $focusMode, '
-      'exposureMode: $exposureMode, overlayImage: $overlayImage, '
-      'showFlashSwitch: $showFlashSwitch, '
+      'exposureMode: $exposureMode, orientation: $orientation, '
+      'overlayImage: $overlayImage, showFlashSwitch: $showFlashSwitch, '
       'allowSwitchCamera: $allowSwitchCamera, '
       'tapToRecordVideo: $tapToRecordVideo, '
       'enableWideCameras: $enableWideCameras, '
@@ -137,6 +143,7 @@ class CameraConfiguration {
         other.allowRecordVideo == allowRecordVideo &&
         other.minDuration == minDuration &&
         other.maxDuration == maxDuration &&
+        other.orientation == orientation &&
         other.overlayImage == overlayImage &&
         other.isFrontVideoMirrored == isFrontVideoMirrored &&
         other.sessionPreset == sessionPreset &&
@@ -157,6 +164,7 @@ class CameraConfiguration {
       allowRecordVideo.hashCode ^
       minDuration.hashCode ^
       maxDuration.hashCode ^
+      orientation.hashCode ^
       overlayImage.hashCode ^
       isFrontVideoMirrored.hashCode ^
       sessionPreset.hashCode ^

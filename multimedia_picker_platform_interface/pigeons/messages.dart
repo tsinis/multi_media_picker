@@ -65,6 +65,14 @@ enum VideoExportType { mov, mp4 }
 
 enum VideoStabilization { off, standard, cinematic, cinematicExtended }
 
+enum CameraOrientation {
+  any,
+  portrait,
+  portraitUpsideDown,
+  landscapeRight,
+  landscapeLeft,
+}
+
 class RawOverlayImage {
   const RawOverlayImage(
     this.path, {
@@ -289,6 +297,7 @@ class RawCameraConfiguration {
     this.isFrontVideoMirrored = true,
     this.maxDurationSeconds = 30,
     this.minDurationSeconds = 0,
+    this.orientation = CameraOrientation.any,
     this.overlayImage,
     this.sessionPreset = CaptureSessionPreset.hd1920x1080,
     this.showFlashSwitch = true,
@@ -313,6 +322,7 @@ class RawCameraConfiguration {
   final DevicePosition devicePosition;
   final RawOverlayImage? overlayImage;
   final VideoStabilization? videoStabilization;
+  final CameraOrientation orientation;
 }
 
 @ConfigurePigeon(
