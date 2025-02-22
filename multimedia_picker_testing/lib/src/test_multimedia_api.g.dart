@@ -71,26 +71,29 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is RawOverlayImage) {
       buffer.putUint8(145);
       writeValue(buffer, value.encode());
-    } else if (value is RawUiConfiguration) {
+    } else if (value is RawLocalizations) {
       buffer.putUint8(146);
       writeValue(buffer, value.encode());
-    } else if (value is ClipAspectRatio) {
+    } else if (value is RawUiConfiguration) {
       buffer.putUint8(147);
       writeValue(buffer, value.encode());
-    } else if (value is ClipOptions) {
+    } else if (value is ClipAspectRatio) {
       buffer.putUint8(148);
       writeValue(buffer, value.encode());
-    } else if (value is RawMediaData) {
+    } else if (value is ClipOptions) {
       buffer.putUint8(149);
       writeValue(buffer, value.encode());
-    } else if (value is RawPickerConfiguration) {
+    } else if (value is RawMediaData) {
       buffer.putUint8(150);
       writeValue(buffer, value.encode());
-    } else if (value is RawEditConfiguration) {
+    } else if (value is RawPickerConfiguration) {
       buffer.putUint8(151);
       writeValue(buffer, value.encode());
-    } else if (value is RawCameraConfiguration) {
+    } else if (value is RawEditConfiguration) {
       buffer.putUint8(152);
+      writeValue(buffer, value.encode());
+    } else if (value is RawCameraConfiguration) {
+      buffer.putUint8(153);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -151,18 +154,20 @@ class _PigeonCodec extends StandardMessageCodec {
       case 145:
         return RawOverlayImage.decode(readValue(buffer)!);
       case 146:
-        return RawUiConfiguration.decode(readValue(buffer)!);
+        return RawLocalizations.decode(readValue(buffer)!);
       case 147:
-        return ClipAspectRatio.decode(readValue(buffer)!);
+        return RawUiConfiguration.decode(readValue(buffer)!);
       case 148:
-        return ClipOptions.decode(readValue(buffer)!);
+        return ClipAspectRatio.decode(readValue(buffer)!);
       case 149:
-        return RawMediaData.decode(readValue(buffer)!);
+        return ClipOptions.decode(readValue(buffer)!);
       case 150:
-        return RawPickerConfiguration.decode(readValue(buffer)!);
+        return RawMediaData.decode(readValue(buffer)!);
       case 151:
-        return RawEditConfiguration.decode(readValue(buffer)!);
+        return RawPickerConfiguration.decode(readValue(buffer)!);
       case 152:
+        return RawEditConfiguration.decode(readValue(buffer)!);
+      case 153:
         return RawCameraConfiguration.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);

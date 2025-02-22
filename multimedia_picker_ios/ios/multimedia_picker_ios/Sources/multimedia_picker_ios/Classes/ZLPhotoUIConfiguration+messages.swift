@@ -39,5 +39,10 @@ extension ZLPhotoUIConfiguration {
       if #available(iOS 13.0, *) { return isDark ? .darkContent : .lightContent }
       return isDark ? .default : .lightContent
     }()
+
+    /// MARK: - Custom localizations mapping.
+    if let tapToRecordTip = config.l10n?.iOsCameraTapToRecordVideoTip {
+      self.customLanguageKeyValue([.customCameraTapToRecordVideoTips: tapToRecordTip])
+    }
   }
 }

@@ -89,6 +89,12 @@ class RawOverlayImage {
   final int tintColor;
 }
 
+class RawLocalizations {
+  const RawLocalizations({this.iOsCameraTapToRecordVideoTip});
+
+  final String? iOsCameraTapToRecordVideoTip;
+}
+
 class RawUiConfiguration {
   const RawUiConfiguration({
     this.adjustSliderType = AdjustSliderType.vertical,
@@ -98,6 +104,7 @@ class RawUiConfiguration {
     this.columnCount = 4,
     this.hudStyle = HudStyle.dark,
     this.isDarkStatusBarStyle,
+    this.l10n,
     this.languageType = UiLocale.system,
     this.minimumItemSpacing = 2,
     this.minimumLineSpacing = 2,
@@ -149,6 +156,7 @@ class RawUiConfiguration {
   final UiLocale languageType;
   final String? themeFontName;
   final int themeColor;
+  final RawLocalizations? l10n;
 }
 
 class ClipAspectRatio {

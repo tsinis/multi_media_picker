@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart' show immutable;
 import 'package:multimedia_picker_platform_interface/multimedia_picker_platform_interface.dart';
 
 import '../../helpers/multimedia_picker_defaults.dart';
+import '../submodels/picker_localizations.dart';
 
 @immutable
 class UiConfiguration {
@@ -17,6 +18,7 @@ class UiConfiguration {
     this.columnCount = MultimediaPickerDefaults.columnCount,
     this.hudStyle = MultimediaPickerDefaults.hudStyle,
     this.isDarkStatusBarStyle,
+    this.l10n = const PickerLocalizations(),
     this.languageType = MultimediaPickerDefaults.languageType,
     this.minimumItemSpacing = MultimediaPickerDefaults.minimumItemSpacing,
     this.minimumLineSpacing = MultimediaPickerDefaults.minimumLineSpacing,
@@ -135,8 +137,11 @@ class UiConfiguration {
   /// The theme color of picker. Defaults to `Color.fromARGB(255, 240, 170, 0)`.
   final Color themeColor;
 
-  // The font name of the theme. Defaults to `null`.
+  /// The font name of the theme. Defaults to `null`.
   final String? themeFontName;
+
+  /// Custom localization for the picker.
+  final PickerLocalizations l10n;
 
   // ignore: avoid-high-cyclomatic-complexity, regular copyWith of a big class.
   UiConfiguration copyWith({
@@ -147,6 +152,7 @@ class UiConfiguration {
     int? columnCount,
     HudStyle? hudStyle,
     bool? isDarkStatusBarStyle,
+    PickerLocalizations? l10n,
     UiLocale? languageType,
     double? minimumItemSpacing,
     double? minimumLineSpacing,
@@ -180,6 +186,7 @@ class UiConfiguration {
     columnCount: columnCount ?? this.columnCount,
     hudStyle: hudStyle ?? this.hudStyle,
     isDarkStatusBarStyle: isDarkStatusBarStyle ?? this.isDarkStatusBarStyle,
+    l10n: l10n ?? this.l10n,
     languageType: languageType ?? this.languageType,
     minimumItemSpacing: minimumItemSpacing ?? this.minimumItemSpacing,
     minimumLineSpacing: minimumLineSpacing ?? this.minimumLineSpacing,
@@ -232,7 +239,7 @@ class UiConfiguration {
       'showSelectedPhotoPreview: $showSelectedPhotoPreview, '
       'showAddPhotoButton: $showAddPhotoButton, '
       'showEnterSettingTips: $showEnterSettingTips, '
-      'shouldCenterTools: $shouldCenterTools, '
+      'shouldCenterTools: $shouldCenterTools, l10n: $l10n, '
       'timeout: $timeout, languageType: $languageType, '
       '${themeFontName == null ? '' : "themeFontName: '$themeFontName', "}'
       'themeColor: $themeColor)';
@@ -272,6 +279,7 @@ class UiConfiguration {
         other.showEnterSettingTips == showEnterSettingTips &&
         other.shouldCenterTools == shouldCenterTools &&
         other.timeout == timeout &&
+        other.l10n == l10n &&
         other.languageType == languageType &&
         other.themeFontName == themeFontName &&
         other.themeColor == themeColor;
@@ -304,6 +312,7 @@ class UiConfiguration {
       showEnterSettingTips.hashCode ^
       shouldCenterTools.hashCode ^
       timeout.hashCode ^
+      l10n.hashCode ^
       languageType.hashCode ^
       themeFontName.hashCode ^
       themeColor.hashCode;

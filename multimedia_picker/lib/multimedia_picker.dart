@@ -4,6 +4,7 @@ export 'package:multimedia_picker_platform_interface/multimedia_picker_platform_
     hide // TODO: Keep reducing the scope of it.
         RawCameraConfiguration,
         RawEditConfiguration,
+        RawLocalizations,
         RawMediaData,
         RawOverlayImage,
         RawPickerConfiguration,
@@ -23,6 +24,7 @@ export 'src/model/configs/picker_configuration.dart';
 export 'src/model/configs/ui_configuration.dart';
 export 'src/model/media_data.dart';
 export 'src/model/submodels/overlay_image.dart';
+export 'src/model/submodels/picker_localizations.dart';
 export 'src/ui/widgets/common/animated_child_switcher.dart';
 export 'src/ui/widgets/configs/camera_configuration_list_view.dart';
 export 'src/ui/widgets/configs/ui_configuration_list_view.dart';
