@@ -83,7 +83,7 @@ class _MainState extends State<Main> with SingleTickerProviderStateMixin {
     home: Scaffold(
       appBar: AppBar(
         bottom: TabBar(controller: _tabController, tabs: _tabs),
-        title: const Text('Multi-Media Picker'),
+        title: const Text('Multimedia Picker'),
       ),
       body: TabBarView(
         controller: _tabController,
