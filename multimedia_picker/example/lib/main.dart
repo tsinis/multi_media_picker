@@ -54,7 +54,11 @@ class _MainState extends State<Main> with SingleTickerProviderStateMixin {
         directory: widget.outputDir,
         filename: 'file',
       ),
-      uiConfiguration: _uiConfig.value,
+      uiConfiguration: _uiConfig.value.copyWith(
+        l10n: const PickerLocalizations(
+          iOsCameraTapToRecordVideoTip: 'Custom tap to record video message',
+        ),
+      ),
     );
 
     final media = await action(picker);
@@ -79,7 +83,7 @@ class _MainState extends State<Main> with SingleTickerProviderStateMixin {
     home: Scaffold(
       appBar: AppBar(
         bottom: TabBar(controller: _tabController, tabs: _tabs),
-        title: const Text('Multi-Media Picker'),
+        title: const Text('Multimedia Picker'),
       ),
       body: TabBarView(
         controller: _tabController,

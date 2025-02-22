@@ -14,6 +14,12 @@ extension UiConfigurationExtensionInternal on UiConfiguration {
     columnCount: columnCount.clamp(2, 6),
     hudStyle: hudStyle,
     isDarkStatusBarStyle: isDarkStatusBarStyle,
+    l10n: RawLocalizations(
+      iOsCameraTapToRecordVideoTip:
+          l10n.iOsCameraTapToRecordVideoTip.isNotEmpty
+              ? l10n.iOsCameraTapToRecordVideoTip
+              : null,
+    ),
     languageType: languageType,
     minimumItemSpacing: minimumItemSpacing,
     minimumLineSpacing: minimumLineSpacing,

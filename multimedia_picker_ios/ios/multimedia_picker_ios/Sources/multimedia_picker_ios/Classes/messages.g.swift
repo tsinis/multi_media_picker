@@ -218,6 +218,26 @@ struct RawOverlayImage {
 }
 
 /// Generated class from Pigeon that represents data sent in messages.
+struct RawLocalizations {
+  var iOsCameraTapToRecordVideoTip: String? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> RawLocalizations? {
+    let iOsCameraTapToRecordVideoTip: String? = nilOrValue(pigeonVar_list[0])
+
+    return RawLocalizations(
+      iOsCameraTapToRecordVideoTip: iOsCameraTapToRecordVideoTip
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      iOsCameraTapToRecordVideoTip
+    ]
+  }
+}
+
+/// Generated class from Pigeon that represents data sent in messages.
 struct RawUiConfiguration {
   var sortAscending: Bool
   var style: PhotoBrowserStyle
@@ -247,6 +267,7 @@ struct RawUiConfiguration {
   var languageType: UiLocale
   var themeFontName: String? = nil
   var themeColor: Int64
+  var l10n: RawLocalizations? = nil
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
@@ -279,6 +300,7 @@ struct RawUiConfiguration {
     let languageType = pigeonVar_list[25] as! UiLocale
     let themeFontName: String? = nilOrValue(pigeonVar_list[26])
     let themeColor = pigeonVar_list[27] as! Int64
+    let l10n: RawLocalizations? = nilOrValue(pigeonVar_list[28])
 
     return RawUiConfiguration(
       sortAscending: sortAscending,
@@ -308,7 +330,8 @@ struct RawUiConfiguration {
       timeout: timeout,
       languageType: languageType,
       themeFontName: themeFontName,
-      themeColor: themeColor
+      themeColor: themeColor,
+      l10n: l10n
     )
   }
   func toList() -> [Any?] {
@@ -341,6 +364,7 @@ struct RawUiConfiguration {
       languageType,
       themeFontName,
       themeColor,
+      l10n,
     ]
   }
 }
@@ -835,18 +859,20 @@ private class MessagesPigeonCodecReader: FlutterStandardReader {
     case 145:
       return RawOverlayImage.fromList(self.readValue() as! [Any?])
     case 146:
-      return RawUiConfiguration.fromList(self.readValue() as! [Any?])
+      return RawLocalizations.fromList(self.readValue() as! [Any?])
     case 147:
-      return ClipAspectRatio.fromList(self.readValue() as! [Any?])
+      return RawUiConfiguration.fromList(self.readValue() as! [Any?])
     case 148:
-      return ClipOptions.fromList(self.readValue() as! [Any?])
+      return ClipAspectRatio.fromList(self.readValue() as! [Any?])
     case 149:
-      return RawMediaData.fromList(self.readValue() as! [Any?])
+      return ClipOptions.fromList(self.readValue() as! [Any?])
     case 150:
-      return RawPickerConfiguration.fromList(self.readValue() as! [Any?])
+      return RawMediaData.fromList(self.readValue() as! [Any?])
     case 151:
-      return RawEditConfiguration.fromList(self.readValue() as! [Any?])
+      return RawPickerConfiguration.fromList(self.readValue() as! [Any?])
     case 152:
+      return RawEditConfiguration.fromList(self.readValue() as! [Any?])
+    case 153:
       return RawCameraConfiguration.fromList(self.readValue() as! [Any?])
     default:
       return super.readValue(ofType: type)
@@ -907,26 +933,29 @@ private class MessagesPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? RawOverlayImage {
       super.writeByte(145)
       super.writeValue(value.toList())
-    } else if let value = value as? RawUiConfiguration {
+    } else if let value = value as? RawLocalizations {
       super.writeByte(146)
       super.writeValue(value.toList())
-    } else if let value = value as? ClipAspectRatio {
+    } else if let value = value as? RawUiConfiguration {
       super.writeByte(147)
       super.writeValue(value.toList())
-    } else if let value = value as? ClipOptions {
+    } else if let value = value as? ClipAspectRatio {
       super.writeByte(148)
       super.writeValue(value.toList())
-    } else if let value = value as? RawMediaData {
+    } else if let value = value as? ClipOptions {
       super.writeByte(149)
       super.writeValue(value.toList())
-    } else if let value = value as? RawPickerConfiguration {
+    } else if let value = value as? RawMediaData {
       super.writeByte(150)
       super.writeValue(value.toList())
-    } else if let value = value as? RawEditConfiguration {
+    } else if let value = value as? RawPickerConfiguration {
       super.writeByte(151)
       super.writeValue(value.toList())
-    } else if let value = value as? RawCameraConfiguration {
+    } else if let value = value as? RawEditConfiguration {
       super.writeByte(152)
+      super.writeValue(value.toList())
+    } else if let value = value as? RawCameraConfiguration {
+      super.writeByte(153)
       super.writeValue(value.toList())
     } else {
       super.writeValue(value)

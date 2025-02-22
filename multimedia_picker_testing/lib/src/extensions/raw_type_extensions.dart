@@ -39,6 +39,9 @@ extension RawUiConfigurationTestingExtensions on RawUiConfiguration {
     columnCount: columnCount,
     hudStyle: hudStyle,
     isDarkStatusBarStyle: isDarkStatusBarStyle,
+    l10n: PickerLocalizations(
+      iOsCameraTapToRecordVideoTip: l10n?.iOsCameraTapToRecordVideoTip,
+    ),
     languageType: languageType,
     minimumItemSpacing: minimumItemSpacing,
     minimumLineSpacing: minimumLineSpacing,
