@@ -8,7 +8,7 @@ let package = Package(
     .library(name: "multimedia-picker-ios", targets: ["multimedia_picker_ios"])
   ],
   dependencies: [
-    .package(url: "https://github.com/longitachi/ZLPhotoBrowser.git", exact: Version(4, 5, 8))
+    .package(url: "https://github.com/tsinis/ZLPhotoBrowser.git", branch: "feat/camera-orientation")
   ],
   targets: [
     .target(

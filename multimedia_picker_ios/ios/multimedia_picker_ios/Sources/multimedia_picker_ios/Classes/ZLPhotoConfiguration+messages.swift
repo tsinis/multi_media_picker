@@ -35,6 +35,12 @@ extension ZLPhotoConfiguration {
     let videoStabilization =
       AVCaptureVideoStabilizationMode(rawValue: videoStabilizationRaw) ?? .auto
     this.videoStabilizationMode = videoStabilization
+
+    if config.orientation != .any {
+      if let outputOrientation = AVCaptureVideoOrientation(rawValue: config.orientation.rawValue) {
+        this.lockedOutputOrientation = outputOrientation
+      }
+    }
   }
 
   func updatePickerConfiguration(from config: RawPickerConfiguration) {

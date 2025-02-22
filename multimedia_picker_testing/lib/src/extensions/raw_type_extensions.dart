@@ -1,6 +1,7 @@
 // ignore_for_file: prefer-single-declaration-per-file,prefer-getter-over-method
 
 import 'dart:io' show Directory;
+import 'dart:math' show max;
 
 import 'package:flutter/material.dart' show Color;
 import 'package:multimedia_picker/multimedia_picker.dart';
@@ -75,8 +76,8 @@ extension RawCameraConfigurationTestingExtensions on RawCameraConfiguration {
     exposureMode: exposureMode,
     focusMode: focusMode,
     isFrontVideoMirrored: isFrontVideoMirrored,
-    maxDuration: Duration(seconds: maxDurationSeconds),
-    minDuration: Duration(seconds: minDurationSeconds),
+    maxDuration: maxDurationSeconds.duration,
+    minDuration: minDurationSeconds.duration,
     overlayImage: OverlayImage(
       overlayImage?.path,
       isAsset: overlayImage?.isAsset ?? false,
@@ -119,14 +120,14 @@ extension RawPickerConfigurationTestingExtensions on RawPickerConfiguration {
     editAfterSelectThumbnailImage: editAfterSelectThumbnailImage,
     filename: filename ?? '',
     initialIndex: initialIndex,
-    maxEditVideoDuration: Duration(seconds: maxEditVideoDurationSeconds),
+    maxEditVideoDuration: maxEditVideoDurationSeconds.duration,
     maxPreviewCount: maxPreviewCount,
     maxSelectCount: maxSelectCount,
     maxSelectVideoDataSizeKB: maxSelectVideoDataSizeKB ?? -1,
-    maxSelectVideoDuration: Duration(seconds: maxSelectVideoDurationSeconds),
+    maxSelectVideoDuration: maxSelectVideoDurationSeconds.duration,
     maxVideoSelectCount: maxVideoSelectCount,
     minSelectVideoDataSizeKB: minSelectVideoDataSizeKB,
-    minSelectVideoDuration: Duration(seconds: minSelectVideoDurationSeconds),
+    minSelectVideoDuration: minSelectVideoDurationSeconds.duration,
     minVideoSelectCount: minVideoSelectCount,
     saveNewImageAfterEdit: saveNewImageAfterEdit,
     showOriginalSizeWhenSelectOriginal: showOriginalSizeWhenSelectOriginal,
@@ -138,4 +139,8 @@ extension RawPickerConfigurationTestingExtensions on RawPickerConfiguration {
     thumbnailWidth: thumbnailWidth,
     useCustomCamera: useCustomCamera,
   );
+}
+
+extension _RawConfigurationDuration on int {
+  Duration get duration => Duration(seconds: max(0, this));
 }

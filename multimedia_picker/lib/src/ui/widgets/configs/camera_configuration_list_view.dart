@@ -35,6 +35,8 @@ class CameraConfigurationListView
     this.maxDurationTitle = const Text('Maximum video duration in seconds'),
     this.minDurationSubtitle = const SelectableText('minDuration'),
     this.minDurationTitle = const Text('Minimum video duration in seconds'),
+    this.orientationSubtitle = const SelectableText('orientation'),
+    this.orientationTitle = const Text('Output orientation'),
     this.sessionPresetSubtitle = const SelectableText('sessionPreset'),
     this.sessionPresetTitle = const Text('Session Preset'),
     this.showFlashSwitchSubtitle = const SelectableText('showFlashSwitch'),
@@ -78,6 +80,8 @@ class CameraConfigurationListView
   final Widget? maxDurationTitle;
   final Widget? minDurationSubtitle;
   final Widget? minDurationTitle;
+  final Widget? orientationSubtitle;
+  final Widget? orientationTitle;
   final Widget? sessionPresetSubtitle;
   final Widget? sessionPresetTitle;
   final Widget? showFlashSwitchSubtitle;
@@ -291,6 +295,30 @@ class CameraConfigurationListView
         subtitle: sessionPresetSubtitle,
         title: sessionPresetTitle,
         trailing: Text(currentConfig.sessionPreset.name.toUpperCase()),
+      ),
+    if (orientationTitle != null && orientationSubtitle != null)
+      TextStyledListTile(
+        leading: AnimatedChildSwitcher.icon(
+          condition:
+              currentConfig.orientation == CameraOrientation.landscapeLeft ||
+              currentConfig.orientation == CameraOrientation.landscapeRight,
+          falseIcon: Icons.screen_lock_portrait_outlined,
+          trueIcon: Icons.screen_lock_landscape_outlined,
+        ),
+        onTap:
+            () async => handleShowEnumPicker(
+              context,
+              currentConfig.orientation,
+              onSelected:
+                  (orientation) =>
+                      updateConfig = currentConfig.copyWith(
+                        orientation: orientation,
+                      ),
+              values: CameraOrientation.values,
+            ),
+        subtitle: orientationSubtitle,
+        title: orientationTitle,
+        trailing: Text(currentConfig.orientation.name.toUpperCase()),
       ),
     if (showFlashSwitchSubtitle != null && showFlashSwitchTitle != null)
       SwitchListTile(

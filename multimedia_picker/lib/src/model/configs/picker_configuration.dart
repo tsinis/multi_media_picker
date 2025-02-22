@@ -31,7 +31,7 @@ class PickerConfiguration {
     this.editAfterSelectThumbnailImage = true,
     String filename = MultimediaPickerDefaults.filename,
     this.initialIndex = MultimediaPickerDefaults.initialIndex,
-    this.maxEditVideoDuration = MultimediaPickerDefaults.maxEditVideoDuration,
+    this.maxEditVideoDuration = MultimediaPickerDefaults.maxVideoDuration,
     this.maxPreviewCount = MultimediaPickerDefaults.maxPreviewCount,
     this.maxSelectCount = MultimediaPickerDefaults.maxSelectCount,
     this.maxSelectVideoDataSizeKB = -1,
@@ -184,7 +184,8 @@ class PickerConfiguration {
   /// The width of the thumbnail image. Defaults to `200`.
   final int thumbnailWidth;
 
-  /// Maximum cropping time when editing video, unit: second. Defaults to `10`.
+  /// Maximum cropping time when editing video, unit: second. Defaults to `30`
+  /// seconds. Warning: Only valid when [allowEditVideo] is `true`.
   final Duration maxEditVideoDuration;
 
   /// Allow to choose the maximum duration of the video. Defaults to `120`.

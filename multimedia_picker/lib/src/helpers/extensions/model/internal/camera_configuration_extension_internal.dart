@@ -16,6 +16,7 @@ extension CameraConfigurationExtensionInternal on CameraConfiguration {
     isFrontVideoMirrored: isFrontVideoMirrored,
     maxDurationSeconds: maxDuration.inSeconds,
     minDurationSeconds: minDuration.inSeconds,
+    orientation: orientation,
     overlayImage: hasOverlay ? overlayImage.raw : null,
     sessionPreset: sessionPreset,
     showFlashSwitch: showFlashSwitch,
