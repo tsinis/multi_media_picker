@@ -298,6 +298,7 @@ class RawCameraConfiguration {
     this.allowRecordVideo = true,
     this.allowSwitchCamera = true,
     this.allowTakePhoto = true,
+    this.captureTimerSeconds = 0,
     this.devicePosition = DevicePosition.back,
     this.enableWideCameras = true,
     this.exposureMode = ExposureMode.continuousAutoExposure,
@@ -307,6 +308,7 @@ class RawCameraConfiguration {
     this.minDurationSeconds = 0,
     this.orientation = CameraOrientation.any,
     this.overlayImage,
+    this.playCameraSound = true,
     this.sessionPreset = CaptureSessionPreset.hd1920x1080,
     this.showFlashSwitch = true,
     this.tapToRecordVideo = true,
@@ -316,6 +318,7 @@ class RawCameraConfiguration {
 
   final bool allowTakePhoto;
   final bool allowRecordVideo;
+  final int captureTimerSeconds;
   final int minDurationSeconds;
   final int maxDurationSeconds;
   final bool isFrontVideoMirrored;
@@ -328,6 +331,7 @@ class RawCameraConfiguration {
   final bool enableWideCameras;
   final VideoExportType videoExportType;
   final DevicePosition devicePosition;
+  final bool playCameraSound;
   final RawOverlayImage? overlayImage;
   final VideoStabilization? videoStabilization;
   final CameraOrientation orientation;

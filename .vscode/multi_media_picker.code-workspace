@@ -173,13 +173,13 @@
   },
   "launch": {
     "version": "0.2.0",
-    "cwd": "${fileWorkspaceFolder}/example/lib/main.dart",
+    "cwd": "${workspaceFolder:Picker}/example",
     "configurations": [
       {
         "name": "Debug Example",
         "request": "launch",
         "type": "dart",
-        "program": "${fileWorkspaceFolder}/example/lib/main.dart"
+        "program": "${workspaceFolder:Picker}/example/lib/main.dart"
       }
     ]
   },
@@ -192,6 +192,7 @@
         "type": "shell",
         "command": "dart format .",
         "label": "Dart Format",
+        "options": { "cwd": "${workspaceFolder:Interface}/.." },
         "presentation": {
           "reveal": "never",
           "revealProblems": "onProblem",
@@ -200,13 +201,14 @@
       },
       {
         "type": "shell",
-        "command": "dart run pigeon --input pigeons/messages.dart && dart format .",
-        "label": "Run Pigeon and Format",
+        "command": "dart run pigeon --input pigeons/messages.dart",
+        "label": "Run Pigeon",
         "presentation": {
           "reveal": "never",
           "revealProblems": "onProblem",
           "close": true
         },
+        "options": { "cwd": "${workspaceFolder:Interface}" },
         "group": {
           "kind": "build",
           "isDefault": true
@@ -337,6 +339,12 @@
         "dependsOrder": "sequence",
         "dependsOn": ["Update Dart Coverage", "Open Coverage Report"],
         "presentation": { "revealProblems": "onProblem", "close": true }
+      },
+      {
+        "type": "shell",
+        "dependsOrder": "sequence",
+        "dependsOn": ["Run Pigeon", "Dart Format"],
+        "label": "Run Pigeon and Format"
       },
       {
         "type": "shell",

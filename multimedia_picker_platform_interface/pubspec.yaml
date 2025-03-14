@@ -18,4 +18,4 @@ dependencies:
 dev_dependencies:
   dart_code_metrics_presets: ^2.21.0
   flutter_lints: ^5.0.0
-  pigeon: ^24.2.1
+  pigeon: ^24.2.2
