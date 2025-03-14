@@ -12,6 +12,7 @@ class CameraConfiguration {
     this.allowRecordVideo = true,
     this.allowSwitchCamera = true,
     this.allowTakePhoto = true,
+    this.captureTimer = MultimediaPickerDefaults.captureTimer,
     this.devicePosition = MultimediaPickerDefaults.devicePosition,
     this.enableWideCameras = true,
     this.exposureMode = MultimediaPickerDefaults.exposureMode,
@@ -21,6 +22,7 @@ class CameraConfiguration {
     this.minDuration = MultimediaPickerDefaults.minVideoDuration,
     this.orientation = MultimediaPickerDefaults.orientation,
     this.overlayImage = OverlayImage.empty,
+    this.playCameraSound = true,
     this.sessionPreset = MultimediaPickerDefaults.sessionPreset,
     this.showFlashSwitch = true,
     this.tapToRecordVideo = true,
@@ -33,6 +35,10 @@ class CameraConfiguration {
 
   /// Allow video recording in the camera. Defaults to `true`.
   final bool allowRecordVideo;
+
+  /// Countdown timer before taking a photo. Defaults to `Duration.zero`
+  /// (no countdown).
+  final Duration captureTimer;
 
   /// Minimum recording duration. Defaults to `0`.
   final Duration minDuration;
@@ -81,10 +87,14 @@ class CameraConfiguration {
   /// Camera outputs orientation. Defaults to `any` (not specified).
   final CameraOrientation orientation;
 
+  /// Play camera shutter sound. Defaults to `true`.
+  final bool playCameraSound;
+
   CameraConfiguration copyWith({
     bool? allowRecordVideo,
     bool? allowSwitchCamera,
     bool? allowTakePhoto,
+    Duration? captureTimer,
     DevicePosition? devicePosition,
     bool? enableWideCameras,
     ExposureMode? exposureMode,
@@ -94,6 +104,7 @@ class CameraConfiguration {
     Duration? minDuration,
     CameraOrientation? orientation,
     OverlayImage? overlayImage,
+    bool? playCameraSound,
     CaptureSessionPreset? sessionPreset,
     bool? showFlashSwitch,
     bool? tapToRecordVideo,
@@ -103,6 +114,7 @@ class CameraConfiguration {
     allowRecordVideo: allowRecordVideo ?? this.allowRecordVideo,
     allowSwitchCamera: allowSwitchCamera ?? this.allowSwitchCamera,
     allowTakePhoto: allowTakePhoto ?? this.allowTakePhoto,
+    captureTimer: captureTimer ?? this.captureTimer,
     devicePosition: devicePosition ?? this.devicePosition,
     enableWideCameras: enableWideCameras ?? this.enableWideCameras,
     exposureMode: exposureMode ?? this.exposureMode,
@@ -112,6 +124,7 @@ class CameraConfiguration {
     minDuration: minDuration ?? this.minDuration,
     orientation: orientation ?? this.orientation,
     overlayImage: overlayImage ?? this.overlayImage,
+    playCameraSound: playCameraSound ?? this.playCameraSound,
     sessionPreset: sessionPreset ?? this.sessionPreset,
     showFlashSwitch: showFlashSwitch ?? this.showFlashSwitch,
     tapToRecordVideo: tapToRecordVideo ?? this.tapToRecordVideo,
@@ -122,25 +135,28 @@ class CameraConfiguration {
   @override
   String toString() =>
       'CameraConfiguration(allowTakePhoto: $allowTakePhoto, '
-      'allowRecordVideo: $allowRecordVideo, minDuration: $minDuration, '
-      'maxDuration: $maxDuration, isFrontVideoMirrored: $isFrontVideoMirrored, '
+      'allowRecordVideo: $allowRecordVideo, captureTimer: $captureTimer, '
+      'minDuration: $minDuration, maxDuration: $maxDuration, '
+      'isFrontVideoMirrored: $isFrontVideoMirrored, '
       'sessionPreset: $sessionPreset, focusMode: $focusMode, '
       'exposureMode: $exposureMode, orientation: $orientation, '
       'overlayImage: $overlayImage, showFlashSwitch: $showFlashSwitch, '
       'allowSwitchCamera: $allowSwitchCamera, '
-      'tapToRecordVideo: $tapToRecordVideo, '
+      'playCameraSound: $playCameraSound, tapToRecordVideo: $tapToRecordVideo, '
       'enableWideCameras: $enableWideCameras, '
       'videoExportType: $videoExportType, '
       '''${videoStabilization == null ? '' : 'videoStabilization: $videoStabilization, '}'''
       'devicePosition: $devicePosition)';
 
   @override
+  // ignore: avoid-high-cyclomatic-complexity, a lot of fields to compare.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
     return other is CameraConfiguration &&
         other.allowTakePhoto == allowTakePhoto &&
         other.allowRecordVideo == allowRecordVideo &&
+        other.captureTimer == captureTimer &&
         other.minDuration == minDuration &&
         other.maxDuration == maxDuration &&
         other.orientation == orientation &&
@@ -151,6 +167,7 @@ class CameraConfiguration {
         other.exposureMode == exposureMode &&
         other.showFlashSwitch == showFlashSwitch &&
         other.allowSwitchCamera == allowSwitchCamera &&
+        other.playCameraSound == playCameraSound &&
         other.tapToRecordVideo == tapToRecordVideo &&
         other.enableWideCameras == enableWideCameras &&
         other.videoExportType == videoExportType &&
@@ -162,6 +179,7 @@ class CameraConfiguration {
   int get hashCode =>
       allowTakePhoto.hashCode ^
       allowRecordVideo.hashCode ^
+      captureTimer.hashCode ^
       minDuration.hashCode ^
       maxDuration.hashCode ^
       orientation.hashCode ^
@@ -172,6 +190,7 @@ class CameraConfiguration {
       exposureMode.hashCode ^
       showFlashSwitch.hashCode ^
       allowSwitchCamera.hashCode ^
+      playCameraSound.hashCode ^
       tapToRecordVideo.hashCode ^
       enableWideCameras.hashCode ^
       videoExportType.hashCode ^
