@@ -107,8 +107,10 @@ public final class CameraCountdownManager {
   private func playVideoStartSound(completion: @escaping () -> Void) {
     AudioServicesPlaySystemSound(Constants.videoRecordingSound)
 
-    // Short delay to avoid sound being cut off
-    DispatchQueue.main.asyncAfter(deadline: .now() + Constants.soundDelay) {
+    // Enhanced delay to ensure the sound is not captured in the video
+    DispatchQueue.main.asyncAfter(
+      deadline: .now() + Constants.videoSoundDelay + Constants.soundDelay
+    ) {
       completion()
     }
   }
