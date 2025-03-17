@@ -59,9 +59,9 @@ public final class MultimediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
         camera.willCaptureBlock = { captureCompletion, isCapturing in
           // Start countdown with sound effects, passing in the allowed operations
           countdownManager.startCountdown(
-            isCapturing: isCapturing,
             allowPhoto: cameraConfig.allowTakePhoto,
             allowVideo: cameraConfig.allowRecordVideo,
+            isCapturing: isCapturing,
             playSound: cameraConfig.playCameraSound
           ) {
             captureCompletion()

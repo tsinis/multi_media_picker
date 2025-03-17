@@ -2,7 +2,7 @@ import AVFoundation
 import UIKit
 
 /// Manages countdown timer and sound effects for camera capture.
-final class CameraCountdownManager {
+public final class CameraCountdownManager {
   // MARK: - Private Constants
 
   private enum Constants {
@@ -37,15 +37,15 @@ final class CameraCountdownManager {
 
   /// Starts the countdown with appropriate sound effects
   /// - Parameters:
-  ///   - `isCapturing`: Flag indicating if the camera is already capturing.
   ///   - `allowPhoto`: Flag indicating if photo capture is allowed.
   ///   - `allowVideo`: Flag indicating if video recording is allowed.
   ///   - `playSound`: Whether to play sounds during capture.
+  ///   - `isCapturing`: Flag indicating if the camera is already capturing.
   ///   - `completion`: Called when countdown finishes.
   func startCountdown(
-    isCapturing: Bool = false,
     allowPhoto: Bool,
     allowVideo: Bool,
+    isCapturing: Bool = false,
     playSound: Bool = true,
     completion: @escaping () -> Void
   ) {
@@ -73,10 +73,13 @@ final class CameraCountdownManager {
     switch (allowPhoto, allowVideo) {
     case (true, false):
       return .image
+
     case (true, true):
       return .image
+
     case (false, true):
       return .video
+
     default:
       return nil
     }
@@ -115,7 +118,7 @@ final class CameraCountdownManager {
   ) {
     isCountdownInProgress = true
 
-    guard let viewController = viewController else {
+    guard let viewController else {
       isCountdownInProgress = false
       completion()
       return
@@ -156,7 +159,7 @@ final class CameraCountdownManager {
     playSound: Bool,
     completion: @escaping () -> Void
   ) {
-    guard let viewController = viewController, viewController.view.window != nil else {
+    guard let viewController, viewController.view.window != nil else {
       handleDismissedCamera()
       return
     }
