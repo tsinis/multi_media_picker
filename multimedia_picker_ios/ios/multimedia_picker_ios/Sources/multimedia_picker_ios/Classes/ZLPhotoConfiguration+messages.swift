@@ -15,8 +15,7 @@ extension ZLPhotoConfiguration {
     this.showFlashSwitch = config.showFlashSwitch
     this.enableWideCameras = config.enableWideCameras
     this.tapToRecordVideo = config.tapToRecordVideo
-    this.videoExportType =
-      ZLCameraConfiguration.VideoExportType(rawValue: config.videoExportType.rawValue) ?? .mp4
+    this.videoExportType = config.videoExportType == VideoExportType.mov ? .mov : .mp4
     this.devicePosition =
       ZLCameraConfiguration.DevicePosition(rawValue: config.devicePosition.rawValue) ?? .back
     this.focusMode =

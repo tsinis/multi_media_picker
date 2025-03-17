@@ -49,9 +49,37 @@ public final class MultimediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
           self.showOverlayImage(cameraConfig.overlayImage, registrar: registrar)
         }
 
-        camera.cancelBlock = { completion(.success(nil)) }  // On cancel button tap.
+        // Create a countdown manager that will be shared across camera operations
+        let countdownManager = CameraCountdownManager(
+          seconds: Int(cameraConfig.captureTimerSeconds),
+          viewController: camera
+        )
 
-        camera.takeDoneBlock = { image, video in  // On done button tap.
+        // Configure willCaptureBlock for countdown and sound effects
+        camera.willCaptureBlock = { captureCompletion, isCapturing in
+          // Start countdown with sound effects, passing in the allowed operations
+          countdownManager.startCountdown(
+            allowPhoto: cameraConfig.allowTakePhoto,
+            allowVideo: cameraConfig.allowRecordVideo,
+            isCapturing: isCapturing,
+            playSound: cameraConfig.playCameraSound
+          ) {
+            captureCompletion()
+          }
+        }
+
+        camera.cancelBlock = {
+          // Reset countdown state when canceling
+          countdownManager.resetCountdownState()
+          completion(.success(nil))
+        }
+
+        camera.takeDoneBlock = { [weak self] image, video in
+          // Reset countdown state when capture is done
+          countdownManager.resetCountdownState()
+          NotificationCenter.default.removeObserver(camera)
+          guard let self else { return completion(.success(nil)) }
+
           var mediaData: RawMediaData?
 
           if let image {

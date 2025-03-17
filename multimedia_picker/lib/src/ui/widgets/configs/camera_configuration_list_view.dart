@@ -19,6 +19,8 @@ class CameraConfigurationListView
     this.allowSwitchCameraTitle = const Text('Allow Switch Camera'),
     this.allowTakePhotoSubtitle = const SelectableText('allowTakePhoto'),
     this.allowTakePhotoTitle = const Text('Allow Take Photo'),
+    this.captureTimerSubtitle = const SelectableText('captureTimer'),
+    this.captureTimerTitle = const Text('Capture Timer Duration'),
     this.devicePositionSubtitle = const SelectableText('devicePosition'),
     this.devicePositionTitle = const Text('Device Position'),
     this.enableWideCamerasSubtitle = const SelectableText('enableWideCameras'),
@@ -37,6 +39,8 @@ class CameraConfigurationListView
     this.minDurationTitle = const Text('Minimum video duration in seconds'),
     this.orientationSubtitle = const SelectableText('orientation'),
     this.orientationTitle = const Text('Output orientation'),
+    this.playCameraSoundSubtitle = const SelectableText('playCameraSound'),
+    this.playCameraSoundTitle = const Text('Play Camera Sound'),
     this.sessionPresetSubtitle = const SelectableText('sessionPreset'),
     this.sessionPresetTitle = const Text('Session Preset'),
     this.showFlashSwitchSubtitle = const SelectableText('showFlashSwitch'),
@@ -66,6 +70,8 @@ class CameraConfigurationListView
   final Widget? allowSwitchCameraTitle;
   final Widget? allowTakePhotoSubtitle;
   final Widget? allowTakePhotoTitle;
+  final Widget? captureTimerSubtitle;
+  final Widget? captureTimerTitle;
   final Widget? devicePositionSubtitle;
   final Widget? devicePositionTitle;
   final Widget? enableWideCamerasSubtitle;
@@ -82,6 +88,8 @@ class CameraConfigurationListView
   final Widget? minDurationTitle;
   final Widget? orientationSubtitle;
   final Widget? orientationTitle;
+  final Widget? playCameraSoundSubtitle;
+  final Widget? playCameraSoundTitle;
   final Widget? sessionPresetSubtitle;
   final Widget? sessionPresetTitle;
   final Widget? showFlashSwitchSubtitle;
@@ -156,6 +164,23 @@ class CameraConfigurationListView
         subtitle: allowTakePhotoSubtitle,
         title: allowTakePhotoTitle,
         value: currentConfig.allowTakePhoto,
+      ),
+    if (captureTimerSubtitle != null && captureTimerTitle != null)
+      TextStyledListTile(
+        leading: const Icon(Icons.timer_outlined),
+        onTap:
+            () async => handleDurationPicker(
+              context,
+              currentConfig.captureTimer,
+              onSelected:
+                  (captureTimer) =>
+                      updateConfig = currentConfig.copyWith(
+                        captureTimer: captureTimer,
+                      ),
+            ),
+        subtitle: captureTimerSubtitle,
+        title: captureTimerTitle,
+        trailing: Text(currentConfig.captureTimer.inSeconds.toString()),
       ),
     if (devicePositionSubtitle != null && devicePositionTitle != null)
       TextStyledListTile(
@@ -319,6 +344,22 @@ class CameraConfigurationListView
         subtitle: orientationSubtitle,
         title: orientationTitle,
         trailing: Text(currentConfig.orientation.name.toUpperCase()),
+      ),
+    if (playCameraSoundSubtitle != null && playCameraSoundTitle != null)
+      SwitchListTile(
+        onChanged:
+            (playCameraSound) =>
+                updateConfig = currentConfig.copyWith(
+                  playCameraSound: playCameraSound,
+                ),
+        secondary: AnimatedChildSwitcher.icon(
+          condition: currentConfig.playCameraSound,
+          falseIcon: Icons.volume_off_outlined,
+          trueIcon: Icons.volume_up_outlined,
+        ),
+        subtitle: playCameraSoundSubtitle,
+        title: playCameraSoundTitle,
+        value: currentConfig.playCameraSound,
       ),
     if (showFlashSwitchSubtitle != null && showFlashSwitchTitle != null)
       SwitchListTile(

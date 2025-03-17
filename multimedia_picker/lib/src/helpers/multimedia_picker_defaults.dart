@@ -93,6 +93,10 @@ sealed class MultimediaPickerDefaults {
   /// Value: `Duration.zero`.
   static const minVideoDuration = Duration.zero;
 
+  /// Default capture timer duration before taking a photo.
+  /// Value: `Duration.zero` (no countdown).
+  static const captureTimer = Duration.zero;
+
   /// Prefix used for thumbnail file names.
   /// Value: `'.thumbnail_'`.
   static const thumbnailPrefix = '.thumbnail_';
