@@ -8,7 +8,7 @@ let package = Package(
     .library(name: "multimedia-picker-ios", targets: ["multimedia_picker_ios"])
   ],
   dependencies: [
-    .package(url: "https://github.com/tsinis/ZLPhotoBrowser.git", branch: "feat/will-capture-block")
+    .package(url: "https://github.com/tsinis/ZLPhotoBrowser.git", branch: "feat/buttons")
   ],
   targets: [
     .target(

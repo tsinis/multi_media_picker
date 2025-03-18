@@ -32,7 +32,7 @@ target 'Runner' do
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 
-  pod 'ZLPhotoBrowser', :git => 'https://github.com/tsinis/ZLPhotoBrowser.git', :branch => 'feat/camera-orientation'
+  pod 'ZLPhotoBrowser', :git => 'https://github.com/tsinis/ZLPhotoBrowser.git', :branch => 'feat/buttons'
 
   target 'RunnerTests' do
     inherit! :search_paths
