@@ -23,7 +23,7 @@ class MethodChannelMultimediaPicker extends MultimediaPickerPlatform {
     RawPickerConfiguration pickerConfig,
     RawUiConfiguration uiConfig,
   ) async {
-    final Map<String, dynamic>? result = await channel
+    final Map<String, Object?>? result = await channel
         .invokeMapMethod('openCamera', {
           'cameraConfig': cameraConfig.encode(),
           'editConfig': editConfig.encode(),
@@ -41,7 +41,7 @@ class MethodChannelMultimediaPicker extends MultimediaPickerPlatform {
     RawPickerConfiguration pickerConfig,
     RawUiConfiguration uiConfig,
   ) async {
-    final Map<String, dynamic>? result = await channel
+    final Map<String, Object?>? result = await channel
         .invokeMapMethod('editMedia', {
           'data': data.encode(),
           'editConfig': editConfig.encode(),
@@ -58,7 +58,7 @@ class MethodChannelMultimediaPicker extends MultimediaPickerPlatform {
     RawPickerConfiguration pickerConfig,
     RawUiConfiguration uiConfig,
   ) async {
-    final List<dynamic>? results = await channel
+    final List<Object?>? results = await channel
         .invokeListMethod('openGallery', {
           'editConfig': editConfig.encode(),
           'pickerConfig': pickerConfig.encode(),
