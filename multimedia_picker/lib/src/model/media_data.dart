@@ -5,6 +5,7 @@ import 'package:multimedia_picker_platform_interface/multimedia_picker_platform_
     show MediaType, RawMediaData;
 
 @immutable
+// ignore: avoid_implementing_value_types, breaking change.
 class MediaData implements RawMediaData {
   const MediaData(
     this.file, {
