@@ -1,4 +1,4 @@
-version: 0.0.2
+version: 0.0.3
 name: multimedia_picker_ios
 description: iOS implementation of the multimedia_picker plugin.
 repository: https://github.com/tsinis/multi_media_picker/tree/main/multimedia_picker_ios

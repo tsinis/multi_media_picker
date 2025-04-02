@@ -18,7 +18,7 @@ Downloaded by pub (not CocoaPods).
   s.documentation_url = 'https://pub.dev/packages/multimedia_picker_ios'
   s.source_files = 'multimedia_picker_ios/Sources/**/*.swift'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
-  s.dependency 'ZLPhotoBrowser', '~> 4.5.8'
+  s.dependency 'ZLPhotoBrowser', '~> 4.6.0.1'
   s.dependency 'Flutter'
   s.xcconfig = {
     'LIBRARY_SEARCH_PATHS' => '$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)/ $(SDKROOT)/usr/lib/swift',
