@@ -83,9 +83,9 @@ public final class MultimediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
           var mediaData: RawMediaData?
 
           if let image {
-            mediaData = self.resolveImage(image: image, picker: pickerConfig)
+            mediaData = resolveImage(image: image, picker: pickerConfig)
           } else if let video {
-            mediaData = self.resolveVideo(url: video, picker: pickerConfig, isNew: true)
+            mediaData = resolveVideo(url: video, picker: pickerConfig, isNew: true)
           }
 
           completion(.success(mediaData))
