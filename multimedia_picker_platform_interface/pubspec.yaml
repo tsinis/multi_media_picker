@@ -16,6 +16,6 @@ dependencies:
   plugin_platform_interface: ^2.1.8
 
 dev_dependencies:
-  dart_code_metrics_presets: ^2.21.0
+  dart_code_metrics_presets: ^2.22.0
   flutter_lints: ^5.0.0
-  pigeon: ^25.2.0
+  pigeon: ^25.3.1

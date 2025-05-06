@@ -111,6 +111,7 @@ dart_code_metrics:
     - avoid-complex-arithmetic-expressions
     - avoid-complex-loop-conditions
     - avoid-conditions-with-boolean-literals
+    - avoid-constant-assert-conditions
     - avoid-contradictory-expressions
     - avoid-declaring-call-method
     - avoid-double-slash-imports
@@ -129,6 +130,7 @@ dart_code_metrics:
     - avoid-empty-setstate
     - avoid-empty-spread
     - avoid-empty-test-groups
+    - avoid-enum-values-by-index
     - avoid-equal-expressions
     - avoid-excessive-expressions
     - avoid-expanded-as-spacer
@@ -147,6 +149,7 @@ dart_code_metrics:
     - avoid-implicitly-nullable-extension-types
     - avoid-importing-entrypoint-exports
     - avoid-incomplete-copy-with
+    - avoid-inconsistent-digit-separators
     - avoid-incorrect-image-opacity
     - avoid-incorrect-uri
     - avoid-inferrable-type-arguments
@@ -174,6 +177,7 @@ dart_code_metrics:
     - avoid-mutating-parameters
     - avoid-negated-conditions
     - avoid-negations-in-equality-checks
+    - avoid-nested-assignments
     - avoid-nested-conditional-expressions
     - avoid-nested-extension-types
     - avoid-nested-futures
@@ -197,6 +201,7 @@ dart_code_metrics:
     - avoid-passing-self-as-argument
     - avoid-positional-record-field-access
     - avoid-recursive-calls
+    - avoid-recursive-tostring
     - avoid-recursive-widget-calls
     - avoid-redundant-async
     - avoid-redundant-else
@@ -234,9 +239,11 @@ dart_code_metrics:
     - avoid-unnecessary-block
     - avoid-unnecessary-call
     - avoid-unnecessary-collections
+    - avoid-unnecessary-compare-to
     - avoid-unnecessary-conditionals
     - avoid-unnecessary-constructor
     - avoid-unnecessary-continue
+    - avoid-unnecessary-digit-separators
     - avoid-unnecessary-enum-arguments
     - avoid-unnecessary-enum-prefix
     - avoid-unnecessary-extends
@@ -299,6 +306,8 @@ dart_code_metrics:
     - no-equal-switch-expression-cases
     - no-equal-then-else
     - no-object-declaration
+    - pass-existing-future-to-future-builder
+    - pass-existing-stream-to-stream-builder
     - pattern-fields-ordering
     - prefer-abstract-final-static-class
     - prefer-action-button-tooltip
@@ -313,6 +322,7 @@ dart_code_metrics:
     - prefer-center-over-align
     - prefer-commenting-analyzer-ignores
     - prefer-commenting-future-delayed
+    - prefer-compute-over-isolate-run
     - prefer-conditional-expressions
     - prefer-const-border-radius
     - prefer-container
@@ -332,6 +342,7 @@ dart_code_metrics:
     - prefer-declaring-const-constructor
     - prefer-dedicated-media-query-methods
     - prefer-define-hero-tag
+    - prefer-digit-separators
     - prefer-early-return
     - prefer-enums-by-name
     - prefer-expect-later
