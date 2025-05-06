@@ -40,7 +40,7 @@ extension ZLPhotoUIConfiguration {
       return isDark ? .default : .lightContent
     }()
 
-    /// MARK: - Custom localizations mapping.
+    // MARK: - Custom localizations mapping.
     if let tapToRecordTip = config.l10n?.iOsCameraTapToRecordVideoTip {
       self.customLanguageKeyValue([.customCameraTapToRecordVideoTips: tapToRecordTip])
     }

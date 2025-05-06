@@ -9,9 +9,9 @@ public final class CameraCountdownManager {
     static let labelFadeDuration: TimeInterval = 0.3
     static let soundDelay: TimeInterval = 0.1
     static let videoSoundDelay: TimeInterval = 0.4
-    static let countdownTickSound: SystemSoundID = 1113
-    static let countdownFinishSound: SystemSoundID = 1114
-    static let videoRecordingSound: SystemSoundID = 1117
+    static let countdownTickSound: SystemSoundID = 1_113
+    static let countdownFinishSound: SystemSoundID = 1_114
+    static let videoRecordingSound: SystemSoundID = 1_117
     static let labelFontSize: CGFloat = 72
   }
 
@@ -128,7 +128,8 @@ public final class CameraCountdownManager {
 
     setupCountdownLabel(in: viewController)
     playCountdownStep(
-      countdownSeconds, mediaType: mediaType, playSound: playSound, completion: completion)
+      countdownSeconds, mediaType: mediaType, playSound: playSound, completion: completion
+    )
   }
 
   private func setupCountdownLabel(in viewController: UIViewController) {
@@ -171,7 +172,8 @@ public final class CameraCountdownManager {
 
     if count > 1 {
       scheduleNextCountdownStep(
-        count, mediaType: mediaType, playSound: playSound, completion: completion)
+        count, mediaType: mediaType, playSound: playSound, completion: completion
+      )
     } else {
       handleFinalCountdownStep(mediaType: mediaType, playSound: playSound, completion: completion)
     }
@@ -190,7 +192,8 @@ public final class CameraCountdownManager {
   ) {
     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
       self.playCountdownStep(
-        count - 1, mediaType: mediaType, playSound: playSound, completion: completion)
+        count - 1, mediaType: mediaType, playSound: playSound, completion: completion
+      )
     }
   }
 
@@ -207,7 +210,8 @@ public final class CameraCountdownManager {
 
       self.playFinalSounds(mediaType: mediaType, playSound: playSound)
       self.animateCountdownLabelDisappearance(
-        mediaType: mediaType, playSound: playSound, completion: completion)
+        mediaType: mediaType, playSound: playSound, completion: completion
+        )
     }
   }
 
@@ -242,8 +246,11 @@ public final class CameraCountdownManager {
         }
 
         let delay: TimeInterval = (mediaType == .video && playSound) ? Constants.videoSoundDelay : 0
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { completion() }
-      })
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+          completion()
+        }
+      }
+    )
   }
 
   private func removeCountdownLabel() {

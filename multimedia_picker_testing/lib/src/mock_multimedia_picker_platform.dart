@@ -29,7 +29,6 @@ class MockMultimediaPickerPlatform<T extends RawMediaData>
   });
 
   /// Registers this mock implementation as the default platform implementation.
-  // ignore: prefer-static-method, it's registering itself (may have configs).
   void registerAsPlatform() => MultimediaPickerPlatform.instance = this;
 
   /// Storage for method call counts.

@@ -345,7 +345,6 @@ class RawCameraConfiguration {
     dartTestOut:
         '../multimedia_picker_testing/lib/src/test_multimedia_api.g.dart',
     debugGenerators: true,
-    oneLanguage: false,
     swiftOut:
         '../multimedia_picker_ios/ios/multimedia_picker_ios/Sources/multimedia_picker_ios/Classes/messages.g.swift',
   ),
