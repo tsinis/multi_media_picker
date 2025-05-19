@@ -50,7 +50,6 @@ void main() => group('$MockMultimediaPickerPlatform', () {
       mock.onOpenCamera = (_, _, _, _) => throw PlatformException(code: '');
       expect(mock.log.hasZeroInteractions, isTrue);
       expect(
-        // ignore: avoid-redundant-async, false positive.
         () async => const MultimediaPicker().openCamera(),
         throwsA(isA<PlatformException>()),
       );
@@ -73,7 +72,6 @@ void main() => group('$MockMultimediaPickerPlatform', () {
       mock.onEditMedia = (_, _, _, _) => throw PlatformException(code: '');
       expect(mock.log.hasZeroInteractions, isTrue);
       expect(
-        // ignore: avoid-redundant-async, false positive.
         () async => const MultimediaPicker().editMedia(MediaData.ts(file)),
         throwsA(isA<PlatformException>()),
       );
@@ -105,7 +103,6 @@ void main() => group('$MockMultimediaPickerPlatform', () {
       mock.onOpenGallery = (_, _, _) => throw PlatformException(code: '');
       expect(mock.log.hasZeroInteractions, isTrue);
       expect(
-        // ignore: avoid-redundant-async, false positive.
         () async => const MultimediaPicker().openGallery(),
         throwsA(isA<PlatformException>()),
       );
