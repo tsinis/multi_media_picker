@@ -21,6 +21,7 @@ doc/api/
 # Miscellaneous
 *.class
 *.lock
+!pubspec.lock
 *.log
 *.pyc
 *.swp
@@ -44,7 +45,6 @@ doc/api/
 
 .packages
 .pub/
-pubspec.lock
 flutter_export_environment.sh
 coverage/
 
@@ -84,3 +84,6 @@ build/
 .project
 .classpath
 .settings
+
+# FVM Version Cache
+.fvm/

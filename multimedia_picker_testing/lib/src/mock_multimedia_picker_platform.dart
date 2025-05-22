@@ -1,12 +1,12 @@
 // ignore_for_file: lines_longer_than_80_chars, it's just a testing package.
-// ignore_for_file: comment_references, prefer-typedefs-for-callbacks, prefer-named-parameters
+// ignore_for_file: prefer-typedefs-for-callbacks, prefer-named-parameters
 // ignore_for_file: avoid-collection-mutating-methods, avoid-accessing-other-classes-private-members
 
 import 'dart:async' show FutureOr;
 
 import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:multimedia_picker/multimedia_picker.dart';
-// ignore: directives_ordering, implementation_imports, it's a testing package.
+// ignore: implementation_imports, it's a testing package.
 import 'package:multimedia_picker/src/helpers/extensions/model/internal/raw_media_data_extension.dart';
 import 'package:multimedia_picker_platform_interface/multimedia_picker_platform_interface.dart';
 
@@ -90,7 +90,7 @@ class MockMultimediaPickerPlatform<T extends RawMediaData>
     log._addCall(PickerCall.editMedia);
 
     return onEditMedia?.call(
-      // ignore: unnecessary_type_check, avoid-type-casts, it's a generic type.
+      // ignore: avoid-type-casts, there is a type check actually...
       (T == MediaData
               ? data
               : data.toMediaData(dateTimeProvider: dateTimeProvider))

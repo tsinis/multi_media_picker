@@ -6,7 +6,7 @@ issue_tracker: https://github.com/tsinis/multi_media_picker/issues
 maintainer: Roman Cinis
 
 environment:
-  sdk: ^3.7.0
+  sdk: ^3.8.0
 
 resolution: workspace
 
