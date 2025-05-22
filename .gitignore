@@ -21,6 +21,7 @@ doc/api/
 # Miscellaneous
 *.class
 *.lock
+!pubspec.lock
 *.log
 *.pyc
 *.swp
