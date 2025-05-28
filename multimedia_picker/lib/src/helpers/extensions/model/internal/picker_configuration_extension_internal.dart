@@ -3,6 +3,7 @@ import 'package:multimedia_picker_platform_interface/multimedia_picker_platform_
 import '../../../../model/configs/picker_configuration.dart';
 
 extension PickerConfigurationExtensionInternal on PickerConfiguration {
+  // ignore: avoid-long-functions, a lot of parameters here.
   RawPickerConfiguration get raw {
     final canUseDirectory = directory?.existsSync() ?? false;
 
@@ -37,8 +38,9 @@ extension PickerConfigurationExtensionInternal on PickerConfiguration {
       maxEditVideoDurationSeconds: maxEditVideoDuration.inSeconds,
       maxPreviewCount: maxPreviewCount,
       maxSelectCount: maxSelectCount,
-      maxSelectVideoDataSizeKB:
-          maxSelectVideoDataSizeKB.isNegative ? null : maxSelectVideoDataSizeKB,
+      maxSelectVideoDataSizeKB: maxSelectVideoDataSizeKB.isNegative
+          ? null
+          : maxSelectVideoDataSizeKB,
       maxSelectVideoDurationSeconds: maxSelectVideoDuration.inSeconds,
       maxVideoSelectCount: maxVideoSelectCount,
       minSelectVideoDataSizeKB: minSelectVideoDataSizeKB,

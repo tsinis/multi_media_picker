@@ -35,7 +35,7 @@ class MockMultimediaPickerPlatform<T extends RawMediaData>
   final log = _MethodCallLog();
 
   /// An optional provider for [DateTime], used when converting raw media data.
-  // ignore: prefer-correct-callback-field-name, to match parent defenition.
+  // ignore: prefer-correct-callback-field-name, to match parent definition.
   final DateTime Function()? dateTimeProvider;
 
   /// Handlers that can be assigned (or changed) in tests.

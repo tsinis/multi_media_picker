@@ -70,24 +70,23 @@ abstract class BaseConfigListView<T extends Object> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ValueListenableBuilder<T>(
-    builder:
-        (newContext, config, _) => ListView(
-          children: List.unmodifiable(
-            [
-              ...?leadingBuilder?.call(
-                newContext,
-                config,
-                (updatedConfig) => updateConfig = updatedConfig,
-              ),
-              ...?childrenBuilder(newContext, config),
-              ...?trailingBuilder?.call(
-                newContext,
-                config,
-                (updatedConfig) => updateConfig = updatedConfig,
-              ),
-            ].nonNulls,
+    builder: (newContext, config, _) => ListView(
+      children: List.unmodifiable(
+        [
+          ...?leadingBuilder?.call(
+            newContext,
+            config,
+            (updatedConfig) => updateConfig = updatedConfig,
           ),
-        ),
+          ...?childrenBuilder(newContext, config),
+          ...?trailingBuilder?.call(
+            newContext,
+            config,
+            (updatedConfig) => updateConfig = updatedConfig,
+          ),
+        ].nonNulls,
+      ),
+    ),
     valueListenable: configuration,
   );
 }

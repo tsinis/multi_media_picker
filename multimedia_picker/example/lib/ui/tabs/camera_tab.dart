@@ -18,25 +18,22 @@ class CameraTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) => CameraConfigurationListView(
     _config,
-    leadingBuilder:
-        (_, currentConfig, onUpdate) => [
-          SwitchListTile(
-            onChanged:
-                (showOverlay) => onUpdate(
-                  currentConfig.copyWith(
-                    overlayImage:
-                        showOverlay ? defaultOverlay : OverlayImage.empty,
-                  ),
-                ),
-            secondary: AnimatedChildSwitcher.icon(
-              condition: currentConfig.hasOverlay,
-              falseIcon: Icons.grid_off_outlined,
-              trueIcon: Icons.grid_on_outlined,
-            ),
-            subtitle: const Text('On top of the camera view'),
-            title: const Text('Show overlay image'),
-            value: currentConfig.hasOverlay,
+    leadingBuilder: (_, currentConfig, onUpdate) => [
+      SwitchListTile(
+        onChanged: (showOverlay) => onUpdate(
+          currentConfig.copyWith(
+            overlayImage: showOverlay ? defaultOverlay : OverlayImage.empty,
           ),
-        ],
+        ),
+        secondary: AnimatedChildSwitcher.icon(
+          condition: currentConfig.hasOverlay,
+          falseIcon: Icons.grid_off_outlined,
+          trueIcon: Icons.grid_on_outlined,
+        ),
+        subtitle: const Text('On top of the camera view'),
+        title: const Text('Show overlay image'),
+        value: currentConfig.hasOverlay,
+      ),
+    ],
   );
 }
