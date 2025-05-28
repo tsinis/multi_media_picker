@@ -186,17 +186,13 @@ class UiConfigurationListView extends BaseConfigListView<UiConfiguration> {
   ) => [
     if (adjustSliderTypeSubtitle != null && adjustSliderTypeTitle != null)
       TextStyledListTile(
-        onTap:
-            () async => handleShowEnumPicker(
-              context,
-              currentConfig.adjustSliderType,
-              onSelected:
-                  (adjustSliderType) =>
-                      updateConfig = currentConfig.copyWith(
-                        adjustSliderType: adjustSliderType,
-                      ),
-              values: AdjustSliderType.values,
-            ),
+        onTap: () async => handleShowEnumPicker(
+          context,
+          currentConfig.adjustSliderType,
+          onSelected: (adjustSliderType) => updateConfig = currentConfig
+              .copyWith(adjustSliderType: adjustSliderType),
+          values: AdjustSliderType.values,
+        ),
         subtitle: adjustSliderTypeSubtitle,
         title: adjustSliderTypeTitle,
         trailing: Text(currentConfig.adjustSliderType.name.toUpperCase()),
@@ -204,12 +200,11 @@ class UiConfigurationListView extends BaseConfigListView<UiConfiguration> {
     if (animateSelectButtonWhenSelectInPreviewSubtitle != null &&
         animateSelectButtonWhenSelectInPreviewTitle != null)
       SwitchListTile(
-        onChanged:
-            (animateSelectButtonWhenSelectInPreview) =>
-                updateConfig = currentConfig.copyWith(
-                  animateSelectButtonWhenSelectInPreview:
-                      animateSelectButtonWhenSelectInPreview,
-                ),
+        onChanged: (animateSelectButtonWhenSelectInPreview) =>
+            updateConfig = currentConfig.copyWith(
+              animateSelectButtonWhenSelectInPreview:
+                  animateSelectButtonWhenSelectInPreview,
+            ),
         subtitle: animateSelectButtonWhenSelectInPreviewSubtitle,
         title: animateSelectButtonWhenSelectInPreviewTitle,
         value: currentConfig.animateSelectButtonWhenSelectInPreview,
@@ -217,12 +212,11 @@ class UiConfigurationListView extends BaseConfigListView<UiConfiguration> {
     if (animateSelectButtonWhenSelectInThumbnailSubtitle != null &&
         animateSelectButtonWhenSelectInThumbnailTitle != null)
       SwitchListTile(
-        onChanged:
-            (animateSelectButtonWhenSelectInThumbnail) =>
-                updateConfig = currentConfig.copyWith(
-                  animateSelectButtonWhenSelectInThumbnail:
-                      animateSelectButtonWhenSelectInThumbnail,
-                ),
+        onChanged: (animateSelectButtonWhenSelectInThumbnail) =>
+            updateConfig = currentConfig.copyWith(
+              animateSelectButtonWhenSelectInThumbnail:
+                  animateSelectButtonWhenSelectInThumbnail,
+            ),
         subtitle: animateSelectButtonWhenSelectInThumbnailSubtitle,
         title: animateSelectButtonWhenSelectInThumbnailTitle,
         value: currentConfig.animateSelectButtonWhenSelectInThumbnail,
@@ -235,11 +229,9 @@ class UiConfigurationListView extends BaseConfigListView<UiConfiguration> {
           initialValue: currentConfig.cellCornerRadio.toString(),
           keyboardType: TextInputType.number,
           maxLength: 4,
-          onChanged:
-              (value) =>
-                  updateConfig = currentConfig.copyWith(
-                    cellCornerRadio: double.tryParse(value),
-                  ),
+          onChanged: (value) => updateConfig = currentConfig.copyWith(
+            cellCornerRadio: double.tryParse(value),
+          ),
         ),
       ),
     if (columnCountSubtitle != null && columnCountDecoration != null)
@@ -250,24 +242,20 @@ class UiConfigurationListView extends BaseConfigListView<UiConfiguration> {
           initialValue: currentConfig.columnCount.toString(),
           keyboardType: TextInputType.number,
           maxLength: 3,
-          onChanged:
-              (value) =>
-                  updateConfig = currentConfig.copyWith(
-                    columnCount: int.tryParse(value),
-                  ),
+          onChanged: (value) => updateConfig = currentConfig.copyWith(
+            columnCount: int.tryParse(value),
+          ),
         ),
       ),
     if (hudStyleSubtitle != null && hudStyleTitle != null)
       TextStyledListTile(
-        onTap:
-            () async => handleShowEnumPicker(
-              context,
-              currentConfig.hudStyle,
-              onSelected:
-                  (hudStyle) =>
-                      updateConfig = currentConfig.copyWith(hudStyle: hudStyle),
-              values: HudStyle.values,
-            ),
+        onTap: () async => handleShowEnumPicker(
+          context,
+          currentConfig.hudStyle,
+          onSelected: (hudStyle) =>
+              updateConfig = currentConfig.copyWith(hudStyle: hudStyle),
+          values: HudStyle.values,
+        ),
         subtitle: hudStyleSubtitle,
         title: hudStyleTitle,
         trailing: Text(currentConfig.hudStyle.name.toUpperCase()),
@@ -275,28 +263,21 @@ class UiConfigurationListView extends BaseConfigListView<UiConfiguration> {
     if (isDarkStatusBarStyleSubtitle != null &&
         isDarkStatusBarStyleTitle != null)
       SwitchListTile(
-        onChanged:
-            (isDarkStatusBarStyle) =>
-                updateConfig = currentConfig.copyWith(
-                  isDarkStatusBarStyle: isDarkStatusBarStyle,
-                ),
+        onChanged: (isDarkStatusBarStyle) => updateConfig = currentConfig
+            .copyWith(isDarkStatusBarStyle: isDarkStatusBarStyle),
         subtitle: isDarkStatusBarStyleSubtitle,
         title: isDarkStatusBarStyleTitle,
         value: currentConfig.isDarkStatusBarStyle ?? false,
       ),
     if (languageTypeSubtitle != null && languageTypeTitle != null)
       TextStyledListTile(
-        onTap:
-            () async => handleShowEnumPicker(
-              context,
-              currentConfig.languageType,
-              onSelected:
-                  (languageType) =>
-                      updateConfig = currentConfig.copyWith(
-                        languageType: languageType,
-                      ),
-              values: UiLocale.values,
-            ),
+        onTap: () async => handleShowEnumPicker(
+          context,
+          currentConfig.languageType,
+          onSelected: (languageType) =>
+              updateConfig = currentConfig.copyWith(languageType: languageType),
+          values: UiLocale.values,
+        ),
         subtitle: languageTypeSubtitle,
         title: languageTypeTitle,
         trailing: Text(currentConfig.languageType.name.toUpperCase()),
@@ -310,11 +291,9 @@ class UiConfigurationListView extends BaseConfigListView<UiConfiguration> {
           initialValue: currentConfig.minimumItemSpacing.toString(),
           keyboardType: TextInputType.number,
           maxLength: 4,
-          onChanged:
-              (value) =>
-                  updateConfig = currentConfig.copyWith(
-                    minimumItemSpacing: double.tryParse(value),
-                  ),
+          onChanged: (value) => updateConfig = currentConfig.copyWith(
+            minimumItemSpacing: double.tryParse(value),
+          ),
         ),
       ),
     if (minimumLineSpacingSubtitle != null && minimumLineSpacingTitle != null)
@@ -325,27 +304,21 @@ class UiConfigurationListView extends BaseConfigListView<UiConfiguration> {
           initialValue: currentConfig.minimumLineSpacing.toString(),
           keyboardType: TextInputType.number,
           maxLength: 4,
-          onChanged:
-              (value) =>
-                  updateConfig = currentConfig.copyWith(
-                    minimumLineSpacing: double.tryParse(value),
-                  ),
+          onChanged: (value) => updateConfig = currentConfig.copyWith(
+            minimumLineSpacing: double.tryParse(value),
+          ),
         ),
       ),
     if (navCancelButtonStyleSubtitle != null &&
         navCancelButtonStyleTitle != null)
       TextStyledListTile(
-        onTap:
-            () async => handleShowEnumPicker(
-              context,
-              currentConfig.navCancelButtonStyle,
-              onSelected:
-                  (navCancelButtonStyle) =>
-                      updateConfig = currentConfig.copyWith(
-                        navCancelButtonStyle: navCancelButtonStyle,
-                      ),
-              values: CancelButtonStyle.values,
-            ),
+        onTap: () async => handleShowEnumPicker(
+          context,
+          currentConfig.navCancelButtonStyle,
+          onSelected: (navCancelButtonStyle) => updateConfig = currentConfig
+              .copyWith(navCancelButtonStyle: navCancelButtonStyle),
+          values: CancelButtonStyle.values,
+        ),
         subtitle: navCancelButtonStyleSubtitle,
         title: navCancelButtonStyleTitle,
         trailing: Text(currentConfig.navCancelButtonStyle.name.toUpperCase()),
@@ -353,17 +326,14 @@ class UiConfigurationListView extends BaseConfigListView<UiConfiguration> {
     if (selectButtonAnimationDurationSubtitle != null &&
         selectButtonAnimationDurationTitle != null)
       TextStyledListTile(
-        onTap:
-            () async => handleDurationPicker(
-              context,
-              currentConfig.selectButtonAnimationDuration,
-              onSelected:
-                  (selectButtonAnimationDuration) =>
-                      updateConfig = currentConfig.copyWith(
-                        selectButtonAnimationDuration:
-                            selectButtonAnimationDuration,
-                      ),
-            ),
+        onTap: () async => handleDurationPicker(
+          context,
+          currentConfig.selectButtonAnimationDuration,
+          onSelected: (selectButtonAnimationDuration) =>
+              updateConfig = currentConfig.copyWith(
+                selectButtonAnimationDuration: selectButtonAnimationDuration,
+              ),
+        ),
         subtitle: selectButtonAnimationDurationSubtitle,
         title: selectButtonAnimationDurationTitle,
         trailing: Text(
@@ -372,22 +342,17 @@ class UiConfigurationListView extends BaseConfigListView<UiConfiguration> {
       ),
     if (shouldCenterToolsSubtitle != null && shouldCenterToolsTitle != null)
       SwitchListTile(
-        onChanged:
-            (shouldCenterTools) =>
-                updateConfig = currentConfig.copyWith(
-                  shouldCenterTools: shouldCenterTools,
-                ),
+        onChanged: (shouldCenterTools) => updateConfig = currentConfig.copyWith(
+          shouldCenterTools: shouldCenterTools,
+        ),
         subtitle: shouldCenterToolsSubtitle,
         title: shouldCenterToolsTitle,
         value: currentConfig.shouldCenterTools,
       ),
     if (showAddPhotoButtonSubtitle != null && showAddPhotoButtonTitle != null)
       SwitchListTile(
-        onChanged:
-            (showAddPhotoButton) =>
-                updateConfig = currentConfig.copyWith(
-                  showAddPhotoButton: showAddPhotoButton,
-                ),
+        onChanged: (showAddPhotoButton) => updateConfig = currentConfig
+            .copyWith(showAddPhotoButton: showAddPhotoButton),
         subtitle: showAddPhotoButtonSubtitle,
         title: showAddPhotoButtonTitle,
         value: currentConfig.showAddPhotoButton,
@@ -395,12 +360,11 @@ class UiConfigurationListView extends BaseConfigListView<UiConfiguration> {
     if (showCaptureImageOnTakePhotoButtonSubtitle != null &&
         showCaptureImageOnTakePhotoButtonTitle != null)
       SwitchListTile(
-        onChanged:
-            (showCaptureImageOnTakePhotoButton) =>
-                updateConfig = currentConfig.copyWith(
-                  showCaptureImageOnTakePhotoButton:
-                      showCaptureImageOnTakePhotoButton,
-                ),
+        onChanged: (showCaptureImageOnTakePhotoButton) =>
+            updateConfig = currentConfig.copyWith(
+              showCaptureImageOnTakePhotoButton:
+                  showCaptureImageOnTakePhotoButton,
+            ),
         subtitle: showCaptureImageOnTakePhotoButtonSubtitle,
         title: showCaptureImageOnTakePhotoButtonTitle,
         value: currentConfig.showCaptureImageOnTakePhotoButton,
@@ -408,11 +372,8 @@ class UiConfigurationListView extends BaseConfigListView<UiConfiguration> {
     if (showEnterSettingTipsSubtitle != null &&
         showEnterSettingTipsTitle != null)
       SwitchListTile(
-        onChanged:
-            (showEnterSettingTips) =>
-                updateConfig = currentConfig.copyWith(
-                  showEnterSettingTips: showEnterSettingTips,
-                ),
+        onChanged: (showEnterSettingTips) => updateConfig = currentConfig
+            .copyWith(showEnterSettingTips: showEnterSettingTips),
         subtitle: showEnterSettingTipsSubtitle,
         title: showEnterSettingTipsTitle,
         value: currentConfig.showEnterSettingTips,
@@ -420,22 +381,17 @@ class UiConfigurationListView extends BaseConfigListView<UiConfiguration> {
     if (showIndexOnSelectButtonSubtitle != null &&
         showIndexOnSelectButtonTitle != null)
       SwitchListTile(
-        onChanged:
-            (showIndexOnSelectButton) =>
-                updateConfig = currentConfig.copyWith(
-                  showIndexOnSelectButton: showIndexOnSelectButton,
-                ),
+        onChanged: (showIndexOnSelectButton) => updateConfig = currentConfig
+            .copyWith(showIndexOnSelectButton: showIndexOnSelectButton),
         subtitle: showIndexOnSelectButtonSubtitle,
         title: showIndexOnSelectButtonTitle,
         value: currentConfig.showIndexOnSelectButton,
       ),
     if (showInvalidMaskSubtitle != null && showInvalidMaskTitle != null)
       SwitchListTile(
-        onChanged:
-            (showInvalidMask) =>
-                updateConfig = currentConfig.copyWith(
-                  showInvalidMask: showInvalidMask,
-                ),
+        onChanged: (showInvalidMask) => updateConfig = currentConfig.copyWith(
+          showInvalidMask: showInvalidMask,
+        ),
         subtitle: showInvalidMaskSubtitle,
         title: showInvalidMaskTitle,
         value: currentConfig.showInvalidMask,
@@ -443,33 +399,25 @@ class UiConfigurationListView extends BaseConfigListView<UiConfiguration> {
     if (showScrollToBottomButtonSubtitle != null &&
         showScrollToBottomButtonTitle != null)
       SwitchListTile(
-        onChanged:
-            (showScrollToBottomButton) =>
-                updateConfig = currentConfig.copyWith(
-                  showScrollToBottomButton: showScrollToBottomButton,
-                ),
+        onChanged: (showScrollToBottomButton) => updateConfig = currentConfig
+            .copyWith(showScrollToBottomButton: showScrollToBottomButton),
         subtitle: showScrollToBottomButtonSubtitle,
         title: showScrollToBottomButtonTitle,
         value: currentConfig.showScrollToBottomButton,
       ),
     if (showSelectedBorderSubtitle != null && showSelectedBorderTitle != null)
       SwitchListTile(
-        onChanged:
-            (showSelectedBorder) =>
-                updateConfig = currentConfig.copyWith(
-                  showSelectedBorder: showSelectedBorder,
-                ),
+        onChanged: (showSelectedBorder) => updateConfig = currentConfig
+            .copyWith(showSelectedBorder: showSelectedBorder),
         subtitle: showSelectedBorderSubtitle,
         title: showSelectedBorderTitle,
         value: currentConfig.showSelectedBorder,
       ),
     if (showSelectedMaskSubtitle != null && showSelectedMaskTitle != null)
       SwitchListTile(
-        onChanged:
-            (showSelectedMask) =>
-                updateConfig = currentConfig.copyWith(
-                  showSelectedMask: showSelectedMask,
-                ),
+        onChanged: (showSelectedMask) => updateConfig = currentConfig.copyWith(
+          showSelectedMask: showSelectedMask,
+        ),
         subtitle: showSelectedMaskSubtitle,
         title: showSelectedMaskTitle,
         value: currentConfig.showSelectedMask,
@@ -477,11 +425,8 @@ class UiConfigurationListView extends BaseConfigListView<UiConfiguration> {
     if (showSelectedPhotoPreviewSubtitle != null &&
         showSelectedPhotoPreviewTitle != null)
       SwitchListTile(
-        onChanged:
-            (showSelectedPhotoPreview) =>
-                updateConfig = currentConfig.copyWith(
-                  showSelectedPhotoPreview: showSelectedPhotoPreview,
-                ),
+        onChanged: (showSelectedPhotoPreview) => updateConfig = currentConfig
+            .copyWith(showSelectedPhotoPreview: showSelectedPhotoPreview),
         subtitle: showSelectedPhotoPreviewSubtitle,
         title: showSelectedPhotoPreviewTitle,
         value: currentConfig.showSelectedPhotoPreview,
@@ -489,38 +434,31 @@ class UiConfigurationListView extends BaseConfigListView<UiConfiguration> {
     if (showStatusBarInPreviewInterfaceSubtitle != null &&
         showStatusBarInPreviewInterfaceTitle != null)
       SwitchListTile(
-        onChanged:
-            (showStatusBarInPreviewInterface) =>
-                updateConfig = currentConfig.copyWith(
-                  showStatusBarInPreviewInterface:
-                      showStatusBarInPreviewInterface,
-                ),
+        onChanged: (showStatusBarInPreviewInterface) =>
+            updateConfig = currentConfig.copyWith(
+              showStatusBarInPreviewInterface: showStatusBarInPreviewInterface,
+            ),
         subtitle: showStatusBarInPreviewInterfaceSubtitle,
         title: showStatusBarInPreviewInterfaceTitle,
         value: currentConfig.showStatusBarInPreviewInterface,
       ),
     if (sortAscendingSubtitle != null && sortAscendingTitle != null)
       SwitchListTile(
-        onChanged:
-            (sortAscending) =>
-                updateConfig = currentConfig.copyWith(
-                  sortAscending: sortAscending,
-                ),
+        onChanged: (sortAscending) =>
+            updateConfig = currentConfig.copyWith(sortAscending: sortAscending),
         subtitle: sortAscendingSubtitle,
         title: sortAscendingTitle,
         value: currentConfig.sortAscending,
       ),
     if (styleSubtitle != null && styleTitle != null)
       TextStyledListTile(
-        onTap:
-            () async => handleShowEnumPicker(
-              context,
-              currentConfig.style,
-              onSelected:
-                  (style) =>
-                      updateConfig = currentConfig.copyWith(style: style),
-              values: PhotoBrowserStyle.values,
-            ),
+        onTap: () async => handleShowEnumPicker(
+          context,
+          currentConfig.style,
+          onSelected: (style) =>
+              updateConfig = currentConfig.copyWith(style: style),
+          values: PhotoBrowserStyle.values,
+        ),
         subtitle: styleSubtitle,
         title: styleTitle,
         trailing: Text(currentConfig.style.name.toUpperCase()),
@@ -531,23 +469,19 @@ class UiConfigurationListView extends BaseConfigListView<UiConfiguration> {
         title: TextFormField(
           decoration: themeColorDecoration,
           initialValue: currentConfig.themeColor.rawValue.toRadixString(16),
-          onChanged:
-              (value) =>
-                  updateConfig = currentConfig.copyWith(
-                    themeColor: Color(int.parse(value, radix: 16)),
-                  ),
+          onChanged: (value) => updateConfig = currentConfig.copyWith(
+            themeColor: Color(int.parse(value, radix: 16)),
+          ),
         ),
       ),
     if (timeoutSubtitle != null && timeoutTitle != null)
       TextStyledListTile(
-        onTap:
-            () async => handleDurationPicker(
-              context,
-              currentConfig.timeout,
-              onSelected:
-                  (timeout) =>
-                      updateConfig = currentConfig.copyWith(timeout: timeout),
-            ),
+        onTap: () async => handleDurationPicker(
+          context,
+          currentConfig.timeout,
+          onSelected: (timeout) =>
+              updateConfig = currentConfig.copyWith(timeout: timeout),
+        ),
         subtitle: timeoutSubtitle,
         title: timeoutTitle,
         trailing: Text(currentConfig.timeout.inSeconds.toString()),

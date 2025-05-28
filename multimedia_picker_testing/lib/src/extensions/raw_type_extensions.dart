@@ -47,8 +47,8 @@ extension RawUiConfigurationTestingExtensions on RawUiConfiguration {
     minimumLineSpacing: minimumLineSpacing,
     navCancelButtonStyle: navCancelButtonStyle,
     selectButtonAnimationDuration: Duration(
-      milliseconds:
-          (selectButtonAnimationDuration * _millisecondsPerSecond).round(),
+      milliseconds: (selectButtonAnimationDuration * _millisecondsPerSecond)
+          .round(),
     ),
     shouldCenterTools: shouldCenterTools,
     showAddPhotoButton: showAddPhotoButton,
@@ -117,10 +117,9 @@ extension RawPickerConfigurationTestingExtensions on RawPickerConfiguration {
     autoScrollWhenSlideSelectIsActive: autoScrollWhenSlideSelectIsActive,
     callbackDirectlyAfterTakingPhoto: callbackDirectlyAfterTakingPhoto,
     cropVideoAfterSelectThumbnail: cropVideoAfterSelectThumbnail,
-    directory:
-        (directoryPath?.isEmpty ?? true)
-            ? null
-            : Directory(directoryPath ?? ''),
+    directory: (directoryPath?.isEmpty ?? true)
+        ? null
+        : Directory(directoryPath ?? ''),
     downloadVideoBeforeSelecting: downloadVideoBeforeSelecting,
     editAfterSelectThumbnailImage: editAfterSelectThumbnailImage,
     filename: filename ?? '',

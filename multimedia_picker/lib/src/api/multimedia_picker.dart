@@ -70,10 +70,9 @@ class MultimediaPicker {
     if (count == 0) return UnmodifiableListView(const []);
 
     final mediaList = <MediaData>[];
-    final maybeNamed =
-        namedOverlays == null
-            ? null
-            : List<NamedImage>.unmodifiable(namedOverlays);
+    final maybeNamed = namedOverlays == null
+        ? null
+        : List<NamedImage>.unmodifiable(namedOverlays);
 
     // ignore: omit_obvious_local_variable_types, avoid-complex-loop-conditions, it's not that complex.,
     for (int index = 0; count == null || index < count; index += 1) {

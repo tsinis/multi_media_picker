@@ -49,19 +49,18 @@ extension MultimediaPickerExtension on MultimediaPicker {
     int? count, {
     NamedImage namedImage = const NamedImage(),
   }) => multipleFromCamera(
-    namedOverlays:
-        count == null
-            ? null
-            : Iterable.generate(max(0, count), (index) {
-              final name = namedImage.name;
+    namedOverlays: count == null
+        ? null
+        : Iterable.generate(max(0, count), (index) {
+            final name = namedImage.name;
 
-              return name == null || name.isEmpty
-                  ? namedImage
-                  : NamedImage(
+            return name == null || name.isEmpty
+                ? namedImage
+                : NamedImage(
                     directory: namedImage.directory,
                     imageNameToSave: '$name-$index',
                     overlay: namedImage.overlay,
                   );
-            }),
+          }),
   );
 }

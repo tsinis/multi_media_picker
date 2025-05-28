@@ -15,10 +15,9 @@ extension UiConfigurationExtensionInternal on UiConfiguration {
     hudStyle: hudStyle,
     isDarkStatusBarStyle: isDarkStatusBarStyle,
     l10n: RawLocalizations(
-      iOsCameraTapToRecordVideoTip:
-          l10n.iOsCameraTapToRecordVideoTip.isNotEmpty
-              ? l10n.iOsCameraTapToRecordVideoTip
-              : null,
+      iOsCameraTapToRecordVideoTip: l10n.iOsCameraTapToRecordVideoTip.isNotEmpty
+          ? l10n.iOsCameraTapToRecordVideoTip
+          : null,
     ),
     languageType: languageType,
     minimumItemSpacing: minimumItemSpacing,

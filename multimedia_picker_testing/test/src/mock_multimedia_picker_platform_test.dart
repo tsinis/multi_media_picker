@@ -14,11 +14,9 @@ void main() => group('$MockMultimediaPickerPlatform', () {
   late MockMultimediaPickerPlatform mock; // ignore: avoid-late-keyword, a test.
 
   setUp(
-    () =>
-        mock =
-            MockMultimediaPickerPlatform()
-              ..registerAsPlatform()
-              ..reset(),
+    () => mock = MockMultimediaPickerPlatform()
+      ..registerAsPlatform()
+      ..reset(),
   );
 
   group('openCamera', () {
@@ -32,8 +30,8 @@ void main() => group('$MockMultimediaPickerPlatform', () {
     });
 
     test(lowLevelHandler, () async {
-      mock.onOpenCamera =
-          (_, _, _, _) => RawMediaData(path: file.path, type: MediaType.image);
+      mock.onOpenCamera = (_, _, _, _) =>
+          RawMediaData(path: file.path, type: MediaType.image);
 
       final result = await MultimediaPickerPlatform.instance.openCamera(
         RawCameraConfiguration(),
@@ -79,8 +77,8 @@ void main() => group('$MockMultimediaPickerPlatform', () {
     });
 
     test(lowLevelHandler, () async {
-      mock.onEditMedia =
-          (_, _, _, _) => RawMediaData(path: file.path, type: MediaType.image);
+      mock.onEditMedia = (_, _, _, _) =>
+          RawMediaData(path: file.path, type: MediaType.image);
 
       final originalMedia = RawMediaData(
         path: file.path,
@@ -120,8 +118,9 @@ void main() => group('$MockMultimediaPickerPlatform', () {
     });
 
     test(lowLevelHandler, () async {
-      mock.onOpenGallery =
-          (_, _, _) => [RawMediaData(path: file.path, type: MediaType.image)];
+      mock.onOpenGallery = (_, _, _) => [
+        RawMediaData(path: file.path, type: MediaType.image),
+      ];
 
       final resultsList = await MultimediaPickerPlatform.instance.openGallery(
         RawEditConfiguration(),
