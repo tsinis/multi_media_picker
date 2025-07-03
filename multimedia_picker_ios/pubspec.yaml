@@ -7,7 +7,7 @@ maintainer: Roman Cinis
 publish_to: none
 
 environment:
-  sdk: ^3.8.0
+  sdk: ^3.8.1
   flutter: ">=3.32.0"
 
 resolution: workspace
@@ -28,4 +28,4 @@ dependencies:
 
 dev_dependencies:
   dart_code_metrics_presets: ^2.22.0
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0

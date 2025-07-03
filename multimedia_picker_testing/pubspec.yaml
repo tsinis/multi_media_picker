@@ -16,7 +16,7 @@ topics:
 resolution: workspace
 
 environment:
-  sdk: ^3.8.0
+  sdk: ^3.8.1
 
 dependencies:
   flutter:
@@ -30,4 +30,4 @@ dependencies:
 
 dev_dependencies:
   dart_code_metrics_presets: ^2.22.0
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
