@@ -27,7 +27,3 @@ dependencies:
     path: ../multimedia_picker
   multimedia_picker_platform_interface:
     path: ../multimedia_picker_platform_interface
-
-dev_dependencies:
-  dart_code_metrics_presets: ^2.22.0
-  flutter_lints: ^6.0.0

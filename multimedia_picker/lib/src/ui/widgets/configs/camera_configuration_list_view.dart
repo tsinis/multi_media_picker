@@ -1,4 +1,5 @@
 // ignore_for_file: prefer-boolean-prefixes, prefer-typedefs-for-callbacks
+// ignore_for_file: avoid-unnecessary-nullable-fields
 
 import 'package:flutter/material.dart';
 import 'package:multimedia_picker_platform_interface/multimedia_picker_platform_interface.dart';
