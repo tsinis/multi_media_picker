@@ -48,56 +48,55 @@ public final class MultimediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
           self.showOverlayImage(cameraConfig.overlayImage, registrar: registrar)
         }
 
-        // Create camera with delay to avoid AVCaptureSession deadlock in ZLCustomCamera.setupCamera()
-        // ZLCustomCamera calls session.addInput() synchronously in viewDidLoad, which can deadlock
-        // with UIKit's view controller presentation. Small delays ensure presentation completes first.
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-          let camera = ZLCustomCamera()
+        // Use SafeCameraWrapper to prevent ZLCustomCamera deadlock during presentation
+        let cameraWrapper = SafeCameraWrapper()
 
-          // Create a countdown manager that will be shared across camera operations
-          let countdownManager = CameraCountdownManager(
-            seconds: Int(cameraConfig.captureTimerSeconds),
-            viewController: camera
-          )
+        // Create a countdown manager that will be shared across camera operations
+        let countdownManager = CameraCountdownManager(
+          seconds: Int(cameraConfig.captureTimerSeconds),
+          viewController: cameraWrapper
+        )
 
-          // Configure willCaptureBlock for countdown and sound effects
-          camera.willCaptureBlock = { captureCompletion, isCapturing in
-            // Start countdown with sound effects, passing in the allowed operations
-            countdownManager.startCountdown(
-              allowPhoto: cameraConfig.allowTakePhoto,
-              allowVideo: cameraConfig.allowRecordVideo,
-              isCapturing: isCapturing,
-              playSound: cameraConfig.playCameraSound
-            ) {
-              captureCompletion()
-            }
+        // Configure willCaptureBlock for countdown and sound effects
+        cameraWrapper.willCaptureBlock = { captureCompletion, isCapturing in
+          // Start countdown with sound effects, passing in the allowed operations
+          countdownManager.startCountdown(
+            allowPhoto: cameraConfig.allowTakePhoto,
+            allowVideo: cameraConfig.allowRecordVideo,
+            isCapturing: isCapturing,
+            playSound: cameraConfig.playCameraSound
+          ) {
+            captureCompletion()
           }
-
-          camera.cancelBlock = {
-            // Reset countdown state when canceling
-            countdownManager.resetCountdownState()
-            completion(.success(nil))
-          }
-
-          camera.takeDoneBlock = { [weak self] image, video in
-            // Reset countdown state when capture is done
-            countdownManager.resetCountdownState()
-            NotificationCenter.default.removeObserver(camera)
-            guard let self else { return completion(.success(nil)) }
-
-            var mediaData: RawMediaData?
-
-            if let image {
-              mediaData = resolveImage(image: image, picker: pickerConfig)
-            } else if let video {
-              mediaData = resolveVideo(url: video, picker: pickerConfig, isNew: true)
-            }
-
-            completion(.success(mediaData))
-          }
-
-          viewController.showDetailViewController(camera, sender: nil)
         }
+
+        cameraWrapper.cancelBlock = {
+          // Reset countdown state when canceling
+          countdownManager.resetCountdownState()
+          completion(.success(nil))
+        }
+
+        cameraWrapper.takeDoneBlock = { [weak self] image, video in
+          // Reset countdown state when capture is done
+          countdownManager.resetCountdownState()
+          // Ensure NotificationCenter cleanup for the underlying camera
+          if let camera = cameraWrapper.camera { NotificationCenter.default.removeObserver(camera) }
+          guard let self else { return completion(.success(nil)) }
+
+          var mediaData: RawMediaData?
+
+          if let image {
+            mediaData = resolveImage(image: image, picker: pickerConfig)
+          } else if let video {
+            mediaData = resolveVideo(url: video, picker: pickerConfig, isNew: true)
+          }
+
+          completion(.success(mediaData))
+        }
+
+        // Present the wrapper as full-screen modal - camera setup will happen safely after presentation
+        cameraWrapper.modalPresentationStyle = .fullScreen
+        viewController.present(cameraWrapper, animated: true, completion: nil)
       }
     }
   }
