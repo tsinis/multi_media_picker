@@ -79,8 +79,6 @@ public final class MultimediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
         cameraWrapper.takeDoneBlock = { [weak self] image, video in
           // Reset countdown state when capture is done
           countdownManager.resetCountdownState()
-          // Ensure NotificationCenter cleanup for the underlying camera
-          if let camera = cameraWrapper.camera { NotificationCenter.default.removeObserver(camera) }
           guard let self else { return completion(.success(nil)) }
 
           var mediaData: RawMediaData?
