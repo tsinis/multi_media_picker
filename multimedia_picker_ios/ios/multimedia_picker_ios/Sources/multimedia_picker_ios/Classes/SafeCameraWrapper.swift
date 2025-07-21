@@ -76,7 +76,8 @@ class SafeCameraWrapper: UIViewController {
     }
   }
 
-  deinit {  // Clean up notifications when the wrapper is deallocated.
+  // Clean up notifications when the wrapper is deallocated.
+  deinit {
     if let camera = _camera { NotificationCenter.default.removeObserver(camera) }
   }
 
