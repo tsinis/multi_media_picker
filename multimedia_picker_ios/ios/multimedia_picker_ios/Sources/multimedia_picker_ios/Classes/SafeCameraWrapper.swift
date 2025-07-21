@@ -78,7 +78,8 @@ class SafeCameraWrapper: UIViewController {
 
   // Clean up notifications when the wrapper is deallocated.
   deinit {
-    if let camera = _camera { NotificationCenter.default.removeObserver(camera) }
+    guard let camera = _camera else { return }
+    NotificationCenter.default.removeObserver(camera)
   }
 
   override var supportedInterfaceOrientations: UIInterfaceOrientationMask { return .portrait }
