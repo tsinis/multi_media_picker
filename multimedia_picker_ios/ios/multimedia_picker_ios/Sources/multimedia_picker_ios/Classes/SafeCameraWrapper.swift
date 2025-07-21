@@ -35,12 +35,12 @@ class SafeCameraWrapper: UIViewController {
     super.viewDidAppear(animated)
 
     // Now that the view controller presentation is complete,
-    // safely initialize the camera on a background queue.
+    // safely initialize the camera. Use async to defer to next run loop cycle.
     guard !isSetupComplete else { return }
     isSetupComplete = true
 
-    DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-      DispatchQueue.main.async { self?.setupCamera() }
+    DispatchQueue.main.async { [weak self] in
+      self?.setupCamera()
     }
   }
 
