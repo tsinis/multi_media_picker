@@ -3,7 +3,7 @@
   "language": "en",
   "flagWords": ["teh", "hte"],
   "ignorePaths": [
-    ".github/**",
+    ".github/workflows/**",
     "**/macos/**",
     "**/windows/**",
     "**/linux/**",

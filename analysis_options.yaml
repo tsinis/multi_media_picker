@@ -606,6 +606,7 @@ linter:
     sort_pub_dependencies: true
     sort_unnamed_constructors_first: true
     strict_top_level_inference: true
+    switch_on_type: true
     test_types_in_equals: true
     throw_in_finally: true
     tighten_type_of_initializing_formals: true
@@ -638,6 +639,7 @@ linter:
     unnecessary_string_interpolations: true
     unnecessary_this: true
     unnecessary_to_list_in_spreads: true
+    unnecessary_unawaited: true
     unnecessary_underscores: true
     unreachable_from_main: true
     unrelated_type_equality_checks: true
@@ -652,6 +654,7 @@ linter:
     use_key_in_widget_constructors: true
     use_late_for_private_fields_and_variables: true
     use_named_constants: true
+    use_null_aware_elements: true
     use_raw_strings: true
     use_rethrow_when_possible: true
     use_setters_to_change_properties: true
