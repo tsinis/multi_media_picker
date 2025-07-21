@@ -21,3 +21,7 @@ workspace:
   - multimedia_picker_ios # iOS implementation.
   - multimedia_picker_platform_interface # Platform interface.
   - multimedia_picker_testing # Testing suite.
+
+dev_dependencies:
+  dart_code_metrics_presets: ^2.24.0
+  flutter_lints: ^6.0.0

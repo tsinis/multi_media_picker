@@ -1,0 +1,34 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "flagWords": ["teh", "hte"],
+  "ignorePaths": [
+    ".github/workflows/**",
+    "**/macos/**",
+    "**/windows/**",
+    "**/linux/**",
+    "**/web/**",
+    "**/ios/**",
+    "**/android/**",
+    "**/*.*.dart"
+  ],
+  "ignoreRegExpList": ["\\#[\\w\\-]+"],
+  "dictionaries": [
+    "en_US",
+    "softwareTerms",
+    "dart_dictionary",
+    "nicknames_dictionary"
+  ],
+  "dictionaryDefinitions": [
+    {
+      "name": "dart_dictionary",
+      "path": "dart_dictionary.txt",
+      "addWords": true
+    },
+    {
+      "name": "nicknames_dictionary",
+      "path": "nicknames_dictionary.txt",
+      "addWords": true
+    }
+  ]
+}
