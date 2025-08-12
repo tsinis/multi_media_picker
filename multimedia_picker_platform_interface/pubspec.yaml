@@ -16,4 +16,4 @@ dependencies:
   plugin_platform_interface: ^2.1.8
 
 dev_dependencies:
-  pigeon: ^26.0.0
+  pigeon: ^26.0.1
