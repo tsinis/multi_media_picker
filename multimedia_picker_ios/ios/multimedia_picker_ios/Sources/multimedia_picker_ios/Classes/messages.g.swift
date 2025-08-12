@@ -797,6 +797,7 @@ struct RawCameraConfiguration: Hashable {
   var playCameraSound: Bool
   var overlayImage: RawOverlayImage? = nil
   var videoStabilization: VideoStabilization? = nil
+  var minDurationCountdownSize: Double? = nil
   var orientation: CameraOrientation
 
 
@@ -820,7 +821,8 @@ struct RawCameraConfiguration: Hashable {
     let playCameraSound = pigeonVar_list[15] as! Bool
     let overlayImage: RawOverlayImage? = nilOrValue(pigeonVar_list[16])
     let videoStabilization: VideoStabilization? = nilOrValue(pigeonVar_list[17])
-    let orientation = pigeonVar_list[18] as! CameraOrientation
+    let minDurationCountdownSize: Double? = nilOrValue(pigeonVar_list[18])
+    let orientation = pigeonVar_list[19] as! CameraOrientation
 
     return RawCameraConfiguration(
       allowTakePhoto: allowTakePhoto,
@@ -841,6 +843,7 @@ struct RawCameraConfiguration: Hashable {
       playCameraSound: playCameraSound,
       overlayImage: overlayImage,
       videoStabilization: videoStabilization,
+      minDurationCountdownSize: minDurationCountdownSize,
       orientation: orientation
     )
   }
@@ -864,6 +867,7 @@ struct RawCameraConfiguration: Hashable {
       playCameraSound,
       overlayImage,
       videoStabilization,
+      minDurationCountdownSize,
       orientation,
     ]
   }

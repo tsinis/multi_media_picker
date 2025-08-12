@@ -848,6 +848,7 @@ class RawCameraConfiguration {
     this.playCameraSound = true,
     this.overlayImage,
     this.videoStabilization,
+    this.minDurationCountdownSize,
     this.orientation = CameraOrientation.any,
   });
 
@@ -887,6 +888,8 @@ class RawCameraConfiguration {
 
   VideoStabilization? videoStabilization;
 
+  double? minDurationCountdownSize;
+
   CameraOrientation orientation;
 
   List<Object?> _toList() {
@@ -909,6 +912,7 @@ class RawCameraConfiguration {
       playCameraSound,
       overlayImage,
       videoStabilization,
+      minDurationCountdownSize,
       orientation,
     ];
   }
@@ -938,7 +942,8 @@ class RawCameraConfiguration {
       playCameraSound: result[15]! as bool,
       overlayImage: result[16] as RawOverlayImage?,
       videoStabilization: result[17] as VideoStabilization?,
-      orientation: result[18]! as CameraOrientation,
+      minDurationCountdownSize: result[18] as double?,
+      orientation: result[19]! as CameraOrientation,
     );
   }
 
