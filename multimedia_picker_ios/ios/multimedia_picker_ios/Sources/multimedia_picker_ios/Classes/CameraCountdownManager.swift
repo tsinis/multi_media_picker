@@ -14,7 +14,6 @@ public final class CameraCountdownManager {
     static let countdownFinishSound: SystemSoundID = 1_114
     static let videoRecordingSound: SystemSoundID = 1_117
     static let labelFontSize: CGFloat = 72
-    static let minDurationLabelFontSize: CGFloat = 32
     static let minDurationLabelMargin: CGFloat = 20
   }
 
@@ -22,6 +21,7 @@ public final class CameraCountdownManager {
 
   private let countdownSeconds: Int
   private let minVideoDurationSeconds: Int?
+  private let minDurationLabelFontSize: CGFloat
   private weak var viewController: UIViewController?
   private var countdownLabel: UILabel?
   private var minDurationLabel: UILabel?
@@ -34,13 +34,13 @@ public final class CameraCountdownManager {
 
   /// Initializes a new countdown manager
   /// - Parameters:
-  /// - `seconds`: The number of seconds to count down
+  /// - `cameraConfig`: Camera configuration containing countdown and duration settings
   /// - `viewController`: The view controller to display the countdown on
-  /// - `minVideoDurationSeconds`: Minimum video duration in seconds (optional)
-  init(seconds: Int, viewController: UIViewController, minVideoDurationSeconds: Int?) {
-    self.countdownSeconds = seconds
+  init(cameraConfig: RawCameraConfiguration, viewController: UIViewController) {
+    self.countdownSeconds = Int(cameraConfig.captureTimerSeconds)
+    self.minVideoDurationSeconds = Int(cameraConfig.minDurationSeconds)
+    self.minDurationLabelFontSize = CGFloat(cameraConfig.minDurationCountdownSize ?? 0)
     self.viewController = viewController
-    self.minVideoDurationSeconds = minVideoDurationSeconds
   }
 
   // MARK: - Public Methods
@@ -79,6 +79,7 @@ public final class CameraCountdownManager {
     // Only start if we have minimum duration configured
     guard let viewController = viewController,
       let minDuration = minVideoDurationSeconds,
+      minDuration > 1,  // Show only when > 1s to avoid brief/blinking label for 0-1s values
       !isMinDurationTrackingActive
     else { return }
 
@@ -195,12 +196,12 @@ public final class CameraCountdownManager {
     let label = UILabel()
     label.text = "\(minDuration)"
     label.textColor = .red
-    label.font = UIFont.systemFont(ofSize: Constants.minDurationLabelFontSize, weight: .bold)
+    label.font = UIFont.systemFont(ofSize: minDurationLabelFontSize, weight: .bold)
     label.textAlignment = .center
 
     // Position in top-right corner
-    let labelWidth: CGFloat = 60
-    let labelHeight: CGFloat = 30
+    let labelWidth: CGFloat = minDurationLabelFontSize * 2
+    let labelHeight: CGFloat = minDurationLabelFontSize
     let safeAreaTop =
       viewController.view.safeAreaInsets.top > 0 ? viewController.view.safeAreaInsets.top : 0
 

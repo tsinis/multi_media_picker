@@ -53,9 +53,7 @@ public final class MultimediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
 
         // Create a countdown manager that will be shared across camera operations
         let countdownManager = CameraCountdownManager(
-          seconds: Int(cameraConfig.captureTimerSeconds),
-          viewController: cameraWrapper,
-          minVideoDurationSeconds: Int(cameraConfig.minDurationSeconds),
+          cameraConfig: cameraConfig, viewController: cameraWrapper
         )
 
         // Configure willCaptureBlock for countdown and sound effects

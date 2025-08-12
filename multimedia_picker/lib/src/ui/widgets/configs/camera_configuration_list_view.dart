@@ -36,6 +36,10 @@ class CameraConfigurationListView
     this.isFrontVideoMirroredTitle = const Text('Is Front Video Mirrored'),
     this.maxDurationSubtitle = const SelectableText('maxDuration'),
     this.maxDurationTitle = const Text('Maximum video duration in seconds'),
+    this.minDurationCountdownSizeDecoration = const InputDecoration(
+      hintText: 'Minimum Duration Countdown Size',
+    ),
+    this.minDurationCountdownSizeTitle = const Text('minDurationCountdownSize'),
     this.minDurationSubtitle = const SelectableText('minDuration'),
     this.minDurationTitle = const Text('Minimum video duration in seconds'),
     this.orientationSubtitle = const SelectableText('orientation'),
@@ -87,6 +91,8 @@ class CameraConfigurationListView
   final Widget? maxDurationTitle;
   final Widget? minDurationSubtitle;
   final Widget? minDurationTitle;
+  final InputDecoration? minDurationCountdownSizeDecoration;
+  final Widget? minDurationCountdownSizeTitle;
   final Widget? orientationSubtitle;
   final Widget? orientationTitle;
   final Widget? playCameraSoundSubtitle;
@@ -267,6 +273,20 @@ class CameraConfigurationListView
         subtitle: minDurationSubtitle,
         title: minDurationTitle,
         trailing: Text(currentConfig.minDuration.inSeconds.toString()),
+      ),
+    if (minDurationCountdownSizeTitle != null &&
+        minDurationCountdownSizeDecoration != null)
+      ListTile(
+        subtitle: minDurationCountdownSizeTitle,
+        title: TextFormField(
+          decoration: minDurationCountdownSizeDecoration,
+          initialValue: currentConfig.minDurationCountdownSize.toString(),
+          keyboardType: TextInputType.number,
+          maxLength: 4,
+          onChanged: (value) => updateConfig = currentConfig.copyWith(
+            minDurationCountdownSize: double.tryParse(value),
+          ),
+        ),
       ),
     if (sessionPresetSubtitle != null && sessionPresetTitle != null)
       TextStyledListTile(
