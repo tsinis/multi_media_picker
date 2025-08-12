@@ -92,8 +92,9 @@ class CameraConfiguration {
   /// Play camera shutter sound. Defaults to `true`.
   final bool playCameraSound;
 
-  /// Font size (in logical pixels) for the minimum duration countdown timer displayed
-  /// during video recording. Must be a positive value. Defaults to platform-specific value.
+  /// Font size (in logical pixels) for the minimum duration countdown timer
+  /// displayed during video recording. Must be a positive value. Defaults to
+  /// `42`.
   final double minDurationCountdownSize;
 
   // ignore: avoid-high-cyclomatic-complexity, a lot of configuration options.
