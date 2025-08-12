@@ -54,7 +54,8 @@ public final class MultimediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
         // Create a countdown manager that will be shared across camera operations
         let countdownManager = CameraCountdownManager(
           seconds: Int(cameraConfig.captureTimerSeconds),
-          viewController: cameraWrapper
+          viewController: cameraWrapper,
+          minVideoDurationSeconds: Int(cameraConfig.minDurationSeconds),
         )
 
         // Configure willCaptureBlock for countdown and sound effects
@@ -66,6 +67,9 @@ public final class MultimediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
             isCapturing: isCapturing,
             playSound: cameraConfig.playCameraSound
           ) {
+            if cameraConfig.allowRecordVideo && !cameraConfig.allowTakePhoto {
+              countdownManager.startMinDurationTracking()
+            }
             captureCompletion()
           }
         }
@@ -77,6 +81,8 @@ public final class MultimediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
         }
 
         cameraWrapper.takeDoneBlock = { [weak self] image, video in
+          // Stop duration tracking when capture is done
+          countdownManager.stopMinDurationTracking()
           // Reset countdown state when capture is done
           countdownManager.resetCountdownState()
           guard let self else { return completion(.success(nil)) }
