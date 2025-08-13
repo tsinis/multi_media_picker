@@ -77,7 +77,7 @@ public final class CameraCountdownManager {
   /// Start minimum duration countdown for video recording
   func startMinDurationTracking() {
     // Only start if we have minimum duration configured
-    guard let viewController = viewController,
+    guard let viewController,
       let minDuration = minVideoDurationSeconds,
       minDuration > 1,  // Show only when > 1s to avoid brief/blinking label for 0-1s values
       !isMinDurationTrackingActive
@@ -227,7 +227,7 @@ public final class CameraCountdownManager {
   private func startMinDurationTimer() {
     // Combined timer that updates duration and checks for dialog each second
     minDurationTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
-      guard let self = self else { return }
+      guard let self else { return }
 
       // First check for dialog
       if self.shouldHideTimerDueToDialog() {
@@ -241,24 +241,24 @@ public final class CameraCountdownManager {
   }
 
   private func shouldHideTimerDueToDialog() -> Bool {
-    guard let viewController = viewController else { return true }
+    guard let viewController else { return true }
     return viewController.presentedViewController != nil
   }
 
   // Update minimum duration countdown label
   private func updateMinDurationLabel() {
-    guard let startTime = recordingStartTime,
-      let label = minDurationLabel,
-      let minDuration = minVideoDurationSeconds
+    guard let recordingStartTime,
+      let minDurationLabel,
+      let minVideoDurationSeconds
     else { return }
 
-    let elapsed = Int(Date().timeIntervalSince(startTime))
-    let remaining = max(0, minDuration - elapsed)
+    let elapsed = Int(Date().timeIntervalSince(recordingStartTime))
+    let remaining = max(0, minVideoDurationSeconds - elapsed)
 
     if remaining <= 0 {
       stopMinDurationTracking()
     } else {
-      label.text = "\(remaining)"
+      minDurationLabel.text = "\(remaining)"
     }
   }
 
@@ -314,9 +314,10 @@ public final class CameraCountdownManager {
     playSound: Bool,
     completion: @escaping () -> Void
   ) {
-    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-      guard let viewController = self.viewController, viewController.view.window != nil else {
-        self.handleDismissedCamera()
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+      guard let self, let viewController = self.viewController, viewController.view.window != nil
+      else {
+        self?.handleDismissedCamera()
         return
       }
 
@@ -350,17 +351,13 @@ public final class CameraCountdownManager {
         self?.countdownLabel?.alpha = 0
       },
       completion: { [weak self] _ in
-        self?.removeCountdownLabel()
-        self?.isCountdownInProgress = false
-
-        guard let viewController = self?.viewController, viewController.view.window != nil else {
-          return
-        }
+        guard let self, let viewController = self.viewController, viewController.view.window != nil
+        else { return }
+        self.removeCountdownLabel()
+        self.isCountdownInProgress = false
 
         let delay: TimeInterval = (mediaType == .video && playSound) ? Constants.videoSoundDelay : 0
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-          completion()
-        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { completion() }
       }
     )
   }
