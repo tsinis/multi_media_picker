@@ -79,8 +79,6 @@ public final class MultimediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
         }
 
         cameraWrapper.takeDoneBlock = { [weak self] image, video in
-          // Stop duration tracking when capture is done
-          countdownManager.stopMinDurationTracking()
           // Reset countdown state when capture is done
           countdownManager.resetCountdownState()
           guard let self else { return completion(.success(nil)) }
