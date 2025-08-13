@@ -5,18 +5,18 @@ packages:
     dependency: transitive
     description:
       name: _fe_analyzer_shared
-      sha256: e55636ed79578b9abca5fecf9437947798f5ef7456308b5cb85720b793eac92f
+      sha256: da0d9209ca76bde579f2da330aeb9df62b6319c834fa7baae052021b0462401f
       url: "https://pub.dev"
     source: hosted
-    version: "82.0.0"
+    version: "85.0.0"
   analyzer:
     dependency: transitive
     description:
       name: analyzer
-      sha256: "904ae5bb474d32c38fb9482e2d925d5454cda04ddd0e55d2e6826bc72f6ba8c0"
+      sha256: "974859dc0ff5f37bc4313244b3218c791810d03ab3470a579580279ba971a48d"
       url: "https://pub.dev"
     source: hosted
-    version: "7.4.5"
+    version: "7.7.1"
   args:
     dependency: transitive
     description:
@@ -53,10 +53,10 @@ packages:
     dependency: transitive
     description:
       name: built_value
-      sha256: ea90e81dc4a25a043d9bee692d20ed6d1c4a1662a28c03a96417446c093ed6b4
+      sha256: ba95c961bafcd8686d1cf63be864eb59447e795e124d98d6a27d91fcd13602fb
       url: "https://pub.dev"
     source: hosted
-    version: "8.9.5"
+    version: "8.11.1"
   characters:
     dependency: transitive
     description:
@@ -117,10 +117,10 @@ packages:
     dependency: transitive
     description:
       name: dart_style
-      sha256: "5b236382b47ee411741447c1f1e111459c941ea1b3f2b540dde54c210a3662af"
+      sha256: "8a0e5fba27e8ee025d2ffb4ee820b4e6e2cf5e4246a6b1a477eb66866947e0bb"
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.0"
+    version: "3.1.1"
   fake_async:
     dependency: transitive
     description:
@@ -191,26 +191,26 @@ packages:
     dependency: transitive
     description:
       name: l10n_countries
-      sha256: "7f5cfeba20d263df6a206ec6c356c6b7aec103c8f0965e899699e3eee89c6ad5"
+      sha256: "1488ec667b177c43bfd282f0dee8a8dd7adc3245971a6b3c645e637f4897cfa9"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.1"
+    version: "1.2.0"
   l10n_currencies:
     dependency: transitive
     description:
       name: l10n_currencies
-      sha256: "1ee719027b2a822bd5cbd422ffe4c2ec0e1b7df0ede75ef815bf1c20b93f72bc"
+      sha256: ef9bf2d7990a5843b9eb4c1bc6529f9adcfe99c8b3aafa9579e91b6aad116987
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.2.0"
   l10n_languages:
     dependency: transitive
     description:
       name: l10n_languages
-      sha256: "2360da28a5e2d9eaec5ac93151f27b2173338871b5486f757d088fc92a3a2b62"
+      sha256: "1a1d12f57fdca91935701aa449f3a2f4d5f4d134f4dbc67e83bb9faad2a9cf5c"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.2.0"
   leak_tracker:
     dependency: transitive
     description:
@@ -335,10 +335,10 @@ packages:
     dependency: transitive
     description:
       name: pigeon
-      sha256: b65acb352dc5a5f8615d074a83419388cbcc249f07c6d8c78b5bc16680a55dda
+      sha256: "2073deca15d22f1a0f5862cc6edc9e8660b3be7fd94f03b49101db71a5316b0f"
       url: "https://pub.dev"
     source: hosted
-    version: "26.0.0"
+    version: "26.0.1"
   platform:
     dependency: transitive
     description:
@@ -367,26 +367,26 @@ packages:
     dependency: transitive
     description:
       name: sealed_countries
-      sha256: a98ae36618268df909d3931dd3dadeb3036d194d52c542b8932a1c9bdc0b66c7
+      sha256: be6b160bb98f1c30b70294ddc6c61baddcfc0f9a3f0a7e08c4734841d9679618
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.0"
+    version: "2.5.0"
   sealed_currencies:
     dependency: transitive
     description:
       name: sealed_currencies
-      sha256: "8665d27c0d9470fb3ce19f540cde404fa444fb52dae12b28cd172def042e8a91"
+      sha256: c3581a2a9e55ef8b155cf0fc6611f2d36fdd114b0f582a76a1c36431cc6dca9d
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.0"
+    version: "2.3.0"
   sealed_languages:
     dependency: transitive
     description:
       name: sealed_languages
-      sha256: cd8b4b6ee911b00a95a5f760fa51527497e23a35b120f8ed50442b17a4524ec8
+      sha256: "1c301e847e2fabc0c8591011aa7aab04424bbba4554647bf029de4dbc91df3e4"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.0"
+    version: "2.3.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -468,26 +468,26 @@ packages:
     dependency: transitive
     description:
       name: watcher
-      sha256: "69da27e49efa56a15f8afe8f4438c4ec02eff0a117df1b22ea4aad194fe1c104"
+      sha256: "0b7fd4a0bbc4b92641dbf20adfd7e3fd1398fe17102d94b674234563e110088a"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.1"
+    version: "1.1.2"
   world_countries:
     dependency: transitive
     description:
       name: world_countries
-      sha256: "8a151d997fa43d770c30f0eea4050d2b55ffd14dfbccc1cda2b19ac4ce3f8e3b"
+      sha256: a436841e6db0b2f125208a6b39b280cf3760931106212fc5446f5de6bd0a3c7e
       url: "https://pub.dev"
     source: hosted
-    version: "3.7.0"
+    version: "3.8.0"
   world_flags:
     dependency: transitive
     description:
       name: world_flags
-      sha256: d9fcc05b56446a06ae2e56acf1cdb88ccd70a06594cab002dcac737c02b0d04d
+      sha256: "0afe39efffef4fb6d0bb6726be42db6c5c35b36fdd5f4273893247c9304eada3"
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.0"
+    version: "2.6.0"
   xdg_directories:
     dependency: transitive
     description:

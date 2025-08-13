@@ -305,6 +305,7 @@ class RawCameraConfiguration {
     this.focusMode = FocusMode.continuousAutoFocus,
     this.isFrontVideoMirrored = true,
     this.maxDurationSeconds = 30,
+    this.minDurationCountdownSize,
     this.minDurationSeconds = 0,
     this.orientation = CameraOrientation.any,
     this.overlayImage,
@@ -334,6 +335,7 @@ class RawCameraConfiguration {
   final bool playCameraSound;
   final RawOverlayImage? overlayImage;
   final VideoStabilization? videoStabilization;
+  final double? minDurationCountdownSize;
   final CameraOrientation orientation;
 }
 

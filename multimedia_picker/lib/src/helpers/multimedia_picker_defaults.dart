@@ -153,6 +153,10 @@ sealed class MultimediaPickerDefaults {
   /// Value: `ImpactFeedbackStyle.medium`.
   static const impactFeedbackStyle = ImpactFeedbackStyle.medium;
 
+  /// Default size of the minimum duration countdown.
+  /// Value: `42`.
+  static const minDurationCountdownSize = 42.0;
+
   /// Default grid spacing value in logical pixels.
   /// Value: `2`.
   static const _defaultGridSpacing = 2.0;

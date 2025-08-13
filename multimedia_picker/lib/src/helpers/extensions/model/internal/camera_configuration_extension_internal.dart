@@ -16,6 +16,9 @@ extension CameraConfigurationExtensionInternal on CameraConfiguration {
     focusMode: focusMode,
     isFrontVideoMirrored: isFrontVideoMirrored,
     maxDurationSeconds: maxDuration.inSeconds,
+    minDurationCountdownSize: minDurationCountdownSize > 1
+        ? minDurationCountdownSize
+        : null,
     minDurationSeconds: minDuration.inSeconds,
     orientation: orientation,
     overlayImage: hasOverlay ? overlayImage.raw : null,

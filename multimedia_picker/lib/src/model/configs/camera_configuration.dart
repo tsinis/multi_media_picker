@@ -20,6 +20,8 @@ class CameraConfiguration {
     this.isFrontVideoMirrored = true,
     this.maxDuration = MultimediaPickerDefaults.maxVideoDuration,
     this.minDuration = MultimediaPickerDefaults.minVideoDuration,
+    this.minDurationCountdownSize =
+        MultimediaPickerDefaults.minDurationCountdownSize,
     this.orientation = MultimediaPickerDefaults.orientation,
     this.overlayImage = OverlayImage.empty,
     this.playCameraSound = true,
@@ -90,6 +92,12 @@ class CameraConfiguration {
   /// Play camera shutter sound. Defaults to `true`.
   final bool playCameraSound;
 
+  /// Font size (in logical pixels) for the minimum duration countdown timer
+  /// displayed during video recording. Must be a positive value. Defaults to
+  /// `42`.
+  final double minDurationCountdownSize;
+
+  // ignore: avoid-high-cyclomatic-complexity, a lot of configuration options.
   CameraConfiguration copyWith({
     bool? allowRecordVideo,
     bool? allowSwitchCamera,
@@ -102,6 +110,7 @@ class CameraConfiguration {
     bool? isFrontVideoMirrored,
     Duration? maxDuration,
     Duration? minDuration,
+    double? minDurationCountdownSize,
     CameraOrientation? orientation,
     OverlayImage? overlayImage,
     bool? playCameraSound,
@@ -122,6 +131,8 @@ class CameraConfiguration {
     isFrontVideoMirrored: isFrontVideoMirrored ?? this.isFrontVideoMirrored,
     maxDuration: maxDuration ?? this.maxDuration,
     minDuration: minDuration ?? this.minDuration,
+    minDurationCountdownSize:
+        minDurationCountdownSize ?? this.minDurationCountdownSize,
     orientation: orientation ?? this.orientation,
     overlayImage: overlayImage ?? this.overlayImage,
     playCameraSound: playCameraSound ?? this.playCameraSound,
@@ -144,6 +155,7 @@ class CameraConfiguration {
       'allowSwitchCamera: $allowSwitchCamera, '
       'playCameraSound: $playCameraSound, tapToRecordVideo: $tapToRecordVideo, '
       'enableWideCameras: $enableWideCameras, '
+      'minDurationCountdownSize: $minDurationCountdownSize, '
       'videoExportType: $videoExportType, '
       '''${videoStabilization == null ? '' : 'videoStabilization: $videoStabilization, '}'''
       'devicePosition: $devicePosition)';
@@ -162,6 +174,7 @@ class CameraConfiguration {
         other.orientation == orientation &&
         other.overlayImage == overlayImage &&
         other.isFrontVideoMirrored == isFrontVideoMirrored &&
+        other.minDurationCountdownSize == minDurationCountdownSize &&
         other.sessionPreset == sessionPreset &&
         other.focusMode == focusMode &&
         other.exposureMode == exposureMode &&
@@ -185,6 +198,7 @@ class CameraConfiguration {
       orientation.hashCode ^
       overlayImage.hashCode ^
       isFrontVideoMirrored.hashCode ^
+      minDurationCountdownSize.hashCode ^
       sessionPreset.hashCode ^
       focusMode.hashCode ^
       exposureMode.hashCode ^
