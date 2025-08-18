@@ -3,6 +3,7 @@ import UIKit
 
 /// Manages countdown timer and sound effects for camera capture.
 public final class CameraCountdownManager {
+
   // MARK: - Private Constants
 
   private enum Constants {
@@ -13,23 +14,32 @@ public final class CameraCountdownManager {
     static let countdownFinishSound: SystemSoundID = 1_114
     static let videoRecordingSound: SystemSoundID = 1_117
     static let labelFontSize: CGFloat = 72
+    static let minDurationLabelMargin: CGFloat = 20
   }
 
   // MARK: - Private Properties
 
   private let countdownSeconds: Int
+  private let minVideoDurationSeconds: Int?
+  private let minDurationLabelFontSize: CGFloat
   private weak var viewController: UIViewController?
   private var countdownLabel: UILabel?
+  private var minDurationLabel: UILabel?
   private var isCountdownInProgress = false
+  private var isMinDurationTrackingActive = false
+  private var minDurationTimer: Timer?
+  private var recordingStartTime: Date?
 
   // MARK: - Initialization
 
   /// Initializes a new countdown manager
   /// - Parameters:
-  ///   - `seconds`: The number of seconds to count down
-  ///   - `viewController`: The view controller to display the countdown on
-  init(seconds: Int, viewController: UIViewController) {
-    self.countdownSeconds = seconds
+  /// - `cameraConfig`: Camera configuration containing countdown and duration settings
+  /// - `viewController`: The view controller to display the countdown on
+  init(cameraConfig: RawCameraConfiguration, viewController: UIViewController) {
+    self.countdownSeconds = Int(cameraConfig.captureTimerSeconds)
+    self.minVideoDurationSeconds = Int(cameraConfig.minDurationSeconds)
+    self.minDurationLabelFontSize = CGFloat(cameraConfig.minDurationCountdownSize ?? 0)
     self.viewController = viewController
   }
 
@@ -37,11 +47,11 @@ public final class CameraCountdownManager {
 
   /// Starts the countdown with appropriate sound effects
   /// - Parameters:
-  ///   - `allowPhoto`: Flag indicating if photo capture is allowed.
-  ///   - `allowVideo`: Flag indicating if video recording is allowed.
-  ///   - `playSound`: Whether to play sounds during capture.
-  ///   - `isCapturing`: Flag indicating if the camera is already capturing.
-  ///   - `completion`: Called when countdown finishes.
+  /// - `allowPhoto`: Flag indicating if photo capture is allowed.
+  /// - `allowVideo`: Flag indicating if video recording is allowed.
+  /// - `playSound`: Whether to play sounds during capture.
+  /// - `isCapturing`: Flag indicating if the camera is already capturing.
+  /// - `completion`: Called when countdown finishes.
   func startCountdown(
     allowPhoto: Bool,
     allowVideo: Bool,
@@ -49,6 +59,9 @@ public final class CameraCountdownManager {
     playSound: Bool = true,
     completion: @escaping () -> Void
   ) {
+    // Always reset min duration tracking when starting countdown
+    stopMinDurationTracking()
+
     let mediaType = determineMediaType(allowPhoto: allowPhoto, allowVideo: allowVideo)
 
     if shouldSkipCountdown(isCapturing: isCapturing) {
@@ -61,27 +74,47 @@ public final class CameraCountdownManager {
     setupCountdown(mediaType: mediaType, playSound: playSound, completion: completion)
   }
 
+  /// Start minimum duration countdown for video recording
+  func startMinDurationTracking() {
+    // Only start if we have minimum duration configured
+    guard let viewController,
+      let minDuration = minVideoDurationSeconds,
+      minDuration > 1,  // Show only when > 1s to avoid brief/blinking label for 0-1s values
+      !isMinDurationTrackingActive
+    else { return }
+
+    isMinDurationTrackingActive = true
+    recordingStartTime = Date()
+    setupMinDurationLabel(in: viewController, minDuration: minDuration)
+    startMinDurationTimer()
+  }
+
+  /// Stop minimum duration tracking
+  func stopMinDurationTracking() {
+    guard isMinDurationTrackingActive else { return }
+
+    isMinDurationTrackingActive = false
+    recordingStartTime = nil
+    minDurationTimer?.invalidate()
+    minDurationTimer = nil
+    DispatchQueue.main.async { self.removeMinDurationLabel() }
+  }
+
   /// Reset the countdown state
   func resetCountdownState() {
     isCountdownInProgress = false
     removeCountdownLabel()
+    stopMinDurationTracking()
   }
 
   // MARK: - Private Methods
 
   private func determineMediaType(allowPhoto: Bool, allowVideo: Bool) -> MediaType? {
     switch (allowPhoto, allowVideo) {
-    case (true, false):
-      return .image
-
-    case (true, true):
-      return .image
-
-    case (false, true):
-      return .video
-
-    default:
-      return nil
+    case (true, false): return .image
+    case (true, true): return .image
+    case (false, true): return .video
+    default: return nil
     }
   }
 
@@ -150,6 +183,85 @@ public final class CameraCountdownManager {
     return label
   }
 
+  // Setup minimum duration countdown label
+  private func setupMinDurationLabel(in viewController: UIViewController, minDuration: Int) {
+    let label = createMinDurationLabel(in: viewController, minDuration: minDuration)
+    animateMinDurationLabelAppearance(label)
+  }
+
+  // Create minimum duration countdown label
+  private func createMinDurationLabel(in viewController: UIViewController, minDuration: Int)
+    -> UILabel
+  {
+    let label = UILabel()
+    label.text = "\(minDuration)"
+    label.textColor = .red
+    label.font = UIFont.systemFont(ofSize: minDurationLabelFontSize, weight: .bold)
+    label.textAlignment = .center
+
+    // Position in top-right corner
+    let labelWidth: CGFloat = minDurationLabelFontSize * 2
+    let labelHeight: CGFloat = minDurationLabelFontSize
+    let safeAreaTop =
+      viewController.view.safeAreaInsets.top > 0 ? viewController.view.safeAreaInsets.top : 0
+
+    label.frame = CGRect(
+      x: viewController.view.bounds.width - labelWidth - Constants.minDurationLabelMargin,
+      y: Constants.minDurationLabelMargin + safeAreaTop,
+      width: labelWidth,
+      height: labelHeight
+    )
+
+    label.alpha = 0
+    viewController.view.addSubview(label)
+    self.minDurationLabel = label
+    return label
+  }
+
+  private func animateMinDurationLabelAppearance(_ label: UILabel) {
+    UIView.animate(withDuration: Constants.labelFadeDuration) {
+      label.alpha = 1
+    }
+  }
+
+  private func startMinDurationTimer() {
+    // Combined timer that updates duration and checks for dialog each second
+    minDurationTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+      guard let self else { return }
+
+      // First check for dialog
+      if self.shouldHideTimerDueToDialog() {
+        DispatchQueue.main.async { self.stopMinDurationTracking() }
+        return
+      }
+
+      // Then update the duration
+      DispatchQueue.main.async { self.updateMinDurationLabel() }
+    }
+  }
+
+  private func shouldHideTimerDueToDialog() -> Bool {
+    guard let viewController else { return true }
+    return viewController.presentedViewController != nil
+  }
+
+  // Update minimum duration countdown label
+  private func updateMinDurationLabel() {
+    guard let recordingStartTime,
+      let minDurationLabel,
+      let minVideoDurationSeconds
+    else { return }
+
+    let elapsed = Int(Date().timeIntervalSince(recordingStartTime))
+    let remaining = max(0, minVideoDurationSeconds - elapsed)
+
+    if remaining <= 0 {
+      stopMinDurationTracking()
+    } else {
+      minDurationLabel.text = "\(remaining)"
+    }
+  }
+
   private func animateCountdownLabelAppearance(_ label: UILabel) {
     UIView.animate(withDuration: Constants.labelFadeDuration) {
       label.alpha = 1
@@ -202,16 +314,17 @@ public final class CameraCountdownManager {
     playSound: Bool,
     completion: @escaping () -> Void
   ) {
-    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-      guard let viewController = self.viewController, viewController.view.window != nil else {
-        self.handleDismissedCamera()
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+      guard let self, let viewController = self.viewController, viewController.view.window != nil
+      else {
+        self?.handleDismissedCamera()
         return
       }
 
       self.playFinalSounds(mediaType: mediaType, playSound: playSound)
       self.animateCountdownLabelDisappearance(
         mediaType: mediaType, playSound: playSound, completion: completion
-        )
+      )
     }
   }
 
@@ -238,17 +351,13 @@ public final class CameraCountdownManager {
         self?.countdownLabel?.alpha = 0
       },
       completion: { [weak self] _ in
-        self?.removeCountdownLabel()
-        self?.isCountdownInProgress = false
-
-        guard let viewController = self?.viewController, viewController.view.window != nil else {
-          return
-        }
+        guard let self, let viewController = self.viewController, viewController.view.window != nil
+        else { return }
+        self.removeCountdownLabel()
+        self.isCountdownInProgress = false
 
         let delay: TimeInterval = (mediaType == .video && playSound) ? Constants.videoSoundDelay : 0
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-          completion()
-        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { completion() }
       }
     )
   }
@@ -256,5 +365,19 @@ public final class CameraCountdownManager {
   private func removeCountdownLabel() {
     countdownLabel?.removeFromSuperview()
     countdownLabel = nil
+  }
+
+  // Remove minimum duration label
+  private func removeMinDurationLabel() {
+    UIView.animate(
+      withDuration: Constants.labelFadeDuration,
+      animations: { [weak self] in
+        self?.minDurationLabel?.alpha = 0
+      },
+      completion: { [weak self] _ in
+        self?.minDurationLabel?.removeFromSuperview()
+        self?.minDurationLabel = nil
+      }
+    )
   }
 }

@@ -1,4 +1,4 @@
-version: 0.0.3
+version: 0.0.4
 name: multimedia_picker_platform_interface
 description: A common platform interface for the multimedia_picker plugin.
 repository: https://github.com/tsinis/multi_media_picker/tree/main/multimedia_picker_platform_interface
@@ -16,4 +16,4 @@ dependencies:
   plugin_platform_interface: ^2.1.8
 
 dev_dependencies:
-  pigeon: ^26.0.0
+  pigeon: ^26.0.1
