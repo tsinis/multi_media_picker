@@ -1,4 +1,4 @@
-version: 0.0.4
+version: 0.0.5
 name: multimedia_picker_android
 description: Android implementation of the multimedia_picker plugin.
 repository: https://github.com/tsinis/multi_media_picker/tree/main/multimedia_picker_android
