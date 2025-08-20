@@ -82,6 +82,11 @@ class SafeCameraWrapper: UIViewController {
     NotificationCenter.default.removeObserver(camera)
   }
 
+  override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+    ZLPhotoConfiguration.default().resetCameraOrientation()
+  }
+
   override var supportedInterfaceOrientations: UIInterfaceOrientationMask { return .portrait }
 
   override var prefersStatusBarHidden: Bool { return true }

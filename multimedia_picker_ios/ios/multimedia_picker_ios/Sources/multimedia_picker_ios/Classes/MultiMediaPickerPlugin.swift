@@ -81,6 +81,8 @@ public final class MultimediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
         cameraWrapper.takeDoneBlock = { [weak self] image, video in
           // Reset countdown state when capture is done
           countdownManager.resetCountdownState()
+          // Reset any orientation lock that was applied during recording
+          self?.resetOrientationLock()
           guard let self else { return completion(.success(nil)) }
 
           var mediaData: RawMediaData?
@@ -412,6 +414,12 @@ public final class MultimediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
 
   private func setCameraOverlay(_ overlay: UIImageView?) {
     ZLPhotoConfiguration.default().cameraConfiguration.overlayView = overlay
+  }
+
+  private func resetOrientationLock() {
+    // Clear any locked orientation that was set during camera usage
+    // This ensures the app can return to its normal orientation behavior
+    ZLPhotoConfiguration.default().resetCameraOrientation()
   }
 
   private func resolveImage(image: UIImage, picker: RawPickerConfiguration) -> RawMediaData? {
