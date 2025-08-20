@@ -1,4 +1,4 @@
-// ignore_for_file: prefer-getter-over-method, more future-proof solution.
+// ignore_for_file: prefer-getter-over-method, avoid-never-passed-parameters
 
 import 'dart:collection' show UnmodifiableListView;
 
@@ -74,7 +74,7 @@ class MultimediaPicker {
         ? null
         : List<NamedImage>.unmodifiable(namedOverlays);
 
-    // ignore: omit_obvious_local_variable_types, avoid-complex-loop-conditions, it's not that complex.,
+    // ignore: avoid-complex-loop-conditions, it's not that complex.
     for (int index = 0; count == null || index < count; index += 1) {
       final image = maybeNamed?.elementAtOrNull(index);
       final directory = image?.directory;

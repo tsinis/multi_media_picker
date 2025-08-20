@@ -4,7 +4,7 @@ description: Demonstrates how to use the multimedia_picker plugin.
 publish_to: none
 
 environment:
-  sdk: ^3.8.1
+  sdk: ^3.9.0
 
 resolution: workspace
 
@@ -18,7 +18,6 @@ dependencies:
   world_countries: ^3.8.0
 
 flutter:
-  disable-swift-package-manager: false
   uses-material-design: true
   assets:
     - assets/

@@ -93,6 +93,7 @@ class MediaData implements RawMediaData {
   String toString() =>
       'MediaData(media: File("${file.path}"), '
       'duration: $duration, fileSize: $fileSize, timestamp: $timestamp, '
+      // ignore: avoid-nullable-interpolation, it's expected.
       '''${thumbnail?.path == null ? '' : 'thumbnail: File("${thumbnail?.path}"), '}'''
       'type: $type)';
 
