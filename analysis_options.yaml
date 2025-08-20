@@ -98,7 +98,6 @@ dart_code_metrics:
     - avoid-assigning-to-static-field
     - avoid-assignments-as-conditions
     - avoid-async-call-in-sync-function
-    - avoid-banned-exports
     - avoid-barrel-files
     - avoid-bitwise-operators-with-booleans
     - avoid-border-all
@@ -336,7 +335,6 @@ dart_code_metrics:
     - prefer-center-over-align
     - prefer-commenting-analyzer-ignores
     - prefer-commenting-future-delayed
-    - prefer-commenting-pubspec-ignores
     - prefer-compound-assignment-operators
     - prefer-compute-over-isolate-run
     - prefer-conditional-expressions
@@ -435,10 +433,12 @@ linter:
     diagnostic_describe_all_properties: false # TODO? Enable and fix this in the far-future.
     flutter_style_todos: false # Not a Flutter team.
     omit_local_variable_types: false # Conflicts with: prefer-type-over-var.
+    omit_obvious_local_variable_types: false # Conflicts with: prefer-type-over-var
     prefer_double_quotes: false # Conflicts with: prefer_double_quotes.
     prefer_final_parameters: false # Conflicts with: avoid_final_parameters.
     specify_nonobvious_local_variable_types: false # Conflicts with: omit_obvious_local_variable_types.
     specify_nonobvious_property_types: false # Conflicts with: avoid-explicit-type-declaration.
+    type_annotate_public_apis: false # Conflicts with: omit_obvious_property_types.
     unnecessary_final: false # Conflicts with: prefer_final_locals.
     unnecessary_library_name: false # To prevent breaking changes for those who use this libs.
 
@@ -547,7 +547,6 @@ linter:
     noop_primitive_operations: true
     null_check_on_nullable_type_parameter: true
     null_closures: true
-    omit_obvious_local_variable_types: true
     omit_obvious_property_types: true
     one_member_abstracts: true
     only_throw_errors: true
@@ -610,7 +609,6 @@ linter:
     test_types_in_equals: true
     throw_in_finally: true
     tighten_type_of_initializing_formals: true
-    type_annotate_public_apis: true
     type_init_formals: true
     type_literal_in_constant_pattern: true
     unawaited_futures: true

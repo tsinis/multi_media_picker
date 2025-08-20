@@ -22,6 +22,7 @@ public final class CameraCountdownManager {
   private let countdownSeconds: Int
   private let minVideoDurationSeconds: Int?
   private let minDurationLabelFontSize: CGFloat
+  private let orientation: CameraOrientation
   private weak var viewController: UIViewController?
   private var countdownLabel: UILabel?
   private var minDurationLabel: UILabel?
@@ -40,6 +41,7 @@ public final class CameraCountdownManager {
     self.countdownSeconds = Int(cameraConfig.captureTimerSeconds)
     self.minVideoDurationSeconds = Int(cameraConfig.minDurationSeconds)
     self.minDurationLabelFontSize = CGFloat(cameraConfig.minDurationCountdownSize ?? 0)
+    self.orientation = cameraConfig.orientation
     self.viewController = viewController
   }
 
@@ -161,7 +163,10 @@ public final class CameraCountdownManager {
 
     setupCountdownLabel(in: viewController)
     playCountdownStep(
-      countdownSeconds, mediaType: mediaType, playSound: playSound, completion: completion
+      countdownSeconds,
+      mediaType: mediaType,
+      playSound: playSound,
+      completion: completion
     )
   }
 
@@ -213,9 +218,25 @@ public final class CameraCountdownManager {
     )
 
     label.alpha = 0
+    // Apply rotation based on configured camera orientation
+    let angle = rotationAngle(for: orientation)
+    if angle != 0 {
+      let originalCenter = label.center
+      label.transform = CGAffineTransform(rotationAngle: angle)
+      label.center = originalCenter
+    }
     viewController.view.addSubview(label)
     self.minDurationLabel = label
     return label
+  }
+
+  private func rotationAngle(for orientation: CameraOrientation) -> CGFloat {
+    switch orientation {
+    case .any, .portrait: return 0
+    case .portraitUpsideDown: return .pi
+    case .landscapeRight: return .pi / 2  // 90°
+    case .landscapeLeft: return 3 * .pi / 2  // 270° (or -90°)
+    }
   }
 
   private func animateMinDurationLabelAppearance(_ label: UILabel) {

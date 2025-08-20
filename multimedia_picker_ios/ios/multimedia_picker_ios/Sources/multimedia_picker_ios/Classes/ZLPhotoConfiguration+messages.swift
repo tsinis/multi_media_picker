@@ -42,6 +42,10 @@ extension ZLPhotoConfiguration {
     }
   }
 
+  func resetCameraOrientation() {
+    self.cameraConfiguration.lockedOutputOrientation = nil
+  }
+
   func updatePickerConfiguration(from config: RawPickerConfiguration) {
     self.allowDragSelect = config.allowDragSelect
     self.allowEditImage = config.allowEditImage
