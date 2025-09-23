@@ -92,16 +92,38 @@ public final class MultimediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
           }
           guard let video else { return completion(.success(nil)) }
 
-          // Video processing (IO + thumbnail) off main thread.
-          DispatchQueue.global(qos: .userInitiated).async {
-            let mediaData = self.resolveVideo(url: video, picker: pickerConfig, isNew: true)
-            DispatchQueue.main.async { completion(.success(mediaData)) }
-          }
+          processVideoAsync(video: video, picker: pickerConfig, completion: completion)
         }
 
         // Present the wrapper as full-screen modal - camera setup will happen after presentation
         cameraWrapper.modalPresentationStyle = .fullScreen
         viewController.present(cameraWrapper, animated: true, completion: nil)
+      }
+    }
+  }
+
+  private func processVideoAsync(
+    video: URL,
+    picker: RawPickerConfiguration,
+    completion: @escaping (Result<RawMediaData?, Error>) -> Void
+  ) {
+    // Video processing (IO + thumbnail) off main thread.
+    DispatchQueue.global(qos: .userInitiated).async {
+      do {
+        let mediaData = try self.resolveVideo(url: video, picker: picker, isNew: true)
+        DispatchQueue.main.async { completion(.success(mediaData)) }
+      } catch {
+        // Clean up temp video file if processing fails.
+        try? FileManager.default.removeItem(at: video)
+        DispatchQueue.main.async {
+          completion(.failure(
+            PigeonError(
+              code: "video_processing_error",
+              message: "Failed to process video recording",
+              details: error.localizedDescription
+            )
+          ))
+        }
       }
     }
   }
@@ -208,8 +230,20 @@ public final class MultimediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
                   return
                 }
 
-                let data = self.resolveVideo(url: videoAsset.url, picker: newConfig, isNew: false)
-                mediaResults.append(data)
+                do {
+                  let data = try self.resolveVideo(
+                    url: videoAsset.url, picker: newConfig, isNew: false
+                  )
+                  mediaResults.append(data)
+                } catch {
+                  completion(.failure(
+                    PigeonError(
+                      code: "video_processing_error",
+                      message: "Failed to process video from gallery",
+                      details: error.localizedDescription
+                    )
+                  ))
+                }
                 group.leave()
               }
 
@@ -433,10 +467,21 @@ public final class MultimediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     return RawMediaData(path: imagePath, thumbPath: thumbPath, type: .image)
   }
 
-  private func resolveVideo(url: URL, picker: RawPickerConfiguration, isNew: Bool) -> RawMediaData {
+  private func resolveVideo(
+    url: URL, picker: RawPickerConfiguration, isNew: Bool
+  ) throws -> RawMediaData {
     var path = url.path
     if let directory = picker.directoryPath {
-      path = copyVideoFile(directory, url: url, filename: picker.filename, isNew: isNew) ?? url.path
+      guard let newPath = copyVideoFile(
+        directory, url: url, filename: picker.filename, isNew: isNew
+      ) else {
+        throw PigeonError(
+          code: "video_copy_error",
+          message: "Failed to copy video file to target directory",
+          details: "Source: \(url.path), Target directory: \(directory)"
+        )
+      }
+      path = newPath
     }
     let thumbPath = saveVideoThumbnail(url: path, picker: picker)
     let duration = getVideoDurationInSeconds(url: url)
@@ -519,26 +564,41 @@ public final class MultimediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     let targetURL = URL(fileURLWithPath: path).appendingPathComponent(targetFilename)
     let fileManager = FileManager.default
 
+    // Create a unique temporary target to avoid race conditions during override scenarios.
+    let tempTargetURL = URL(fileURLWithPath: path)
+      .appendingPathComponent("temp_\(UUID().uuidString)_\(targetFilename)")
+
     do {
+      // First, perform operation to temporary location to avoid conflicts.
+      if isNew {
+        // Try move first for performance with newly recorded files.
+        do {
+          try fileManager.moveItem(at: url, to: tempTargetURL)
+        } catch {
+          // Fallback to copy if move fails.
+          print("Move failed, fallback to copy: \(error.localizedDescription)")
+          try fileManager.copyItem(at: url, to: tempTargetURL)
+        }
+      } else {
+        // For existing files, always copy to preserve original.
+        try fileManager.copyItem(at: url, to: tempTargetURL)
+      }
+
+      // Now atomically move to final target, removing any existing file.
       if fileManager.fileExists(atPath: targetURL.path) {
         try fileManager.removeItem(at: targetURL)
       }
+      try fileManager.moveItem(at: tempTargetURL, to: targetURL)
 
-      // Prefer move when the source is a freshly recorded temp file (isNew) for performance.
-      if isNew {
-        do {
-          try fileManager.moveItem(at: url, to: targetURL)
-          return targetURL.path
-        } catch {
-          // Fallback to copy below.
-          print("Move failed, fallback to copy: \(error.localizedDescription)")
-        }
-      }
-
-      try fileManager.copyItem(at: url, to: targetURL)
       return targetURL.path
     } catch {
       print("Failed to copy video file: \(error.localizedDescription)")
+
+      // Cleanup temp file on failure.
+      if fileManager.fileExists(atPath: tempTargetURL.path) {
+        try? fileManager.removeItem(at: tempTargetURL)
+      }
+
       return nil
     }
   }
