@@ -85,15 +85,18 @@ public final class MultimediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
           self?.resetOrientationLock()
           guard let self else { return completion(.success(nil)) }
 
-          var mediaData: RawMediaData?
-
           if let image {
-            mediaData = resolveImage(image: image, picker: pickerConfig)
-          } else if let video {
-            mediaData = resolveVideo(url: video, picker: pickerConfig, isNew: true)
+            let mediaData = resolveImage(image: image, picker: pickerConfig)
+            completion(.success(mediaData))
+            return
           }
+          guard let video else { return completion(.success(nil)) }
 
-          completion(.success(mediaData))
+          // Video processing (IO + thumbnail) off main thread.
+          DispatchQueue.global(qos: .userInitiated).async {
+            let mediaData = self.resolveVideo(url: video, picker: pickerConfig, isNew: true)
+            DispatchQueue.main.async { completion(.success(mediaData)) }
+          }
         }
 
         // Present the wrapper as full-screen modal - camera setup will happen after presentation
@@ -514,11 +517,26 @@ public final class MultimediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     let fileExtension = url.pathExtension.lowercased()
     let targetFilename = (filename ?? "media_\(UUID().uuidString)") + ".\(fileExtension)"
     let targetURL = URL(fileURLWithPath: path).appendingPathComponent(targetFilename)
+    let fileManager = FileManager.default
 
     do {
-      let videoData = try Data(contentsOf: url)
-      return createFile(atPath: targetURL.path, data: videoData, removeOriginal: isNew)
-        ? targetURL.path : nil
+      if fileManager.fileExists(atPath: targetURL.path) {
+        try fileManager.removeItem(at: targetURL)
+      }
+
+      // Prefer move when the source is a freshly recorded temp file (isNew) for performance.
+      if isNew {
+        do {
+          try fileManager.moveItem(at: url, to: targetURL)
+          return targetURL.path
+        } catch {
+          // Fallback to copy below.
+          print("Move failed, fallback to copy: \(error.localizedDescription)")
+        }
+      }
+
+      try fileManager.copyItem(at: url, to: targetURL)
+      return targetURL.path
     } catch {
       print("Failed to copy video file: \(error.localizedDescription)")
       return nil
