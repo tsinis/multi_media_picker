@@ -96,7 +96,7 @@ public final class MultimediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
           completion(.success(mediaData))
         }
 
-        // Present the wrapper as full-screen modal - camera setup will happen safely after presentation
+        // Present the wrapper as full-screen modal - camera setup will happen after presentation
         cameraWrapper.modalPresentationStyle = .fullScreen
         viewController.present(cameraWrapper, animated: true, completion: nil)
       }

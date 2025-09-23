@@ -1,4 +1,4 @@
-version: 0.0.5
+version: 0.0.6
 name: multimedia_picker_testing
 description: A multimedia_picker testing suite.
 repository: https://github.com/tsinis/multi_media_picker/tree/main/multimedia_picker_testing
@@ -16,7 +16,7 @@ topics:
 resolution: workspace
 
 environment:
-  sdk: ^3.8.1
+  sdk: ^3.9.2
 
 dependencies:
   flutter:

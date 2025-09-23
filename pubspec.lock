@@ -367,10 +367,10 @@ packages:
     dependency: transitive
     description:
       name: sealed_countries
-      sha256: be6b160bb98f1c30b70294ddc6c61baddcfc0f9a3f0a7e08c4734841d9679618
+      sha256: "200954f9a326ed28044297eaef39bd45f11bb05df162bd211678e0040d826da6"
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.0"
+    version: "2.6.0"
   sealed_currencies:
     dependency: transitive
     description:
@@ -476,18 +476,18 @@ packages:
     dependency: transitive
     description:
       name: world_countries
-      sha256: a436841e6db0b2f125208a6b39b280cf3760931106212fc5446f5de6bd0a3c7e
+      sha256: f09e2dc9b1608b3c810dd4c31a893e03617f8e9edae5cba7c4ddcf2f4e099a2c
       url: "https://pub.dev"
     source: hosted
-    version: "3.8.0"
+    version: "3.9.2"
   world_flags:
     dependency: transitive
     description:
       name: world_flags
-      sha256: "0afe39efffef4fb6d0bb6726be42db6c5c35b36fdd5f4273893247c9304eada3"
+      sha256: "0f1f644f4b7cdccc31b6994d165644f7f743bcbdcb53d8470cda7943cfe2ecb4"
       url: "https://pub.dev"
     source: hosted
-    version: "2.6.0"
+    version: "2.8.0"
   xdg_directories:
     dependency: transitive
     description:
@@ -505,5 +505,5 @@ packages:
     source: hosted
     version: "3.1.3"
 sdks:
-  dart: ">=3.9.0 <4.0.0"
-  flutter: ">=3.32.5"
+  dart: ">=3.9.2 <4.0.0"
+  flutter: ">=3.35.4"

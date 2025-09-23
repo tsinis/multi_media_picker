@@ -1,4 +1,4 @@
-version: 0.0.5
+version: 0.0.6
 name: multimedia_picker_platform_interface
 description: A common platform interface for the multimedia_picker plugin.
 repository: https://github.com/tsinis/multi_media_picker/tree/main/multimedia_picker_platform_interface
@@ -6,7 +6,7 @@ issue_tracker: https://github.com/tsinis/multi_media_picker/issues
 maintainer: Roman Cinis
 
 environment:
-  sdk: ^3.8.1
+  sdk: ^3.9.2
 
 resolution: workspace
 
