@@ -86,8 +86,17 @@ public final class MultimediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
           guard let self else { return completion(.success(nil)) }
 
           if let image {
-            let mediaData = resolveImage(image: image, picker: pickerConfig)
-            completion(.success(mediaData))
+            if let mediaData = resolveImage(image: image, picker: pickerConfig) {
+              completion(.success(mediaData))
+            } else {
+              completion(.failure(
+                PigeonError(
+                  code: "image_persistence_error",
+                  message: "Failed to persist captured image",
+                  details: nil
+                )
+              ))
+            }
             return
           }
           guard let video else { return completion(.success(nil)) }
