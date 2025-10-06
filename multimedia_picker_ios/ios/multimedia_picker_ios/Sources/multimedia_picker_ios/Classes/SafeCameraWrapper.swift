@@ -31,12 +31,15 @@ class SafeCameraWrapper: UIViewController {
     activityIndicator.startAnimating()
   }
 
-  override func viewDidAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
 
     guard !isSetupComplete else { return }
     isSetupComplete = true
-    setupCamera()
+
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) { [weak self] in
+      self?.setupCamera()
+    }
   }
 
   private func setupCamera() {
