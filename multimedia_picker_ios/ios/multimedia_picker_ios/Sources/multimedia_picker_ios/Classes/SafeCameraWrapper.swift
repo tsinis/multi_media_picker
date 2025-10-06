@@ -34,14 +34,9 @@ class SafeCameraWrapper: UIViewController {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
 
-    // Now that the view controller presentation is complete,
-    // safely initialize the camera. Use async to defer to next run loop cycle.
     guard !isSetupComplete else { return }
     isSetupComplete = true
-
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
-      self?.setupCamera()
-    }
+    setupCamera()
   }
 
   private func setupCamera() {
