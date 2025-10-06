@@ -39,7 +39,7 @@ class SafeCameraWrapper: UIViewController {
     guard !isSetupComplete else { return }
     isSetupComplete = true
 
-    DispatchQueue.main.async { [weak self] in
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
       self?.setupCamera()
     }
   }
