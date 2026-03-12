@@ -1,4 +1,4 @@
-// ignore_for_file: prefer-getter-over-method, avoid-never-passed-parameters
+// ignore_for_file: prefer-getter-over-method
 
 import 'dart:collection' show UnmodifiableListView;
 
@@ -145,7 +145,7 @@ class MultimediaPicker {
 
     try {
       final rawList = await platform.openGallery(edit.raw, pick.raw, ui.raw);
-      list.addAll(rawList?.nonNulls ?? []);
+      list.addAll(rawList ?? []);
     } catch (_) {
       if (hasToThrow) rethrow;
 
