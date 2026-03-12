@@ -3,7 +3,7 @@
 // LICENSE file.
 
 // ignore_for_file: deprecated_member_use, prefer-single-declaration-per-file,
-// ignore_for_file:  prefer-boolean-prefixes, no-magic-number, add-copy-with
+// ignore_for_file: prefer-boolean-prefixes, no-magic-number, add-copy-with
 // ignore_for_file: prefer-named-parameters,
 
 import 'package:pigeon/pigeon.dart';
