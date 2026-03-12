@@ -2,8 +2,8 @@
 // Use of this source code is governed by a MIT license that can be found in the
 // LICENSE file.
 
-// ignore_for_file: prefer-single-declaration-per-file, prefer-boolean-prefixes,
-// ignore_for_file: enum-constants-ordering, no-magic-number, add-copy-with
+// ignore_for_file: deprecated_member_use, prefer-single-declaration-per-file,
+// ignore_for_file:  prefer-boolean-prefixes, no-magic-number, add-copy-with
 // ignore_for_file: prefer-named-parameters,
 
 import 'package:pigeon/pigeon.dart';
