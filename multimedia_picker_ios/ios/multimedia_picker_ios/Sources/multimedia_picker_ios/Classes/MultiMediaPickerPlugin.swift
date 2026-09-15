@@ -21,8 +21,15 @@ public final class MultimediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     registrar.publish(plugin)
   }
 
+  // `UIApplication.keyWindow` is nil under the UIScene life cycle, required as of iOS 27.
+  private var keyWindow: UIWindow? {
+    let windows = UIApplication.shared.connectedScenes
+      .compactMap { $0 as? UIWindowScene }.flatMap(\.windows)
+    return windows.first { $0.isKeyWindow } ?? windows.first
+  }
+
   private var nearestViewController: UIViewController? {
-    UIApplication.shared.keyWindow?.rootViewController?.nearestViewController
+    keyWindow?.rootViewController?.nearestViewController
   }
 
   func openCamera(
@@ -400,7 +407,7 @@ public final class MultimediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
           PigeonError(
             code: "no_native_view_controller",
             message: "Unable to find top view controller on iOS native side",
-            details: String(describing: UIApplication.shared.keyWindow)
+            details: String(describing: keyWindow)
           )
         )
       )
