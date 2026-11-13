@@ -136,7 +136,7 @@ public final class MultimediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
             PigeonError(
               code: "video_processing_error",
               message: "Failed to process video recording",
-              details: error.localizedDescription
+              details: error.diagnosticDetails
             )
           ))
         }
@@ -256,7 +256,7 @@ public final class MultimediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
                     PigeonError(
                       code: "video_processing_error",
                       message: "Failed to process video from gallery",
-                      details: error.localizedDescription
+                      details: error.diagnosticDetails
                     )
                   ))
                 }
@@ -488,16 +488,7 @@ public final class MultimediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
   ) throws -> RawMediaData {
     var path = url.path
     if let directory = picker.directoryPath {
-      guard let newPath = copyVideoFile(
-        directory, url: url, filename: picker.filename, isNew: isNew
-      ) else {
-        throw PigeonError(
-          code: "video_copy_error",
-          message: "Failed to copy video file to target directory",
-          details: "Source: \(url.path), Target directory: \(directory)"
-        )
-      }
-      path = newPath
+      path = try VideoFile.copy(url, to: directory, filename: picker.filename, isNew: isNew)
     }
     let thumbPath = saveVideoThumbnail(url: path, picker: picker)
     let duration = getVideoDurationInSeconds(url: url)
@@ -572,51 +563,6 @@ public final class MultimediaPickerPlugin: NSObject, FlutterPlugin, MultiMediaAp
     }
 
     return newImage.jpegData(compressionQuality: 1)
-  }
-
-  private func copyVideoFile(_ path: String, url: URL, filename: String?, isNew: Bool) -> String? {
-    let fileExtension = url.pathExtension.lowercased()
-    let targetFilename = (filename ?? "media_\(UUID().uuidString)") + ".\(fileExtension)"
-    let targetURL = URL(fileURLWithPath: path).appendingPathComponent(targetFilename)
-    let fileManager = FileManager.default
-
-    // Create a unique temporary target to avoid race conditions during override scenarios.
-    let tempTargetURL = URL(fileURLWithPath: path)
-      .appendingPathComponent("temp_\(UUID().uuidString)_\(targetFilename)")
-
-    do {
-      // First, perform operation to temporary location to avoid conflicts.
-      if isNew {
-        // Try move first for performance with newly recorded files.
-        do {
-          try fileManager.moveItem(at: url, to: tempTargetURL)
-        } catch {
-          // Fallback to copy if move fails.
-          print("Move failed, fallback to copy: \(error.localizedDescription)")
-          try fileManager.copyItem(at: url, to: tempTargetURL)
-        }
-      } else {
-        // For existing files, always copy to preserve original.
-        try fileManager.copyItem(at: url, to: tempTargetURL)
-      }
-
-      // Now atomically move to final target, removing any existing file.
-      if fileManager.fileExists(atPath: targetURL.path) {
-        try fileManager.removeItem(at: targetURL)
-      }
-      try fileManager.moveItem(at: tempTargetURL, to: targetURL)
-
-      return targetURL.path
-    } catch {
-      print("Failed to copy video file: \(error.localizedDescription)")
-
-      // Cleanup temp file on failure.
-      if fileManager.fileExists(atPath: tempTargetURL.path) {
-        try? fileManager.removeItem(at: tempTargetURL)
-      }
-
-      return nil
-    }
   }
 
   private func createFile(atPath path: String?, data: Data?, removeOriginal: Bool = true) -> Bool {
