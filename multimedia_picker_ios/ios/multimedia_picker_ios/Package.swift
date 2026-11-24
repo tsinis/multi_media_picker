@@ -8,7 +8,11 @@ let package = Package(
     .library(name: "multimedia-picker-ios", targets: ["multimedia_picker_ios"])
   ],
   dependencies: [
-    .package(url: "https://github.com/tsinis/ZLPhotoBrowser.git", branch: "feat/buttons")
+    // The exact commit (head of "feat/buttons"), so a push to the fork does not change apps.
+    .package(
+      url: "https://github.com/tsinis/ZLPhotoBrowser.git",
+      revision: "2b71924ffc855daf3c0cebcb22d5ddffe7ebd45c"
+    )
   ],
   targets: [
     .target(
