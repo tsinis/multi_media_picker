@@ -7,16 +7,15 @@ import 'package:flutter/material.dart';
 import '../../../helpers/extensions/model/public/picker_build_context_extension.dart';
 
 abstract class BaseConfigListView<T extends Object> extends StatelessWidget {
+  // ignore: parameters-ordering, DCM sorts private named parameters by `_`.
   const BaseConfigListView(
     this.configuration, {
     this.leadingBuilder,
-    Future<Duration> Function(Duration current)? onShowDurationPicker,
-    Future<E?> Function<E extends Enum>(E? current, List<E> values)?
-    onShowEnumPicker,
+    this._onShowDurationPicker,
+    this._onShowEnumPicker,
     this.trailingBuilder,
     super.key,
-  }) : _onShowEnumPicker = onShowEnumPicker,
-       _onShowDurationPicker = onShowDurationPicker;
+  });
 
   @protected
   final ValueNotifier<T> configuration;

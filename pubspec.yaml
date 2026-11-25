@@ -12,7 +12,7 @@ topics:
   - image-picker
 
 environment:
-  sdk: ^3.9.2
+  sdk: ^3.14.0
 
 workspace:
   - multimedia_picker # High-level picker.

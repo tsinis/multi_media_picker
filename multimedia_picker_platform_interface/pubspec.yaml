@@ -6,7 +6,8 @@ issue_tracker: https://github.com/tsinis/multi_media_picker/issues
 maintainer: Roman Cinis
 
 environment:
-  sdk: ^3.9.2
+  sdk: ^3.14.0
+  flutter: ^3.50.0
 
 resolution: workspace
 
@@ -16,4 +17,4 @@ dependencies:
   plugin_platform_interface: ^2.1.8
 
 dev_dependencies:
-  pigeon: ^26.2.3
+  pigeon: ^30.0.4

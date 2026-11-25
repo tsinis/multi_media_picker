@@ -14,8 +14,8 @@ topics:
   - recorder
 
 environment:
-  sdk: ^3.9.2
-  flutter: ">=3.34.5"
+  sdk: ^3.14.0
+  flutter: ^3.50.0
 
 resolution: workspace
 

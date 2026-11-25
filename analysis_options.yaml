@@ -21,14 +21,12 @@ analyzer:
     always_declare_return_types: info
     directives_ordering: info
     todo: info
-    unsafe_html: info
 
     # Warning
     empty_catches: warning
     prefer_relative_imports: warning
 
     # Error
-    always_require_non_null_named_parameters: error
     avoid_relative_lib_imports: error
     avoid_slow_async_io: error
     avoid_types_as_parameter_names: error
@@ -435,7 +433,6 @@ linter:
     omit_local_variable_types: false # Conflicts with: prefer-type-over-var.
     omit_obvious_local_variable_types: false # Conflicts with: prefer-type-over-var
     prefer_double_quotes: false # Conflicts with: prefer_double_quotes.
-    prefer_final_parameters: false # Conflicts with: avoid_final_parameters.
     specify_nonobvious_local_variable_types: false # Conflicts with: omit_obvious_local_variable_types.
     specify_nonobvious_property_types: false # Conflicts with: avoid-explicit-type-declaration.
     type_annotate_public_apis: false # Conflicts with: omit_obvious_property_types.
@@ -445,7 +442,6 @@ linter:
     # Enabled:
     always_declare_return_types: true
     always_put_required_named_parameters_first: true
-    always_require_non_null_named_parameters: true
     annotate_overrides: true
     annotate_redeclares: true
     avoid_annotating_with_dynamic: true
@@ -464,16 +460,12 @@ linter:
     avoid_init_to_null: true
     avoid_js_rounded_ints: true
     avoid_multiple_declarations_per_line: true
-    avoid_null_checks_in_equality_operators: true
     avoid_positional_boolean_parameters: true
     avoid_print: true
-    avoid_private_typedef_functions: true
     avoid_redundant_argument_values: true
     avoid_relative_lib_imports: true
     avoid_renaming_method_parameters: true
     avoid_return_types_on_setters: true
-    avoid_returning_null: true
-    avoid_returning_null_for_future: true
     avoid_returning_null_for_void: true
     avoid_returning_this: true
     avoid_setters_without_getters: true
@@ -512,7 +504,6 @@ linter:
     empty_catches: true
     empty_constructor_bodies: true
     empty_statements: true
-    enable_null_safety: true
     eol_at_end_of_file: true
     exhaustive_cases: true
     file_names: true
@@ -548,7 +539,6 @@ linter:
     null_check_on_nullable_type_parameter: true
     null_closures: true
     omit_obvious_property_types: true
-    one_member_abstracts: true
     only_throw_errors: true
     overridden_fields: true
     package_names: true
@@ -565,7 +555,6 @@ linter:
     prefer_const_literals_to_create_immutables: true
     prefer_constructors_over_static_methods: true
     prefer_contains: true
-    prefer_equal_for_default_values: true
     prefer_expression_function_bodies: true
     prefer_final_fields: true
     prefer_final_in_for_each: true
@@ -613,7 +602,6 @@ linter:
     type_literal_in_constant_pattern: true
     unawaited_futures: true
     unintended_html_in_doc_comment: true
-    unnecessary_await_in_return: true
     unnecessary_brace_in_string_interps: true
     unnecessary_breaks: true
     unnecessary_const: true
@@ -647,7 +635,6 @@ linter:
     use_enums: true
     use_full_hex_values_for_flutter_colors: true
     use_function_type_syntax_for_parameters: true
-    use_if_null_to_convert_nulls_to_bools: true
     use_is_even_rather_than_modulo: true
     use_key_in_widget_constructors: true
     use_late_for_private_fields_and_variables: true
