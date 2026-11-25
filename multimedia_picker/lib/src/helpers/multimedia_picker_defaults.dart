@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart' show Color;
+import 'dart:ui' show Color;
+
 import 'package:multimedia_picker_platform_interface/multimedia_picker_platform_interface.dart';
 
 /// Default values for the multimedia picker configuration.

@@ -41,7 +41,7 @@ abstract class BaseConfigListView<T extends Object> extends StatelessWidget {
     Duration current, {
     required ValueChanged<Duration> onSelected,
   }) async {
-    final picker = _onShowDurationPicker ?? context.showCupertinoDurationPicker;
+    final picker = _onShowDurationPicker ?? context.showDurationPicker;
     final result = await picker(current);
     if (result != null && result != current) onSelected(result);
   }

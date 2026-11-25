@@ -347,13 +347,13 @@ class RawCameraConfiguration {
     dartTestOut:
         '../multimedia_picker_testing/lib/src/test_multimedia_api.g.dart',
     debugGenerators: true,
-    swiftOut:
-        '../multimedia_picker_ios/ios/multimedia_picker_ios/Sources/multimedia_picker_ios/Classes/messages.g.swift',
+    swiftOut: '../multimedia_picker_ios/ios/multimedia_picker_ios/Sources/multimedia_picker_ios/Classes/messages.g.swift',
   ),
 )
 @HostApi(dartHostTestHandler: 'TestMultimediaApi')
 abstract class MultiMediaApi {
-  @async
+  // Callbacks, not Swift `async`: UIKit and ZLPhotoBrowser APIs are blocks.
+  @asyncCallback
   RawMediaData? openCamera(
     RawCameraConfiguration cameraConfig,
     RawEditConfiguration editConfig,
@@ -361,7 +361,7 @@ abstract class MultiMediaApi {
     RawUiConfiguration uiConfig,
   );
 
-  @async
+  @asyncCallback
   RawMediaData? editMedia(
     RawMediaData data,
     RawEditConfiguration editConfig,
@@ -369,7 +369,7 @@ abstract class MultiMediaApi {
     RawUiConfiguration uiConfig,
   );
 
-  @async
+  @asyncCallback
   List<RawMediaData>? openGallery(
     RawEditConfiguration editConfig,
     RawPickerConfiguration pickerConfig,

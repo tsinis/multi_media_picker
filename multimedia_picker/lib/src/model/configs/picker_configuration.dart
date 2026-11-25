@@ -8,6 +8,7 @@ import '../../helpers/multimedia_picker_defaults.dart';
 
 @immutable
 class PickerConfiguration {
+  // ignore: parameters-ordering, DCM sorts by `_filename`, not by `filename`.
   const PickerConfiguration({
     this.allowDragSelect = false,
     this.allowEditImage = true,
@@ -29,7 +30,7 @@ class PickerConfiguration {
     this.directory,
     this.downloadVideoBeforeSelecting = false,
     this.editAfterSelectThumbnailImage = true,
-    String filename = MultimediaPickerDefaults.filename,
+    this._filename = MultimediaPickerDefaults.filename,
     this.initialIndex = MultimediaPickerDefaults.initialIndex,
     this.maxEditVideoDuration = MultimediaPickerDefaults.maxVideoDuration,
     this.maxPreviewCount = MultimediaPickerDefaults.maxPreviewCount,
@@ -52,7 +53,7 @@ class PickerConfiguration {
     this.thumbnailPrefix = MultimediaPickerDefaults.thumbnailPrefix,
     this.thumbnailWidth = MultimediaPickerDefaults.thumbnailWidth,
     this.useCustomCamera = true,
-  }) : _filename = filename;
+  });
 
   /// Anything bigger than 1 will enable the multiple selection feature.
   /// Defaults to `9`.

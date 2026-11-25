@@ -1,31 +1,40 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show FilteringTextInputFormatter;
 
 extension PickerBuildContextExtension on BuildContext {
-  Future<Duration?> showCupertinoDurationPicker(Duration current) async {
-    Duration? selected;
-    final poppedDuration = await showCupertinoModalPopup<Duration>(
-      builder: (context) => Container(
-        color: CupertinoColors.systemBackground.resolveFrom(context),
-        height: 220,
-        margin: EdgeInsets.only(
-          bottom: MediaQuery.viewInsetsOf(context).bottom,
-        ),
-        padding: const EdgeInsets.only(top: 6),
-        child: SafeArea(
-          child: CupertinoTimerPicker(
-            initialTimerDuration: current,
-            mode: CupertinoTimerPickerMode.ms,
-            onTimerDurationChanged: (newDuration) => selected = newDuration,
+  /// Asks for a whole number of seconds, returns `null` if dismissed or
+  /// unchanged.
+  Future<Duration?> showDurationPicker(Duration current) async {
+    String input = current.inSeconds.toString();
+    final seconds = await showDialog<int>(
+      builder: (context) => AlertDialog(
+        actions: [
+          TextButton(
+            onPressed: Navigator.of(context).pop,
+            child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
           ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(int.tryParse(input)),
+            child: Text(MaterialLocalizations.of(context).okButtonLabel),
+          ),
+        ],
+        content: TextFormField(
+          autofocus: true,
+          decoration: const InputDecoration(suffixText: 's'),
+          initialValue: input,
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          keyboardType: TextInputType.number,
+          onChanged: (text) => input = text,
+          onFieldSubmitted: (text) =>
+              Navigator.of(context).pop(int.tryParse(text)),
         ),
       ),
       context: this,
     );
 
-    if (poppedDuration != null) return selected = poppedDuration;
-
-    return selected == current ? null : selected;
+    return seconds == null || seconds == current.inSeconds
+        ? null
+        : Duration(seconds: seconds);
   }
 
   Future<E?> showEnumPicker<E extends Enum>(E? current, List<E> values) =>

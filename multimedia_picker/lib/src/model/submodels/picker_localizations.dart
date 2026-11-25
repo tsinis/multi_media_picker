@@ -2,8 +2,7 @@ import 'package:flutter/foundation.dart' show immutable;
 
 @immutable
 class PickerLocalizations {
-  const PickerLocalizations({String? iOsCameraTapToRecordVideoTip})
-    : _iOsCameraTapToRecordVideoTip = iOsCameraTapToRecordVideoTip;
+  const PickerLocalizations({this._iOsCameraTapToRecordVideoTip});
 
   final String? _iOsCameraTapToRecordVideoTip;
 

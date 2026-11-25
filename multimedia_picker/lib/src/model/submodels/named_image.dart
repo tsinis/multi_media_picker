@@ -10,8 +10,8 @@ import 'overlay_image.dart';
 /// can have an optional overlay applied to it.
 @immutable
 class NamedImage<T extends Object> {
-  const NamedImage({this.directory, T? imageNameToSave, this.overlay})
-    : _imageNameToSave = imageNameToSave;
+  // ignore: parameters-ordering, DCM sorts private named parameters by `_`.
+  const NamedImage({this.directory, this._imageNameToSave, this.overlay});
 
   final Directory? directory;
   final OverlayImage? overlay;

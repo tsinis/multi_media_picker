@@ -23,13 +23,15 @@ class MethodChannelMultimediaPicker extends MultimediaPickerPlatform {
     RawPickerConfiguration pickerConfig,
     RawUiConfiguration uiConfig,
   ) async {
-    final Map<String, Object?>? result = await channel
-        .invokeMapMethod('openCamera', {
-          'cameraConfig': cameraConfig.encode(),
-          'editConfig': editConfig.encode(),
-          'pickerConfig': pickerConfig.encode(),
-          'uiConfig': uiConfig.encode(),
-        });
+    final Map<String, Object?>? result = await channel.invokeMapMethod(
+      'openCamera',
+      {
+        'cameraConfig': cameraConfig.encode(),
+        'editConfig': editConfig.encode(),
+        'pickerConfig': pickerConfig.encode(),
+        'uiConfig': uiConfig.encode(),
+      },
+    );
 
     return result == null ? null : RawMediaData.decode(result);
   }
@@ -41,13 +43,15 @@ class MethodChannelMultimediaPicker extends MultimediaPickerPlatform {
     RawPickerConfiguration pickerConfig,
     RawUiConfiguration uiConfig,
   ) async {
-    final Map<String, Object?>? result = await channel
-        .invokeMapMethod('editMedia', {
-          'data': data.encode(),
-          'editConfig': editConfig.encode(),
-          'pickerConfig': pickerConfig.encode(),
-          'uiConfig': uiConfig.encode(),
-        });
+    final Map<String, Object?>? result = await channel.invokeMapMethod(
+      'editMedia',
+      {
+        'data': data.encode(),
+        'editConfig': editConfig.encode(),
+        'pickerConfig': pickerConfig.encode(),
+        'uiConfig': uiConfig.encode(),
+      },
+    );
 
     return result == null ? null : RawMediaData.decode(result);
   }
@@ -58,12 +62,14 @@ class MethodChannelMultimediaPicker extends MultimediaPickerPlatform {
     RawPickerConfiguration pickerConfig,
     RawUiConfiguration uiConfig,
   ) async {
-    final List<Object?>? results = await channel
-        .invokeListMethod('openGallery', {
-          'editConfig': editConfig.encode(),
-          'pickerConfig': pickerConfig.encode(),
-          'uiConfig': uiConfig.encode(),
-        });
+    final List<Object?>? results = await channel.invokeListMethod(
+      'openGallery',
+      {
+        'editConfig': editConfig.encode(),
+        'pickerConfig': pickerConfig.encode(),
+        'uiConfig': uiConfig.encode(),
+      },
+    );
 
     return results?.whereType<Object>().map(RawMediaData.decode).toList();
   }
